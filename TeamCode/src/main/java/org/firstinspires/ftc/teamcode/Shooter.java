@@ -12,8 +12,7 @@ public class Shooter {
     private Servo servo;
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
-        //asdfasdf a
-        //asdfasdfasdfa
+        // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         servo = hardwareMap.get(Servo.class, "shooterServo");
