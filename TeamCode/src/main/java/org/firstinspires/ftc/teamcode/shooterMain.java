@@ -34,6 +34,12 @@ public class shooterMain extends OpMode {
             // shooter.positionOne();
             shooter.startMotor();
         }
+        if(gamepad1.dpadUpWasPressed()) {
+            shooter.increasePower();
+        }
+        if(gamepad1.dpadDownWasPressed()) {
+            shooter.decreasePower();
+        }
 
         if (gamepad1.bWasPressed()) {
             // move the servo
