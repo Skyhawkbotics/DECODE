@@ -35,10 +35,10 @@ public class shooterMain extends OpMode {
             shooter.startMotor();
         }
         if(gamepad1.dpadUpWasPressed()) {
-            shooter.increasePower();
+            shooter.increaseVelocity();
         }
         if(gamepad1.dpadDownWasPressed()) {
-            shooter.decreasePower();
+            shooter.decreaseVelocity();
         }
 
         if (gamepad1.bWasPressed()) {
