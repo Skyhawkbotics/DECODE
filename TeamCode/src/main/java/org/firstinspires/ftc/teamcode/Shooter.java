@@ -11,11 +11,14 @@ public class Shooter {
     private DcMotorEx motor;
     private Servo servo;
 
+    private Telemetry telemetry;
+
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         servo = hardwareMap.get(Servo.class, "shooterServo");
+        this.telemetry = telemetry;
     }
 
     public void idle() {
@@ -56,5 +59,12 @@ public class Shooter {
 
     public double readMotor() {
         return motor.getCurrentPosition();
+    }
+
+    public void shooter_telemetry() {
+        telemetry.addData("motor speed in ticks", motor.getVelocity());
+        telemetry.addData("motor position", motor.getCurrentPosition());
+        telemetry.addData("Servo position", servo.getPosition());
+
     }
 }

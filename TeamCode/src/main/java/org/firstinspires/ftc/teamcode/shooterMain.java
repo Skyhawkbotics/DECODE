@@ -59,11 +59,7 @@ public class shooterMain extends OpMode {
             shooter.decreasePosition();
         }
 
-        telemetry.addData("Servo Position:", shooter.readServo());
-        telemetry.addData("Motor Position:", shooter.readMotor());
-        telemetry.addData("Gamepad Pressed: ", gamepad1.a);
-        telemetry.addData("G1 Pressed:", g1.a);
-        telemetry.addData("PreviousG1 Pressed:", previousg1.a);
+        shooter.shooter_telemetry();
         telemetry.update();
 
     }
