@@ -33,19 +33,23 @@ public class Shooter {
         servo.setPosition(0);
     }
 
-    public void increasePower() {
-        motor.setPower(motor.getPower() + 200);
+    public void increaseVelocity() {
+        // increments motor speed by 200 ticks
+        motor.setVelocity(motor.getVelocity() + 200);
     }
 
-    public void decreasePower() {
-        motor.setPower(motor.getPower() - 200);
+    public void decreaseVelocity() {
+        // increments motor speed by 200 ticks
+        motor.setVelocity(motor.getVelocity() - 200);
     }
 
     public void increasePosition() {
+        // increments servo
         servo.setPosition(servo.getPosition() + 0.1);
     }
 
     public void decreasePosition() {
+        // increments servo
         servo.setPosition(servo.getPosition() - 0.1);
     }
 
