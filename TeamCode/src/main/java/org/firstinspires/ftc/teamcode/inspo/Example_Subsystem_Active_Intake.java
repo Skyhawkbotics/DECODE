@@ -50,9 +50,9 @@ public class Example_Subsystem_Active_Intake {
     /// init stuff
     ///
     /// }
-    /// Parameters - HardwareMap hardwaremap, Telemetry telemetry
-    /// In order to initalize our motors/servos, we need the hardwaremap. We also want to init the telemetry.
-    /// When this constructor is called, it requires now two things, A object that is type hardwaremap and a object that is type telemetry
+    /// Parameters - HardwareMap hardwareMap, Telemetry telemetry
+    /// In order to initialize our motors/servos, we need the hardwareMap. We also want to init the telemetry.
+    /// When this constructor is called, it requires now two things, A object that is type hardwareMap and a object that is type telemetry
     ///
     ///
     /// Format for parameters ((OBJECT TYPE) (name of object so it can be referenced in the method) , etc
