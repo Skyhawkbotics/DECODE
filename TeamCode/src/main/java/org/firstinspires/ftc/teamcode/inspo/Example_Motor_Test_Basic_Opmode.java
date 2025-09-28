@@ -26,7 +26,7 @@ public class Example_Motor_Test_Basic_Opmode extends OpMode { /// EXTENDS OPMODE
     private DcMotorEx motor;
 //ee
     @Override
-    public void init() {
+    public void init() {  ///  java requires a lot of inits
         motor = hardwareMap.get(DcMotorEx.class, "motor"); /// Init the motor , by using hardwareMap to
         motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER); /// Resets encoder so it will start recording at 0 position each time
         motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER); /// sets it to run without PID modes such as at a set velocity in ticks per second or to a specific position
