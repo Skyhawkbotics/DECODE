@@ -12,7 +12,7 @@ public class Shooter { // hi kristine
     private DcMotorEx motor; ///hello
     private Servo servo;
 
-    private Telemetry telemetry;
+    private Telemetry telemetry; //hi sam
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
         // hi
