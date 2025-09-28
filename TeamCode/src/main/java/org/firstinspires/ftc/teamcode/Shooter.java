@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Shooter {
-    private DcMotorEx motor;
+    private DcMotorEx motor; ///hello
     private Servo servo;
 
     private Telemetry telemetry;
