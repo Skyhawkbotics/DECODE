@@ -14,7 +14,7 @@ public class Shooter { // hi kristine
 
     private Telemetry telemetry;
 
-    public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Shooter(HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
