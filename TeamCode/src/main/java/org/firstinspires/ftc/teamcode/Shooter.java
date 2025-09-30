@@ -14,6 +14,10 @@ public class Shooter { // hi kristine
     private DcMotorEx motor; ///hello
     private Servo servo;
 
+    private double max_angle_serv_pos = 0;
+
+    private double min_angle_serv_pos = 0;
+
     private Telemetry telemetry; //hi sam
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
@@ -28,13 +32,10 @@ public class Shooter { // hi kristine
         motor.setPower(0);
     }
 
-    public void startMotor() {
+    public void motor_speed_max() {
         motor.setPower(1);
     }
 
-    public void positionZero() {
-        servo.setPosition(0);
-    }
 
     public void increaseVelocity() {
         // increments motor speed by 200 ticks
@@ -56,17 +57,17 @@ public class Shooter { // hi kristine
         servo.setPosition(servo.getPosition() - 0.1);
     }
 
-    public void positionOne() {
-        servo.setPosition(1);
+    public void positionMax() {
+        servo.setPosition(max_angle_serv_pos);
+        // Change this number to be the max servo position
     }
 
-    public double readServo() {
-        return servo.getPosition();
+    public void positionZero() {
+        servo.setPosition(min_angle_serv_pos);
+        // change this number to be the minimum servo position
     }
 
-    public double readMotor() {
-        return motor.getCurrentPosition();
-    }
+
 
     public void shooter_telemetry() {
         telemetry.addData("motor speed in ticks", motor.getVelocity());

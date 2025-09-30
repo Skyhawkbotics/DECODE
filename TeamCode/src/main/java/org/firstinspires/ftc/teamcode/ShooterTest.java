@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import java.util.Collections;
-
 @TeleOp(name = "ShooterTest")
-public class shooterMain extends OpMode {
+public class ShooterTest extends OpMode {
     private Shooter shooter;
 
     private Gamepad g1 = new Gamepad();
@@ -29,11 +27,13 @@ public class shooterMain extends OpMode {
         // increment code
         // runs every 0.001 ms or wtv
 
+        ///  Motor controls
+        ///  might have to reverse motor direction
         if (gamepad1.aWasPressed()) {
-            // move the servo
-            // shooter.positionOne();
-            shooter.startMotor();
+            // motor to max speed
+            shooter.motor_speed_max();
         }
+        ///  incrementally change the motor speed
         if(gamepad1.dpadUpWasPressed()) {
             shooter.increaseVelocity();
         }
@@ -41,23 +41,35 @@ public class shooterMain extends OpMode {
             shooter.decreaseVelocity();
         }
 
+        ///  stop motor
         if (gamepad1.bWasPressed()) {
             // move the servo
             // shooter.positionZero();
             shooter.idle();
-
-
         }
+
+
+
+        ///  change angle incrementally
 
         if (gamepad1.yWasPressed()) {
             // Increase the position
             shooter.increasePosition();
         }
 
-        if (g1.x && !previousg1.x) {
+        if (g1.xWasPressed()) {
             // Decrease the position
             shooter.decreasePosition();
         }
+        ///  to the max angles
+        if(g1.dpadLeftWasPressed()) {
+            shooter.positionZero();
+        }
+        if(g1.dpadRightWasPressed()) {
+            shooter.positionMax();
+        }
+
+
 
         shooter.shooter_telemetry();
         telemetry.update();
