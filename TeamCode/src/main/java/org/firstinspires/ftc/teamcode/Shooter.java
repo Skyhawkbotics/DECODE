@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Shooter { // hi kristine
     //its is 7:31 in the morning
-    //thisisahanacode
+    // this is eric code
 
     private DcMotorEx motor; ///hello
     private Servo servo;
