@@ -2,11 +2,15 @@ package org.firstinspires.ftc.teamcode.inspo;
 
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 
 @TeleOp (name = "Intake Test")
+
+@Disabled
+///  disables it so you dont see it on the driver hub (we dont want it to clutter up our screen)
 public class Example_Subsystem_test_file_Active_Intake extends OpMode { /// extends opmode like a regular TELE-OP
 
 
