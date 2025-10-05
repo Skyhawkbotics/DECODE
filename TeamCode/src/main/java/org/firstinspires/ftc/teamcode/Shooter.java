@@ -11,7 +11,9 @@ public class Shooter { // hi kristine
     //its is 7:31 in the morning
     // this is eric code
 
-    private DcMotorEx motor; ///hello
+    private DcMotorEx motor;
+
+
     private Servo servo;
 
     private double max_angle_serv_pos = 0;
@@ -36,43 +38,60 @@ public class Shooter { // hi kristine
         motor.setPower(1);
     }
 
+    public void positionZero() {
+        servo.setPosition(0);
 
-    public void increaseVelocity() {
-        // increments motor speed by 200 ticks
-        motor.setVelocity(motor.getVelocity() + 200);
     }
 
-    public void decreaseVelocity() {
-        // increments motor speed by 200 ticks
-        motor.setVelocity(motor.getVelocity() - 200);
-    }
+        public void increaseVelocity () {
+            // increments motor speed by 200 ticks
+            motor.setVelocity(motor.getVelocity() + 25);
+        }
 
-    public void increasePosition() {
-        // increments servo
-        servo.setPosition(servo.getPosition() + 0.1);
-    }
+        public void decreaseVelocity () {
+            // increments motor speed by 200 ticks
+            motor.setVelocity(motor.getVelocity() - 25);
+        }
 
-    public void decreasePosition() {
-        // increments servo
-        servo.setPosition(servo.getPosition() - 0.1);
-    }
+        public void increasePosition () {
+            // increments servo
+            servo.setPosition(servo.getPosition() + 0.1);
+        }
+
+        public void decreasePosition () {
+            // increments servo
+            servo.setPosition(servo.getPosition() - 0.1);
+        }
 
     public void positionMax() {
         servo.setPosition(max_angle_serv_pos);
         // Change this number to be the max servo position
     }
 
-    public void positionZero() {
-        servo.setPosition(min_angle_serv_pos);
+    //public void positionZero() {
+     //   servo.setPosition(min_angle_serv_pos);
         // change this number to be the minimum servo position
+    //}
+
+
+
+        public void perf () {
+            motor.setVelocity(1040);
+        }
+
+        public double conversion_RPM (double velocity){
+         int ticks_per_rev = 28;
+         int seconds_per_min = 60;
+            return (velocity/ticks_per_rev)*seconds_per_min;
+        }
+
+
+        public void shooter_telemetry () {
+            telemetry.addData("motor speed in ticks", motor.getVelocity());
+            telemetry.addData("motor position", motor.getCurrentPosition());
+            telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
+            // telemetry.addData("Servo position", servo.getPosition());
+
+        }
     }
 
-
-
-    public void shooter_telemetry() {
-        telemetry.addData("motor speed in ticks", motor.getVelocity());
-        telemetry.addData("motor position", motor.getCurrentPosition());
-        telemetry.addData("Servo position", servo.getPosition());
-
-    }
-}
