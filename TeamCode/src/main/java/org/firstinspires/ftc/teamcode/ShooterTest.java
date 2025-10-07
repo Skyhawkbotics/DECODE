@@ -43,10 +43,9 @@ public class ShooterTest extends OpMode {
 
         ///  stop motor
         if (gamepad1.bWasPressed()) {
-            // move the servo
-            // shooter.positionZero();
             shooter.idle();
         }
+
 
 
 
@@ -63,7 +62,7 @@ public class ShooterTest extends OpMode {
         }
         ///  to the max angles
         if(g1.dpadLeftWasPressed()) {
-            shooter.positionZero();
+            shooter.positionMin();
         }
         if(g1.dpadRightWasPressed()) {
             shooter.positionMax();

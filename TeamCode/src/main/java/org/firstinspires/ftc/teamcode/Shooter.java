@@ -54,24 +54,24 @@ public class Shooter { // hi kristine
         }
 
         public void increasePosition () {
-            // increments servo
-            servo.setPosition(servo.getPosition() + 0.1);
+            // increments servo by hundredths
+            servo.setPosition(servo.getPosition() + 0.01);
         }
 
         public void decreasePosition () {
             // increments servo
-            servo.setPosition(servo.getPosition() - 0.1);
+            servo.setPosition(servo.getPosition() - 0.01);
         }
 
     public void positionMax() {
-        servo.setPosition(max_angle_serv_pos);
+        servo.setPosition(1);
         // Change this number to be the max servo position
     }
 
-    //public void positionZero() {
-     //   servo.setPosition(min_angle_serv_pos);
+    public void positionMin() {
+        servo.setPosition(0.2);
         // change this number to be the minimum servo position
-    //}
+    }
 
 
 
@@ -90,6 +90,7 @@ public class Shooter { // hi kristine
             telemetry.addData("motor speed in ticks", motor.getVelocity());
             telemetry.addData("motor position", motor.getCurrentPosition());
             telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
+            telemetry.addData("servo position", servo.getPosition());
             // telemetry.addData("Servo position", servo.getPosition());
 
         }
