@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,7 +24,7 @@ public class Shooter { // hi kristine
 
     private Telemetry telemetry; //hi sam
 
-    public Shooter(HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
+    public Shooter(@NonNull HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

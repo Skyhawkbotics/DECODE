@@ -1,0 +1,110 @@
+package org.firstinspires.ftc.teamcode;
+
+
+import com.qualcomm.hardware.limelightvision.LLResult;
+import com.qualcomm.hardware.limelightvision.LLResultTypes;
+import com.qualcomm.hardware.limelightvision.LLStatus;
+import com.qualcomm.hardware.limelightvision.Limelight3A;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+
+import java.util.List;
+
+@TeleOp(name = "limelight")
+public class LLtest extends OpMode {
+
+    private Limelight3A limelight;
+    public void init() {
+        limelight = hardwareMap.get(Limelight3A.class, "limelight");
+
+        limelight.pipelineSwitch(0);
+
+        limelight.start();
+
+        telemetry.addData(">", "Robot Ready. Press Play.");
+        telemetry.update();
+    }
+
+    public void loop() {
+        LLStatus status = limelight.getStatus();
+
+        telemetry.setMsTransmissionInterval(20);
+
+        telemetry.addData("Name", "%s", status.getName());
+
+        telemetry.addData("LL", "Temp: %.1fc, CPU: %.1f%%, FPS: %d",
+                status.getTemp(), status.getCpu(), (int)status.getFps());
+
+        telemetry.addData("Pipeline", "Index: %d, Type, %s",
+                status.getPipelineIndex(), status.getPipelineType());
+
+        LLResult result = limelight.getLatestResult();
+
+        if (result.isValid()) {
+
+            // this pose 3d thing gets the position of the robot
+            Pose3D botpose = result.getBotpose();
+
+
+            // latencies record how long it took limelight to process parts of the frame
+            // capture - camera exposure & data capture time
+            // target - time spent processing and detecting targets
+            // parse - time to format and send data
+            double captureLatency = result.getCaptureLatency();
+            double targetingLatency = result.getTargetingLatency();
+            double parseLatency = result.getParseLatency();
+
+            telemetry.addData("Capture Latency",
+                    captureLatency + targetingLatency);
+            telemetry.addData("Parse Latency", parseLatency);
+            telemetry.addData("PythonOutput",
+                    java.util.Arrays.toString(result.getPythonOutput()));
+
+            // offsets, result.getTxNc() gives us depression angle for calculations
+            telemetry.addData("txnc", result.getTxNC());
+            telemetry.addData("tynx", result.getTyNC());
+
+            // corrected values
+            telemetry.addData("tx", result.getTx());
+            telemetry.addData("ty", result.getTy());
+
+            // Access apriltag stuff
+            List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+            for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                telemetry.addData("Fiducial", "ID: %d, Family: %s, X: %.2f, Y: %.2f",
+                        fr.getFiducialId(), fr.getFamily(), fr.getTargetXDegrees(),
+                        fr.getTargetYDegrees());
+
+                // pattern based on ID detected pls work pls pls pls pls ps
+                if (fr.getFiducialId() == 21) {
+                    telemetry.addData("Pattern", "Green Purple Purple");
+                } else if(fr.getFiducialId() == 22) {
+                    telemetry.addData("Pattern", "Purple Green Purple");
+                } else if(fr.getFiducialId() == 23) {
+                    telemetry.addData("Pattern", "Purple Purple Green");
+                } else if(fr.getFiducialId() == 24) {
+                    telemetry.addData("Pattern", "DEPOT DETECTED");
+                }
+            }
+
+            ///  Testing Case: 10/6/25 7:49 PM
+            ///  All the results worked, but the values only show up when the april tag is detected.
+            ///  However, the apriltag is hard to detect. Maybe adjust how fast the loop goes??
+            ///  I'm going to try this statement to slow the telemetry down:
+            ///  telemetry.setMsTransmissionInterval(11);
+
+
+
+        }
+        else {
+            telemetry.addData("Limelight", "No Data Available");
+        }
+        telemetry.update();
+
+    }
+
+
+
+}
