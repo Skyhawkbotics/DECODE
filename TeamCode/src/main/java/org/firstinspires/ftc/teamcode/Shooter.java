@@ -52,19 +52,25 @@ public class Shooter { // hi kristine
             // increments motor speed by 200 ticks
             motor.setVelocity(motor.getVelocity() - 25);
         }
-
-        public void increasePosition () {
+/// servo incrementations
+        public void increasePositionBare () {
             // increments servo by hundredths
             servo.setPosition(servo.getPosition() + 0.01);
         }
-
-        public void decreasePosition () {
+        public void increasePosition (){
+            servo.setPosition(servo.getPosition()+0.1);
+        }
+        public void decreasePositionBare () {
             // increments servo
             servo.setPosition(servo.getPosition() - 0.01);
         }
 
+        public void decreasePosition(){
+            servo.setPosition(servo.getPosition() - 0.1);
+        }
+
     public void positionMax() {
-        servo.setPosition(1);
+        servo.setPosition(0.35);
         // Change this number to be the max servo position
     }
 

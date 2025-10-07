@@ -52,12 +52,18 @@ public class ShooterTest extends OpMode {
         ///  change angle incrementally
 
         if (gamepad1.yWasPressed()) {
-            // Increase the position
+            // Increase the position 0.1
             shooter.increasePosition();
+        }
+        if (gamepad1.leftBumperWasPressed()){
+            shooter.increasePositionBare();
+        }
+        if (gamepad1.rightBumperWasPressed()){
+            shooter.decreasePositionBare();
         }
 
         if (g1.xWasPressed()) {
-            // Decrease the position
+            // Decrease the position 0.1
             shooter.decreasePosition();
         }
         ///  to the max angles
