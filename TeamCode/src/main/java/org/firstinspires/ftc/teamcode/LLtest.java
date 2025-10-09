@@ -60,7 +60,7 @@ public class LLtest extends OpMode {
                     captureLatency + targetingLatency);
             // telemetry.addData("Parse Latency", parseLatency);
             // telemetry.addData("PythonOutput",
-                    java.util.Arrays.toString(result.getPythonOutput()));
+                    java.util.Arrays.toString(result.getPythonOutput());
 
             // offsets, result.getTxNc() gives us depression angle for calculations
             telemetry.addData("txnc", result.getTxNC());
