@@ -14,7 +14,7 @@ import java.util.List;
 
 @TeleOp(name = "limelight")
 public class LLtest extends OpMode {
-
+    double DEPOT_HEIGHT = 44;
     private Limelight3A limelight;
     public void init() {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -58,13 +58,13 @@ public class LLtest extends OpMode {
 
             telemetry.addData("Capture Latency",
                     captureLatency + targetingLatency);
-            telemetry.addData("Parse Latency", parseLatency);
-            telemetry.addData("PythonOutput",
+            // telemetry.addData("Parse Latency", parseLatency);
+            // telemetry.addData("PythonOutput",
                     java.util.Arrays.toString(result.getPythonOutput()));
 
             // offsets, result.getTxNc() gives us depression angle for calculations
             telemetry.addData("txnc", result.getTxNC());
-            telemetry.addData("tynx", result.getTyNC());
+            telemetry.addData("tync", result.getTyNC());
 
             // corrected values
             telemetry.addData("tx", result.getTx());
@@ -87,6 +87,12 @@ public class LLtest extends OpMode {
                 } else if(fr.getFiducialId() == 24) {
                     telemetry.addData("Pattern", "DEPOT DETECTED");
                 }
+
+                double x_degrees = fr.getTargetXDegrees();
+                double x_rads = x_degrees * 3.14159265358979323 / 180;
+                double horizontalDistance = Math.tan(x_rads) * DEPOT_HEIGHT;
+
+                telemetry.addData("Horizontal Distance", horizontalDistance);
             }
 
             ///  Testing Case: 10/6/25 7:49 PM
