@@ -14,7 +14,7 @@ import java.util.List;
 
 @TeleOp(name = "limelight")
 public class LLtest extends OpMode {
-    double DEPOT_HEIGHT = 44;
+    double DEPOT_HEIGHT = 30;
     private Limelight3A limelight;
     public void init() {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -88,11 +88,14 @@ public class LLtest extends OpMode {
                     telemetry.addData("Pattern", "DEPOT DETECTED");
                 }
 
-                double x_degrees = fr.getTargetXDegrees();
-                double x_rads = x_degrees * 3.14159265358979323 / 180;
-                double horizontalDistance = Math.tan(x_rads) * DEPOT_HEIGHT;
-
+                double y_degrees = result.getTy();
+                double y_rads = Math.toRadians(y_degrees);
+                double horizontalDistance = Math.tan(y_rads) * DEPOT_HEIGHT;
+                double otherTry = DEPOT_HEIGHT / Math.tan(y_rads);
+                telemetry.addData("yradians", y_rads);
+                telemetry.addData("Tangent of Angle", Math.tan(y_rads));
                 telemetry.addData("Horizontal Distance", horizontalDistance);
+                telemetry.addData("Other Try:", otherTry);
             }
 
             ///  Testing Case: 10/6/25 7:49 PM
@@ -101,8 +104,15 @@ public class LLtest extends OpMode {
             ///  I'm going to try this statement to slow the telemetry down:
             ///  telemetry.setMsTransmissionInterval(11);
 
+            /// Testing Case: 10/9/25 7:25 PM
+            /// The horizontal distance formula seems to based on the angle of elevation,
+            ///  not angle of depression with respect to the limelight camera
+            ///  Therefore, depot height / tangent of offset ty should be used to calculate
+            ///  the horizontal distance. Additionally, the depot height should be actual height
+            ///  subtracted by the height of the camera off the ground. Otherwise, it should
+            ///  be on the ground so that it works properly.
 
-
+            ///  TLDR: Set the camera on the ground when calculating.
         }
         else {
             telemetry.addData("Limelight", "No Data Available");
