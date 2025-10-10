@@ -87,10 +87,18 @@ public class Shooter { // hi kristine
             motor.setVelocity(1040);
         }
 
+        ///  This function converts TPS to RPM
         public double conversion_RPM (double velocity){
          int ticks_per_rev = 28;
          int seconds_per_min = 60;
             return (velocity/ticks_per_rev)*seconds_per_min;
+        }
+
+        /// This function converts RPM to TPS
+
+        public double getTPS(double RPM) {
+            int TPR = 28;
+            return (RPM * TPR) / 60;
         }
 
 
