@@ -16,7 +16,7 @@ public class constants {
     public static int fivehund = 500;
     public static int thousand = 1000;
 
-    public static double ep = 0.005, ei = 0, ed = 0.00000000000005, f = 0.25; // Extend pid constants
+    public static double ep = 0.021, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
 
 
 
