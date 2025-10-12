@@ -11,6 +11,11 @@ import com.bylazar.configurables.annotations.Configurable;
 @Configurable
 public class constants {
 
+    public static int stresser = 2000;
+    public static int sevenfifty = 750;
+    public static int fivehund = 500;
+    public static int thousand = 1000;
+
     public static double ep = 0.005, ei = 0, ed = 0.00000000000005, f = 0.25; // Extend pid constants
 
 

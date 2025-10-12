@@ -57,11 +57,11 @@ public class Shooter { // hi kristine
         // shooter
     }
     public void to_thousand() {
-        setTarget(1000);
+        setTarget(thousand);
     }
 
     public void to_fivehund() {
-        setTarget (500);
+        setTarget (fivehund);
     }
 
 
@@ -69,11 +69,11 @@ public class Shooter { // hi kristine
         setTarget(0);
     }
         public void stress () {
-            setTarget(200);
+            setTarget(stresser);
         }
 
         public void to_75 () {
-            setTarget(750);
+            setTarget(sevenfifty);
         }
         public void positionZero () {
             servo.setPosition(0);
