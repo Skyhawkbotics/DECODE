@@ -142,6 +142,7 @@ public class Shooter { // hi kristine
             telemetry.addData("motor position", motor.getCurrentPosition());
             telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
             telemetry.addData("servo position", servo.getPosition());
+            telemetry.addData("current target", target);
             // telemetry.addData("Servo position", servo.getPosition());
 
         }
