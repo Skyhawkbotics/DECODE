@@ -65,16 +65,28 @@ public class Shooter { // hi kristine
     }
     public void to_thousand() {
         setTarget(1000);
-
     }
+
+    public void to_fivehund() {
+        setTarget (500);
+    }
+
+
     public void to_zero() {
         setTarget(0);
-
     }
-    public void positionZero() {
-        servo.setPosition(0);
+        public void stress () {
+            setTarget(200);
+        }
 
-    }
+        public void to_75 () {
+            setTarget(750);
+        }
+        public void positionZero () {
+            servo.setPosition(0);
+
+        }
+
 
         public void increaseVelocity () {
             // increments motor speed by 200 ticks
@@ -90,28 +102,27 @@ public class Shooter { // hi kristine
             // increments servo by hundredths
             servo.setPosition(servo.getPosition() + 0.01);
         }
-        public void increasePosition (){
-            servo.setPosition(servo.getPosition()+0.1);
+        public void increasePosition () {
+            servo.setPosition(servo.getPosition() + 0.1);
         }
         public void decreasePositionBare () {
             // increments servo
             servo.setPosition(servo.getPosition() - 0.01);
         }
 
-        public void decreasePosition(){
+        public void decreasePosition () {
             servo.setPosition(servo.getPosition() - 0.1);
         }
 
-    public void positionMax() {
-        servo.setPosition(0.35);
-        // Change this number to be the max servo position
-    }
+        public void positionMax () {
+            servo.setPosition(0.35);
+            // Change this number to be the max servo position
+        }
 
-    public void positionMin() {
-        servo.setPosition(0.2);
-        // change this number to be the minimum servo position
-    }
-
+        public void positionMin () {
+            servo.setPosition(0.2);
+            // change this number to be the minimum servo position
+        }
 
 
         public void perf () {
@@ -119,15 +130,15 @@ public class Shooter { // hi kristine
         }
 
         ///  This function converts TPS to RPM
-        public double conversion_RPM (double velocity){
-         int ticks_per_rev = 28;
-         int seconds_per_min = 60;
-            return (velocity/ticks_per_rev)*seconds_per_min;
+        public double conversion_RPM ( double velocity){
+            int ticks_per_rev = 28;
+            int seconds_per_min = 60;
+            return (velocity / ticks_per_rev) * seconds_per_min;
         }
 
         /// This function converts RPM to TPS
 
-        public double getTPS(double RPM) {
+        public double getTPS ( double RPM){
             int TPR = 28;
             return (RPM * TPR) / 60;
         }

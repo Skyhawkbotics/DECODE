@@ -30,8 +30,8 @@ public class ShooterTest extends OpMode {
         ///  Motor controls
         ///  might have to reverse motor direction
         if (gamepad1.aWasPressed()) {
-            // motor to max speed
-            shooter.motor_speed_max();
+            // motor to max target
+            shooter.to_thousand();
         }
         ///  incrementally change the motor speed
         if(gamepad1.dpadUpWasPressed()) {
@@ -43,8 +43,17 @@ public class ShooterTest extends OpMode {
 
         ///  stop motor
         if (gamepad1.bWasPressed()) {
-            shooter.idle();
+            shooter.to_zero();
         }
+
+        if (gamepad1.left_trigger > 0.4) {
+            shooter.to_fivehund();
+        }
+
+        if (gamepad1.right_trigger > 0.4) {
+            shooter.stress();
+        }
+
 
 
 
@@ -52,7 +61,7 @@ public class ShooterTest extends OpMode {
         ///  change angle incrementally
 
         if (gamepad1.yWasPressed()) {
-            // Increase the position 0.1
+            ///Increase the position 0.1
             shooter.increasePosition();
         }
         if (gamepad1.leftBumperWasPressed()){
