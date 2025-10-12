@@ -16,16 +16,16 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class as_pid {
     private Telemetry telemetry;
-    public DcMotorEx baby;
+    public DcMotorEx shooter;
     public PIDController pid;
     public static int target;
 
     public as_pid(HardwareMap hardwaremap, Telemetry telemetry){
         this.telemetry = telemetry;
 
-        baby = hardwaremap.get(DcMotorEx.class,"motor");
-        baby.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        baby.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        shooter = hardwaremap.get(DcMotorEx.class,"motor");
+        shooter.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        shooter.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
 
         pid = new PIDController(ep, ei, ed);
@@ -33,11 +33,11 @@ public class as_pid {
 
     public void update (){
         pid.setPID(ep, ei, ed);
-        baby.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        double pid_output = pid.calculate(baby.getCurrentPosition(), target);
+        double pid_output = pid.calculate(shooter.getCurrentPosition(), target);
         double power = pid_output + f;
-        baby.setPower(power);
+        shooter.setPower(power);
     }
 
     public void setTarget(int b){
@@ -66,11 +66,11 @@ public class as_pid {
     }
 
     public Boolean is_finished() {
-        return Math.abs(((baby.getCurrentPosition())) - target) < 170;
+        return Math.abs(((shooter.getCurrentPosition())) - target) < 170;
     }
 
     public void telemetry(){
-        telemetry.addData("s.motor position", baby.getCurrentPosition());
+        telemetry.addData("s.motor position", shooter.getCurrentPosition());
         telemetry.addData("is finished", is_finished());
     }
 
