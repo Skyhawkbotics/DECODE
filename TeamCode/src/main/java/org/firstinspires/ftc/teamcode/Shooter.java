@@ -9,12 +9,16 @@ import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.zero;
 import androidx.annotation.NonNull;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+
+
+@Configurable
 
 public class Shooter { // hi kristine
     //its is 7:31 in the morning
@@ -57,9 +61,14 @@ public class Shooter { // hi kristine
     }
     public void setTarget(int b){
         target = b;
+        // shooter
     }
     public void to_thousand() {
         setTarget(1000);
+
+    }
+    public void to_zero() {
+        setTarget(0);
 
     }
     public void positionZero() {
