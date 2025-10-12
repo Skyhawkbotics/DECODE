@@ -1,7 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.ed;
+import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.ei;
+import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.ep;
+import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.f;
+import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.zero;
+
 import androidx.annotation.NonNull;
 
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -15,6 +22,9 @@ public class Shooter { // hi kristine
 
     private DcMotorEx motor;
 
+    public PIDController pid;
+
+    public static int target;
 
     private Servo servo;
 
@@ -27,19 +37,31 @@ public class Shooter { // hi kristine
     public Shooter(@NonNull HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+
+
+        pid = new PIDController(ep, ei, ed);
+
         servo = hardwareMap.get(Servo.class, "shooterServo");
         this.telemetry = telemetry;
     }
 
-    public void idle() {
-        motor.setPower(0);
-    }
+    public void update (){
+        pid.setPID(ep, ei, ed);
+        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-    public void motor_speed_max() {
-        motor.setPower(1);
+        double pid_output = pid.calculate(motor.getVelocity(), target);
+        double power = pid_output + f;
+        motor.setPower(power);
     }
+    public void setTarget(int b){
+        target = b;
+    }
+    public void to_thousand() {
+        setTarget(1000);
 
+    }
     public void positionZero() {
         servo.setPosition(0);
 

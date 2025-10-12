@@ -35,7 +35,7 @@ public class as_pid {
         pid.setPID(ep, ei, ed);
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        double pid_output = pid.calculate(shooter.getCurrentPosition(), target);
+        double pid_output = pid.calculate(shooter.getVelocity(), target);
         double power = pid_output + f;
         shooter.setPower(power);
     }
@@ -48,8 +48,8 @@ public class as_pid {
         pid.setPID(ep, ei, ed);
     }
 
-    public void set_zero(){
-        setTarget(zero);
+    public void set_tps_to_thousand(){
+        setTarget(1000);
     }
 
     public void to_third() {
