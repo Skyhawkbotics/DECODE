@@ -1,7 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.teamcode.constants.ed;
+import static org.firstinspires.ftc.teamcode.constants.ei;
+import static org.firstinspires.ftc.teamcode.constants.ep;
+import static org.firstinspires.ftc.teamcode.constants.f;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 @TeleOp(name = "ShooterTest")
@@ -17,10 +23,14 @@ public class ShooterTest extends OpMode {
         previousg1 = new Gamepad();
     }
 
+
+
     @Override
     public void loop() {
         previousg1.copy(g1);
         g1.copy(gamepad1);
+
+        shooter.update();
 
         // we want to find a target position for servo that corresponds to angle
         // can put motor into rad/s. maybe some equations to find how it corresponds to velocity?
