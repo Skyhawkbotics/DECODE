@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.core.subsystems;
 
-import static org.firstinspires.ftc.teamcode.constants.*;
-
-import androidx.annotation.NonNull;
+import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,9 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
-public class Shooter { // hi kristine
-    //its is 7:31 in the morning
-    // this is eric code
+public class Shooter {
+
 
     private DcMotorEx motor;
 
@@ -31,12 +28,11 @@ public class Shooter { // hi kristine
 
     private Telemetry telemetry; //hi sam
 
-    public Shooter(@NonNull HardwareMap hardwareMap, Telemetry telemetry) { // asldkfjsaldjkf
+    public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
         motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-
 
         pid = new PIDController(ep, ei, ed);
 
@@ -49,19 +45,19 @@ public class Shooter { // hi kristine
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         double pid_output = pid.calculate(motor.getVelocity(), target);
-        double power = pid_output + f;
+        double power = pid_output;
         motor.setPower(power);
     }
     public void setTarget(int b){
         target = b;
         // shooter
     }
-    public void to_thousand() {
-        setTarget(thousand);
+    public void perf_velocity() {
+        setTarget(perf_value);
     }
 
     public void to_fivehund() {
-        setTarget (fivehund);
+        setTarget (half_speed);
     }
 
 
@@ -69,11 +65,11 @@ public class Shooter { // hi kristine
         setTarget(0);
     }
         public void stress () {
-            setTarget(stresser);
+            setTarget(max);
         }
 
         public void to_75 () {
-            setTarget(sevenfifty);
+            setTarget(three_fourths);
         }
         public void positionZero () {
             servo.setPosition(0);

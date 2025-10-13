@@ -335,7 +335,7 @@ class ForwardVelocityTuner extends OpMode {
     public void init_loop() {
         telemetryM.debug("The robot will run at 1 power until it reaches " + DISTANCE + " inches forward.");
         telemetryM.debug("Make sure you have enough room, since the robot has inertia after cutting power.");
-        telemetryM.debug("After running the distance, the robot will cut power from the drivetrain and display the forward velocity.");
+        telemetryM.debug("After running the distance, the robot will cut power from the drivetrain_test and display the forward velocity.");
         telemetryM.debug("Press B on game pad 1 to stop.");
         telemetryM.debug("pose", follower.getPose());
         telemetryM.update(telemetry);
@@ -444,7 +444,7 @@ class LateralVelocityTuner extends OpMode {
     public void init_loop() {
         telemetryM.debug("The robot will run at 1 power until it reaches " + DISTANCE + " inches to the right.");
         telemetryM.debug("Make sure you have enough room, since the robot has inertia after cutting power.");
-        telemetryM.debug("After running the distance, the robot will cut power from the drivetrain and display the strafe velocity.");
+        telemetryM.debug("After running the distance, the robot will cut power from the drivetrain_test and display the strafe velocity.");
         telemetryM.debug("Press B on Gamepad 1 to stop.");
         telemetryM.update(telemetry);
 
@@ -542,7 +542,7 @@ class ForwardZeroPowerAccelerationTuner extends OpMode {
     @Override
     public void init_loop() {
         telemetryM.debug("The robot will run forward until it reaches " + VELOCITY + " inches per second.");
-        telemetryM.debug("Then, it will cut power from the drivetrain and roll to a stop.");
+        telemetryM.debug("Then, it will cut power from the drivetrain_test and roll to a stop.");
         telemetryM.debug("Make sure you have enough room.");
         telemetryM.debug("After stopping, the forward zero power acceleration (natural deceleration) will be displayed.");
         telemetryM.debug("Press B on Gamepad 1 to stop.");
@@ -644,7 +644,7 @@ class LateralZeroPowerAccelerationTuner extends OpMode {
     @Override
     public void init_loop() {
         telemetryM.debug("The robot will run to the right until it reaches " + VELOCITY + " inches per second.");
-        telemetryM.debug("Then, it will cut power from the drivetrain and roll to a stop.");
+        telemetryM.debug("Then, it will cut power from the drivetrain_test and roll to a stop.");
         telemetryM.debug("Make sure you have enough room.");
         telemetryM.debug("After stopping, the lateral zero power acceleration (natural deceleration) will be displayed.");
         telemetryM.debug("Press B on game pad 1 to stop.");

@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode;
-
-import static org.firstinspires.ftc.teamcode.constants.ed;
-import static org.firstinspires.ftc.teamcode.constants.ei;
-import static org.firstinspires.ftc.teamcode.constants.ep;
-import static org.firstinspires.ftc.teamcode.constants.f;
+package org.firstinspires.ftc.teamcode.test_files;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-@TeleOp(name = "ShooterTest")
+import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+
+@TeleOp(name = "ShooterTest", group = "Tests")
 public class ShooterTest extends OpMode {
     private Shooter shooter;
 
@@ -41,7 +37,7 @@ public class ShooterTest extends OpMode {
         ///  might have to reverse motor direction
         if (gamepad1.aWasPressed()) {
             // motor to max target
-            shooter.to_thousand();
+            shooter.perf_velocity();
         }
         ///  incrementally change the motor speed
         if(gamepad1.dpadUpWasPressed()) {

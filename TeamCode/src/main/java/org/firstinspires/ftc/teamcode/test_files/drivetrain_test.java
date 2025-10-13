@@ -1,16 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test_files;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+@TeleOp(name = "drive train test !!! d–(^ ᗜ ^ )z", group = "Tests")
 
-@TeleOp(name = "drive train test !!! d–(^ ᗜ ^ )z")
-
-public class drivetrain extends OpMode {
+public class drivetrain_test extends OpMode {
 
     private DcMotorEx motor1;
     /// ts the shorter belt motor

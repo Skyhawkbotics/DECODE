@@ -1,22 +1,19 @@
-package org.firstinspires.ftc.teamcode.inspo;
+package org.firstinspires.ftc.teamcode.test_files;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-@TeleOp(name = "Servo Test Code")
+@TeleOp(name = "Servo Test Code", group = "Tests")
 
-public class abeservo extends OpMode{
+public class Servo_test extends OpMode{
     private Servo servo;
     private Telemetry telemetry;
 
     @Override
     public void init() {
         servo = hardwareMap.get(Servo.class, "servo");
-        servo.setPosition(Servo.MAX_POSITION);
-        servo.setPosition(Servo.MIN_POSITION);
     }
 
     @Override
