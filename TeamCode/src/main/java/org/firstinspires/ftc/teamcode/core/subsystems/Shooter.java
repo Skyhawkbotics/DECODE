@@ -12,8 +12,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class Shooter {
-
-
     private DcMotorEx motor;
 
     public PIDController pid;
@@ -28,6 +26,8 @@ public class Shooter {
 
     private Telemetry telemetry; //hi sam
 
+
+
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         motor = hardwareMap.get(DcMotorEx.class, "please work");
@@ -40,7 +40,7 @@ public class Shooter {
         this.telemetry = telemetry;
     }
 
-    public void update (){
+    public void update() { /// PID Update loop
         pid.setPID(ep, ei, ed);
         motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
@@ -48,99 +48,96 @@ public class Shooter {
         double power = pid_output;
         motor.setPower(power);
     }
-    public void setTarget(int b){
+
+    public void setTarget(int b) {
+        ///  sets PID target
         target = b;
-        // shooter
     }
+
+    ///  Methods for quick PID target values
     public void perf_velocity() {
         setTarget(perf_value);
     }
-
     public void to_fivehund() {
-        setTarget (half_speed);
+        setTarget(half_speed);
     }
-
-
+    public void to_three_fourths() {
+        setTarget(three_fourths);
+    }
     public void to_zero() {
         setTarget(0);
     }
-        public void stress () {
-            setTarget(max);
-        }
-
-        public void to_75 () {
-            setTarget(three_fourths);
-        }
-        public void positionZero () {
-            servo.setPosition(0);
-
-        }
-
-
-        public void increaseVelocity () {
-            // increments motor speed by 200 ticks
-            motor.setVelocity(motor.getVelocity() + 25);
-        }
-
-        public void decreaseVelocity () {
-            // increments motor speed by 200 ticks
-            motor.setVelocity(motor.getVelocity() - 25);
-        }
-/// servo incrementations
-        public void increasePositionBare () {
-            // increments servo by hundredths
-            servo.setPosition(servo.getPosition() + 0.01);
-        }
-        public void increasePosition () {
-            servo.setPosition(servo.getPosition() + 0.1);
-        }
-        public void decreasePositionBare () {
-            // increments servo
-            servo.setPosition(servo.getPosition() - 0.01);
-        }
-
-        public void decreasePosition () {
-            servo.setPosition(servo.getPosition() - 0.1);
-        }
-
-        public void positionMax () {
-            servo.setPosition(0.35);
-            // Change this number to be the max servo position
-        }
-
-        public void positionMin () {
-            servo.setPosition(0.2);
-            // change this number to be the minimum servo position
-        }
-
-
-        public void perf () {
-            motor.setVelocity(1040);
-        }
-
-        ///  This function converts TPS to RPM
-        public double conversion_RPM ( double velocity){
-            int ticks_per_rev = 28;
-            int seconds_per_min = 60;
-            return (velocity / ticks_per_rev) * seconds_per_min;
-        }
-
-        /// This function converts RPM to TPS
-
-        public double getTPS ( double RPM){
-            int TPR = 28;
-            return (RPM * TPR) / 60;
-        }
-
-
-        public void shooter_telemetry () {
-            telemetry.addData("motor speed in ticks", motor.getVelocity());
-            telemetry.addData("motor position", motor.getCurrentPosition());
-            telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
-            telemetry.addData("servo position", servo.getPosition());
-            telemetry.addData("current target", target);
-            // telemetry.addData("Servo position", servo.getPosition());
-
-        }
+    public void stress() {
+        setTarget(max);
     }
+
+
+
+    ///  Servo
+    public void positionMax() {
+        servo.setPosition(positionMax);
+        // Change this number to be the max servo position
+    }
+
+    public void positionMin() {
+        servo.setPosition(positionMin);
+        // change this number to be the minimum servo position
+    }
+
+    public void increasePositionBare() {
+        // increments servo by hundredths
+        servo.setPosition(servo.getPosition() + 0.01);
+    }
+
+    public void increasePosition() {
+        servo.setPosition(servo.getPosition() + 0.1);
+    }
+
+    public void decreasePositionBare() {
+        // increments servo
+        servo.setPosition(servo.getPosition() - 0.01);
+    }
+
+    public void decreasePosition() {
+        servo.setPosition(servo.getPosition() - 0.1);
+    }
+
+
+
+    ///  old motor
+    public void increaseVelocity() {
+        // increments motor speed by 200 ticks
+        motor.setVelocity(motor.getVelocity() + 25);
+    }
+    public void decreaseVelocity() {
+        // increments motor speed by 200 ticks
+        motor.setVelocity(motor.getVelocity() - 25);
+    }
+
+
+
+
+
+    public double conversion_RPM(double velocity) {
+        ///  This function converts TPS to RPM
+        int ticks_per_rev = 28;
+        int seconds_per_min = 60;
+        return (velocity / ticks_per_rev) * seconds_per_min;
+    }
+
+    public double getTPS(double RPM) {
+        /// This function converts RPM to TPS
+        int TPR = 28;
+        return (RPM * TPR) / 60;
+    }
+
+    public void shooter_telemetry() {
+        telemetry.addData("motor speed in ticks", motor.getVelocity());
+        telemetry.addData("motor position", motor.getCurrentPosition());
+        telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
+        telemetry.addData("servo position", servo.getPosition());
+        telemetry.addData("current target", target);
+        // telemetry.addData("Servo position", servo.getPosition());
+    }
+}
 

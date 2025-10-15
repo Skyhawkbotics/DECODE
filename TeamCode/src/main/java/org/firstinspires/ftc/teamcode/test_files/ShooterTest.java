@@ -33,25 +33,11 @@ public class ShooterTest extends OpMode {
         // increment code
         // runs every 0.001 ms or wtv
 
-        ///  Motor controls
-        ///  might have to reverse motor direction
+        ///  PID
         if (gamepad1.aWasPressed()) {
             // motor to max target
             shooter.perf_velocity();
         }
-        ///  incrementally change the motor speed
-        if(gamepad1.dpadUpWasPressed()) {
-            shooter.increaseVelocity();
-        }
-        if(gamepad1.dpadDownWasPressed()) {
-            shooter.decreaseVelocity();
-        }
-
-        ///  stop motor
-        if (gamepad1.bWasPressed()) {
-            shooter.to_zero();
-        }
-
         if (gamepad1.left_trigger > 0.4) {
             shooter.to_fivehund();
         }
@@ -59,6 +45,22 @@ public class ShooterTest extends OpMode {
         if (gamepad1.right_trigger > 0.4) {
             shooter.stress();
         }
+
+        if (gamepad1.bWasPressed()) {
+            shooter.to_zero();
+        }
+
+        ///  incrementally change the motor speed
+        /*
+        if(gamepad1.dpadUpWasPressed()) {
+            shooter.increaseVelocity();
+        }
+        if(gamepad1.dpadDownWasPressed()) {
+            shooter.decreaseVelocity();
+        }
+
+         */
+
 
 
 
@@ -70,6 +72,10 @@ public class ShooterTest extends OpMode {
             ///Increase the position 0.1
             shooter.increasePosition();
         }
+        if (g1.xWasPressed()) {
+            // Decrease the position 0.1
+            shooter.decreasePosition();
+        }
         if (gamepad1.leftBumperWasPressed()){
             shooter.increasePositionBare();
         }
@@ -77,10 +83,7 @@ public class ShooterTest extends OpMode {
             shooter.decreasePositionBare();
         }
 
-        if (g1.xWasPressed()) {
-            // Decrease the position 0.1
-            shooter.decreasePosition();
-        }
+
         ///  to the max angles
         if(g1.dpadLeftWasPressed()) {
             shooter.positionMin();

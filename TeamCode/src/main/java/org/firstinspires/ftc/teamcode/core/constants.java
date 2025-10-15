@@ -22,4 +22,8 @@ public class constants {
     public static int half_speed = 500;
     public static int perf_value = 1000;
 
+    public static double positionMin = 0;
+    public static double positionMax = 0.4;
+
+
 }
