@@ -54,6 +54,17 @@ public class Shooter {
         target = b;
     }
 
+    public void setTarget(int t, boolean usingRPM) {
+        // way to set target where target can be in RPM, just set usingRPM to true
+        if (!usingRPM) {
+            target = t;
+        } else {
+            target = getTPS(t);
+        }
+
+
+    }
+
     ///  Methods for quick PID target values
     public void perf_velocity() {
         setTarget(perf_value);
@@ -117,7 +128,6 @@ public class Shooter {
 
 
 
-
     public double conversion_RPM(double velocity) {
         ///  This function converts TPS to RPM
         int ticks_per_rev = 28;
@@ -125,10 +135,10 @@ public class Shooter {
         return (velocity / ticks_per_rev) * seconds_per_min;
     }
 
-    public double getTPS(double RPM) {
+    public int getTPS(double RPM) {
         /// This function converts RPM to TPS
         int TPR = 28;
-        return (RPM * TPR) / 60;
+        return (int) (RPM * TPR) / 60; /// casts it so it only does integers
     }
 
     public void shooter_telemetry() {
