@@ -23,9 +23,15 @@ public class drivetrain extends OpMode {
          Left_front = hardwareMap.get(DcMotorEx.class, "L front");
          Left_front.setDirection(DcMotorSimple.Direction.REVERSE);
          Left_back = hardwareMap.get(DcMotorEx.class, "L rear");
-         Left_front.setDirection(DcMotorSimple.Direction.REVERSE);
+         Left_back.setDirection(DcMotorSimple.Direction.REVERSE);
         Right_front = hardwareMap.get(DcMotorEx.class, "R front");
         Right_back = hardwareMap.get(DcMotorEx.class, "R rear");
+
+
+    }
+
+    @Override
+    public void loop() {
 
         telemetry.addData("back left direction", Left_back.getDirection());
         telemetry.addData("back right direction", Right_back.getDirection());
@@ -33,11 +39,7 @@ public class drivetrain extends OpMode {
         telemetry.addData("front right direction", Right_front.getDirection());
         telemetry.addData("left stick x", gamepad1.left_stick_x);
         telemetry.addData("left stick y", gamepad1.left_stick_y);
-
-    }
-
-    @Override
-    public void loop() {
+        telemetry.update();
         double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
         double x = gamepad1.left_stick_x * 1.1; // Counteract imperfect strafing
         double rx = gamepad1.right_stick_x;
