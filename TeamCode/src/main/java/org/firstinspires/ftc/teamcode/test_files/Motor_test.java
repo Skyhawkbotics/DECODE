@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.inspo;
+package org.firstinspires.ftc.teamcode.test_files;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp(name = "Abe Test Code")
-public class abeExClass extends OpMode {
+@TeleOp(name = "Abe Test Code", group = "Tests")
+public class Motor_test extends OpMode {
 
     private DcMotorEx motor;
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.test_files;
 
 
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @TeleOp(name = "limelight")
 public class LLtest extends OpMode {
-    double DEPOT_HEIGHT = 30;
+    double TAG_HEIGHT = 19;
     private Limelight3A limelight;
     public void init() {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
@@ -80,22 +80,35 @@ public class LLtest extends OpMode {
                 // pattern based on ID detected pls work pls pls pls pls ps
                 if (fr.getFiducialId() == 21) {
                     telemetry.addData("Pattern", "Green Purple Purple");
+                    TAG_HEIGHT = 3;
                 } else if(fr.getFiducialId() == 22) {
                     telemetry.addData("Pattern", "Purple Green Purple");
+                    TAG_HEIGHT = 3;
                 } else if(fr.getFiducialId() == 23) {
                     telemetry.addData("Pattern", "Purple Purple Green");
+                    TAG_HEIGHT = 3;
                 } else if(fr.getFiducialId() == 24) {
                     telemetry.addData("Pattern", "DEPOT DETECTED");
+                    TAG_HEIGHT = 15;
                 }
 
-                double y_degrees = result.getTy();
+                double y_degrees = fr.getTargetYDegrees(); // vertical offset from crosshair
+                // ultimately the problem with this calculation is that the
+                // y degrees are skewed somehow.
+                // fr.getTargetYDegrees? ok so lowkey theyre the same thing but
+                // fr.getTargetYDegrees is newer
                 double y_rads = Math.toRadians(y_degrees);
-                double horizontalDistance = Math.tan(y_rads) * DEPOT_HEIGHT;
-                double otherTry = DEPOT_HEIGHT / Math.tan(y_rads);
-                telemetry.addData("yradians", y_rads);
+                double horizontalDistance = TAG_HEIGHT / Math.tan(y_rads);
+                telemetry.addData("Tag Height", TAG_HEIGHT);
+                telemetry.addData("Y Offset (Radians)", y_rads);
                 telemetry.addData("Tangent of Angle", Math.tan(y_rads));
                 telemetry.addData("Horizontal Distance", horizontalDistance);
-                telemetry.addData("Other Try:", otherTry);
+
+                if (fr.getTargetXDegrees() < -5) {
+                    // motor do this
+                } else if (fr.getTargetXDegrees() > 5) {
+                    // motor do this
+                }
             }
 
             ///  Testing Case: 10/6/25 7:49 PM

@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode;
-
-import static org.firstinspires.ftc.teamcode.constants.ed;
-import static org.firstinspires.ftc.teamcode.constants.ei;
-import static org.firstinspires.ftc.teamcode.constants.ep;
-import static org.firstinspires.ftc.teamcode.constants.f;
+package org.firstinspires.ftc.teamcode.test_files;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-@TeleOp(name = "ShooterTest")
+import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+
+@TeleOp(name = "ShooterTest", group = "Tests")
 public class ShooterTest extends OpMode {
     private Shooter shooter;
 
@@ -37,25 +33,11 @@ public class ShooterTest extends OpMode {
         // increment code
         // runs every 0.001 ms or wtv
 
-        ///  Motor controls
-        ///  might have to reverse motor direction
+        ///  PID
         if (gamepad1.aWasPressed()) {
             // motor to max target
-            shooter.to_thousand();
+            shooter.perf_velocity();
         }
-        ///  incrementally change the motor speed
-        if(gamepad1.dpadUpWasPressed()) {
-            shooter.increaseVelocity();
-        }
-        if(gamepad1.dpadDownWasPressed()) {
-            shooter.decreaseVelocity();
-        }
-
-        ///  stop motor
-        if (gamepad1.bWasPressed()) {
-            shooter.to_zero();
-        }
-
         if (gamepad1.left_trigger > 0.4) {
             shooter.to_fivehund();
         }
@@ -63,6 +45,22 @@ public class ShooterTest extends OpMode {
         if (gamepad1.right_trigger > 0.4) {
             shooter.stress();
         }
+
+        if (gamepad1.bWasPressed()) {
+            shooter.to_zero();
+        }
+
+        ///  incrementally change the motor speed
+        /*
+        if(gamepad1.dpadUpWasPressed()) {
+            shooter.increaseVelocity();
+        }
+        if(gamepad1.dpadDownWasPressed()) {
+            shooter.decreaseVelocity();
+        }
+
+         */
+
 
 
 
@@ -74,6 +72,10 @@ public class ShooterTest extends OpMode {
             ///Increase the position 0.1
             shooter.increasePosition();
         }
+        if (g1.xWasPressed()) {
+            // Decrease the position 0.1
+            shooter.decreasePosition();
+        }
         if (gamepad1.leftBumperWasPressed()){
             shooter.increasePositionBare();
         }
@@ -81,10 +83,7 @@ public class ShooterTest extends OpMode {
             shooter.decreasePositionBare();
         }
 
-        if (g1.xWasPressed()) {
-            // Decrease the position 0.1
-            shooter.decreasePosition();
-        }
+
         ///  to the max angles
         if(g1.dpadLeftWasPressed()) {
             shooter.positionMin();

@@ -1,12 +1,13 @@
-package org.firstinspires.ftc.teamcode.inspo;
+package org.firstinspires.ftc.teamcode.unused;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Another test code")
-public class secondmotorforsomereason extends OpMode {
+@Disabled
+public class motor_test2 extends OpMode {
     private DcMotorEx ericsbutt;
 
     @Override
