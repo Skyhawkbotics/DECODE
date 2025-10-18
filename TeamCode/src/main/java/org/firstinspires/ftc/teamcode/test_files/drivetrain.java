@@ -14,18 +14,18 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class drivetrain extends OpMode {
 
-    private DcMotorEx Left_front, Left_back, Right_front, Right_back;
+    private DcMotorEx left_front, left_back, right_front, right_back;
 
     @Override
     public void init() {
 
 
-         Left_front = hardwareMap.get(DcMotorEx.class, "L front");
-         Left_front.setDirection(DcMotorSimple.Direction.REVERSE);
-         Left_back = hardwareMap.get(DcMotorEx.class, "L rear");
-         Left_back.setDirection(DcMotorSimple.Direction.REVERSE);
-        Right_front = hardwareMap.get(DcMotorEx.class, "R front");
-        Right_back = hardwareMap.get(DcMotorEx.class, "R rear");
+         left_front = hardwareMap.get(DcMotorEx.class, "L front");
+         left_front.setDirection(DcMotorSimple.Direction.REVERSE);
+         left_back = hardwareMap.get(DcMotorEx.class, "L rear");
+         left_back.setDirection(DcMotorSimple.Direction.REVERSE);
+        right_back = hardwareMap.get(DcMotorEx.class, "R front");
+        right_back = hardwareMap.get(DcMotorEx.class, "R rear");
 
 
     }
@@ -33,10 +33,10 @@ public class drivetrain extends OpMode {
     @Override
     public void loop() {
 
-        telemetry.addData("back left direction", Left_back.getDirection());
-        telemetry.addData("back right direction", Right_back.getDirection());
-        telemetry.addData("front left direction", Left_front.getDirection());
-        telemetry.addData("front right direction", Right_front.getDirection());
+        telemetry.addData("back left direction", left_back.getDirection());
+        telemetry.addData("back right direction", right_back.getDirection());
+        telemetry.addData("front left direction", left_front.getDirection());
+        telemetry.addData("front right direction", right_front.getDirection());
         telemetry.addData("left stick x", gamepad1.left_stick_x);
         telemetry.addData("left stick y", gamepad1.left_stick_y);
         telemetry.update();
@@ -53,10 +53,10 @@ public class drivetrain extends OpMode {
         double frontRightPower = (y - x - rx) / denominator;
         double backRightPower = (y + x - rx) / denominator;
 
-        Left_front.setPower(frontLeftPower);
-        Left_back.setPower(backLeftPower);
-        Right_front.setPower(frontRightPower);
-        Right_back.setPower(backRightPower);
+        left_front.setPower(frontLeftPower);
+        left_back.setPower(backLeftPower);
+        right_front.setPower(frontRightPower);
+        right_back.setPower(backRightPower);
     }
 
 
