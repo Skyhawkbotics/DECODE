@@ -7,16 +7,17 @@ import com.qualcomm.hardware.limelightvision.LLStatus;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 import java.util.List;
 
-@TeleOp(name = "limelight")
-public class LLtest extends OpMode {
+public class LLtest {
     double TAG_HEIGHT = 19;
     private Limelight3A limelight;
-    public void init() {
+    public void Limelight(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         limelight.pipelineSwitch(0);
@@ -25,9 +26,7 @@ public class LLtest extends OpMode {
 
         telemetry.addData(">", "Robot Ready. Press Play.");
         telemetry.update();
-    }
 
-    public void loop() {
         LLStatus status = limelight.getStatus();
 
         telemetry.setMsTransmissionInterval(20);
