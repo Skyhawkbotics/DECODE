@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TriggerTest extends OpMode {
     private Servo servo;
     public void init() {
-        servo = hardwareMap.get(Servo.class, "servo");
+        servo = hardwareMap.get(Servo.class, "angle");
     }
     public void loop() {
         if (gamepad1.aWasPressed()) {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.test_files;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name = "Abe Test Code", group = "Tests")
 public class Motor_test extends OpMode {
@@ -13,13 +14,14 @@ public class Motor_test extends OpMode {
 
     @Override
     public void init() {
-        motor1 = hardwareMap.get(DcMotorEx.class, "motor1");
+        motor1 = hardwareMap.get(DcMotorEx.class, "s top");
         motor1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        motor2 = hardwareMap.get(DcMotorEx.class, "motor2");
+        motor2 = hardwareMap.get(DcMotorEx.class, "s bot");
         motor2.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        motor2.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     @Override
@@ -49,6 +51,10 @@ public class Motor_test extends OpMode {
         if (gamepad1.b) {
             motor1.setPower(0.5);
             motor2.setPower(0.5);
+        }
+        if (gamepad1.a) {
+            motor1.setPower(0);
+            motor2.setPower(0);
         }
     }
 }

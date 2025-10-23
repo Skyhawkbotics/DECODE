@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.*;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -12,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class Shooter {
-    private DcMotorEx motor;
+    private DcMotorEx top_motor, bot_motor;
 
     public PIDController pid;
 
@@ -30,23 +31,29 @@ public class Shooter {
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
-        motor = hardwareMap.get(DcMotorEx.class, "please work");
-        motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        top_motor = hardwareMap.get(DcMotorEx.class, "top");
+        top_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        top_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        bot_motor = hardwareMap.get(DcMotorEx.class, "bottom");
+        bot_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        bot_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        bot_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         pid = new PIDController(ep, ei, ed);
 
-        servo = hardwareMap.get(Servo.class, "shooterServo");
+        servo = hardwareMap.get(Servo.class, "shoot");
         this.telemetry = telemetry;
     }
 
     public void update() { /// PID Update loop
         pid.setPID(ep, ei, ed);
-        motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        double pid_output = pid.calculate(motor.getVelocity(), target);
+        double pid_output = pid.calculate(top_motor.getVelocity(), target);
         double power = pid_output;
-        motor.setPower(power);
+        top_motor.setPower(power);
+        bot_motor.setPower(power);
     }
 
     public void setTarget(int b) {
@@ -118,11 +125,12 @@ public class Shooter {
     ///  old motor
     public void increaseVelocity() {
         // increments motor speed by 200 ticks
-        motor.setVelocity(motor.getVelocity() + 25);
+        setTarget(target + 50);
     }
     public void decreaseVelocity() {
         // increments motor speed by 200 ticks
-        motor.setVelocity(motor.getVelocity() - 25);
+        setTarget(target - 50);
+
     }
 
 
@@ -142,9 +150,9 @@ public class Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("motor speed in ticks", motor.getVelocity());
-        telemetry.addData("motor position", motor.getCurrentPosition());
-        telemetry.addData("motor rpm", conversion_RPM(motor.getVelocity()));
+        telemetry.addData("motor speed in ticks", top_motor.getVelocity());
+        telemetry.addData("motor position", top_motor.getCurrentPosition());
+        telemetry.addData("motor rpm", conversion_RPM(top_motor.getVelocity()));
         telemetry.addData("servo position", servo.getPosition());
         telemetry.addData("current target", target);
         // telemetry.addData("Servo position", servo.getPosition());

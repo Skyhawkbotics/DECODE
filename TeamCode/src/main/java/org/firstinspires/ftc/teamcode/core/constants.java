@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.core;
 
 
 import com.bylazar.configurables.annotations.Configurable;
+import com.pedropathing.geometry.Pose;
 
 /// This class stores all values such as positions for bucket, transfer, and claws.
 /// allowing the dashboard to config it allows us to modify it
@@ -22,8 +23,7 @@ public class constants {
     public static int half_speed = 500;
     public static int perf_value = 1000;
 
-    public static double positionMin = 0;
-    public static double positionMax = 0.4;
-
+    public static double positionMin = 0.05;
+    public static double positionMax = 0.95;
 
 }

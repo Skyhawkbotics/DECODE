@@ -38,30 +38,17 @@ public class ShooterTest extends OpMode {
             // motor to max target
             shooter.perf_velocity();
         }
-        if (gamepad1.left_trigger > 0.4) {
-            shooter.to_fivehund();
+        if (gamepad1.leftBumperWasPressed()) {
+            shooter.increaseVelocity();
         }
 
-        if (gamepad1.right_trigger > 0.4) {
-            shooter.stress();
+        if (gamepad1.rightBumperWasPressed()) {
+            shooter.decreaseVelocity();
         }
 
         if (gamepad1.bWasPressed()) {
             shooter.to_zero();
         }
-
-        ///  incrementally change the motor speed
-        /*
-        if(gamepad1.dpadUpWasPressed()) {
-            shooter.increaseVelocity();
-        }
-        if(gamepad1.dpadDownWasPressed()) {
-            shooter.decreaseVelocity();
-        }
-
-         */
-
-
 
 
 
@@ -76,14 +63,6 @@ public class ShooterTest extends OpMode {
             // Decrease the position 0.1
             shooter.decreasePosition();
         }
-        if (gamepad1.leftBumperWasPressed()){
-            shooter.increasePositionBare();
-        }
-        if (gamepad1.rightBumperWasPressed()){
-            shooter.decreasePositionBare();
-        }
-
-
         ///  to the max angles
         if(g1.dpadLeftWasPressed()) {
             shooter.positionMin();
@@ -91,7 +70,6 @@ public class ShooterTest extends OpMode {
         if(g1.dpadRightWasPressed()) {
             shooter.positionMax();
         }
-
 
 
         shooter.shooter_telemetry();
