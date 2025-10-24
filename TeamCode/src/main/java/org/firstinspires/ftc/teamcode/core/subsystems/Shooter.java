@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
-public class Shooter {
+public class     Shooter {
     private DcMotorEx top_motor, bot_motor;
 
     public PIDController pid;

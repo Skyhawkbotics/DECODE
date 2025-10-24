@@ -82,7 +82,7 @@ public class whole_robot {
         }
         if(g2.right_stick_y < 0  ) {
             elevator.positionZero();
-        }0
+        }
         if(g2.right_stick_y > 0) {
             elevator.positionOne();
         }
