@@ -34,4 +34,12 @@ public class Elevator {
     public void decreasePosition() {
         servo.setPosition(servo.getPosition() - 0.05);
     }
+
+    public void positionZero() {
+        servo.setPosition(0);
+    }
+
+    public void positionOne() {
+        servo.setPosition(1);
+    }
 }

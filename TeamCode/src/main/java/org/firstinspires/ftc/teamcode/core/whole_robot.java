@@ -42,41 +42,49 @@ public class whole_robot {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
         drivetrain.setTeleOpDrive(0.7* g1.left_stick_y, 0.7 * g1.left_stick_x, 0.4 * g1.right_stick_x, false);
-        if (g1.aWasPressed()) {
+
+        ///  SHOOTER CODE - GAMEPAD 2
+        if (g2.aWasPressed()) {
             // motor to max target
             shooter.perf_velocity();
         }
-        if (g1.leftBumperWasPressed()) {
+        if (g2.leftBumperWasPressed()) {
             shooter.increaseVelocity();
         }
 
-        if (g1.rightBumperWasPressed()) {
+        if (g2.rightBumperWasPressed()) {
             shooter.decreaseVelocity();
         }
 
-        if (g1.bWasPressed()) {
+        if (g2.bWasPressed()) {
             shooter.to_zero();
         }
-        if (g1.yWasPressed()) {
+        if (g2.yWasPressed()) {
             ///Increase the position 0.1
             shooter.increasePosition();
         }
-        if (g1.xWasPressed()) {
+        if (g2.xWasPressed()) {
             // Decrease the position 0.1
             shooter.decreasePosition();
         }
         ///  to the max angles
-        if(g1.dpadLeftWasPressed()) {
+        if(g2.dpadLeftWasPressed()) {
             shooter.positionMin();
         }
-        if(g1.dpadRightWasPressed()) {
+        if(g2.dpadRightWasPressed()) {
             shooter.positionMax();
         }
-        if(g2.yWasPressed()) {
+        if(g2.left_stick_y > 0) {
             elevator.top();
         }
-        if(g2.xWasPressed()) {
+        if(g2.left_stick_y < 0) {
             elevator.bottom();
+        }
+        if(g2.right_stick_y < 0  ) {
+            elevator.positionZero();
+        }0
+        if(g2.right_stick_y > 0) {
+            elevator.positionOne();
         }
     }
     public void robot_update() {
