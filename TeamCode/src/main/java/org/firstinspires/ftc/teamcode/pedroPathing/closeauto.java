@@ -13,9 +13,9 @@ public class closeauto extends OpMode {
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
 
-    private final Pose startPose = new Pose(56, 8, Math.toRadians(90)); // Start Pose of our robot.
+    private final Pose startPose = new Pose(122.5, 124.4, Math.toRadians(36)); // Start Pose of our robot.
 
-    private final Pose shootPos = new Pose(56,82.4, Math.toRadians(41)); // shooting position
+    private final Pose shootPos = new Pose(94,95, Math.toRadians(46)); // shooting position
 
     private final Pose parkPos = new Pose(38.214,14.7, Math.toRadians(90)); // park position
 
