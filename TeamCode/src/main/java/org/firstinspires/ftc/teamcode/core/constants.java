@@ -25,13 +25,13 @@ public class constants {
 
     /// constants for halle
     ///
-    public static int perf_value = 1250; ///vertex of largest triangle
+    public static int perf_value = 1300; ///vertex of largest triangle
 
-    public static int far_side_shoot = 1500; ///vertex of smallest triangle
+    public static int far_side_shoot = 1540; ///vertex of smallest triangle
 
-    public static int closest = 1000; ///position closest on the line
+    public static int closest = 1150; ///position closest on the line
 
-    public static int middle_of_field = 1100; ///position from middle of the largest triangle
+    public static int middle_of_field = 1200; ///position from middle of the largest triangle
 
     public static double positionMin = 0.0;
     public static double positionMax = 0.4;
