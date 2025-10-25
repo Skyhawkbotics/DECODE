@@ -139,7 +139,7 @@ public class LL {
             telemetry.addData("Corrected X Degrees", result.getTx() + 5);
             return result.getTx() + 5;
         }
-        return 0;
+        return 100;
     }
     }
 
