@@ -12,10 +12,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 import java.util.List;
 
-public class LLSubsystem {
+public class LL {
     double TAG_HEIGHT = 19;
     private Limelight3A limelight;
-    public void Limelight(HardwareMap hardwareMap, Telemetry telemetry) {
+
+    public LL(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         limelight.pipelineSwitch(0);
@@ -99,15 +100,11 @@ public class LLSubsystem {
                 // fr.getTargetYDegrees is newer
                 double y_rads = Math.toRadians(y_degrees);
                 double horizontalDistance = TAG_HEIGHT / Math.tan(y_rads);
-                telemetry.addData("Tag Height", TAG_HEIGHT);
-                telemetry.addData("Y Offset (Radians)", y_rads);
-                telemetry.addData("Tangent of Angle", Math.tan(y_rads));
-                telemetry.addData("Horizontal Distance", horizontalDistance);
+                ///  telemetry.addData("Tag Height", TAG_HEIGHT);
+                ///                 telemetry.addData("Y Offset (Radians)", y_rads);
+                ///                 telemetry.addData("Tangent of Angle", Math.tan(y_rads));
+                ///                 telemetry.addData("Horizontal Distance", horizontalDistance);
 
-                if (fr.getTargetXDegrees() < -5) {
-                    // motor do this
-                } else if (fr.getTargetXDegrees() > 5) {
-                    // motor do this
                 }
             }
 
@@ -125,15 +122,24 @@ public class LLSubsystem {
             ///  subtracted by the height of the camera off the ground. Otherwise, it should
             ///  be on the ground so that it works properly.
 
-            ///  TLDR: Set the camera on the ground when calculating.
-        }
-        else {
+            ///  TLDR: Set the camera on the ground when calculating. / a constant place
+         else {
             telemetry.addData("Limelight", "No Data Available");
         }
         telemetry.update();
 
     }
 
+    public double getTx(Telemetry telemetry) {
+        LLStatus status = limelight.getStatus();
+        LLResult result = limelight.getLatestResult();
 
+        if (result.isValid()) {
+            telemetry.addData("X Degrees", result.getTx());
+            telemetry.addData("Corrected X Degrees", result.getTx() + 5);
+            return result.getTx() + 5;
+        }
+        return 0;
+    }
+    }
 
-}

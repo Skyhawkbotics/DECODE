@@ -11,10 +11,12 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.test_files.LL;
 
 public class whole_robot {
     private Shooter shooter;
 
+    private LL limelight;
     private Elevator elevator;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -31,6 +33,7 @@ public class whole_robot {
         this.dummyg2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
+        limelight = new LL(hardwareMap, telemetry);
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
@@ -46,6 +49,7 @@ public class whole_robot {
         g2.copy(dummyg2);
         follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x, true);
         follower.update();
+        limelight.RunLimelight(telemetry);
 
         ///  SHOOTER CODE - GAMEPAD 2
         if (g2.aWasPressed()) {
@@ -82,6 +86,10 @@ public class whole_robot {
             elevator.top();
         } else {
             elevator.bottom();
+        }
+        if(Math.abs(limelight.getTx(telemetry)) < 5) {
+            telemetry.addData("Target in Range.", "");
+            g2.rumble(500);
         }
     }
     public void robot_update() {
