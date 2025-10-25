@@ -98,7 +98,7 @@ public class whole_robot {
             shooter.perf_velocity();
         }
         if (dummyg1.xWasPressed()) {
-            shooter.far_side_shoot();
+            shooter.back_perf();
         }
 
     public void robot_update() {
