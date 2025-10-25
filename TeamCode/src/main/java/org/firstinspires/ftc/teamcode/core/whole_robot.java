@@ -80,15 +80,8 @@ public class whole_robot {
         }
         if(g2.left_stick_y > 0) {
             elevator.top();
-        }
-        if(g2.left_stick_y < 0) {
+        } else {
             elevator.bottom();
-        }
-        if(g2.right_stick_y < 0  ) {
-            elevator.positionZero();
-        }
-        if(g2.right_stick_y > 0) {
-            elevator.positionOne();
         }
     }
     public void robot_update() {
