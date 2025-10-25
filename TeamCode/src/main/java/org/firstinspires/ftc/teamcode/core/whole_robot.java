@@ -22,6 +22,9 @@ public class whole_robot {
     public static Pose startPose = new Pose(0,0, Math.toRadians(90));
 
 
+
+
+
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
     public whole_robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2) {
         this.hardwareMap = hardwareMap;
@@ -85,7 +88,19 @@ public class whole_robot {
         }
 
 
-    }
+        if (dummyg1.squareWasPressed()) {
+            shooter.closest();
+        }
+        if (dummyg1.triangleWasPressed()) {
+            shooter.middle();
+        }
+        if (dummyg1.circleWasPressed()) {
+            shooter.perf_velocity();
+        }
+        if (dummyg1.xWasPressed()) {
+            shooter.far_side_shoot();
+        }
+
     public void robot_update() {
         shooter.shooter_telemetry();
         shooter.update();

@@ -33,6 +33,18 @@ public class     Shooter {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         top_motor = hardwareMap.get(DcMotorEx.class, "top");
@@ -93,6 +105,7 @@ public class     Shooter {
     public void back_perf(){
         setTarget(far_side_shoot);
     }
+
     public void to_fivehund() {
         setTarget(half_speed);
     }
@@ -105,6 +118,8 @@ public class     Shooter {
     public void stress() {
         setTarget(max);
     }
+
+
 
 
 
