@@ -26,11 +26,10 @@ public class closeauto extends OpMode {
 
     public void buildPaths(){
         gotoShooterSpot = new Path(new BezierLine(startPose, shootPos));
-        // gotoShooterSpot.setLinearHeadingInterpolation(startPose.getHeading(), shootPos.getHeading());
-        gotoShooterSpot.setConstantHeadingInterpolation(startPose.getHeading());
+        gotoShooterSpot.setLinearHeadingInterpolation(startPose.getHeading(), shootPos.getHeading());
 
         gotoPark = new Path(new BezierLine(shootPos, parkPos));
-        // gotoPark.setLinearHeadingInterpolation(shootPos.getHeading(), parkPos.getHeading());
+        gotoPark.setLinearHeadingInterpolation(shootPos.getHeading(), parkPos.getHeading());
     }
 
     public void autonomousPathUpdate(){
@@ -41,7 +40,7 @@ public class closeauto extends OpMode {
                 break;
             case 1:
                 if(!follower.isBusy()) {
-                    // follower.followPath(gotoPark, true);
+                    follower.followPath(gotoPark, true);
                     setPathState(2);
                 }
                 break;
