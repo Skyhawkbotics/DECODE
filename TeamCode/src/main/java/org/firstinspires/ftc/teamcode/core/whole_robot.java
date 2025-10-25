@@ -19,7 +19,7 @@ public class whole_robot {
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
-    public static Pose startPose = new Pose(0, 0, Math.toRadians(90));
+    public Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
@@ -42,61 +42,62 @@ public class whole_robot {
 
 
     }
+    public whole_robot(HardwareMap hardwareMap, Telemetry telemetry) {
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        elevator = new Elevator(hardwareMap, telemetry);
+        shooter.positionMax();
+
+
+    }
+
 
     public void solo_controls() {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x, true);
+        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x * 0.4, false);
         follower.update();
 
-        ///  SHOOTER CODE - GAMEPAD 2
-        if (g2.aWasPressed()) {
-            // motor to max target
-            shooter.perf_velocity();
-        }
-        if (g2.leftBumperWasPressed()) {
-            shooter.increaseVelocity();
-        }
 
-        if (g2.rightBumperWasPressed()) {
-            shooter.decreaseVelocity();
-        }
 
-        if (g2.bWasPressed()) {
+      /*  if (dummyg2.bWasPressed()) {
             shooter.to_zero();
         }
-        if (g2.yWasPressed()) {
+        if (dummyg2.yWasPressed()) {
             ///Increase the position 0.1
             shooter.increasePosition();
         }
-        if (g2.xWasPressed()) {
+        if (dummyg2.xWasPressed()) {
             // Decrease the position 0.1
             shooter.decreasePosition();
         }
+
+       */
         ///  to the max angles
-        if(g2.dpadLeftWasPressed()) {
-            shooter.positionMin();
-        }
-        if(g2.dpadRightWasPressed()) {
-            shooter.positionMax();
-        }
-        if(g2.left_stick_y > 0) {
+
+        if(dummyg1.right_bumper) {
             elevator.top();
         } else {
             elevator.bottom();
         }
+        if(dummyg2.rightBumperWasPressed()) {
+            shooter.to_zero();
+        }
 
 
-        if (dummyg1.squareWasPressed()) {
+        if (dummyg2.squareWasPressed()) {
             shooter.closest();
         }
-        if (dummyg1.triangleWasPressed()) {
+        if (dummyg2.triangleWasPressed()) {
             shooter.middle();
         }
-        if (dummyg1.circleWasPressed()) {
+        if (dummyg2.circleWasPressed()) {
             shooter.perf_velocity();
         }
-        if (dummyg1.xWasPressed()) {
+        if (dummyg2.crossWasPressed()) {
             shooter.back_perf();
         }
 
@@ -106,10 +107,21 @@ public class whole_robot {
             shooter.shooter_telemetry();
             shooter.update();
             telemetry.update();
+            follower.update();
 
-            shooter.getTarget();
-            shooter.getvelocity();
 
+        }
+        public Follower getFollower() {
+        return follower;
+        }
+        public Shooter getShooter() {
+        return shooter;
+        }
+        public Elevator getElevator() {
+        return elevator;
+        }
+        public Telemetry getTelemetry() {
+        return telemetry;
         }
 
 }

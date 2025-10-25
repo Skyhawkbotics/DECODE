@@ -26,8 +26,8 @@ public class     Shooter {
     private double min_angle_serv_pos = 0;
 
     private Telemetry telemetry; //hi sam
-
-
+    private double power;
+    private boolean is_updating;
 
 
 
@@ -63,15 +63,27 @@ public class     Shooter {
     }
 
     public void update() { /// PID Update loop
-        pid.setPID(ep, ei, ed);
-        top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        if(is_updating) {
+            pid.setPID(ep, ei, ed);
+            top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-        double pid_output = pid.calculate(top_motor.getVelocity(), target);
-        double power = pid_output;
-        top_motor.setPower(power);
-        bot_motor.setPower(power);
+            double pid_output = pid.calculate(top_motor.getVelocity(), target);
+            power = pid_output;
+            top_motor.setPower(power);
+            bot_motor.setPower(power);
+        } else {
+            top_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            top_motor.setPower(0);
+            bot_motor.setPower(0);
+        }
 
 
+    }
+    public void toggle_update_true() {
+        is_updating = true;
+    }
+    public void toggle_update_false() {
+        is_updating = false;
     }
 
     public void setTarget(int b) {
@@ -92,30 +104,29 @@ public class     Shooter {
 
     ///  Methods for quick PID target values, methods for the four velocities
     public void perf_velocity() {
+        toggle_update_true();
         setTarget(perf_value);
     }
     public void closest (){
+        toggle_update_true();
         setTarget(closest);
     }
 
     public void middle(){
+        toggle_update_true();
         setTarget(middle_of_field);
     }
 
-    public void back_perf(){
+    public void back_perf() {
+        toggle_update_true();
         setTarget(far_side_shoot);
     }
-
-    public void to_fivehund() {
-        setTarget(half_speed);
-    }
-    public void to_three_fourths() {
-        setTarget(three_fourths);
-    }
     public void to_zero() {
+        toggle_update_false();
         setTarget(0);
     }
     public void stress() {
+        toggle_update_true();
         setTarget(max);
     }
 
@@ -187,6 +198,7 @@ public class     Shooter {
         telemetry.addData("motor rpm", conversion_RPM(top_motor.getVelocity()));
         telemetry.addData("servo position", servo.getPosition());
         telemetry.addData("current target", target);
+        telemetry.addData("pid output", power);
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public int getTarget() {

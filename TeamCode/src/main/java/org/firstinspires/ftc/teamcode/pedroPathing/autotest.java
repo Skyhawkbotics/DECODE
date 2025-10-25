@@ -28,7 +28,7 @@ public class autotest extends OpMode {
 
 
     private final Pose startPose = new Pose(56, 8, Math.toRadians(90)); // Start Pose of our robot.
-    private final Pose intake1 = new Pose(16.131147540983605, 9.442622950819667, Math.toRadians(180)); // moving to human intake zone
+    private final Pose shootPose = new Pose(70, 20, Math.toRadians(50)); // moving to human intake zone
     private final Pose twirl = new Pose(16.131147540983605, 9.442622950819667, Math.toRadians(30)); // rotating to face the goal
     private final Pose move2score = new Pose(70.62295081967213, 10.622950819672127, Math.toRadians(63)); // enters tiny triangle launch zone to score
 
@@ -37,16 +37,16 @@ public class autotest extends OpMode {
 
 
 
-    private Path autoScoring; ///this auto runs back and forth between the tiny triangle launch zone to the human intake zone 3 times (should take <10 seconds per iteration)
+    private Path score1; ///this auto runs back and forth between the tiny triangle launch zone to the human intake zone 3 times (should take <10 seconds per iteration)
     private PathChain rotate, scorePickup1, grabPickup2, scorePickup2, grabPickup3, scorePickup3;
     public void buildPaths(){
-        autoScoring = new Path(new BezierLine(startPose, intake1));
-        autoScoring.setLinearHeadingInterpolation(startPose.getHeading(), intake1.getHeading());
+        score1 = new Path(new BezierLine(startPose, shootPose));
+        score1.setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading());
 
 
         rotate = follower.pathBuilder()
-                .addPath(new BezierLine(intake1, twirl))
-                .setLinearHeadingInterpolation(intake1.getHeading(), twirl.getHeading())
+                .addPath(new BezierLine(shootPose, twirl))
+                .setLinearHeadingInterpolation(shootPose.getHeading(), twirl.getHeading())
                 .build();
 
 
@@ -57,8 +57,8 @@ public class autotest extends OpMode {
 
 
         grabPickup2 = follower.pathBuilder()
-                .addPath(new BezierLine(move2score,intake1))
-                .setLinearHeadingInterpolation(move2score.getHeading(),intake1.getHeading())
+                .addPath(new BezierLine(move2score, shootPose))
+                .setLinearHeadingInterpolation(move2score.getHeading(), shootPose.getHeading())
                 .build();
 
 
@@ -69,8 +69,8 @@ public class autotest extends OpMode {
 
 
         grabPickup3 = follower.pathBuilder()
-                .addPath(new BezierLine(move2score,intake1))
-                .setLinearHeadingInterpolation(move2score.getHeading(),intake1.getHeading())
+                .addPath(new BezierLine(move2score, shootPose))
+                .setLinearHeadingInterpolation(move2score.getHeading(), shootPose.getHeading())
                 .build();
 
 
@@ -86,14 +86,14 @@ public class autotest extends OpMode {
     public void autonomousPathUpdate(){
         switch (pathState) {
             case 0:
-                follower.followPath(autoScoring);
+                follower.followPath(score1);
                 setarmstate(0);
                 setPathState(1);
                 break;
             case 1:
-                if (!follower.isBusy()){
-                    follower.followPath(rotate, true);
-                    setPathState(2);
+                if (pathTimer.getElapsedTimeSeconds() > 5){
+                    setarmstate(2);
+                    setPathState(-1);
                 }
                 break;
             case 2:
@@ -138,6 +138,8 @@ public class autotest extends OpMode {
         switch (armstate) {
             case 0: // ready fire
                 shoot.perf_velocity();
+                shoot.update();
+
                 break;
             case 1:
                 shoot.to_zero();
@@ -172,7 +174,6 @@ public class autotest extends OpMode {
         follower.setStartingPose(startPose);
         shoot = new Shooter(hardwareMap, telemetry);
         fire = new Elevator(hardwareMap, telemetry);
-        setarmstate(3);
 
 
     }
@@ -182,12 +183,15 @@ public class autotest extends OpMode {
     public void loop() {
         follower.update();
         autonomousPathUpdate();
-
+        shoot.update();
+        shoot.shooter_telemetry();
 
         telemetry.addData("path state", pathState);
         telemetry.addData("x", follower.getPose().getX());
         telemetry.addData("y", follower.getPose().getY());
         telemetry.addData("heading", follower.getPose().getHeading());
+        telemetry.addData("follow busy", follower.isBusy());
+        telemetry.addData("arm state", armstate);
         telemetry.update();
     }
 }
