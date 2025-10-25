@@ -21,9 +21,14 @@ public class constants {
     public static int max = 2000;
     public static int three_fourths = 750;
     public static int half_speed = 500;
-    public static int perf_value = 1000;
+    public static int perf_value = 1250;
 
-    public static double positionMin = 0.05;
-    public static double positionMax = 0.95;
+    public static int far_side_shoot = 1500;
+
+    public static double positionMin = 0.0;
+    public static double positionMax = 0.4;
+    public static double bottom = 1;
+
+    public static double top = 0.5;
 
 }

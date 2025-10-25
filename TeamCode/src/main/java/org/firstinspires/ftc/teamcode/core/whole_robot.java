@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -16,7 +18,7 @@ public class whole_robot {
     private Elevator elevator;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
-    private Follower drivetrain;
+    private Follower follower;
     public static Pose startPose = new Pose(0,0, Math.toRadians(90));
 
 
@@ -24,7 +26,7 @@ public class whole_robot {
     public whole_robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
-        drivetrain = Constants.createFollower(hardwareMap);
+        follower = Constants.createFollower(hardwareMap);
         this.dummyg1 = game1;
         this.dummyg2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
@@ -33,15 +35,17 @@ public class whole_robot {
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
         this.prevg2 = new Gamepad();
-        drivetrain.setStartingPose(startPose);
+        follower.setStartingPose(startPose);
+        follower.startTeleopDrive();
+        follower.update();
+
 
     }
     public void solo_controls() {
-        prevg1.copy(g1);
-        prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        drivetrain.setTeleOpDrive(0.7* g1.left_stick_y, 0.7 * g1.left_stick_x, 0.4 * g1.right_stick_x, false);
+        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x, true);
+        follower.update();
 
         ///  SHOOTER CODE - GAMEPAD 2
         if (g2.aWasPressed()) {
@@ -90,6 +94,7 @@ public class whole_robot {
     public void robot_update() {
         shooter.shooter_telemetry();
         shooter.update();
-        drivetrain.update();
+        telemetry.update();
+
     }
 }

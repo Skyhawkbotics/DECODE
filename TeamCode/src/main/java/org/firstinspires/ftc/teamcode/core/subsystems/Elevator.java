@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
+import static org.firstinspires.ftc.teamcode.core.constants.bottom;
+import static org.firstinspires.ftc.teamcode.core.constants.top;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -9,9 +12,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Elevator {
 
-    double bottom = 0.65;
 
-    double top = 0;
     private Telemetry telemetry;
     private Servo servo;
 
