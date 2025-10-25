@@ -29,6 +29,22 @@ public class     Shooter {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         top_motor = hardwareMap.get(DcMotorEx.class, "top");
@@ -54,6 +70,8 @@ public class     Shooter {
         double power = pid_output;
         top_motor.setPower(power);
         bot_motor.setPower(power);
+
+
     }
 
     public void setTarget(int b) {
@@ -72,10 +90,22 @@ public class     Shooter {
 
     }
 
-    ///  Methods for quick PID target values
+    ///  Methods for quick PID target values, methods for the four velocities
     public void perf_velocity() {
         setTarget(perf_value);
     }
+    public void closest (){
+        setTarget(closest);
+    }
+
+    public void middle(){
+        setTarget(middle_of_field);
+    }
+
+    public void back_perf(){
+        setTarget(far_side_shoot);
+    }
+
     public void to_fivehund() {
         setTarget(half_speed);
     }
@@ -88,6 +118,8 @@ public class     Shooter {
     public void stress() {
         setTarget(max);
     }
+
+
 
 
 
@@ -156,6 +188,12 @@ public class     Shooter {
         telemetry.addData("servo position", servo.getPosition());
         telemetry.addData("current target", target);
         // telemetry.addData("Servo position", servo.getPosition());
+    }
+    public int getTarget() {
+        return target;
+    }
+    public int getvelocity() {
+        return (int) top_motor.getVelocity();
     }
 }
 
