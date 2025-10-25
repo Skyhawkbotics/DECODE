@@ -16,7 +16,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.021, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
+    public static double ep = 0.025, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
 
     public static int max = 2000;
     public static int three_fourths = 750;
@@ -27,7 +27,7 @@ public class constants {
     ///
     public static int perf_value = 1300; ///vertex of largest triangle
 
-    public static int far_side_shoot = 1540; ///vertex of smallest triangle
+    public static int far_side_shoot = 1560; ///vertex of smallest triangle
 
     public static int closest = 1150; ///position closest on the line
 
