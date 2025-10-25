@@ -83,11 +83,16 @@ public class whole_robot {
         } else {
             elevator.bottom();
         }
+
+
     }
     public void robot_update() {
         shooter.shooter_telemetry();
         shooter.update();
         telemetry.update();
+
+        shooter.getTarget();
+        shooter.getvelocity();
 
     }
 }
