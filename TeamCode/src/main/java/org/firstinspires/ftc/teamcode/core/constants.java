@@ -38,5 +38,6 @@ public class constants {
     public static double bottom = 1;
 
     public static double top = 0.5;
+    public static double angle = 90;
 
 }

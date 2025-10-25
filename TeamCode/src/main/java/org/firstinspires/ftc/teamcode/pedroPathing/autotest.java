@@ -10,6 +10,9 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
+import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+
 
 @Autonomous(name = "Test Auto", group = "Test")
 public class autotest extends OpMode {
@@ -19,7 +22,9 @@ public class autotest extends OpMode {
     private Timer pathTimer, actionTimer, opmodeTimer;
 
 
-    private int pathState;
+    private int pathState, armstate;
+    private Shooter shoot;
+    private Elevator fire;
 
 
     private final Pose startPose = new Pose(56, 8, Math.toRadians(90)); // Start Pose of our robot.
@@ -82,6 +87,7 @@ public class autotest extends OpMode {
         switch (pathState) {
             case 0:
                 follower.followPath(autoScoring);
+                setarmstate(0);
                 setPathState(1);
                 break;
             case 1:
@@ -89,38 +95,68 @@ public class autotest extends OpMode {
                     follower.followPath(rotate, true);
                     setPathState(2);
                 }
+                break;
             case 2:
                 if (!follower.isBusy()){
                     follower.followPath(scorePickup1, true);
                     setPathState(3);
                 }
+                break;
             case 3:
-                if (!follower.isBusy()){
+                if (!follower.isBusy()) {
+                    setarmstate(0);
+                    setPathState(30);
+                }
+                break;
+            case 30:
+                if(pathTimer.getElapsedTimeSeconds() > 3) {
                     follower.followPath(grabPickup2, true);
                     setPathState(4);
                 }
+                break;
             case 4:
                 if (!follower.isBusy()){
                     follower.followPath(scorePickup2, true);
                     setPathState(5);
                 }
+                break;
             case 5:
                 if (!follower.isBusy()){
                     follower.followPath(grabPickup3, true);
                     setPathState(6);
                 }
+                break;
             case 6:
                 if (!follower.isBusy()){
                     follower.followPath(scorePickup3, true);
                     setPathState(7);
                 }
+                break;
         }
     }
+    public void armupdate() {
+        switch (armstate) {
+            case 0: // ready fire
+                shoot.perf_velocity();
+                break;
+            case 1:
+                shoot.to_zero();
+            case 2:
+                fire.top();
+                break;
+            case 3:
+                fire.bottom();
+                break;
 
+        }
+    }
 
     private void setPathState(int pState) {
         pathState = pState;
         pathTimer.resetTimer();
+    }
+    private void setarmstate(int aState) {
+        armstate = aState;
     }
 
 
@@ -134,6 +170,9 @@ public class autotest extends OpMode {
         follower = Constants.createFollower(hardwareMap);
         buildPaths();
         follower.setStartingPose(startPose);
+        shoot = new Shooter(hardwareMap, telemetry);
+        fire = new Elevator(hardwareMap, telemetry);
+        setarmstate(3);
 
 
     }
