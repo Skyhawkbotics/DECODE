@@ -19,9 +19,9 @@ public class blue_far_side_auto extends OpModeCommand {
 
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
-    public  final Pose shootPose = new Pose(70,20, Math.toRadians(105));
+    public  final Pose shootPose = new Pose(60,20, Math.toRadians(105));
 
-    public  final Pose parkPose = new Pose(70,30,Math.toRadians(0));
+    public  final Pose parkPose = new Pose(60,30,Math.toRadians(0));
     private Path score1, park;
 
     public void buildPaths() {
