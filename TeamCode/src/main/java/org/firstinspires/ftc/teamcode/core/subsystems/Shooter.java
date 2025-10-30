@@ -27,6 +27,8 @@ public class     Shooter {
 
     private Telemetry telemetry; //hi sam
 
+    public shooterSpeed speed;
+
 
 
 
@@ -55,7 +57,7 @@ public class     Shooter {
         bot_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         bot_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
+        speed.shooterSpeed();
         pid = new PIDController(ep, ei, ed);
 
         servo = hardwareMap.get(Servo.class, "shoot");
