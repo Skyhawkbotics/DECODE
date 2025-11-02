@@ -41,9 +41,9 @@ public class red_far_side_auto extends OpModeCommand {
                 new RunCommand(bot::robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), score1)
-                                                .alongWith(
-                                                        new score_command(bot)
-                                                )
+                                .alongWith(
+                                        new score_command(bot)
+                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), park)
                                 )
