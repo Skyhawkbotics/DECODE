@@ -26,65 +26,111 @@ public class abeyauto extends OpMode {
         public PathChain Path1, Path2, Path3, Path4, Path5, Path6, Path7, Path8, Path9, Path10;
 
         public Paths(Follower follower) {
-            Path1 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(121.315, 120.075), new Pose(99.849, 99.056)))
-                    .setLinearHeadingInterpolation(Math.toRadians(90), Math.toRadians(180))
+            Path1 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(118.292, 129.718),
+                                    new Pose(113.083, 115.099),
+                                    new Pose(101.321, 100.313)
+                            )
+                    )
+                    .setLinearHeadingInterpolation(Math.toRadians(-143), Math.toRadians(180))
                     .build();
 
-            Path2 = follower.pathBuilder()
-                    .addPath(new BezierCurve(
-                            new Pose(99.849, 99.056),
-                            new Pose(96.719, 91.901),
-                            new Pose(100.743, 83.851)
-                    ))
+            Path2 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(101.321, 100.313),
+                                    new Pose(95.440, 93.760),
+                                    new Pose(98.800, 83.678)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path3 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(100.743, 83.851), new Pose(129.588, 83.180)))
+            Path3 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierLine(new Pose(98.800, 83.678), new Pose(126.861, 83.342))
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path4 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(129.588, 83.180), new Pose(99.849, 99.056)))
+            Path4 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(126.861, 83.342),
+                                    new Pose(105.690, 91.407),
+                                    new Pose(101.321, 99.977)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path5 = follower.pathBuilder()
-                    .addPath(new BezierCurve(
-                            new Pose(99.849, 99.056),
-                            new Pose(95.153, 63.950),
-                            new Pose(102.309, 59.255)
-                    ))
+            Path5 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(101.321, 99.977),
+                                    new Pose(86.198, 71.916),
+                                    new Pose(101.153, 59.986)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path6 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(102.309, 59.255), new Pose(132.048, 58.584)))
+            Path6 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierLine(new Pose(101.153, 59.986), new Pose(131.398, 59.482))
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path7 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(132.048, 58.584), new Pose(100.073, 99.056)))
+            Path7 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(131.398, 59.482),
+                                    new Pose(97.456, 65.531),
+                                    new Pose(101.321, 99.977)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path8 = follower.pathBuilder()
-                    .addPath(new BezierCurve(
-                            new Pose(100.073, 99.056),
-                            new Pose(90.905, 37.342),
-                            new Pose(102.309, 35.106)
-                    ))
+            Path8 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(101.321, 99.977),
+                                    new Pose(76.117, 52.425),
+                                    new Pose(100.985, 35.286)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path9 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(102.309, 35.106), new Pose(131.377, 35.106)))
+            Path9 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierLine(new Pose(100.985, 35.286), new Pose(131.902, 34.950))
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
 
-            Path10 = follower.pathBuilder()
-                    .addPath(new BezierLine(new Pose(131.377, 35.106), new Pose(99.849, 99.056)))
+            Path10 = follower
+                    .pathBuilder()
+                    .addPath(
+                            new BezierCurve(
+                                    new Pose(131.902, 34.950),
+                                    new Pose(105.018, 46.880),
+                                    new Pose(101.153, 100.313)
+                            )
+                    )
                     .setTangentHeadingInterpolation()
                     .build();
         }
@@ -100,70 +146,111 @@ public class abeyauto extends OpMode {
             case 1:
                 if (!follower.isBusy()) {
                     // inputrightcode(); //shoot
-
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path2, true);
                     setPathState(2);
                 }
                 break;
             case 2:
                 if (!follower.isBusy()) {
-                    //inputrightcode(); //pickup
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+
                     follower.followPath(paths.Path3, true);
                     setPathState(3);
                 }
                 break;
             case 3:
                 if (!follower.isBusy()) {
-                   // inputrightcode(); //shoot
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path4, true);
                     setPathState(4);
                 }
                 break;
             case 4:
                 if (!follower.isBusy()) {
-                  //  inputrightcode(); //pickup
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path5, true);
                     setPathState(5);
                 }
                 break;
             case 5:
                 if (!follower.isBusy()) {
-                  //  inputrightcode(); //shoot
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path6, true);
                     setPathState(6);
                 }
                 break;
             case 6:
                 if (!follower.isBusy()) {
-                   // inputrightcode(); //pickup
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path7, true);
                     setPathState(7);
                 }
                 break;
             case 7:
                 if (!follower.isBusy()) {
-                //    inputrightcode(); //shoot
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path8, true);
                     setPathState(8);
                 }
                 break;
             case 8:
                 if (!follower.isBusy()) {
-                  //  inputrightcode(); //pickup
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path9, true);
                     setPathState(9);
                 }
                 break;
             case 9:
                 if (!follower.isBusy()) {
-                   // inputrightcode(); //shoot
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     follower.followPath(paths.Path10, true);
                     setPathState(10);
                 }
                 break;
             case 10:
                 if (!follower.isBusy()) {
-                    //inputrightcode(); //final
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
                     setPathState(-1); // done
                 }
                 break;
