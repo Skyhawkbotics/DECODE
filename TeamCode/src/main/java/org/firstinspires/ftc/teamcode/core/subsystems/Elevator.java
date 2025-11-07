@@ -5,6 +5,8 @@ import static org.firstinspires.ftc.teamcode.core.constants.top;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -14,33 +16,21 @@ public class Elevator {
 
 
     private Telemetry telemetry;
-    private Servo servo;
+    private CRServo servo_1, servo_2;
 
     public Elevator(HardwareMap hardwareMap, Telemetry telemetry) {
-        servo = hardwareMap.get(Servo.class, "Elevator Servo");
-        this.telemetry = telemetry;
+        servo_1 = hardwareMap.get(CRServo.class, "servo_1");
+        servo_2 = hardwareMap.get(CRServo.class, "servo_2");
+        servo_2.setDirection(DcMotorSimple.Direction.REVERSE);
     }
-    public void bottom() {
-        servo.setPosition(bottom);
-    }
-
-    public void top() {
-        servo.setPosition(top);
+    public void on() {
+        servo_1.setPower(1);
+        servo_2.setPower(1);
     }
 
-    public void increasePosition() {
-        servo.setPosition(servo.getPosition() + 0.05);
+    public void off() {
+        servo_1.setPower(0);
+        servo_2.setPower(0);
     }
 
-    public void decreasePosition() {
-        servo.setPosition(servo.getPosition() - 0.05);
-    }
-
-    public void positionZero() {
-        servo.setPosition(0);
-    }
-
-    public void positionOne() {
-        servo.setPosition(1);
-    }
 }

@@ -84,11 +84,7 @@ public class whole_robot {
         if (g2.dpadRightWasPressed()) {
             shooter.positionMax();
         }
-        if (g2.left_stick_y > 0) {
-            elevator.top();
-        } else {
-            elevator.bottom();
-        }
+
 
 
         if (dummyg1.squareWasPressed()) {
