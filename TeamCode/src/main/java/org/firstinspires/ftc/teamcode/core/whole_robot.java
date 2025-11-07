@@ -11,17 +11,15 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-import org.firstinspires.ftc.teamcode.test_files.LL;
 
 public class whole_robot {
     private Shooter shooter;
 
-    private LL limelight;
     private Elevator elevator;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
-    public static Pose startPose = new Pose(0, 0, Math.toRadians(90));
+    public Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
@@ -34,7 +32,6 @@ public class whole_robot {
         this.dummyg2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
-        limelight = new LL(hardwareMap, telemetry);
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
@@ -45,74 +42,86 @@ public class whole_robot {
 
 
     }
+    public whole_robot(HardwareMap hardwareMap, Telemetry telemetry) {
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        elevator = new Elevator(hardwareMap, telemetry);
+        shooter.positionMax();
+
+
+    }
+
 
     public void solo_controls() {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x, true);
+        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x * 0.4, false);
         follower.update();
-        limelight.RunLimelight(telemetry);
 
-        ///  SHOOTER CODE - GAMEPAD 2
-        if (g2.aWasPressed()) {
-            // motor to max target
-            shooter.perf_velocity();
-        }
-        if (g2.leftBumperWasPressed()) {
-            shooter.increaseVelocity();
-        }
 
-        if (g2.rightBumperWasPressed()) {
-            shooter.decreaseVelocity();
-        }
 
-        if (g2.bWasPressed()) {
+      /*  if (dummyg2.bWasPressed()) {
             shooter.to_zero();
         }
-        if (g2.yWasPressed()) {
+        if (dummyg2.yWasPressed()) {
             ///Increase the position 0.1
             shooter.increasePosition();
         }
-        if (g2.xWasPressed()) {
+        if (dummyg2.xWasPressed()) {
             // Decrease the position 0.1
             shooter.decreasePosition();
         }
+
+       */
         ///  to the max angles
-        if (g2.dpadLeftWasPressed()) {
-            shooter.positionMin();
+
+        if(dummyg1.right_bumper) {
+            elevator.top();
+        } else {
+            elevator.bottom();
         }
-        if (g2.dpadRightWasPressed()) {
-            shooter.positionMax();
+        if(dummyg2.rightBumperWasPressed()) {
+            shooter.to_zero();
         }
 
 
-
-        if (dummyg1.squareWasPressed()) {
+        if (dummyg2.squareWasPressed()) {
             shooter.closest();
         }
-        if (dummyg1.triangleWasPressed()) {
+        if (dummyg2.triangleWasPressed()) {
             shooter.middle();
         }
-        if (dummyg1.circleWasPressed()) {
+        if (dummyg2.circleWasPressed()) {
             shooter.perf_velocity();
         }
-        if (dummyg1.xWasPressed()) {
+        if (dummyg2.crossWasPressed()) {
             shooter.back_perf();
         }
-        if(Math.abs(limelight.getTx(telemetry)) < 5) {
-            telemetry.addData("Target in Range.", "");
-            g2.rumble(500);
-        }
+
     }
 
         public void robot_update () {
             shooter.shooter_telemetry();
             shooter.update();
             telemetry.update();
+            follower.update();
 
-            shooter.getTarget();
-            shooter.getvelocity();
 
+        }
+        public Follower getFollower() {
+        return follower;
+        }
+        public Shooter getShooter() {
+        return shooter;
+        }
+        public Elevator getElevator() {
+        return elevator;
+        }
+        public Telemetry getTelemetry() {
+        return telemetry;
         }
 
 }
