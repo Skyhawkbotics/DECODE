@@ -32,10 +32,10 @@ public class abeyauto extends OpMode {
                             new BezierCurve(
                                     new Pose(118.292, 129.718),
                                     new Pose(113.083, 115.099),
-                                    new Pose(101.321, 100.313)
+                                    new Pose(97.321, 97.313)
                             )
                     )
-                    .setLinearHeadingInterpolation(Math.toRadians(-143), Math.toRadians(180))
+                    .setLinearHeadingInterpolation(Math.toRadians(217), Math.toRadians(180))
                     .build();
 
             Path2 = follower
@@ -43,8 +43,8 @@ public class abeyauto extends OpMode {
                     .addPath(
                             new BezierCurve(
                                     new Pose(101.321, 100.313),
-                                    new Pose(95.440, 93.760),
-                                    new Pose(98.800, 83.678)
+                                    new Pose(95.440, 95.760),
+                                    new Pose(98.800, 85.678)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -53,7 +53,7 @@ public class abeyauto extends OpMode {
             Path3 = follower
                     .pathBuilder()
                     .addPath(
-                            new BezierLine(new Pose(98.800, 83.678), new Pose(126.861, 83.342))
+                            new BezierLine(new Pose(98.800, 85.678), new Pose(121, 85.342))
                     )
                     .setTangentHeadingInterpolation()
                     .build();
@@ -76,7 +76,7 @@ public class abeyauto extends OpMode {
                             new BezierCurve(
                                     new Pose(101.321, 99.977),
                                     new Pose(86.198, 71.916),
-                                    new Pose(101.153, 59.986)
+                                    new Pose(99.153, 62.986)
                             )
                     )
                     .setTangentHeadingInterpolation()
@@ -85,7 +85,7 @@ public class abeyauto extends OpMode {
             Path6 = follower
                     .pathBuilder()
                     .addPath(
-                            new BezierLine(new Pose(101.153, 59.986), new Pose(131.398, 59.482))
+                            new BezierLine(new Pose(101.153, 62.986), new Pose(127.398, 62.982))
                     )
                     .setTangentHeadingInterpolation()
                     .build();
@@ -117,7 +117,7 @@ public class abeyauto extends OpMode {
             Path9 = follower
                     .pathBuilder()
                     .addPath(
-                            new BezierLine(new Pose(100.985, 35.286), new Pose(131.902, 34.950))
+                            new BezierLine(new Pose(100.985, 35.950), new Pose(127.902, 35.950))
                     )
                     .setTangentHeadingInterpolation()
                     .build();
@@ -282,7 +282,7 @@ public class abeyauto extends OpMode {
 
         follower = Constants.createFollower(hardwareMap);
         paths = new Paths(follower);
-        follower.setStartingPose(new Pose(120, 120, Math.toRadians(90)));
+        follower.setStartingPose(new Pose(120, 120, Math.toRadians(-143)));
     }
 
     @Override
