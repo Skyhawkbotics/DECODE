@@ -11,6 +11,8 @@ import com.pedropathing.geometry.Pose;
 ///
 @Configurable
 public class constants {
+    /// Hardware names
+    public static String turret_name = "turret";
 
 
 
@@ -39,5 +41,30 @@ public class constants {
 
     public static double top = 0.5;
     public static double angle = 90;
+
+
+
+
+    ///  Turret  + Turret PID controller
+    public static double turret_p = 0, turret_i = 0, turret_d = 0, turret_f = 0;
+    public static double turret_align_heading = 0;
+    public static double degrees_to_ticks;
+
+
+
+
+
+
+    public static double index1 = 0.0;
+
+    public static double index2 = 0.0;
+
+    public static double index3 = 0.0;
+
+    public static double target_distance = 0.0;
+
+    public static double distance_tolerance = 0.0;
+
+    public static double fire_ball = 0.0;
 
 }

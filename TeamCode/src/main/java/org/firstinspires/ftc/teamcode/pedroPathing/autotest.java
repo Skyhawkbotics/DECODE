@@ -144,10 +144,8 @@ public class autotest extends OpMode {
             case 1:
                 shoot.to_zero();
             case 2:
-                fire.top();
                 break;
             case 3:
-                fire.bottom();
                 break;
 
         }

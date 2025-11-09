@@ -13,6 +13,7 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class whole_robot {
+
     private Shooter shooter;
 
     private Elevator elevator;
@@ -79,9 +80,9 @@ public class whole_robot {
         ///  to the max angles
 
         if(dummyg1.right_bumper) {
-            elevator.top();
+            elevator.on();
         } else {
-            elevator.bottom();
+            elevator.off();
         }
         if(dummyg2.rightBumperWasPressed()) {
             shooter.to_zero();
@@ -123,5 +124,6 @@ public class whole_robot {
         public Telemetry getTelemetry() {
         return telemetry;
         }
+
 
 }

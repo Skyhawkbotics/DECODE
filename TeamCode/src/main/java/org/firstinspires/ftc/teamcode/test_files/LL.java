@@ -28,6 +28,8 @@ public class LL {
 
     public static int target;
 
+    public boolean usingLL_correction;
+
     public LL(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -159,27 +161,37 @@ public class LL {
     }
 
     public void turret_pid_update(Telemetry telemetry, DcMotorEx turret) {
-        LLStatus status = limelight.getStatus();
-        LLResult result = limelight.getLatestResult();
+        if (usingLL_correction) {
 
-        if (result.isValid()) {
-            pid.setPID(ep, ei, ed);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            double pid_output = pid.calculate(result.getTx(), 0);
-            telemetry.addData("PID SPEED", pid_output);
-            telemetry.update();
-            turret.setPower(pid_output);
+            LLStatus status = limelight.getStatus();
+            LLResult result = limelight.getLatestResult();
 
-            telemetry.addData("X Degrees", result.getTx());
+            if (result.isValid()) {
+                pid.setPID(ep, ei, ed);
+                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                double pid_output = pid.calculate(result.getTx(), 0);
+                telemetry.addData("PID SPEED", pid_output);
+                telemetry.update();
+                turret.setPower(pid_output);
 
-            if (result.getTx() < -3) {
-                telemetry.addData("TX Offset", "Negative");
-            } else if (result.getTx() > 3) {
-                telemetry.addData("Tx Offset", "Positive");
-            } else {
-                telemetry.addData("Tx Offset", "Aligned");
+                telemetry.addData("X Degrees", result.getTx());
+
+                if (result.getTx() < -3) {
+                    telemetry.addData("TX Offset", "Negative");
+                } else if (result.getTx() > 3) {
+                    telemetry.addData("Tx Offset", "Positive");
+                } else {
+                    telemetry.addData("Tx Offset", "Aligned");
+                }
             }
+            telemetry.update();
         }
-        telemetry.update();
     }
+    public void LL_correction_ON() {
+        usingLL_correction = true;
+    }
+    public void LL_correction_OFF() {
+        usingLL_correction = false;
+    }
+
 }

@@ -27,6 +27,10 @@ public class Elevator {
         servo_1.setPower(1);
         servo_2.setPower(1);
     }
+    public void on_reverse() {
+        servo_1.setPower(-1);
+        servo_2.setPower(-1);
+    }
 
     public void off() {
         servo_1.setPower(0);

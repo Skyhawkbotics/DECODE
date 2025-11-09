@@ -35,25 +35,25 @@ public class score_command_close extends CommandBase {
                 break;
             case 2:
                 if(timer.getElapsedTimeSeconds() > 3) {
-                    bot.getElevator().top();
+                    bot.getElevator().off();
                     setState(3);
                 }
                 break;
             case 3:
                 if(timer.getElapsedTimeSeconds() > 1) {
-                    bot.getElevator().bottom();
+                    bot.getElevator().off();
                     setState(4);
                 }
                 break;
             case 4:
                 if(timer.getElapsedTimeSeconds() > 3) {
-                    bot.getElevator().top();
+                    bot.getElevator().off();
                     setState(5);
                 }
                 break;
             case 5:
                 if(timer.getElapsedTimeSeconds() > 2) {
-                    bot.getElevator().bottom();
+                    bot.getElevator().off();
                     bot.getShooter().to_zero();
                     setState(-1);
                 }

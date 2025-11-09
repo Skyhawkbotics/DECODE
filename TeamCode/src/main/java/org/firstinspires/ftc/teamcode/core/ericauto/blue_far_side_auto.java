@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.ericauto;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -22,7 +23,7 @@ public class blue_far_side_auto extends OpModeCommand {
     public  final Pose shootPose = new Pose(60,20, Math.toRadians(105));
 
     public  final Pose parkPose = new Pose(60,30,Math.toRadians(0));
-    private Path score1, park;
+    private Path score1, park, choc;
 
     public void buildPaths() {
         score1 = new Path(new BezierLine(startPose, shootPose));
@@ -30,6 +31,14 @@ public class blue_far_side_auto extends OpModeCommand {
 
         park = new Path(new BezierLine(shootPose, parkPose));
         park.setLinearHeadingInterpolation(shootPose.getHeading(), parkPose.getHeading());
+
+        choc = new Path(new BezierCurve(
+                startPose,
+                new Pose(28, 49),
+                new Pose(32, 34)
+
+        ));
+
     }
 
     public void initialize() {
