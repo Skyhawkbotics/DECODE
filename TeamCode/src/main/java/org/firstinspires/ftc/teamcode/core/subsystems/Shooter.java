@@ -13,6 +13,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class     Shooter {
+
+    private shooterSpeed shooterSpeed;
     private DcMotorEx top_motor, bot_motor;
 
     public PIDController pid;
@@ -55,6 +57,7 @@ public class     Shooter {
         bot_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         bot_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        shooterSpeed = new shooterSpeed();
 
         pid = new PIDController(ep, ei, ed);
 
@@ -117,6 +120,17 @@ public class     Shooter {
         setTarget(middle_of_field);
     }
 
+    public void setShooterSpeed(double distance) {
+        toggle_update_true();
+        setTarget((int) shooterSpeed.calcVelocity(distance));
+        telemetry.addData("calcualted speed", shooterSpeed.calcVelocity(distance));
+    }
+
+    public void setShooterAngle(double distance) {
+        toggle_update_true();
+        servo.setPosition(shooterSpeed.calcAngle(distance));
+        telemetry.addData("calculated position", shooterSpeed.calcAngle(distance));
+    }
     public void back_perf() {
         toggle_update_true();
         setTarget(far_side_shoot);

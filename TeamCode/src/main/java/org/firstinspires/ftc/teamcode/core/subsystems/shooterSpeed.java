@@ -22,7 +22,7 @@ public class shooterSpeed {
 
         // does not account for drag. because drag will reduce the distance it goes, this
         // velocity should be increased by a coefficient, maybe of like 1.05 or something minor.
-        return velocity_rpm;
+        return velocity_rpm * 1.3 / 1.1;
     }
 
     public double calcAngle(double d) {
