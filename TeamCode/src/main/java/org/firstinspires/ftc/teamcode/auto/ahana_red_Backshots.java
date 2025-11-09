@@ -8,7 +8,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.core.whole_robot;
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
 
 import ftclib.FollowPath;
