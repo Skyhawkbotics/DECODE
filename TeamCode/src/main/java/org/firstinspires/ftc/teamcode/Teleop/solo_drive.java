@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.core;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 
 @TeleOp (name = "Solo Drive", group = "Opmode")

@@ -10,7 +10,6 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.robot;
-import org.firstinspires.ftc.teamcode.core.whole_robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

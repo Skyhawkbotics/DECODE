@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.core.ericauto;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
-import org.firstinspires.ftc.teamcode.core.whole_robot;
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 
 public class score_command_close extends CommandBase {

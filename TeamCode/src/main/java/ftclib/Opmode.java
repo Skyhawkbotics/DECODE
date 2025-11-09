@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core;
+package ftclib;
 
 public enum Opmode {
     TELEOP,
