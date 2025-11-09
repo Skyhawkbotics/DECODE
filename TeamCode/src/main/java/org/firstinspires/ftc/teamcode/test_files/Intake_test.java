@@ -13,6 +13,8 @@ public class Intake_test extends OpMode {
 
     private Intake intake;
 
+    boolean button_pressed;
+
 
     @Override
     public void init() {
@@ -21,10 +23,14 @@ public class Intake_test extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.dpad_down) {
-            intake.on();
-        }
-            else if (gamepad1.dpad_up) {
+
+            if (gamepad1.dpad_down) {
+                button_pressed = !button_pressed;
+                /// !button_pressed means the opposite of button_pressed
+            }
+            if(button_pressed) {
+                intake.on();
+            } else {
                 intake.off();
 
             }
