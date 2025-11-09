@@ -29,12 +29,10 @@ public class robot {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
-        this.dummyg1 = game1;
-        this.dummyg2 = game2;
+        this.g1 = game1;
+        this.g2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
-        this.g1 = new Gamepad();
-        this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
         this.prevg2 = new Gamepad();
         follower.setStartingPose(startPose);
@@ -49,24 +47,22 @@ public class robot {
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
-        //shooter = new Shooter(hardwareMap, telemetry);
-      //  elevator = new Elevator(hardwareMap, telemetry);
 
 
     }
 
 
     public void solo_controls() {
-        g1.copy(dummyg1);
-        g2.copy(dummyg2);
-        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x * 0.4, false);
+        prevg1.copy(g1);
+        prevg2.copy(g2);
+        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, false);
         follower.update();
 
     }
 
     public void robot_update () {
-        //shooter.shooter_telemetry();
-        //shooter.update();
+        shooter.shooter_telemetry();
+        shooter.update();
         telemetry.update();
         follower.update();
 

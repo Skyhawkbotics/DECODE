@@ -7,22 +7,22 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 
 @TeleOp (name = "Elevator_test", group = "Tests")
 public class Elevator_test extends OpMode {
-    private Elevator eric;
+    private Elevator elevator;
 
     @Override
     public void init() {
-        eric = new Elevator(hardwareMap, telemetry);
+        elevator = new Elevator(hardwareMap, telemetry);
 
     }
 
     @Override
     public void loop() {
         if (gamepad1.a) {
-            eric.on();
+            elevator.on();
         } else if (gamepad1.b) {
-            eric.on_reverse();
+            elevator.on_reverse();
         } else {
-            eric.off();
+            elevator.off();
         }
     }
 }

@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Trigger TEst")
-public class TriggerTest extends OpMode {
+@TeleOp(name = "Servo Test")
+public class Servo_test extends OpMode {
     private Servo servo;
     public void init() {
         servo = hardwareMap.get(Servo.class, "angle");
@@ -26,8 +26,6 @@ public class TriggerTest extends OpMode {
         if (gamepad1.yWasPressed()) {
             servo.setPosition(servo.getPosition() - 0.05);
         }
-
-
 
         telemetry.addData("Servo Position", servo.getPosition());
         telemetry.update();
