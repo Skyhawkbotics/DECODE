@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
+import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -17,6 +18,8 @@ public class robot {
     private Shooter shooter;
 
     private Elevator elevator;
+
+    private Intake intake;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
@@ -29,10 +32,13 @@ public class robot {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
-        this.g1 = game1;
-        this.g2 = game2;
+        this.dummyg1 = game1;
+        this.dummyg2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        this.g1 = new Gamepad();
+        this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
         this.prevg2 = new Gamepad();
         follower.setStartingPose(startPose);
@@ -47,22 +53,24 @@ public class robot {
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
+        //shooter = new Shooter(hardwareMap, telemetry);
+      //  elevator = new Elevator(hardwareMap, telemetry);
 
 
     }
 
 
     public void solo_controls() {
-        prevg1.copy(g1);
-        prevg2.copy(g2);
-        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, false);
+        g1.copy(dummyg1);
+        g2.copy(dummyg2);
+        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x * 0.4, false);
         follower.update();
 
     }
 
     public void robot_update () {
-        shooter.shooter_telemetry();
-        shooter.update();
+        //shooter.shooter_telemetry();
+        //shooter.update();
         telemetry.update();
         follower.update();
 

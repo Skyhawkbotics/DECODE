@@ -67,4 +67,8 @@ public class constants {
 
     public static double fire_ball = 0.0;
 
+    /// Intake speed constants
+
+    public static double intake_speed = 1.0;
+
 }
