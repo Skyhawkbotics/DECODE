@@ -160,28 +160,34 @@ public class LL {
         return 100;
     }
 
-    public void turret_pid_update(Telemetry telemetry, DcMotorEx turret) {
+    public void turret_pid_update(Telemetry telemetry, DcMotorEx turret, int ID) {
         if (usingLL_correction) {
 
             LLStatus status = limelight.getStatus();
             LLResult result = limelight.getLatestResult();
 
             if (result.isValid()) {
-                pid.setPID(ep, ei, ed);
-                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                double pid_output = pid.calculate(result.getTx(), 0);
-                telemetry.addData("PID SPEED", pid_output);
-                telemetry.update();
-                turret.setPower(pid_output);
 
-                telemetry.addData("X Degrees", result.getTx());
+                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                    if (fr.getFiducialId() == ID) {
+                        pid.setPID(ep, ei, ed);
+                        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                        double pid_output = pid.calculate(result.getTx(), 0);
+                        telemetry.addData("PID SPEED", pid_output);
+                        telemetry.update();
+                        turret.setPower(pid_output);
 
-                if (result.getTx() < -3) {
-                    telemetry.addData("TX Offset", "Negative");
-                } else if (result.getTx() > 3) {
-                    telemetry.addData("Tx Offset", "Positive");
-                } else {
-                    telemetry.addData("Tx Offset", "Aligned");
+                        telemetry.addData("X Degrees", result.getTx());
+
+                        if (result.getTx() < -3) {
+                            telemetry.addData("TX Offset", "Negative");
+                        } else if (result.getTx() > 3) {
+                            telemetry.addData("Tx Offset", "Positive");
+                        } else {
+                            telemetry.addData("Tx Offset", "Aligned");
+                        }
+                    }
                 }
             }
             telemetry.update();
