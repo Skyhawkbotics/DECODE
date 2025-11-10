@@ -7,6 +7,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -38,9 +39,11 @@ public class Turret {
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
         limelight = new LL(hardwareMap, telemetry);
         turret = hardwareMap.get(DcMotorEx.class, turret_name);
+
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         turret.setDirection(DcMotorSimple.Direction.REVERSE);
+
         heading_turret_pid = new PIDController(turret_p, turret_i, turret_d);
         ID = ID;
     }
@@ -57,6 +60,11 @@ public class Turret {
 
     public double targetRed() {
         return 24;
+    }
+    public void manual_move(Gamepad gamepad) {
+        limelight.LL_correction_OFF();
+        usingHeadingCorrection = false;
+        turret.setPower(gamepad.left_stick_y);
     }
 
     public void updateTurret(Telemetry telemetry, Pose followerPose, int ID) {
