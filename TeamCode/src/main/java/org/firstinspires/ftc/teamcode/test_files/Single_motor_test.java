@@ -11,7 +11,7 @@ public class Single_motor_test extends OpMode {
 
     @Override
     public void init() {
-        motor = hardwareMap.get(DcMotorEx.class, "spin");
+        motor = hardwareMap.get(DcMotorEx.class, "motor");
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
