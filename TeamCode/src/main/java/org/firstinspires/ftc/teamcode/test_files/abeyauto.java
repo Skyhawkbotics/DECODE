@@ -146,112 +146,81 @@ public class abeyauto extends OpMode {
             case 1:
                 if (!follower.isBusy()) {
                     // inputrightcode(); //shoot
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path2, true);
+                        setPathState(2);
                     }
-                    follower.followPath(paths.Path2, true);
-                    setPathState(2);
                 }
                 break;
             case 2:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path3, true);
+                        setPathState(3);
                     }
-
-                    follower.followPath(paths.Path3, true);
-                    setPathState(3);
                 }
                 break;
             case 3:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path4, true);
+                        setPathState(4);
                     }
-                    follower.followPath(paths.Path4, true);
-                    setPathState(4);
                 }
                 break;
             case 4:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path5, true);
+                        setPathState(5);
                     }
-                    follower.followPath(paths.Path5, true);
-                    setPathState(5);
                 }
                 break;
             case 5:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path6, true);
+                        setPathState(6);
                     }
-                    follower.followPath(paths.Path6, true);
-                    setPathState(6);
                 }
                 break;
             case 6:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path7, true);
+                        setPathState(7);
                     }
-                    follower.followPath(paths.Path7, true);
-                    setPathState(7);
                 }
                 break;
             case 7:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path8, true);
+                        setPathState(8);
                     }
-                    follower.followPath(paths.Path8, true);
-                    setPathState(8);
                 }
                 break;
             case 8:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path9, true);
+                        setPathState(9);
                     }
-                    follower.followPath(paths.Path9, true);
-                    setPathState(9);
                 }
                 break;
             case 9:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        follower.followPath(paths.Path10, true);
+                        setPathState(10);
                     }
-                    follower.followPath(paths.Path10, true);
-                    setPathState(10);
                 }
                 break;
             case 10:
                 if (!follower.isBusy()) {
-                    try {
-                        Thread.sleep(4000);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                    if(pathTimer.getElapsedTimeSeconds() > 2) {
+                        setPathState(-1); // done
                     }
-                    setPathState(-1); // done
                 }
                 break;
         }
