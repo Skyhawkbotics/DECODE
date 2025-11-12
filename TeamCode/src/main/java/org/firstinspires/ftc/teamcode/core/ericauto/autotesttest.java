@@ -9,14 +9,15 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.core.robot;
+
+import org.firstinspires.ftc.teamcode.core.Robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "blue dgddddf far auto", group = "gf")
 public class autotesttest extends OpModeCommand {
-    robot bot;
+    Robot bot;
 
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
@@ -43,7 +44,7 @@ public class autotesttest extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new robot(hardwareMap, telemetry); // startpose
+        bot = new Robot(hardwareMap, telemetry); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

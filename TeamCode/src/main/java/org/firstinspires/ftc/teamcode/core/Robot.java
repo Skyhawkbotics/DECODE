@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -13,13 +13,15 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-public class robot {
+public class Robot {
 
     private Shooter shooter;
 
     private Elevator elevator;
 
     private Intake intake;
+
+    boolean button_pressed;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
@@ -28,7 +30,7 @@ public class robot {
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
-    public robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -47,30 +49,67 @@ public class robot {
 
 
     }
-    public robot(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
-        //shooter = new Shooter(hardwareMap, telemetry);
-      //  elevator = new Elevator(hardwareMap, telemetry);
+        shooter = new Shooter(hardwareMap, telemetry);
+        elevator = new Elevator(hardwareMap, telemetry);
+
 
 
     }
 
 
     public void solo_controls() {
+        prevg1.copy(g1);
+        prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        follower.setTeleOpDrive(-dummyg1.left_stick_y, -dummyg1.left_stick_x, -dummyg1.right_stick_x * 0.4, false);
+        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, true);
         follower.update();
+
+        if (g1.a) {
+            elevator.on();
+        } else if (g1.b) {
+            elevator.secondary();
+        } else {
+            elevator.off();
+        }
+        elevator.elevator_telemetry();
+        telemetry.update();
+        if(g1.dpad_down) {
+            intake.on();
+        } else if (g1.dpad_left) {
+            intake.reverse();
+        }
+        if(g1.left_bumper) {
+            shooter.perf_velocity();
+        } else {
+            shooter.to_zero();
+        }
+
+        if (g1.dpadDownWasPressed()) {
+            button_pressed = !button_pressed;
+            /// !button_pressed means the opposite of button_pressed
+        }
+        if(button_pressed) {
+            intake.on();
+        } else if (g1.dpad_left) {
+            intake.reverse();
+        }
+            else {
+            intake.off();
+
+        }
 
     }
 
     public void robot_update () {
         //shooter.shooter_telemetry();
-        //shooter.update();
+        shooter.update();
         telemetry.update();
         follower.update();
 

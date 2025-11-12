@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
-import static org.firstinspires.ftc.teamcode.core.constants.bottom;
-import static org.firstinspires.ftc.teamcode.core.constants.top;
+import static org.firstinspires.ftc.teamcode.core.constants.elevator_retract;
+import static org.firstinspires.ftc.teamcode.core.constants.elevator_shoot;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -16,25 +14,30 @@ public class Elevator {
 
 
     private Telemetry telemetry;
-    private CRServo servo_1, servo_2;
+    private CRServo servo_1;
+    private Servo flip;
 
     public Elevator(HardwareMap hardwareMap, Telemetry telemetry) {
-        servo_1 = hardwareMap.get(CRServo.class, "servo_1");
-        servo_2 = hardwareMap.get(CRServo.class, "servo_2");
-        servo_2.setDirection(DcMotorSimple.Direction.REVERSE);
+        servo_1 = hardwareMap.get(CRServo.class, "auto");
+        servo_1.setDirection(DcMotorSimple.Direction.REVERSE);
+        flip = hardwareMap.get(Servo.class, "flip");
+        this.telemetry = telemetry;
     }
     public void on() {
         servo_1.setPower(1);
-        servo_2.setPower(1);
     }
-    public void on_reverse() {
-        servo_1.setPower(-1);
-        servo_2.setPower(-1);
+    public void secondary() {
+        flip.setPosition(elevator_shoot);
     }
 
     public void off() {
         servo_1.setPower(0);
-        servo_2.setPower(0);
+        flip.setPosition(elevator_retract);
     }
+    public void elevator_telemetry() {
+        telemetry.addData("flip position", flip.getPosition());
+
+    }
+
 
 }
