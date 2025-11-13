@@ -1,19 +1,14 @@
-package org.firstinspires.ftc.teamcode.test_files;
-
-import android.graphics.Point;
+package org.firstinspires.ftc.teamcode.auto;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.FuturePose;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.core.whole_robot;
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

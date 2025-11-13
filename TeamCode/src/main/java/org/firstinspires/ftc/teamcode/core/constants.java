@@ -67,4 +67,12 @@ public class constants {
 
     public static double fire_ball = 0.0;
 
+    /// Intake speed constants
+
+    public static double intake_speed = 1.0;
+
+
+    public static double elevator_shoot = 0.05;
+    public static double elevator_retract = 0.4;
+
 }

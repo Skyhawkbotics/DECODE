@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Abe Test Code", group = "Tests")
-public class Motor_test extends OpMode {
+@TeleOp(name = "Dual Motor Test", group = "Tests")
+public class Dual_motor_test extends OpMode {
 
     private DcMotorEx motor1;
     private DcMotorEx motor2;
@@ -14,11 +14,11 @@ public class Motor_test extends OpMode {
 
     @Override
     public void init() {
-        motor1 = hardwareMap.get(DcMotorEx.class, "s top");
+        motor1 = hardwareMap.get(DcMotorEx.class, "motor1");
         motor1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
 
-        motor2 = hardwareMap.get(DcMotorEx.class, "s bot");
+        motor2 = hardwareMap.get(DcMotorEx.class, "motor2");
         motor2.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         motor2.setDirection(DcMotorSimple.Direction.REVERSE);

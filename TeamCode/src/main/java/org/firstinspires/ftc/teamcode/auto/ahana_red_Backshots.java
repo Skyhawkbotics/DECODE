@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.auto;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -8,11 +8,8 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.core.whole_robot;
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
-import com.qualcomm.robotcore.eventloop.opmode.OpModeManagerImpl;
-
-import java.nio.file.Paths;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

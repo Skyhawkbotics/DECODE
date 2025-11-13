@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing; // make sure this aligns with class location
+package org.firstinspires.ftc.teamcode.auto; // make sure this aligns with class location
 
 
 import com.pedropathing.follower.Follower;
@@ -12,6 +12,7 @@ import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
 @Autonomous(name = "Test Auto", group = "Test")
@@ -142,7 +143,7 @@ public class autotest extends OpMode {
 
                 break;
             case 1:
-                shoot.to_zero();
+                shoot.shooterON();
             case 2:
                 break;
             case 3:

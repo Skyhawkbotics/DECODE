@@ -4,7 +4,7 @@ public class shooterSpeed {
     public shooterSpeed() {
     }
 
-    public double velocity(double d) {
+    public double calcVelocity(double d) {
 
         double GRAVITY = 9.81; // gravitational constant
         double VERTICAL_DISTANCE = 0.661; // 1.041 - 0.381
@@ -25,7 +25,7 @@ public class shooterSpeed {
         return velocity_rpm;
     }
 
-    public double angle(double d) {
+    public double calcAngle(double d) {
         double degrees = 60 - 8 * (d - 1.5);
         // 30 degrees for 1 position
         // 0.1 change in position is equal to change in 3 degrees

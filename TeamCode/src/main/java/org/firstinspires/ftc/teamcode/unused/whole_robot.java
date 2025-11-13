@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.core;
-
-import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
+package org.firstinspires.ftc.teamcode.unused;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -85,7 +83,7 @@ public class whole_robot {
             elevator.off();
         }
         if(dummyg2.rightBumperWasPressed()) {
-            shooter.to_zero();
+            shooter.shooterON();
         }
 
 

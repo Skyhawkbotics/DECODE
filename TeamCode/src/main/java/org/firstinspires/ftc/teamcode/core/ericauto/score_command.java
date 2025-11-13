@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.core.ericauto;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
-import org.firstinspires.ftc.teamcode.core.whole_robot;
+import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 
 public class score_command extends CommandBase {
@@ -54,7 +54,7 @@ public class score_command extends CommandBase {
             case 5:
                 if(timer.getElapsedTimeSeconds() > 2) {
                     bot.getElevator().off();
-                    bot.getShooter().to_zero();
+                    bot.getShooter().shooterON();
                     setState(-1);
                 }
                 break;
