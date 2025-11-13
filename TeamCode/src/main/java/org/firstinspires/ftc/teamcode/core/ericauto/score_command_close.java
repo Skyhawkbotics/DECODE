@@ -54,7 +54,7 @@ public class score_command_close extends CommandBase {
             case 5:
                 if(timer.getElapsedTimeSeconds() > 2) {
                     bot.getElevator().off();
-                    bot.getShooter().to_zero();
+                    bot.getShooter().shooterON();
                     setState(-1);
                 }
                 break;

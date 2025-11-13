@@ -83,7 +83,7 @@ public class whole_robot {
             elevator.off();
         }
         if(dummyg2.rightBumperWasPressed()) {
-            shooter.to_zero();
+            shooter.shooterON();
         }
 
 

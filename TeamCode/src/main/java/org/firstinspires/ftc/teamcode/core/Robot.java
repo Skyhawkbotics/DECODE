@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
-
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -20,12 +19,19 @@ public class Robot {
     private Elevator elevator;
 
     private Intake intake;
+    private Boolean autofiring = false;
 
-    boolean button_pressed;
+    private Boolean useShooter = false;
+
+    private int autoFireState;
+
+    int intake_state = 0;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
+
+    public Timer autoFireTimer;
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
@@ -46,6 +52,7 @@ public class Robot {
         follower.setStartingPose(startPose);
         follower.startTeleopDrive();
         follower.update();
+        autoFireTimer = new Timer();
 
 
     }
@@ -62,57 +69,130 @@ public class Robot {
 
     }
 
-
-    public void solo_controls() {
+    public void setAutoFireState(int state) {
+        autoFireState = state;
+        autoFireTimer.resetTimer();
+    }
+    public void eric_halle_controls() {
         prevg1.copy(g1);
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
         follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, true);
         follower.update();
+        if (g1.left_trigger > 0) {
+            intake.on();
+        } else if(g1.left_bumper) {
+            intake.reverse();
+        } else if(!autofiring) {
+            intake.off();
+        }
 
-        if (g1.a) {
+
+
+
+        if(g2.crossWasPressed()) {
+            setAutoFireState(1);
+        }
+        if(g2.circle && !autofiring) {
             elevator.on();
-        } else if (g1.b) {
-            elevator.secondary();
-        } else {
+        } else if (!autofiring) {
             elevator.off();
         }
-        elevator.elevator_telemetry();
-        telemetry.update();
-        if(g1.dpad_down) {
-            intake.on();
-        } else if (g1.dpad_left) {
-            intake.reverse();
+        if(g2.right_trigger > 0 && !(prevg2.right_trigger > 0)) {
+            useShooter = !useShooter;
         }
-        if(g1.left_bumper) {
-            shooter.perf_velocity();
+        if(useShooter) {
+            shooter.shooterON();
         } else {
-            shooter.to_zero();
+            shooter.turnOFF();
+        }
+        if(g2.dpadUpWasPressed()) {
+            shooter.perf_velocity();
+        }
+        if(g2.dpadLeftWasPressed()) {
+            shooter.closest();
+        }
+        if(g2.dpadRightWasPressed()) {
+            shooter.back_perf();
         }
 
-        if (g1.dpadDownWasPressed()) {
-            button_pressed = !button_pressed;
-            /// !button_pressed means the opposite of button_pressed
-        }
-        if(button_pressed) {
-            intake.on();
-        } else if (g1.dpad_left) {
-            intake.reverse();
-        }
-            else {
-            intake.off();
 
+        switch (autoFireState) {
+            case -1:
+                autofiring = false;
+                break;
+            case 1:
+                autofiring = true;
+                intake.off();
+                elevator.on();
+                setAutoFireState(2);
+                break;
+            case 2:
+                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    elevator.off();
+                    setAutoFireState(3);
+                }
+                break;
+            case 3:
+                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    intake.on();
+                    setAutoFireState(4);
+                }
+                break;
+            case 4:
+                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                    intake.off();
+                    elevator.on();
+                    setAutoFireState(5);
+                }
+                break;
+            case 5:
+                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                    intake.off();
+                    elevator.on();
+                    setAutoFireState(6);
+                }
+                break;
+            case 6:
+                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    elevator.off();
+                    setAutoFireState(7);
+                }
+                break;
+            case 7:
+                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    intake.on();
+                    setAutoFireState(8);
+                }
+                break;
+            case 8:
+                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                    intake.off();
+                    elevator.on();
+                    setAutoFireState(9);
+                }
+                break;
+            case 9:
+                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    elevator.off();
+                    setAutoFireState(-1);
+                }
+                break;
         }
 
     }
+    public void robot_telemetry() {
+        telemetry.addData("FireState", autoFireState);
+        telemetry.addData("FireTimer", autoFireTimer);
+    }
 
     public void robot_update () {
-        //shooter.shooter_telemetry();
+        shooter.shooter_telemetry();
         shooter.update();
-        telemetry.update();
+        robot_telemetry();
         follower.update();
-
+        telemetry.update();
 
     }
     public Follower getFollower() {

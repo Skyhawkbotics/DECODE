@@ -27,7 +27,7 @@ public class Elevator_test extends OpMode {
         if (gamepad1.a) {
             elevator.on();
             if (gamepad1.b) {
-                elevator.secondary();
+                elevator.off();
             }
         }  else {
         elevator.off();
@@ -44,7 +44,7 @@ public class Elevator_test extends OpMode {
         if(gamepad1.left_bumper) {
             shooter.perf_velocity();
         } else {
-            shooter.to_zero();
+            shooter.shooterON();
         }
 
     }

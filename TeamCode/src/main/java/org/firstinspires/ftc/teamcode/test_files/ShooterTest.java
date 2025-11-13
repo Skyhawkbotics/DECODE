@@ -47,7 +47,7 @@ public class ShooterTest extends OpMode {
         }
 
         if (gamepad1.bWasPressed()) {
-            shooter.to_zero();
+            shooter.turnOFF();
         }
 
 

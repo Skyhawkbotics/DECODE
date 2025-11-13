@@ -25,9 +25,8 @@ public class Elevator {
     }
     public void on() {
         servo_1.setPower(1);
-    }
-    public void secondary() {
         flip.setPosition(elevator_shoot);
+
     }
 
     public void off() {

@@ -19,7 +19,7 @@ public class solo_drive extends OpMode {
 
     @Override
     public void loop() {
-        robot.solo_controls();
+        robot.eric_halle_controls();
         robot.robot_update();
     }
 }
