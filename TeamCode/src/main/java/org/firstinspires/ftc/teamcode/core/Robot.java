@@ -56,7 +56,7 @@ public class Robot {
 
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -64,6 +64,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
 
 
 
