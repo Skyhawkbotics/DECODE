@@ -39,11 +39,21 @@ public class ShooterTest extends OpMode {
             shooter.perf_velocity();
         }
         if (gamepad1.leftBumperWasPressed()) {
-            shooter.increaseVelocity();
+            shooter.setShooterSpeed(2.04);
+            // shooter.setShooterAngle(2.04);
+        }
+
+        if (gamepad1.left_bumper)  {
+            telemetry.addData("LEFT BUMPER", "");
+        }
+
+        if (gamepad1.right_bumper) {
+            telemetry.addData("RIGHT BUMPER", "");
         }
 
         if (gamepad1.rightBumperWasPressed()) {
-            shooter.decreaseVelocity();
+            shooter.setShooterSpeed(3.11);
+            // shooter.setShooterAngle(3.11);
         }
 
         if (gamepad1.bWasPressed()) {
