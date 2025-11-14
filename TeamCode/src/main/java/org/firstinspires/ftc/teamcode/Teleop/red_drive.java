@@ -6,14 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "Solo Drive", group = "Opmode")
+@TeleOp (name = "Red Solo Drive", group = "Opmode")
 
-public class solo_drive extends OpMode {
+public class red_drive extends OpMode {
     private Robot robot;
+    int ID = 24;
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID);
 
     }
 
@@ -21,5 +22,6 @@ public class solo_drive extends OpMode {
     public void loop() {
         robot.eric_halle_controls();
         robot.robot_update();
+        robot.robot_telemetry();
     }
 }

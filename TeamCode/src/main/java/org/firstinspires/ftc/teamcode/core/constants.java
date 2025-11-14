@@ -15,10 +15,9 @@ public class constants {
     public static String turret_name = "turret";
 
 
-
     ///  Shooter PID constants
 
-    public static double ep = 0.025, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
+    public static double ep = 0.04, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
 
     public static int max = 2000;
     public static int three_fourths = 750;

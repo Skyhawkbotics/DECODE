@@ -36,6 +36,9 @@ public class Turret {
     public Boolean usingHeadingCorrection;
     private PIDController heading_turret_pid;
 
+    int LEFT_LIMIT = degreesToTicks(-90);
+    int RIGHT_LIMIT = degreesToTicks(90);
+
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
         limelight = new LL(hardwareMap, telemetry);
         turret = hardwareMap.get(DcMotorEx.class, turret_name);
@@ -61,11 +64,48 @@ public class Turret {
     public double targetRed() {
         return 24;
     }
+
+
+    public int degreesToTicks(double degrees) {
+        double ticksPerRev = 537.6;  // GET VALUES FOR THESE
+        double gearRatio = 5.0;      // GET VALUES FOR THESE
+        return (int)(degrees / 360.0 * ticksPerRev * gearRatio);
+    }
+    public void setTurretPower(double power) {
+        int pos = turret.getCurrentPosition();
+
+        if (pos <= LEFT_LIMIT && power < 0) {
+            power = 0;
+            limelight.LL_correction_OFF();
+        } else if (pos >= RIGHT_LIMIT && power > 0) {
+            power = 0;
+            limelight.LL_correction_OFF();
+        } else {
+            turret.setPower(power);
+        } // ok so we can turn it off in necessary. How do you align it properly though?
+        // manual button to realign?
+    }
+
+    public void setTurretTarget(double degrees) {
+        int target = degreesToTicks(degrees);
+
+        // clamp target inside limits
+        target = Math.max(LEFT_LIMIT, Math.min(RIGHT_LIMIT, target));
+
+        turret.setTargetPosition(target);
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        turret.setPower(0.5);
+    }
+
+
+    public int getPosition() {
+        return turret.getCurrentPosition();
+    }
     public void manual_move(Gamepad gamepad) {
         limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
         turret.setPower(gamepad.left_stick_y);
-    }
+    } // this could be for moving it away from limit
 
     public void updateTurret(Telemetry telemetry, Pose followerPose, int ID) {
 

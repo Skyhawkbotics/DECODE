@@ -10,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class Robot {
@@ -17,6 +18,8 @@ public class Robot {
     private Shooter shooter;
 
     private Elevator elevator;
+
+    private Turret turret;
 
     private Intake intake;
     private Boolean autofiring = false;
@@ -36,7 +39,8 @@ public class Robot {
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2) {
+
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -45,6 +49,7 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID); // THIS INDICATES BLUE DEPOT
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
@@ -185,6 +190,7 @@ public class Robot {
     public void robot_telemetry() {
         telemetry.addData("FireState", autoFireState);
         telemetry.addData("FireTimer", autoFireTimer);
+        telemetry.addData("Turret Position", turret.getPosition());
     }
 
     public void robot_update () {
