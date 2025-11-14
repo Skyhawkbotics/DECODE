@@ -36,8 +36,8 @@ public class Turret {
     public Boolean usingHeadingCorrection;
     private PIDController heading_turret_pid;
 
-    int LEFT_LIMIT = degreesToTicks(-90);
-    int RIGHT_LIMIT = degreesToTicks(90);
+    int LEFT_LIMIT = -400; // This is about 45 degrees
+    int RIGHT_LIMIT = 400; // TICKS. RIGHT IS MORE TICKS, LEFT IS LESS TICKS
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
         limelight = new LL(hardwareMap, telemetry);
@@ -104,24 +104,16 @@ public class Turret {
     public void manual_move(Gamepad gamepad) {
         limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
-        turret.setPower(gamepad.left_stick_y);
+        turret.setPower(gamepad.left_stick_x);
     } // this could be for moving it away from limit
 
-    public void updateTurret(Telemetry telemetry, Pose followerPose, int ID) {
+    public void updateTurret(Telemetry telemetry, int ID) {
 
         telemetry.addData("Current ID", ID);
 
-        if (usingHeadingCorrection) {
-            limelight.LL_correction_OFF();
-            heading_turret_pid.setPID(turret_p, turret_i, turret_d);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            double pid_input = calculate_difference(followerPose);
-            double output = heading_turret_pid.calculate(pid_input, turret.getCurrentPosition());
-            turret.setPower(output);
+        limelight.LL_correction_ON();
+        double pid_output = limelight.turret_pid_update(telemetry, turret, ID);
+        setTurretPower(pid_output);
 
-        } else {
-            limelight.LL_correction_ON();
-            limelight.turret_pid_update(telemetry, turret, ID);
-        }
     }
 }

@@ -44,7 +44,7 @@ public class autotesttest extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry); // startpose
+        bot = new Robot(hardwareMap, telemetry, 20); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

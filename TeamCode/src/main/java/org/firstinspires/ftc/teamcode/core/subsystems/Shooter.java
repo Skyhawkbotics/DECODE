@@ -34,19 +34,6 @@ public class     Shooter {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
         // hi
         top_motor = hardwareMap.get(DcMotorEx.class, "top");
@@ -94,6 +81,7 @@ public class     Shooter {
         target = b;
     }
 
+
     public void setTarget(int t, boolean usingRPM) {
         // way to set target where target can be in RPM, just set usingRPM to true
         if (!usingRPM) {
@@ -120,7 +108,7 @@ public class     Shooter {
     public void setShooterSpeed(double distance) {
         toggle_update_true();
         setTarget((int) shooterSpeed.calcVelocity(distance));
-        telemetry.addData("calcualted speed", shooterSpeed.calcVelocity(distance));
+        telemetry.addData("calculated speed", shooterSpeed.calcVelocity(distance));
     }
 
     public void setShooterAngle(double distance) {
