@@ -87,6 +87,7 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
+        turret.manual_move(g1);
         if(g1.right_bumper) {
             isparking = !isparking;
         }
@@ -108,6 +109,10 @@ public class Robot {
         } else if(!autofiring) {
             intake.off();
         }
+        if (g1.right_stick_x != 0) {
+            turret.updateTurret(telemetry, ID);
+        }
+
 
 
 

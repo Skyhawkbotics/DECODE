@@ -104,7 +104,7 @@ public class Turret {
     public void manual_move(Gamepad gamepad) {
         limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
-        turret.setPower(gamepad.left_stick_x);
+        setTurretPower(gamepad.left_stick_x * 0.2);
     } // this could be for moving it away from limit
 
     public void updateTurret(Telemetry telemetry, int ID) {
