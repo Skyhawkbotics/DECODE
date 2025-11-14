@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.core.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
@@ -20,6 +21,8 @@ public class Robot {
     private Elevator elevator;
 
     private Turret turret;
+    private Drivetrain drivetrain;
+    private Follower follower;
 
     private Intake intake;
     private Boolean autofiring = false;
@@ -31,19 +34,17 @@ public class Robot {
     int intake_state = 0;
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
-    private Follower follower;
-    public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
     public Timer autoFireTimer;
+    private Boolean isparking = false;
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
-        follower = Constants.createFollower(hardwareMap);
         this.dummyg1 = game1;
         this.dummyg2 = game2;
         shooter = new Shooter(hardwareMap, telemetry);
@@ -54,19 +55,17 @@ public class Robot {
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
         this.prevg2 = new Gamepad();
+        autoFireTimer = new Timer();
+        follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
         follower.startTeleopDrive();
         follower.update();
-        autoFireTimer = new Timer();
-
 
     }
     public Robot(HardwareMap hardwareMap, Telemetry telemetry) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startPose);
-
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
@@ -84,8 +83,20 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, true);
-        follower.update();
+        if(g1.right_bumper) {
+            isparking = !isparking;
+        }
+        if(isparking) {
+            follower.setTeleOpDrive(0.3 * -g1.left_stick_y, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+
+        } else if(g1.right_trigger > 0) {
+            follower.setTeleOpDrive(-1, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        } else if (g1.right_trigger == 0){
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.8 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+        }
+
+
+
         if (g1.left_trigger > 0) {
             intake.on();
         } else if(g1.left_bumper) {
@@ -198,9 +209,8 @@ public class Robot {
         shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
-        follower.update();
         telemetry.update();
-
+        follower.update();
     }
     public Follower getFollower() {
         return follower;

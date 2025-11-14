@@ -18,12 +18,16 @@ public class Drivetrain {
 
     }
     public void ericMove(Gamepad gamepad) {
-        follower.setTeleOpDrive(0.3 * -gamepad.left_stick_y,-gamepad.left_stick_x, -gamepad.left_stick_x, false );
+        follower.setTeleOpDrive(0.8 * -gamepad.left_stick_y, 0.8 * -gamepad.left_stick_x, 0.5 * -gamepad.left_stick_x, false );
+    }
+    public void park_controls(Gamepad gamepad) {
+        follower.setTeleOpDrive(0.3 * -gamepad.left_stick_y, 0.3 * -gamepad.left_stick_x, 0.5 * -gamepad.left_stick_x, false );
     }
     public void startDriving() {
         follower.startTeleopDrive();
     }
-    public void DRS() {
+    public void DRS(Gamepad gamepad) {
+        follower.setTeleOpDrive(1, 0.3 * -gamepad.left_stick_x, 0.5 * -gamepad.left_stick_x, true );
 
     }
     public void update_follower() {

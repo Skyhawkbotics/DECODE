@@ -20,7 +20,7 @@ public class drivetrainTest extends OpMode {
     public void loop() {
         follower.ericMove(gamepad1);
         if(gamepad1.a) {
-            follower.DRS();
+            follower.DRS(gamepad1);
         } else {
             follower.startDriving();
         }
