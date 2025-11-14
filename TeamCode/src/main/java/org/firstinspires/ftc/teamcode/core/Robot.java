@@ -172,15 +172,13 @@ public class Robot {
                 }
                 break;
             case 4:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
                     intake.off();
-                    elevator.on();
                     setAutoFireState(5);
                 }
                 break;
             case 5:
                 if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    intake.off();
                     elevator.on();
                     setAutoFireState(6);
                 }
@@ -198,14 +196,19 @@ public class Robot {
                 }
                 break;
             case 8:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
                     intake.off();
-                    elevator.on();
                     setAutoFireState(9);
                 }
                 break;
             case 9:
                 if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    elevator.on();
+                    setAutoFireState(10);
+                }
+                break;
+            case 10:
+                if(autoFireTimer.getElapsedTimeSeconds() > 1) {
                     elevator.off();
                     setAutoFireState(-1);
                 }
