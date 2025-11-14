@@ -74,15 +74,16 @@ public class Turret {
     public void setTurretPower(double power) {
         int pos = turret.getCurrentPosition();
 
-        if (pos <= LEFT_LIMIT && power < 0) {
+        if (pos <= LEFT_LIMIT && power < 0 ) {
             power = 0;
             limelight.LL_correction_OFF();
         } else if (pos >= RIGHT_LIMIT && power > 0) {
             power = 0;
             limelight.LL_correction_OFF();
-        } else {
-            turret.setPower(power);
-        } // ok so we can turn it off in necessary. How do you align it properly though?
+        }
+
+        turret.setPower(power);
+         // ok so we can turn it off in necessary. How do you align it properly though?
         // manual button to realign?
     }
 
@@ -101,9 +102,14 @@ public class Turret {
     public int getPosition() {
         return turret.getCurrentPosition();
     }
+
+    public double getPower() {
+        return turret.getPower();
+    }
     public void manual_move(Gamepad gamepad) {
         limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
+
         setTurretPower(gamepad.left_stick_x * 0.2);
     } // this could be for moving it away from limit
 

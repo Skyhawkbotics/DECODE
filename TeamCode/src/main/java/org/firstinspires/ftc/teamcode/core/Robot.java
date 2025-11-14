@@ -87,7 +87,6 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        turret.manual_move(g1);
         if(g1.right_bumper) {
             isparking = !isparking;
         }
@@ -109,7 +108,12 @@ public class Robot {
         } else if(!autofiring) {
             intake.off();
         }
-        if (g1.right_stick_x != 0) {
+        if (g2.left_stick_x != 0) {
+            turret.manual_move(g2);
+        } else {
+            turret.setTurretPower(0);
+        }
+        if (g2.right_stick_x !=0) {
             turret.updateTurret(telemetry, ID);
         }
 
@@ -125,6 +129,7 @@ public class Robot {
         } else if (!autofiring) {
             elevator.off();
         }
+
         if(g2.right_trigger > 0 && !(prevg2.right_trigger > 0)) {
             useShooter = !useShooter;
         }
@@ -212,6 +217,7 @@ public class Robot {
         telemetry.addData("FireState", autoFireState);
         telemetry.addData("FireTimer", autoFireTimer);
         telemetry.addData("Turret Position", turret.getPosition());
+        telemetry.addData("Turret Power", turret.getPower());
     }
 
     public void robot_update () {
