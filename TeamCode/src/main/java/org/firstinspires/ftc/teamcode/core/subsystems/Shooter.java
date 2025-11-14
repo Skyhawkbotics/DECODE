@@ -107,16 +107,13 @@ public class     Shooter {
 
     ///  Methods for quick PID target values, methods for the four velocities
     public void perf_velocity() {
-        toggle_update_true();
         setTarget(perf_value);
     }
     public void closest (){
-        toggle_update_true();
         setTarget(closest);
     }
 
     public void middle(){
-        toggle_update_true();
         setTarget(middle_of_field);
     }
 
@@ -132,12 +129,14 @@ public class     Shooter {
         telemetry.addData("calculated position", shooterSpeed.calcAngle(distance));
     }
     public void back_perf() {
-        toggle_update_true();
         setTarget(far_side_shoot);
     }
-    public void to_zero() {
+    public void turnOFF() {
         toggle_update_false();
         setTarget(0);
+    }
+    public void shooterON() {
+        toggle_update_true();
     }
     public void stress() {
         toggle_update_true();
@@ -210,7 +209,9 @@ public class     Shooter {
         telemetry.addData("motor speed in ticks", top_motor.getVelocity());
         telemetry.addData("motor position", top_motor.getCurrentPosition());
         telemetry.addData("motor rpm", conversion_RPM(top_motor.getVelocity()));
-        telemetry.addData("servo position", servo.getPosition());
+        telemetry.addData("Motor power", top_motor.getPower());
+        telemetry.addData("Motor power", bot_motor.getPower());
+        telemetry.addData("Shooter Angle position", servo.getPosition());
         telemetry.addData("current target", target);
         telemetry.addData("pid output", power);
         // telemetry.addData("Servo position", servo.getPosition());

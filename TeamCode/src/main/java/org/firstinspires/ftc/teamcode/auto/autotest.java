@@ -143,7 +143,7 @@ public class autotest extends OpMode {
 
                 break;
             case 1:
-                shoot.to_zero();
+                shoot.shooterON();
             case 2:
                 break;
             case 3:
