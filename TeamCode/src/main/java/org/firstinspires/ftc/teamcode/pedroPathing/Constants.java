@@ -18,8 +18,8 @@ public class Constants {
             .mass(10)
             .forwardZeroPowerAcceleration(-39.34560406852385)
             .lateralZeroPowerAcceleration(-45.81616366417171)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.08, 0, 0.0005, 0))
-            .headingPIDFCoefficients(new PIDFCoefficients(1.0, 0, 0.00005, 0.01));
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.20, 0, 0.0005, 0))
+            .headingPIDFCoefficients(new PIDFCoefficients(2.0, 0, 0.00005, 0.01));
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
             .rightFrontMotorName("right_front")
@@ -35,13 +35,13 @@ public class Constants {
     ///uhh come back to ts, idk which ones to reverse
 
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(-4.0)
-            .strafePodX(-7.5)
+            .forwardPodY(7.0)
+            .strafePodX(3.5)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pin")
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_SWINGARM_POD)
-            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
-            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD);
+            .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED)
+            .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
     public static PathConstraints pathConstraints = new PathConstraints(0.95, 100, 1, 1);
 
