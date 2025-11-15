@@ -249,6 +249,14 @@ public class Robot {
                 true
         );
 
+        if (g1.left_trigger > 0 || g2.left_trigger > 0) {
+            intake.on();
+        } else if(g1.left_bumper) {
+            intake.reverse();
+        } else if(!autofiring) {
+            intake.off();
+        }
+
 
         if(g2.crossWasPressed()) {
             setAutoFireState(1);
