@@ -35,8 +35,8 @@ public class Constants {
     ///uhh come back to ts, idk which ones to reverse
 
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(-4.0)
-            .strafePodX(-7.5)
+            .forwardPodY(-5)
+            .strafePodX(0)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pin")
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)

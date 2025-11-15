@@ -36,8 +36,8 @@ public class Turret {
     public Boolean usingHeadingCorrection;
     private PIDController heading_turret_pid;
 
-    int LEFT_LIMIT = -400; // This is about 45 degrees
-    int RIGHT_LIMIT = 400; // TICKS. RIGHT IS MORE TICKS, LEFT IS LESS TICKS
+    int LEFT_LIMIT = -500; // This is about 45 degrees
+    int RIGHT_LIMIT = 500; // TICKS. RIGHT IS MORE TICKS, LEFT IS LESS TICKS
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
         limelight = new LL(hardwareMap, telemetry);
@@ -126,6 +126,7 @@ public class Turret {
     }
 
     public double updateTurret(Telemetry telemetry, int ID) {
+
 
         telemetry.addData("Current ID", ID);
 

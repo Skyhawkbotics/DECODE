@@ -15,7 +15,16 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 @Autonomous(name = "abey auto", group = "auto")
 @Disabled
 public class abeyauto extends OpMode {
+    @Override
+    public void init() {
 
+    }
+
+    @Override
+    public void loop() {
+
+    }
+/*
     private Follower follower;
     private Timer pathTimer, opmodeTimer;
     private int pathState;
@@ -210,4 +219,6 @@ public class abeyauto extends OpMode {
 
     @Override
     public void stop() {}
+
+ */
 }

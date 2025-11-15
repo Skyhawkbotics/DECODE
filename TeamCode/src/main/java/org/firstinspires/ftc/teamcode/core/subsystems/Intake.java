@@ -23,6 +23,10 @@ public class Intake {
     public void on(){
         intake_motor.setPower(intake_speed);
     }
+    public void on_little(){
+        intake_motor.setPower(0.7);
+    }
+
     public void off(){
         intake_motor.setPower(0);
     }

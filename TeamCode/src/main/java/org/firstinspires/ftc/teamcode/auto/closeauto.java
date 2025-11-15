@@ -10,7 +10,7 @@ import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.core.ericauto.score_command_close;
+import org.firstinspires.ftc.teamcode.unused.dontuse;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 import ftclib.FollowPath;
@@ -50,7 +50,7 @@ public class closeauto extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), gotoShooterSpot)
                                 .alongWith(
-                                        new score_command_close(bot)
+                                        new dontuse(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), gotoPark)

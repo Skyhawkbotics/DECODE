@@ -173,7 +173,7 @@ public class LL {
                 List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                 for (LLResultTypes.FiducialResult fr : fiducialResults) {
                     if (fr.getFiducialId() == ID) {
-                        pid.setPID(0.05, ei, ed);
+                        pid.setPID(0.05, ei, 0.00007);
                         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                         pid_output = pid.calculate(result.getTx(), 0);
                         telemetry.addData("PID SPEED", pid_output);

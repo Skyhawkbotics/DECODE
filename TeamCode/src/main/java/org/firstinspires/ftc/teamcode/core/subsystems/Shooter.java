@@ -97,6 +97,9 @@ public class     Shooter {
     public void perf_velocity() {
         setTarget(perf_value);
     }
+    public void auto_speed() {
+        setTarget(auto_speed);
+    }
     public void closest (){
         setTarget(closest);
     }
@@ -209,6 +212,9 @@ public class     Shooter {
     }
     public int getvelocity() {
         return (int) top_motor.getVelocity();
+    }
+    public Boolean velocityReached() {
+        return target - top_motor.getVelocity() < 60;
     }
 }
 

@@ -14,6 +14,9 @@ public class constants {
     /// Hardware names
     public static String turret_name = "turret";
 
+    public static int blue_ID = 20;
+    public static int red_ID = 24;
+
 
     ///  Shooter PID constants
 
@@ -26,6 +29,7 @@ public class constants {
 
     /// constants for halle
     ///
+    public static int auto_speed = 1100;
     public static int perf_value = 1300; ///vertex of largest triangle
 
     public static int far_side_shoot = 1560; ///vertex of smallest triangle
@@ -52,7 +56,7 @@ public class constants {
 
     /// Intake speed constants
 
-    public static double intake_speed = 1.0;
+    public static double intake_speed = 0.8;
 
 
     public static double elevator_shoot = 0.05;

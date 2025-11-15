@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -72,7 +73,7 @@ public class Robot {
         this.ID = ID;
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -81,6 +82,7 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, 20);
 
 
 
@@ -109,7 +111,7 @@ public class Robot {
 
 
 
-        if (g1.left_trigger > 0) {
+        if (g1.left_trigger > 0 || g2.left_trigger > 0) {
             intake.on();
         } else if(g1.left_bumper) {
             intake.reverse();
@@ -118,6 +120,7 @@ public class Robot {
         }
 
         /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
+
         if (g2.left_stick_x != 0) {
             manual_turret = true;
         } else {
@@ -133,7 +136,7 @@ public class Robot {
 
 
         if(g2.crossWasPressed()) {
-            setAutoFireState(1);
+          //  setAutoFireState(1);
         }
         if(g2.circle && !autofiring) {
             elevator.on();
@@ -353,13 +356,12 @@ public class Robot {
 
     }
     public void robot_telemetry() {
-        telemetry.addData("FireState", autoFireState);
-        telemetry.addData("FireTimer", autoFireTimer);
         telemetry.addData("Turret Position", turret.getPosition());
-        telemetry.addData("Turret Power", turret.getPower());
+        telemetry.addData("RobotPose", follower.getPose());
     }
 
     public void robot_update () {
+
         shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
@@ -373,17 +375,32 @@ public class Robot {
         }
 
     }
+    public void auto_robot_update() {
+        shooter.shooter_telemetry();
+        shooter.update();
+        robot_telemetry();
+        follower.update();
+        telemetry.update();
+        turret.updateTurret(telemetry, red_ID);
+    }
     public Follower getFollower() {
         return follower;
     }
     public Shooter getShooter() {
         return shooter;
     }
+    public Turret getTurret() {
+        return turret;
+    }
+
     public Elevator getElevator() {
         return elevator;
     }
     public Telemetry getTelemetry() {
         return telemetry;
+    }
+    public Intake getIntake() {
+        return intake;
     }
 
 
