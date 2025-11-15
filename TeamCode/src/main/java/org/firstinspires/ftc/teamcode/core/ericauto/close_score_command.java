@@ -72,13 +72,7 @@ public class close_score_command extends CommandBase {
                 }
                 break;
             case 8:
-                if (timer.getElapsedTimeSeconds() > 1.5) { //7.5
-                    bot.getIntake().off();
-                    setState(9);
-                }
-                break;
-            case 9:
-                if (timer.getElapsedTimeSeconds() > 0.5) { // 8
+                if (timer.getElapsedTimeSeconds() > 2) { //7.5
                     bot.getElevator().on();
                     setState(10);
                 }

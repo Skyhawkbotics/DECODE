@@ -36,11 +36,12 @@ public class Prep_Shooter extends CommandBase {
                 break;
             case 1:
                 bot.getShooter().shooterON();
-                bot.getShooter().perf_velocity();
+                bot.getShooter().auto_speed();
                 setState(2);
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
+                    setState(-1);
                 }
                 break;
 
