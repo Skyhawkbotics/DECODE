@@ -246,13 +246,9 @@ public class Robot {
                 -g1.right_stick_x * 0.5,
                 true
         );
-        if (g2.left_stick_x != 0) {
-            turret.manual_move(g2);
-        } else {
-            turret.setTurretPower(0);
-        }
-        if (g2.right_stick_x !=0) {
-            turret.updateTurret(telemetry, ID);
+
+        if (g2.right_bumper) {
+            turret.limelightON();
         }
 
 
@@ -363,6 +359,8 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
+        turret.updateTurret(telemetry, ID);
+
     }
     public void auto_robot_update() {
         shooter.shooter_telemetry();
