@@ -22,19 +22,18 @@ import ftclib.OpModeCommand;
 @Configurable
 public class Ahana_Blue_Close_Assist extends OpModeCommand {
     Robot bot;
-    public static final Pose startpose = new Pose (27.05,135.6, Math.toRadians(90));
-    public final Pose presets = new Pose (36.56,110.82, Math.toRadians(135));
-    public final Pose pos4ophalf = new Pose (49.31,72, Math.toRadians(180));
-    public final Pose pos4op1 = new Pose (25.31, 71.6, Math.toRadians(90));
-    public final Pose gateopn = new Pose (11.93,71.6, Math.toRadians(180));
-    public final Pose pos4gathalf = new Pose (45.18, 71.6, Math.toRadians(180));
-    public final Pose pos4gat1 = new Pose (44.98,84.59, Math.toRadians(0));
-    public final Pose gather1 = new Pose (14.69, 84.2, Math.toRadians(0));
-    public final Pose shoot1 = new Pose (49.9, 84.78, Math.toRadians(140));
-    public final Pose pos4gat2 = new Pose (50.098, 60.199, Math.toRadians(180));
-    public final Pose gather2 = new Pose (15.28, 59.61, Math.toRadians(180));
-    public final Pose shoot2 = new Pose (50.2, 84.59, Math.toRadians(140));
-    private Path to_load, score1;
+    public static final Pose startpose = new Pose (31.95,135.6, Math.toRadians(90));
+    public final Pose presets = new Pose (40.56,110.82, Math.toRadians(135));
+    public final Pose pos4ophalf = new Pose (53.31,72, Math.toRadians(180));
+    public final Pose pos4op1 = new Pose (29.31, 71.6, Math.toRadians(180));
+    public final Pose gateopn = new Pose (15.93,71.6, Math.toRadians(180));
+    public final Pose pos4gathalf = new Pose (49.18, 71.6, Math.toRadians(180));
+    public final Pose pos4gat1 = new Pose (48.98,84.59, Math.toRadians(180));
+    public final Pose gather1 = new Pose (18.69, 84.2, Math.toRadians(180));
+    public final Pose shoot1 = new Pose (53.9, 84.78, Math.toRadians(140));
+    public final Pose pos4gat2 = new Pose (54.098, 60.199, Math.toRadians(180));
+    public final Pose gather2 = new Pose (19.28, 59.61, Math.toRadians(180));
+    public final Pose shoot2 = new Pose (54.2, 84.59, Math.toRadians(140));
 
     private Path scorepres, gategetready, gategetsteady, gatemustgo, getreadyhalf, getready1, load1, getready2, load2;
     public void buildPaths(){
