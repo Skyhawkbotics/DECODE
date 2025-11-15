@@ -95,12 +95,12 @@ public class Robot {
             isparking = !isparking;
         }
         if(isparking) {
-            follower.setTeleOpDrive(0.3 * -g1.left_stick_y, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+            follower.setTeleOpDrive(0.3 * -g1.left_stick_y, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
         } else if(g1.right_trigger > 0) {
             follower.setTeleOpDrive(-1, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
         } else if (g1.right_trigger == 0){
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.8 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
         }
 
 
