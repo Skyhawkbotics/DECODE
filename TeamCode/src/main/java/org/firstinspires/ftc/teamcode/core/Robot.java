@@ -26,6 +26,9 @@ public class Robot {
     private boolean SLOW_MODE = false;
 
     private Intake intake;
+    private int ID;
+
+    private Boolean isparking = false;
     private Boolean autofiring = false;
 
     private Boolean useShooter = false;
@@ -44,7 +47,7 @@ public class Robot {
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -62,10 +65,10 @@ public class Robot {
         follower.startTeleopDrive();
         follower.update();
         autoFireTimer = new Timer();
-
+        this.ID = ID;
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -88,8 +91,20 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.4, true);
-        follower.update();
+        if(g1.right_bumper) {
+            isparking = !isparking;
+        }
+        if(isparking) {
+            follower.setTeleOpDrive(0.3 * -g1.left_stick_y, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+
+        } else if(g1.right_trigger > 0) {
+            follower.setTeleOpDrive(-1, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        } else if (g1.right_trigger == 0){
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.8 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, false );
+        }
+
+
+
         if (g1.left_trigger > 0) {
             intake.on();
         } else if(g1.left_bumper) {
@@ -97,6 +112,15 @@ public class Robot {
         } else if(!autofiring) {
             intake.off();
         }
+        if (g2.left_stick_x != 0) {
+            turret.manual_move(g2);
+        } else {
+            turret.setTurretPower(0);
+        }
+        if (g2.right_stick_x !=0) {
+            turret.updateTurret(telemetry, ID);
+        }
+
 
 
 
@@ -108,6 +132,7 @@ public class Robot {
         } else if (!autofiring) {
             elevator.off();
         }
+
         if(g2.right_trigger > 0 && !(prevg2.right_trigger > 0)) {
             useShooter = !useShooter;
         }
@@ -150,15 +175,13 @@ public class Robot {
                 }
                 break;
             case 4:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
                     intake.off();
-                    elevator.on();
                     setAutoFireState(5);
                 }
                 break;
             case 5:
                 if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    intake.off();
                     elevator.on();
                     setAutoFireState(6);
                 }
@@ -176,14 +199,19 @@ public class Robot {
                 }
                 break;
             case 8:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
+                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
                     intake.off();
-                    elevator.on();
                     setAutoFireState(9);
                 }
                 break;
             case 9:
                 if (autoFireTimer.getElapsedTimeSeconds() > 1) {
+                    elevator.on();
+                    setAutoFireState(10);
+                }
+                break;
+            case 10:
+                if(autoFireTimer.getElapsedTimeSeconds() > 1) {
                     elevator.off();
                     setAutoFireState(-1);
                 }
@@ -313,6 +341,7 @@ public class Robot {
         telemetry.addData("FireState", autoFireState);
         telemetry.addData("FireTimer", autoFireTimer);
         telemetry.addData("Turret Position", turret.getPosition());
+        telemetry.addData("Turret Power", turret.getPower());
     }
 
     public void robot_update () {

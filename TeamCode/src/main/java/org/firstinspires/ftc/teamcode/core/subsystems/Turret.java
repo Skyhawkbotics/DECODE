@@ -36,8 +36,8 @@ public class Turret {
     public Boolean usingHeadingCorrection;
     private PIDController heading_turret_pid;
 
-    int LEFT_LIMIT = degreesToTicks(-90);
-    int RIGHT_LIMIT = degreesToTicks(90);
+    int LEFT_LIMIT = -400; // This is about 45 degrees
+    int RIGHT_LIMIT = 400; // TICKS. RIGHT IS MORE TICKS, LEFT IS LESS TICKS
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
         limelight = new LL(hardwareMap, telemetry);
@@ -74,15 +74,16 @@ public class Turret {
     public void setTurretPower(double power) {
         int pos = turret.getCurrentPosition();
 
-        if (pos <= LEFT_LIMIT && power < 0) {
+        if (pos <= LEFT_LIMIT && power < 0 ) {
             power = 0;
             limelight.LL_correction_OFF();
         } else if (pos >= RIGHT_LIMIT && power > 0) {
             power = 0;
             limelight.LL_correction_OFF();
-        } else {
-            turret.setPower(power);
-        } // ok so we can turn it off in necessary. How do you align it properly though?
+        }
+
+        turret.setPower(power);
+         // ok so we can turn it off in necessary. How do you align it properly though?
         // manual button to realign?
     }
 
@@ -101,27 +102,24 @@ public class Turret {
     public int getPosition() {
         return turret.getCurrentPosition();
     }
+
+    public double getPower() {
+        return turret.getPower();
+    }
     public void manual_move(Gamepad gamepad) {
         limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
-        turret.setPower(gamepad.left_stick_y);
+
+        setTurretPower(gamepad.left_stick_x * 0.2);
     } // this could be for moving it away from limit
 
-    public void updateTurret(Telemetry telemetry, Pose followerPose, int ID) {
+    public void updateTurret(Telemetry telemetry, int ID) {
 
         telemetry.addData("Current ID", ID);
 
-        if (usingHeadingCorrection) {
-            limelight.LL_correction_OFF();
-            heading_turret_pid.setPID(turret_p, turret_i, turret_d);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            double pid_input = calculate_difference(followerPose);
-            double output = heading_turret_pid.calculate(pid_input, turret.getCurrentPosition());
-            turret.setPower(output);
+        limelight.LL_correction_ON();
+        double pid_output = limelight.turret_pid_update(telemetry, turret, ID);
+        setTurretPower(pid_output);
 
-        } else {
-            limelight.LL_correction_ON();
-            limelight.turret_pid_update(telemetry, turret, ID);
-        }
     }
 }

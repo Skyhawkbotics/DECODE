@@ -50,22 +50,6 @@ public class constants {
     public static double degrees_to_ticks;
 
 
-
-
-
-
-    public static double index1 = 0.0;
-
-    public static double index2 = 0.0;
-
-    public static double index3 = 0.0;
-
-    public static double target_distance = 0.0;
-
-    public static double distance_tolerance = 0.0;
-
-    public static double fire_ball = 0.0;
-
     /// Intake speed constants
 
     public static double intake_speed = 1.0;

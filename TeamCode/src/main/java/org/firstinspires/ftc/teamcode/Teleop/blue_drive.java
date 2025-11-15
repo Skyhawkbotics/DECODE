@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,10 +12,11 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 public class blue_drive extends OpMode {
     private Robot robot;
     int ID = 20;
+    public Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPose);
 
     }
 
