@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -18,6 +19,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "assist red! close", group = "gf")
+@Configurable
 public class Ahana_Red_Close_Assist extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose (112.95,135.6, Math.toRadians(90));

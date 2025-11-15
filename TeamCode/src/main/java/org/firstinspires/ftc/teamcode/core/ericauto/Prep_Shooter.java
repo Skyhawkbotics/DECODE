@@ -29,6 +29,7 @@ public class Prep_Shooter extends CommandBase {
     @Override
     public void execute() {
         bot.getShooter().update();
+        bot.getTurret().updateTurret(bot.getTelemetry(), red_ID);
 
         switch (state) {
             case -1:
@@ -40,7 +41,6 @@ public class Prep_Shooter extends CommandBase {
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
-                    setState(-1);
                 }
                 break;
 
