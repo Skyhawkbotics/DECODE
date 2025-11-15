@@ -112,6 +112,12 @@ public class Turret {
 
         setTurretPower(gamepad.left_stick_x * 0.2);
     } // this could be for moving it away from limit
+    public void limelightON() {
+        limelight.LL_correction_ON();
+    }
+    public void limelightOFF() {
+        limelight.LL_correction_OFF();
+    }
 
     public void updateTurret(Telemetry telemetry, int ID) {
 
