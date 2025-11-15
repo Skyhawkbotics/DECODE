@@ -28,6 +28,12 @@ public class LL {
 
     public static int target;
 
+    private double lp = 0.02;
+
+    private double li = 0;
+
+    private double ld = 0.00007;
+
     public LL(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -35,7 +41,7 @@ public class LL {
 
         limelight.start();
 
-        pid = new PIDController(ep, ei, ed);
+        pid = new PIDController(lp, li, ld);
 
         telemetry.addData(">", "Robot Ready. Press Play.");
         telemetry.update();
@@ -170,7 +176,7 @@ public class LL {
                 List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                 for (LLResultTypes.FiducialResult fr : fiducialResults) {
                     if (fr.getFiducialId() == ID) {
-                        pid.setPID(0.05, ei, 0.00007);
+                        pid.setPID(lp, lp, ld);
                         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                         pid_output = pid.calculate(result.getTx(), 0);
                         telemetry.addData("PID SPEED", pid_output);
