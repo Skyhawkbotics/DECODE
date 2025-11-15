@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.close_score_command;
+import org.firstinspires.ftc.teamcode.core.commands.intake_swallow;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -28,7 +29,7 @@ public class red_far_side_auto extends OpModeCommand {
 
     public final Pose shoot1 = new Pose(93,9.6, Math.toRadians(-110));
 
-    public final Pose ballPickup1 = new Pose(125.5, 36, Math.toRadians(0));
+    public final Pose ballPickup1 = new Pose(130, 32, Math.toRadians(0));
 
     public final Pose shoot2 = new Pose(80.5,15.8, Math.toRadians(-120));
 
@@ -42,7 +43,7 @@ public class red_far_side_auto extends OpModeCommand {
         scorehpballs = new Path (new BezierCurve(hpZonePickup, new Pose(110,16), shoot1));
         scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), shoot1.getHeading());
 
-        intakerow1 = new Path (new BezierCurve(shoot1, new Pose(67,50.7), ballPickup1));
+        intakerow1 = new Path (new BezierCurve(shoot1, new Pose(67,58), ballPickup1));
         intakerow1.setLinearHeadingInterpolation(shoot1.getHeading(), ballPickup1.getHeading());
 
         scorerow1balls = new Path (new BezierLine(ballPickup1, shoot2));
@@ -65,15 +66,30 @@ public class red_far_side_auto extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), pickuphpballs)
+                                                .alongWith(
+                                                        new intake_swallow(bot)
+                                                )
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),scorehpballs)
+                                                .alongWith(
+                                                        new intake_swallow(bot)
+                                                )
+                                )
+                                .andThen(
+                                        new close_score_command(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intakerow1)
+                                                .alongWith(
+                                                        new intake_swallow(bot)
+                                                )
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), scorerow1balls)
+                                )
+                                .andThen(
+                                        new close_score_command(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), park)
