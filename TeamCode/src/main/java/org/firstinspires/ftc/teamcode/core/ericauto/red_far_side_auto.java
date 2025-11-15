@@ -36,7 +36,7 @@ public class red_far_side_auto extends OpModeCommand {
         pickuphpballs.setLinearHeadingInterpolation(startPose.getHeading(), hpZonePickup.getHeading());
 
         scorehpballs = new Path (new BezierLine(hpZonePickup, shoot1));
-        scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), hpZonePickup.getHeading());
+        scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), shoot1.getHeading());
 
         intakerow1 = new Path (new BezierLine(shoot1, ballPickup1));
         intakerow1.setLinearHeadingInterpolation(shoot1.getHeading(), ballPickup1.getHeading());
@@ -44,22 +44,18 @@ public class red_far_side_auto extends OpModeCommand {
         scorerow1balls = new Path (new BezierLine(ballPickup1, shoot2));
         scorerow1balls.setLinearHeadingInterpolation(ballPickup1.getHeading(), shoot2.getHeading());
 
-        park = new Path(new BezierLine(hpZonePickup, shoot1));
-        park.setLinearHeadingInterpolation(hpZonePickup.getHeading(), parkPose.getHeading());
+        park = new Path(new BezierLine(shoot2, parkPose));
+        park.setLinearHeadingInterpolation(shoot2.getHeading(), parkPose.getHeading());
     }
 
     public void initialize() {
         buildPaths();
         bot=new Robot(hardwareMap,telemetry,red_ID,startPose);
-        bot.getFollower().setStartingPose(startPose);
 
         schedule(
-                new RunCommand(bot::robot_update), // This is a method reference ::
+                new RunCommand(bot::auto_robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), pickuphpballs)
-                                .alongWith(
-                                        new Prep_Shooter(bot)
-                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),scorehpballs)
                                 )
