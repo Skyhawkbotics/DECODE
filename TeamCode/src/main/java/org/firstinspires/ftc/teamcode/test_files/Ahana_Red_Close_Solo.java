@@ -13,11 +13,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "BLUE close side auto", group = "gf")
+
+@Disabled
 
 public class Ahana_Red_Close_Solo extends OpModeCommand {
     Robot bot;

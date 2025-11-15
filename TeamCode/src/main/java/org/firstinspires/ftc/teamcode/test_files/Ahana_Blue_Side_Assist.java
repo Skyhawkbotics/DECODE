@@ -9,6 +9,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -17,6 +18,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "assist blue far", group = "gf")
+@Disabled
 public class Ahana_Blue_Side_Assist extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose (46.23, 8.26, Math.toRadians(90));

@@ -74,12 +74,13 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
         schedule(
                 new RunCommand(bot::auto_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(),scorepres)
+                        new Prep_Shooter(bot) // this is the final decider of when everything ends
                                 .alongWith(
-                                        new intake_swallow(bot),
-                                        new Prep_Shooter(bot) // this is the final decider of when everything ends
+                                        new intake_swallow(bot)
+                                                .alongWith(
+                                                        new FollowPath(bot.getFollower(),scorepres)
                                                         // this is the final decider of when everything ends
-
+                                                )
                                 )
                                 .andThen(
                                         new close_score_command(bot)
