@@ -76,10 +76,8 @@ public class Turret {
 
         if (pos <= LEFT_LIMIT && power < 0 ) {
             power = 0;
-            limelight.LL_correction_OFF();
         } else if (pos >= RIGHT_LIMIT && power > 0) {
             power = 0;
-            limelight.LL_correction_OFF();
         }
 
         turret.setPower(power);
@@ -107,34 +105,26 @@ public class Turret {
         return turret.getPower();
     }
     public void manual_move(Gamepad gamepad) {
-        limelight.LL_correction_OFF();
+        // limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
 
-        setTurretPower(gamepad.left_stick_x * 0.2);
+        setTurretPower(gamepad.left_stick_x * 0.33);
     } // this could be for moving it away from limit
-    public void limelightON() {
-        limelight.LL_correction_ON();
-    }
-    public void limelightOFF() {
-        limelight.LL_correction_OFF();
-    }
 
-    public void reset() {
+    public void zeroTurret() {
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        turret.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
+
 
     public void updateTurret(Telemetry telemetry, int ID) {
 
 
         telemetry.addData("Current ID", ID);
 
-        limelight.LL_correction_ON();
         double pid_output = limelight.turret_pid_update(telemetry, turret, ID);
         setTurretPower(pid_output);
-
+        // return pid_output;
     }
 }

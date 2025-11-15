@@ -26,6 +26,8 @@ public class Robot {
 
     private boolean SLOW_MODE = false;
 
+    private boolean manual_turret = false;
+
     private Intake intake;
     private int ID;
 
@@ -43,6 +45,8 @@ public class Robot {
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
     public Timer autoFireTimer;
+
+    private double pid_output = 0;
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
@@ -115,17 +119,15 @@ public class Robot {
             intake.off();
         }
 
-        if (g2.left_stick_x != 0) {
-            turret.manual_move(g2);
-        } else {
-            turret.setTurretPower(0);
-        }
-        if (g2.right_stick_x !=0) {
-            turret.updateTurret(telemetry, ID);
+        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
+        if (g2.leftBumperWasPressed()) {
+            manual_turret = !manual_turret;
         }
 
-
-
+        ///  ZEROING ENCODER METHOD
+        if (g2.rightBumperWasPressed()) {
+            turret.zeroTurret();
+        }
 
         if(g2.crossWasPressed()) {
           //  setAutoFireState(1);
@@ -247,10 +249,6 @@ public class Robot {
                 true
         );
 
-        if (g2.right_bumper) {
-            turret.limelightON();
-        }
-
 
         if(g2.crossWasPressed()) {
             setAutoFireState(1);
@@ -276,6 +274,17 @@ public class Robot {
         }
         if(g2.dpadRightWasPressed()) {
             shooter.back_perf();
+        }
+
+        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
+        if (g2.leftBumperWasPressed()) {
+            manual_turret = !manual_turret;
+        }
+        ///  LEFT STICK X ON G2 MOVES THE TURRET
+
+        ///  ZEROING ENCODER METHOD
+        if (g2.rightBumperWasPressed()) {
+            turret.zeroTurret();
         }
 
 
@@ -350,6 +359,7 @@ public class Robot {
     public void robot_telemetry() {
         telemetry.addData("Turret Position", turret.getPosition());
         telemetry.addData("RobotPose", follower.getPose());
+        telemetry.addData("Manual Move", manual_turret);
     }
 
     public void robot_update () {
@@ -359,7 +369,15 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
-        turret.updateTurret(telemetry, ID);
+        // pid_output = turret.updateTurret(telemetry, ID);
+        telemetry.addData("UPDATE LOOP WORKING", "");
+        if (manual_turret) {
+            telemetry.addData("IF LOOP WORKING", "");
+            turret.manual_move(g2);
+        } else if (!manual_turret) {
+            // turret.setTurretPower(pid_output);
+            turret.updateTurret(telemetry, ID);
+        }
 
     }
     public void auto_robot_update() {
