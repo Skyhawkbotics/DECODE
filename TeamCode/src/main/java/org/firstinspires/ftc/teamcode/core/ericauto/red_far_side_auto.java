@@ -59,7 +59,7 @@ public class red_far_side_auto extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), pickuphpballs)
                                 .alongWith(
-                                        new score_command(bot)
+                                        new Prep_Shooter(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),scorehpballs)

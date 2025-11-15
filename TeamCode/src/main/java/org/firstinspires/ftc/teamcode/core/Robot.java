@@ -106,13 +106,14 @@ public class Robot {
 
 
 
-        if (g1.left_trigger > 0) {
+        if (g1.left_trigger > 0 || g2.left_trigger > 0) {
             intake.on();
         } else if(g1.left_bumper) {
             intake.reverse();
         } else if(!autofiring) {
             intake.off();
         }
+
         if (g2.left_stick_x != 0) {
             turret.manual_move(g2);
         } else {
@@ -126,7 +127,7 @@ public class Robot {
 
 
         if(g2.crossWasPressed()) {
-            setAutoFireState(1);
+          //  setAutoFireState(1);
         }
         if(g2.circle && !autofiring) {
             elevator.on();
@@ -350,10 +351,8 @@ public class Robot {
 
     }
     public void robot_telemetry() {
-        telemetry.addData("FireState", autoFireState);
-        telemetry.addData("FireTimer", autoFireTimer);
         telemetry.addData("Turret Position", turret.getPosition());
-        telemetry.addData("Turret Power", turret.getPower());
+        telemetry.addData("RobotPose", follower.getPose());
     }
 
     public void robot_update () {

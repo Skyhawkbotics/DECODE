@@ -55,7 +55,7 @@ public class constants {
 
     /// Intake speed constants
 
-    public static double intake_speed = 1.0;
+    public static double intake_speed = 0.8;
 
 
     public static double elevator_shoot = 0.05;

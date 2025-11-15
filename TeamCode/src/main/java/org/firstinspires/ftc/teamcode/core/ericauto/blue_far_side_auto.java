@@ -55,7 +55,7 @@ public class blue_far_side_auto extends OpModeCommand {
                         new FollowPath(bot.getFollower(), score1)
 
                                                 .alongWith(
-                                                        new score_command(bot)
+                                                        new Prep_Shooter(bot)
                                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), park)
