@@ -15,17 +15,17 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "solo blue far", group = "gf")
-public class AS_solo_BB extends OpModeCommand {
+@Autonomous(name = "solo blue close", group = "gf")
+public class Ahana_Blue_Close_Solo extends OpModeCommand {
     Robot bot;
-    public static final Pose startpose = new Pose (46.23, 8.26, Math.toRadians(90));
-    public final Pose presets = new Pose (46.033, 9.246, Math.toRadians(105));
-    public final Pose pos4gat1 = new Pose (45.836, 35.41, Math.toRadians(180));
-    public final Pose gather1 = new Pose (19.08, 35.41, Math.toRadians(180));
-    public final Pose launch1 = new Pose (57.64, 8.26, Math.toRadians(115));
-    public final Pose pos4gat2 = new Pose (51.93, 59.02, Math.toRadians(180));
-    public final Pose gather2 = new Pose (19.475, 59.41, Math.toRadians(180));
-    public final Pose launch2 = new Pose (57.24, 83.803, Math.toRadians(140));
+    public static final Pose startpose = new Pose (31.95, 135.6, Math.toRadians(90));
+    public final Pose presets = new Pose (40.56, 110.82, Math.toRadians(135));
+    public final Pose pos4gat1 = new Pose (49.57,83.98, Math.toRadians(180));
+    public final Pose gather1 = new Pose (19.46, 84.19, Math.toRadians(180));
+    public final Pose launch1 = new Pose (60, 85.967, Math.toRadians(150));
+    public final Pose pos4gat2 = new Pose (50.36, 59.80, Math.toRadians(180));
+    public final Pose gather2 = new Pose (19.475,59.803, Math.toRadians(180));
+    public final Pose launch2= new Pose(60.1967, 85.967, Math.toRadians(140));
 
     private Path scorepres, getready1, load1, score1, getready2, load2, score2;
     public void buildPaths (){
@@ -38,23 +38,22 @@ public class AS_solo_BB extends OpModeCommand {
         load1 = new Path (new BezierLine(pos4gat1, gather1));
         load1.setConstantHeadingInterpolation(180);
 
-        score1 = new Path (new BezierLine(gather1, launch1));
-        score1.setLinearHeadingInterpolation(gather1.getHeading(), launch1.getHeading());///set delay
+        score1 = new Path(new BezierLine(gather1,launch1));
+        score1.setLinearHeadingInterpolation(gather1.getHeading(),launch1.getHeading());///set delay
 
-        getready2 = new Path (new BezierLine(launch1,pos4gat2));
-        getready2.setLinearHeadingInterpolation(launch1.getHeading(), pos4gat2.getHeading());
+        getready2= new Path (new BezierLine (launch1, pos4gat2));
+        getready2.setLinearHeadingInterpolation(launch1.getHeading(),pos4gat1.getHeading());
 
         load2 = new Path (new BezierLine(pos4gat2, gather2));
         load2.setConstantHeadingInterpolation(180);
 
         score2 = new Path (new BezierLine(gather2, launch2));
-        score2.setLinearHeadingInterpolation(gather2.getHeading(), launch2.getHeading());
+        score2.setLinearHeadingInterpolation(gather2.getHeading(), launch2.getHeading());///set delay
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap,telemetry, blue_ID, startpose);
+        bot=new Robot(hardwareMap,telemetry, blue_ID, startpose);
         bot.getFollower().setStartingPose(startpose);
-
         schedule(
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
@@ -87,6 +86,7 @@ public class AS_solo_BB extends OpModeCommand {
                         .andThen(
                                 new WaitCommand(7000)
                         )
+
         );
     }
 }

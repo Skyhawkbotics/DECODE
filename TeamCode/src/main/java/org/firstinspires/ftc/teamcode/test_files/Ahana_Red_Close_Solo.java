@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.test_files;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -10,14 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "red close side auto", group = "gf")
-@Disabled
-public class ahana_red_Backshots extends OpModeCommand {
+
+public class Ahana_Red_Close_Solo extends OpModeCommand {
     whole_robot bot;
     public static final Pose startPose = new Pose (27.540983606557376    ,125.50819672131146, Math.toRadians(90));
     public static final Pose first3pts = new Pose(22.81967213114754    ,100.72131147540983, Math.toRadians(270));

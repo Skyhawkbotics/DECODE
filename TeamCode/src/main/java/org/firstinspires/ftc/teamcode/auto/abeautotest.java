@@ -18,7 +18,16 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 @Disabled
 public class abeautotest extends OpMode {
+    @Override
+    public void init() {
 
+    }
+
+    @Override
+    public void loop() {
+
+    }
+/*
     private TelemetryManager panelsTelemetry; // Panels Telemetry instance
     public Follower follower; // Pedro Pathing follower instance
     private int pathState; // Current autonomous path state (state machine)
@@ -164,4 +173,6 @@ public class abeautotest extends OpMode {
         // Refer to the Pedro Pathing Docs (Auto Example) for an example state machine
         return pathState;
     }
+
+ */
 }

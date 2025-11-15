@@ -17,7 +17,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "assist blue far", group = "gf")
-public class AS_alliancehelps_BB extends OpModeCommand {
+public class Ahana_Blue_Side_Assist extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose (46.23, 8.26, Math.toRadians(90));
     public final Pose presets = new Pose (46.03, 9.245, Math.toRadians(110));

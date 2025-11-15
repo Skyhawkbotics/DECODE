@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.test_files;
 
-import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
+import com.pedropathing.math.MathFunctions;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
@@ -15,21 +16,21 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "assist blue close", group = "gf")
-public class AS_alliancehelps_BF extends OpModeCommand {
+@Autonomous(name = "assist red! close", group = "gf")
+public class Ahana_Red_Close_Assist extends OpModeCommand {
     Robot bot;
-    public static final Pose startpose = new Pose (31.95,135.6, Math.toRadians(90));
-    public final Pose presets = new Pose (40.56,110.82, Math.toRadians(135));
-    public final Pose pos4ophalf = new Pose (53.31,72, Math.toRadians(180));
-    public final Pose pos4op1 = new Pose (29.31, 71.6, Math.toRadians(180));
-    public final Pose gateopn = new Pose (15.93,71.6, Math.toRadians(180));
-    public final Pose pos4gathalf = new Pose (49.18, 71.6, Math.toRadians(180));
-    public final Pose pos4gat1 = new Pose (48.98,84.59, Math.toRadians(180));
-    public final Pose gather1 = new Pose (18.69, 84.2, Math.toRadians(180));
-    public final Pose shoot1 = new Pose (53.9, 84.78, Math.toRadians(140));
-    public final Pose pos4gat2 = new Pose (54.098, 60.199, Math.toRadians(180));
-    public final Pose gather2 = new Pose (19.28, 59.61, Math.toRadians(180));
-    public final Pose shoot2 = new Pose (54.2, 84.59, Math.toRadians(140));
+    public static final Pose startpose = new Pose (112.95,135.6, Math.toRadians(90));
+    public final Pose presets = new Pose (103.44,110.82, Math.toRadians(135));
+    public final Pose pos4ophalf = new Pose (90.69,72, Math.toRadians(180));
+    public final Pose pos4op1 = new Pose (114.69, 71.6, Math.toRadians(180));
+    public final Pose gateopn = new Pose (128.07,71.6, Math.toRadians(180));
+    public final Pose pos4gathalf = new Pose (94.82, 71.6, Math.toRadians(180));
+    public final Pose pos4gat1 = new Pose (95.02,84.59, Math.toRadians(180));
+    public final Pose gather1 = new Pose (125.31, 84.2, Math.toRadians(180));
+    public final Pose shoot1 = new Pose (90.1, 84.78, Math.toRadians(140));
+    public final Pose pos4gat2 = new Pose (89.902, 60.199, Math.toRadians(180));
+    public final Pose gather2 = new Pose (124.72, 59.61, Math.toRadians(180));
+    public final Pose shoot2 = new Pose (89.8, 84.59, Math.toRadians(140));
 
     private Path scorepres, gategetready, gategetsteady, gatemustgo, getreadyhalf, getready1, load1, score1, getready2, load2, score2;
     public void buildPaths(){
@@ -66,18 +67,15 @@ public class AS_alliancehelps_BF extends OpModeCommand {
         score2 = new Path (new BezierLine(gather2, shoot2));
         score2.setLinearHeadingInterpolation(gather2.getHeading(), shoot2.getHeading());
     }
-
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, blue_ID, startpose);
-        bot.getFollower().setStartingPose(startpose);
+        bot = new Robot(hardwareMap, telemetry, red_ID, startpose);
 
         schedule(
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(),scorepres
-                                )
-                                .andThen(
+                        new FollowPath(bot.getFollower(),scorepres)
+                                /*.andThen(
                                         new WaitCommand(7000)
                                 )/// time for bot to score pres
                                 .andThen(
@@ -118,6 +116,8 @@ public class AS_alliancehelps_BF extends OpModeCommand {
                                 )
                                 .andThen(new WaitCommand(7000)
                                 )/// allows time for bot to score 2
+
+                                 */
                 )
 
         );
