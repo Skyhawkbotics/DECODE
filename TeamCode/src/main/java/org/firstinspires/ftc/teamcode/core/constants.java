@@ -14,6 +14,9 @@ public class constants {
     /// Hardware names
     public static String turret_name = "turret";
 
+    public static int blue_ID = 20;
+    public static int red_ID = 24;
+
 
     ///  Shooter PID constants
 
