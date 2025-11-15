@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.ericauto;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -32,34 +33,30 @@ public class red_far_side_auto extends OpModeCommand {
     private Path pickuphpballs, scorehpballs,intakerow1, scorerow1balls, park;
 
     public void buildPaths() {
-        pickuphpballs = new Path(new BezierLine(startPose, hpZonePickup));
+        pickuphpballs = new Path(new BezierCurve(startPose, new Pose(110.8,15) , hpZonePickup));
         pickuphpballs.setLinearHeadingInterpolation(startPose.getHeading(), hpZonePickup.getHeading());
 
-        scorehpballs = new Path (new BezierLine(hpZonePickup, shoot1));
-        scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), hpZonePickup.getHeading());
+        scorehpballs = new Path (new BezierCurve(hpZonePickup, new Pose(110,16), shoot1));
+        scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), shoot1.getHeading());
 
-        intakerow1 = new Path (new BezierLine(shoot1, ballPickup1));
+        intakerow1 = new Path (new BezierCurve(shoot1, new Pose(67,50.7), ballPickup1));
         intakerow1.setLinearHeadingInterpolation(shoot1.getHeading(), ballPickup1.getHeading());
 
         scorerow1balls = new Path (new BezierLine(ballPickup1, shoot2));
         scorerow1balls.setLinearHeadingInterpolation(ballPickup1.getHeading(), shoot2.getHeading());
 
-        park = new Path(new BezierLine(hpZonePickup, shoot1));
-        park.setLinearHeadingInterpolation(hpZonePickup.getHeading(), parkPose.getHeading());
+        park = new Path(new BezierLine(shoot2, parkPose));
+        park.setLinearHeadingInterpolation(shoot2.getHeading(), parkPose.getHeading());
     }
 
     public void initialize() {
         buildPaths();
         bot=new Robot(hardwareMap,telemetry,red_ID,startPose);
-        bot.getFollower().setStartingPose(startPose);
 
         schedule(
-                new RunCommand(bot::robot_update), // This is a method reference ::
+                new RunCommand(bot::auto_robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), pickuphpballs)
-                                .alongWith(
-                                        new Prep_Shooter(bot)
-                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),scorehpballs)
                                 )
