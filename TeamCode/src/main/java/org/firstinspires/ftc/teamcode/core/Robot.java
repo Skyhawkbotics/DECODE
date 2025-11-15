@@ -238,11 +238,20 @@ public class Robot {
         if (g1.leftBumperWasPressed()) SLOW_MODE = !SLOW_MODE;
         double speed = SLOW_MODE ? 0.5 : 1.0;
         follower.setTeleOpDrive(
-                -g1.left_stick_y * speed,
-                -g1.left_stick_x * speed,
-                -g1.right_stick_x * 0.5 * speed,
+                -g1.left_stick_y * 0.5,
+                -g1.left_stick_x * 0.5,
+                -g1.right_stick_x * 0.5,
                 true
         );
+        if (g2.left_stick_x != 0) {
+            turret.manual_move(g2);
+        } else {
+            turret.setTurretPower(0);
+        }
+        if (g2.right_stick_x !=0) {
+            turret.updateTurret(telemetry, ID);
+        }
+
 
         if(g2.crossWasPressed()) {
             setAutoFireState(1);
@@ -269,6 +278,8 @@ public class Robot {
         if(g2.dpadRightWasPressed()) {
             shooter.back_perf();
         }
+
+
 
 
         switch (autoFireState) {
