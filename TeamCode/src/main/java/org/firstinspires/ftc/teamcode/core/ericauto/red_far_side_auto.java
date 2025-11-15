@@ -17,19 +17,34 @@ import ftclib.OpModeCommand;
 public class red_far_side_auto extends OpModeCommand {
     whole_robot bot;
 
-    public static final Pose startPose = new Pose(84    ,8, Math.toRadians(90));
+    public static final Pose startPose = new Pose(89,7.2, Math.toRadians(-90));
 
-    public  final Pose shootPose = new Pose(80,20, Math.toRadians(70));
+    public  final Pose hpZonePickup = new Pose(80,20, Math.toRadians(0));
 
-    public  final Pose parkPose = new Pose(84,40,Math.toRadians(90));
-    private Path score1, park;
+    public final Pose shoot1 = new Pose(93,9.6, Math.toRadians(-110));
+
+    public final Pose ballPickup1 = new Pose(125.5, 36, Math.toRadians(0));
+
+    public final Pose shoot2 = new Pose(80.5,15.8, Math.toRadians(-120));
+
+    public  final Pose parkPose = new Pose(98,15.8,Math.toRadians(0));
+    private Path pickuphpballs, scorehpballs,intakerow1, scorerow1balls, park;
 
     public void buildPaths() {
-        score1 = new Path(new BezierLine(startPose, shootPose));
-        score1.setLinearHeadingInterpolation(startPose.getHeading(), shootPose.getHeading());
+        pickuphpballs = new Path(new BezierLine(startPose, hpZonePickup));
+        pickuphpballs.setLinearHeadingInterpolation(startPose.getHeading(), hpZonePickup.getHeading());
 
-        park = new Path(new BezierLine(shootPose, parkPose));
-        park.setLinearHeadingInterpolation(shootPose.getHeading(), parkPose.getHeading());
+        scorehpballs = new Path (new BezierLine(hpZonePickup, shoot1));
+        scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), hpZonePickup.getHeading());
+
+        intakerow1 = new Path (new BezierLine(shoot1, ballPickup1));
+        intakerow1.setLinearHeadingInterpolation(shoot1.getHeading(), ballPickup1.getHeading());
+
+        scorerow1balls = new Path (new BezierLine(ballPickup1, shoot2));
+        scorerow1balls.setLinearHeadingInterpolation(ballPickup1.getHeading(), shoot2.getHeading());
+
+        park = new Path(new BezierLine(hpZonePickup, shoot1));
+        park.setLinearHeadingInterpolation(hpZonePickup.getHeading(), parkPose.getHeading());
     }
 
     public void initialize() {
@@ -40,7 +55,7 @@ public class red_far_side_auto extends OpModeCommand {
         schedule(
                 new RunCommand(bot::robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), score1)
+                        new FollowPath(bot.getFollower(), pickuphpballs)
                                 .alongWith(
                                         new score_command(bot)
                                 )
