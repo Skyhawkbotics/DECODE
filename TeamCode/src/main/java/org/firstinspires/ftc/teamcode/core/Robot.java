@@ -77,6 +77,7 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         elevator = new Elevator(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, 20);
 
 
 
