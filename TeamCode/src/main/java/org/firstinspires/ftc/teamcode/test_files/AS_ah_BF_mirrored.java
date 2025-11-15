@@ -69,8 +69,7 @@ public class AS_ah_BF_mirrored extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, red_ID);
-        bot.getFollower().setStartingPose(startpose);
+        bot = new Robot(hardwareMap, telemetry, red_ID, startpose);
 
         schedule(
                 new RunCommand(bot::robot_update),

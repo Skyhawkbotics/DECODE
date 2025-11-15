@@ -68,7 +68,7 @@ public class Robot {
         this.ID = ID;
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -375,6 +375,9 @@ public class Robot {
     }
     public Telemetry getTelemetry() {
         return telemetry;
+    }
+    public Intake getIntake() {
+        return intake;
     }
 
 
