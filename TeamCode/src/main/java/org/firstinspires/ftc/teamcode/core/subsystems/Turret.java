@@ -116,20 +116,15 @@ public class Turret {
 
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-    public void limelightON() {
-        limelight.LL_correction_ON();
-    }
-    public void limelightOFF() {
-        limelight.LL_correction_OFF();
-    }
 
-    public double updateTurret(Telemetry telemetry, int ID) {
+
+    public void updateTurret(Telemetry telemetry, int ID) {
 
 
         telemetry.addData("Current ID", ID);
 
-        limelight.LL_correction_ON();
         double pid_output = limelight.turret_pid_update(telemetry, turret, ID);
-        return pid_output;
+        setTurretPower(pid_output);
+        // return pid_output;
     }
 }

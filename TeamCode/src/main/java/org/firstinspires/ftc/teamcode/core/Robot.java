@@ -120,18 +120,14 @@ public class Robot {
         }
 
         /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
-
-        if (g2.left_bumper) {
+        if (g2.leftBumperWasPressed()) {
             manual_turret = !manual_turret;
         }
 
         ///  ZEROING ENCODER METHOD
-        if (g2.right_bumper) {
+        if (g2.rightBumperWasPressed()) {
             turret.zeroTurret();
         }
-
-
-
 
         if(g2.crossWasPressed()) {
           //  setAutoFireState(1);
@@ -253,10 +249,6 @@ public class Robot {
                 true
         );
 
-        if (g2.right_bumper) {
-            turret.limelightON();
-        }
-
 
         if(g2.crossWasPressed()) {
             setAutoFireState(1);
@@ -282,6 +274,17 @@ public class Robot {
         }
         if(g2.dpadRightWasPressed()) {
             shooter.back_perf();
+        }
+
+        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
+        if (g2.leftBumperWasPressed()) {
+            manual_turret = !manual_turret;
+        }
+        ///  LEFT STICK X ON G2 MOVES THE TURRET
+
+        ///  ZEROING ENCODER METHOD
+        if (g2.rightBumperWasPressed()) {
+            turret.zeroTurret();
         }
 
 
@@ -366,11 +369,14 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
-        pid_output = turret.updateTurret(telemetry, ID);
+        // pid_output = turret.updateTurret(telemetry, ID);
+        telemetry.addData("UPDATE LOOP WORKING", "");
         if (manual_turret) {
+            telemetry.addData("IF LOOP WORKING", "");
             turret.manual_move(g2);
-        } else {
-            turret.setTurretPower(pid_output);
+        } else if (!manual_turret) {
+            // turret.setTurretPower(pid_output);
+            turret.updateTurret(telemetry, ID);
         }
 
     }

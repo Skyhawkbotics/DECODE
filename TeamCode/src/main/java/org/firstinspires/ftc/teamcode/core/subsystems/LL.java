@@ -28,8 +28,6 @@ public class LL {
 
     public static int target;
 
-    public boolean usingLL_correction;
-
     public LL(HardwareMap hardwareMap, Telemetry telemetry) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -164,12 +162,11 @@ public class LL {
 
     public double turret_pid_update(Telemetry telemetry, DcMotorEx turret, int ID) {
         double pid_output = 0;
-        if (usingLL_correction) {
-
             LLStatus status = limelight.getStatus();
             LLResult result = limelight.getLatestResult();
             if (result.isValid()) {
 
+                telemetry.addData("LIMELIGHT LOOP WORKING", "");
                 List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                 for (LLResultTypes.FiducialResult fr : fiducialResults) {
                     if (fr.getFiducialId() == ID) {
@@ -193,14 +190,6 @@ public class LL {
                 }
             }
             telemetry.update();
-        }
         return pid_output;
     }
-    public void LL_correction_ON() {
-        usingLL_correction = true;
-    }
-    public void LL_correction_OFF() {
-        usingLL_correction = false;
-    }
-
 }
