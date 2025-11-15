@@ -29,7 +29,7 @@ public class red_far_side_auto_close_shoot extends OpModeCommand {
 
     public final Pose shoot1 = new Pose(84.25,83.3, Math.toRadians(-130));
 
-    public final Pose ballPickup1 = new Pose(130, 32, Math.toRadians(0));
+    public final Pose ballPickup1 = new Pose(131, 35.5, Math.toRadians(0));
 
     public  final Pose parkPose = new Pose(98,15.8,Math.toRadians(0));
     private Path pickuphpballs, scorehpballs,intakerow1, scorerow1balls, park;
@@ -41,7 +41,7 @@ public class red_far_side_auto_close_shoot extends OpModeCommand {
         scorehpballs = new Path (new BezierCurve(hpZonePickup, new Pose(110,16), shoot1));
         scorehpballs.setLinearHeadingInterpolation(hpZonePickup.getHeading(), shoot1.getHeading());
 
-        intakerow1 = new Path (new BezierCurve(shoot1, new Pose(67,58), ballPickup1));
+        intakerow1 = new Path (new BezierCurve(shoot1, new Pose(80.5,64), new Pose(61.6,35), ballPickup1));
         intakerow1.setLinearHeadingInterpolation(shoot1.getHeading(), ballPickup1.getHeading());
 
         scorerow1balls = new Path (new BezierCurve(ballPickup1,new Pose(89,55) ,shoot1));
