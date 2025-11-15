@@ -112,6 +112,12 @@ public class Turret {
 
         setTurretPower(gamepad.left_stick_x * 0.2);
     } // this could be for moving it away from limit
+
+    public void zeroTurret() {
+        turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
     public void limelightON() {
         limelight.LL_correction_ON();
     }
@@ -119,13 +125,12 @@ public class Turret {
         limelight.LL_correction_OFF();
     }
 
-    public void updateTurret(Telemetry telemetry, int ID) {
+    public double updateTurret(Telemetry telemetry, int ID) {
 
         telemetry.addData("Current ID", ID);
 
         limelight.LL_correction_ON();
         double pid_output = limelight.turret_pid_update(telemetry, turret, ID);
-        setTurretPower(pid_output);
-
+        return pid_output;
     }
 }

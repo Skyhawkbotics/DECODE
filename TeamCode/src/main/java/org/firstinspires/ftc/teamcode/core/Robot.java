@@ -25,6 +25,8 @@ public class Robot {
 
     private boolean SLOW_MODE = false;
 
+    private boolean manual_turret = false;
+
     private Intake intake;
     private int ID;
 
@@ -42,6 +44,8 @@ public class Robot {
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
     public Timer autoFireTimer;
+
+    private double pid_output = 0;
 
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
@@ -112,13 +116,17 @@ public class Robot {
         } else if(!autofiring) {
             intake.off();
         }
+
+        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
         if (g2.left_stick_x != 0) {
-            turret.manual_move(g2);
+            manual_turret = true;
         } else {
-            turret.setTurretPower(0);
+            manual_turret = false;
         }
-        if (g2.right_stick_x !=0) {
-            turret.updateTurret(telemetry, ID);
+
+        ///  ZEROING ENCODER METHOD
+        if (g2.right_bumper) {
+            turret.zeroTurret();
         }
 
 
@@ -357,7 +365,12 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
-        turret.updateTurret(telemetry, ID);
+        pid_output = turret.updateTurret(telemetry, ID);
+        if (manual_turret) {
+            turret.manual_move(g2);
+        } else {
+            turret.setTurretPower(pid_output);
+        }
 
     }
     public Follower getFollower() {
