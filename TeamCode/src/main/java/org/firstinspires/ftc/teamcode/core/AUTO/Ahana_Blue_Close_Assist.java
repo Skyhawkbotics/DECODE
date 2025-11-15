@@ -34,6 +34,8 @@ public class Ahana_Blue_Close_Assist extends OpModeCommand {
     public final Pose pos4gat2 = new Pose (54.098, 60.199, Math.toRadians(180));
     public final Pose gather2 = new Pose (19.28, 59.61, Math.toRadians(180));
     public final Pose shoot2 = new Pose (54.2, 84.59, Math.toRadians(140));
+    private Path to_load, score1;
+
 
     private Path scorepres, gategetready, gategetsteady, gatemustgo, getreadyhalf, getready1, load1, getready2, load2;
     public void buildPaths(){
