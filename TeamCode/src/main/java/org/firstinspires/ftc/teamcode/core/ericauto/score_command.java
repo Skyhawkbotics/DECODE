@@ -41,7 +41,7 @@ public class score_command extends CommandBase {
                 break;
             case 3:
                 if(timer.getElapsedTimeSeconds() > 1) {
-                    bot.getElevator().off();
+                    bot.getElevator().on();
                     setState(4);
                 }
                 break;
@@ -53,7 +53,7 @@ public class score_command extends CommandBase {
                 break;
             case 5:
                 if(timer.getElapsedTimeSeconds() > 2) {
-                    bot.getElevator().off();
+                    bot.getElevator().on();
                     bot.getShooter().shooterON();
                     setState(-1);
                 }
