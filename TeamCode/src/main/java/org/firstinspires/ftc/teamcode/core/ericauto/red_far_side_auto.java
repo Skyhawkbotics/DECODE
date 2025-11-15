@@ -60,6 +60,15 @@ public class red_far_side_auto extends OpModeCommand {
                                         new score_command(bot)
                                 )
                                 .andThen(
+                                        new FollowPath(bot.getFollower(),scorehpballs)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intakerow1)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), scorerow1balls)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), park)
                                 )
 
