@@ -10,11 +10,13 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "red close side auto", group = "gf")
+@Disabled
 public class ahana_red_Backshots extends OpModeCommand {
     whole_robot bot;
     public static final Pose startPose = new Pose (27.540983606557376    ,125.50819672131146, Math.toRadians(90));

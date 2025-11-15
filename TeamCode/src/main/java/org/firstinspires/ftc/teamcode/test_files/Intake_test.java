@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test_files;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 
 @TeleOp(name = "Intake_test", group = "Tests")
+@Disabled
 public class Intake_test extends OpMode {
 
     private Intake intake;
