@@ -8,6 +8,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
@@ -15,6 +16,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "blue side far auto", group = "gf")
+@Disabled
 public class blue_far_side_auto extends OpModeCommand {
     whole_robot bot;
 
@@ -51,6 +53,7 @@ public class blue_far_side_auto extends OpModeCommand {
                 new RunCommand(bot::robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), score1)
+
                                                 .alongWith(
                                                         new score_command(bot)
                                                 )

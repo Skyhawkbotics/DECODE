@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.test_files;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
 @TeleOp(name = "ShooterTest", group = "Tests")
+@Disabled
 public class ShooterTest extends OpMode {
     private Shooter shooter;
 

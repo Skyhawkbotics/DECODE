@@ -8,6 +8,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.ericauto.score_command_close;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
@@ -16,6 +17,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Close Auto", group = "Test")
+@Disabled
 public class closeauto extends OpModeCommand {
     whole_robot bot;
     private Follower follower;
