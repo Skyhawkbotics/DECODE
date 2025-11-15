@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.ericauto;
+package org.firstinspires.ftc.teamcode.unused;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

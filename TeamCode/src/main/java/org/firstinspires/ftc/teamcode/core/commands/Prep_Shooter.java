@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.ericauto;
+package org.firstinspires.ftc.teamcode.core.commands;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;

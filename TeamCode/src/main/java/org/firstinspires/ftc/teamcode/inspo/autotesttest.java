@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.ericauto;
+package org.firstinspires.ftc.teamcode.inspo;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
@@ -10,6 +10,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -18,6 +19,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "blue dgddddf far auto", group = "gf")
+@Disabled
 public class autotesttest extends OpModeCommand {
     Robot bot;
 

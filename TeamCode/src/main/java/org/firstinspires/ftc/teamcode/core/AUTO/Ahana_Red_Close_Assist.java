@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.ericauto;
+package org.firstinspires.ftc.teamcode.core.AUTO;
 
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
@@ -11,6 +11,9 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
+import org.firstinspires.ftc.teamcode.core.commands.close_score_command;
+import org.firstinspires.ftc.teamcode.core.commands.intake_swallow;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
