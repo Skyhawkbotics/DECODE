@@ -10,7 +10,7 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Far;
 import org.firstinspires.ftc.teamcode.core.commands.close_score_command;
 
 import ftclib.FollowPath;
@@ -59,7 +59,7 @@ public class red_far_side_auto extends OpModeCommand {
         schedule(
                 new RunCommand(bot::auto_robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
-                        new Prep_Shooter(bot)
+                        new Prep_Shooter_Far(bot)
                                 .andThen(
                                         new close_score_command(bot)
                                 )
