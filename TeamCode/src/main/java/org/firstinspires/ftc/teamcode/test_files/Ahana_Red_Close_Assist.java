@@ -4,14 +4,15 @@ import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.math.MathFunctions;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.ericauto.Prep_Shooter;
+import org.firstinspires.ftc.teamcode.core.ericauto.close_score_command;
+import org.firstinspires.ftc.teamcode.core.ericauto.dontuse;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -72,9 +73,17 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
         bot = new Robot(hardwareMap, telemetry, red_ID, startpose);
 
         schedule(
-                new RunCommand(bot::robot_update),
+                new RunCommand(bot::auto_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(),scorepres)
+                                .alongWith(
+                                        new Prep_Shooter(bot)
+                                )
+                                /*.andThen(
+                                        new close_score_command(bot)
+                                )
+
+                                 */
                                 /*.andThen(
                                         new WaitCommand(7000)
                                 )/// time for bot to score pres

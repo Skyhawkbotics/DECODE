@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -356,12 +357,20 @@ public class Robot {
     }
 
     public void robot_update () {
+
         shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
         follower.update();
         telemetry.update();
-
+    }
+    public void auto_robot_update() {
+        shooter.shooter_telemetry();
+        shooter.update();
+        robot_telemetry();
+        follower.update();
+        telemetry.update();
+        turret.updateTurret(telemetry, red_ID);
     }
     public Follower getFollower() {
         return follower;
@@ -369,6 +378,10 @@ public class Robot {
     public Shooter getShooter() {
         return shooter;
     }
+    public Turret getTurret() {
+        return turret;
+    }
+
     public Elevator getElevator() {
         return elevator;
     }

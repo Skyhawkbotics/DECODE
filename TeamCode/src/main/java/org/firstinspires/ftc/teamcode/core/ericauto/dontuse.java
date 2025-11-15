@@ -7,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 
-public class score_command_close extends CommandBase {
+public class dontuse extends CommandBase {
     private int state = 1;
 
     private final whole_robot bot;
@@ -15,7 +15,7 @@ public class score_command_close extends CommandBase {
 
 
 
-    public score_command_close(whole_robot bot) { // runs the Command
+    public dontuse(whole_robot bot) { // runs the Command
         this.bot = bot;
     }
 

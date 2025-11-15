@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.core.ericauto;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 

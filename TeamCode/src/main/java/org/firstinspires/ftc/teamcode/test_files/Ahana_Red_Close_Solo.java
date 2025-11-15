@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.test_files;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.pedropathing.geometry.BezierCurve;
@@ -8,16 +10,17 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 import com.pedropathing.paths.Path;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "red close side auto", group = "gf")
+@Autonomous(name = "BLUE close side auto", group = "gf")
 
 public class Ahana_Red_Close_Solo extends OpModeCommand {
-    whole_robot bot;
+    Robot bot;
     public static final Pose startPose = new Pose (27.540983606557376    ,125.50819672131146, Math.toRadians(90));
     public static final Pose first3pts = new Pose(22.81967213114754    ,100.72131147540983, Math.toRadians(270));
     public static final Pose preloads = new Pose(34.62295081967213    ,113.11475409836066, Math.toRadians(270));
@@ -66,8 +69,7 @@ public class Ahana_Red_Close_Solo extends OpModeCommand {
 
     public void initialize (){
         buildPaths();
-        bot = new whole_robot (hardwareMap, telemetry);
-        bot.getFollower().setStartingPose(startPose);
+        bot = new Robot(hardwareMap, telemetry, red_ID, startPose);
 
         schedule(
                 new RunCommand(bot::robot_update), // This is a method reference ::
