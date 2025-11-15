@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.core.ericauto;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.pedropathing.geometry.BezierCurve;
@@ -44,7 +46,7 @@ public class autotesttest extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, 20); // startpose
+        bot = new Robot(hardwareMap, telemetry, red_ID, startPose); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

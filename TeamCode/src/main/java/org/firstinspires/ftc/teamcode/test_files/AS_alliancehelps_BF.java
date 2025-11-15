@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.test_files;
 
+import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -67,7 +69,7 @@ public class AS_alliancehelps_BF extends OpModeCommand {
 
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, 24);
+        bot = new Robot(hardwareMap, telemetry, blue_ID, startpose);
         bot.getFollower().setStartingPose(startpose);
 
         schedule(

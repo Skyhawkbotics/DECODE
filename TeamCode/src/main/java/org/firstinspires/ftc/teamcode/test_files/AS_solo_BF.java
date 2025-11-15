@@ -52,7 +52,7 @@ public class AS_solo_BF extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot=new Robot(hardwareMap,telemetry, blue_ID);
+        bot=new Robot(hardwareMap,telemetry, blue_ID, startpose);
         bot.getFollower().setStartingPose(startpose);
         schedule(
                 new RunCommand(bot::robot_update),

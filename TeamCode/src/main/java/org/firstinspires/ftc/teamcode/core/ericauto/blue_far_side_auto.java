@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.core.ericauto;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.pedropathing.geometry.BezierCurve;
@@ -10,6 +12,7 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 import ftclib.FollowPath;
@@ -18,7 +21,7 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "blue side far auto", group = "gf")
 @Disabled
 public class blue_far_side_auto extends OpModeCommand {
-    whole_robot bot;
+    Robot bot;
 
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
@@ -45,7 +48,7 @@ public class blue_far_side_auto extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new whole_robot(hardwareMap, telemetry); // startpose
+        bot=new Robot(hardwareMap,telemetry,red_ID,startPose); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

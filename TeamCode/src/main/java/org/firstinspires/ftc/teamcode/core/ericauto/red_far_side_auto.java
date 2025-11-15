@@ -7,21 +7,20 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
-
+import org.firstinspires.ftc.teamcode.core.Robot;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 @Autonomous(name = "Red side far auto", group = "gf")
-@Disabled
 public class red_far_side_auto extends OpModeCommand {
-    whole_robot bot;
+    Robot bot;
 
     public static final Pose startPose = new Pose(89,7.2, Math.toRadians(-90));
 
-    public  final Pose hpZonePickup = new Pose(80,20, Math.toRadians(0));
+    public  final Pose hpZonePickup = new Pose(124.25,7.5, Math.toRadians(0));
 
     public final Pose shoot1 = new Pose(93,9.6, Math.toRadians(-110));
 
@@ -51,7 +50,7 @@ public class red_far_side_auto extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new whole_robot(hardwareMap, telemetry); // startpose
+        bot=new Robot(hardwareMap,telemetry,red_ID,startPose);
         bot.getFollower().setStartingPose(startPose);
 
         schedule(
