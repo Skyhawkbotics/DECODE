@@ -76,10 +76,8 @@ public class Turret {
 
         if (pos <= LEFT_LIMIT && power < 0 ) {
             power = 0;
-            limelight.LL_correction_OFF();
         } else if (pos >= RIGHT_LIMIT && power > 0) {
             power = 0;
-            limelight.LL_correction_OFF();
         }
 
         turret.setPower(power);
@@ -107,10 +105,10 @@ public class Turret {
         return turret.getPower();
     }
     public void manual_move(Gamepad gamepad) {
-        limelight.LL_correction_OFF();
+        // limelight.LL_correction_OFF();
         usingHeadingCorrection = false;
 
-        setTurretPower(gamepad.left_stick_x * 0.2);
+        setTurretPower(gamepad.left_stick_x * 0.33);
     } // this could be for moving it away from limit
 
     public void zeroTurret() {

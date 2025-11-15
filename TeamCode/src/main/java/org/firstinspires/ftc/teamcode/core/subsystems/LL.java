@@ -180,11 +180,6 @@ public class LL {
                         telemetry.update();
 
 
-
-
-
-
-
                         telemetry.addData("X Degrees", result.getTx());
 
                         if (result.getTx() < -3) {

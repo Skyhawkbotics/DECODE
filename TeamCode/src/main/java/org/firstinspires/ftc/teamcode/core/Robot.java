@@ -121,10 +121,8 @@ public class Robot {
 
         /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
 
-        if (g2.left_stick_x != 0) {
-            manual_turret = true;
-        } else {
-            manual_turret = false;
+        if (g2.left_bumper) {
+            manual_turret = !manual_turret;
         }
 
         ///  ZEROING ENCODER METHOD
@@ -358,6 +356,7 @@ public class Robot {
     public void robot_telemetry() {
         telemetry.addData("Turret Position", turret.getPosition());
         telemetry.addData("RobotPose", follower.getPose());
+        telemetry.addData("Manual Move", manual_turret);
     }
 
     public void robot_update () {
