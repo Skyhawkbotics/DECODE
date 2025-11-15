@@ -97,7 +97,7 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
 
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), score1)
+                                        new FollowPath(bot.getFollower(), score1, 1.0)
                                                 .alongWith(
                                                         new intake_swallow(bot)
                                                 )
