@@ -23,7 +23,7 @@ public class red_driveEH extends OpMode {
 
     @Override
     public void loop() {
-        robot.eric_halle_controls();
+        robot.solo_drive();
         robot.robot_update();
         robot.robot_telemetry();
     }

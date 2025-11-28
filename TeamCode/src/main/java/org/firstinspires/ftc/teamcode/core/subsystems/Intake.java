@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -41,7 +42,7 @@ public class Intake {
     }
     public void reverse() {
         intake_motor.setPower(-1);
-            }
+    }
 
     public void servosIn() {
         servo_1.setPosition(POSITION_IN);
@@ -51,6 +52,16 @@ public class Intake {
     public void servosOut() {
         servo_1.setPosition(POSITION_OUT);
         servo_2.setPosition(POSITION_OUT);
+    }
+    ///  since the servos and the intake are in this subsystem, we can code the logic needed switch between firing and intaking
+
+    public void intake() {
+        servosIn();
+        on();
+    }
+    public void fire() {
+        servosOut();
+        off();
     }
 }
 

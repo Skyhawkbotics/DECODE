@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.pedropathing.follower.Follower;
@@ -92,53 +91,23 @@ public class Robot {
         autoFireState = state;
         autoFireTimer.resetTimer();
     }
-    public void eric_halle_controls() {
+    public void solo_drive() {
         prevg1.copy(g1);
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        if(g1.right_bumper) {
-            isparking = !isparking;
-        }
-        if(isparking) {
-            follower.setTeleOpDrive(0.3 * -g1.left_stick_y, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
-        } else if(g1.right_trigger > 0) {
-            follower.setTeleOpDrive(-1, 0.3 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
-        } else if (g1.right_trigger == 0){
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
-        }
+        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
-
-
-        if (g1.left_trigger > 0 || g2.left_trigger > 0) {
-            intake.on();
-        } else if(g1.left_bumper) {
-            intake.reverse();
-        } else if(!autofiring) {
-            intake.off();
+        if(g1.right_trigger > 0) {
+            intake.intake();
+        } else if (g1.left_trigger > 0){
+            intake.fire();
+        } else {
+            intake.servosOut();
         }
 
-        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
-        if (g2.leftBumperWasPressed()) {
-            manual_turret = !manual_turret;
-        }
-
-        ///  ZEROING ENCODER METHOD
-        if (g2.rightBumperWasPressed()) {
-            turret.zeroTurret();
-        }
-
-        if(g2.crossWasPressed()) {
-          //  setAutoFireState(1);
-        }
-        if(g2.circle && !autofiring) {
-            elevator.on();
-        } else if (!autofiring) {
-            elevator.off();
-        }
-
-        if(g2.right_trigger > 0 && !(prevg2.right_trigger > 0)) {
+        if(g1.aWasPressed()) {
             useShooter = !useShooter;
         }
         if(useShooter) {
@@ -146,6 +115,8 @@ public class Robot {
         } else {
             shooter.turnOFF();
         }
+
+
         if(g2.dpadUpWasPressed()) {
             shooter.perf_velocity();
         }
@@ -155,213 +126,6 @@ public class Robot {
         if(g2.dpadRightWasPressed()) {
             shooter.back_perf();
         }
-
-
-        switch (autoFireState) {
-            case -1:
-                autofiring = false;
-                break;
-            case 1:
-                autofiring = true;
-                intake.off();
-                elevator.on();
-                setAutoFireState(2);
-                break;
-            case 2:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(3);
-                }
-                break;
-            case 3:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    intake.on();
-                    setAutoFireState(4);
-                }
-                break;
-            case 4:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
-                    intake.off();
-                    setAutoFireState(5);
-                }
-                break;
-            case 5:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    elevator.on();
-                    setAutoFireState(6);
-                }
-                break;
-            case 6:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(7);
-                }
-                break;
-            case 7:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    intake.on();
-                    setAutoFireState(8);
-                }
-                break;
-            case 8:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1.5) {
-                    intake.off();
-                    setAutoFireState(9);
-                }
-                break;
-            case 9:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.on();
-                    setAutoFireState(10);
-                }
-                break;
-            case 10:
-                if(autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(-1);
-                }
-                break;
-        }
-
-
-
-        }
-    public void kristine_abraham_controls() {
-        prevg1.copy(g1);
-        prevg2.copy(g2);
-        g1.copy(dummyg1);
-        g2.copy(dummyg2);
-        follower.setTeleOpDrive(-g1.left_stick_y, -g1.left_stick_x, -g1.right_stick_x * 0.5, true);
-        follower.update();
-        if (g1.right_trigger > 0) {
-            intake.on();
-        } else if(g1.right_bumper) {
-            intake.reverse();
-        } else if(!autofiring) {
-            intake.off();
-        }
-        if (g1.leftBumperWasPressed()) SLOW_MODE = !SLOW_MODE;
-        double speed = SLOW_MODE ? 0.5 : 1.0;
-        follower.setTeleOpDrive(
-                -g1.left_stick_y * 0.5,
-                -g1.left_stick_x * 0.5,
-                -g1.right_stick_x * 0.5,
-                true
-        );
-
-        if (g1.left_trigger > 0 || g2.left_trigger > 0) {
-            intake.on();
-        } else if(g1.left_bumper) {
-            intake.reverse();
-        } else if(!autofiring) {
-            intake.off();
-        }
-
-
-        if(g2.crossWasPressed()) {
-            setAutoFireState(1);
-        }
-        if(g2.circle && !autofiring) {
-            elevator.on();
-        } else if (!autofiring) {
-            elevator.off();
-        }
-        if(g2.right_trigger > 0 && !(prevg2.right_trigger > 0)) {
-            useShooter = !useShooter;
-        }
-        if(useShooter) {
-            shooter.shooterON();
-        } else {
-            shooter.turnOFF();
-        }
-        if(g2.dpadUpWasPressed()) {
-            shooter.perf_velocity();
-        }
-        if(g2.dpadLeftWasPressed()) {
-            shooter.closest();
-        }
-        if(g2.dpadRightWasPressed()) {
-            shooter.back_perf();
-        }
-
-        /// BOOLEAN STUFF FOR TURNING ON MANUAL MOVEMENT... PLEASE TEST
-        if (g2.leftBumperWasPressed()) {
-            manual_turret = !manual_turret;
-        }
-        ///  LEFT STICK X ON G2 MOVES THE TURRET
-
-        ///  ZEROING ENCODER METHOD
-        if (g2.rightBumperWasPressed()) {
-            turret.zeroTurret();
-        }
-
-
-
-
-        switch (autoFireState) {
-            case -1:
-                autofiring = false;
-                break;
-            case 1:
-                autofiring = true;
-                intake.off();
-                elevator.on();
-                setAutoFireState(2);
-                break;
-            case 2:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(3);
-                }
-                break;
-            case 3:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    intake.on();
-                    setAutoFireState(4);
-                }
-                break;
-            case 4:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    intake.off();
-                    elevator.on();
-                    setAutoFireState(5);
-                }
-                break;
-            case 5:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    intake.off();
-                    elevator.on();
-                    setAutoFireState(6);
-                }
-                break;
-            case 6:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(7);
-                }
-                break;
-            case 7:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    intake.on();
-                    setAutoFireState(8);
-                }
-                break;
-            case 8:
-                if (autoFireTimer.getElapsedTimeSeconds() > 0.5) {
-                    intake.off();
-                    elevator.on();
-                    setAutoFireState(9);
-                }
-                break;
-            case 9:
-                if (autoFireTimer.getElapsedTimeSeconds() > 1) {
-                    elevator.off();
-                    setAutoFireState(-1);
-                }
-                break;
-        }
-
-
 
     }
     public void robot_telemetry() {
@@ -377,15 +141,7 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
-        // pid_output = turret.updateTurret(telemetry, ID);
-        telemetry.addData("UPDATE LOOP WORKING", "");
-        if (manual_turret) {
-            telemetry.addData("IF LOOP WORKING", "");
-            turret.manual_move(g2);
-        } else if (!manual_turret) {
-            // turret.setTurretPower(pid_output);
-            turret.updateTurret(telemetry, ID);
-        }
+
 
     }
     public void auto_robot_update() {
@@ -405,7 +161,6 @@ public class Robot {
     public Turret getTurret() {
         return turret;
     }
-
     public Elevator getElevator() {
         return elevator;
     }

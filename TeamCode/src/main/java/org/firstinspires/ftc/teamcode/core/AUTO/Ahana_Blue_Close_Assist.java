@@ -75,8 +75,7 @@ public class Ahana_Blue_Close_Assist extends OpModeCommand {
         schedule(
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(),scorepres
-                                )
+                        new FollowPath(bot.getFollower(),scorepres)
                                 /*
                                 .andThen(
                                         new WaitCommand(7000)
