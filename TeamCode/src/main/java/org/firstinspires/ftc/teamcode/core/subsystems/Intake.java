@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Intake {
     private DcMotorEx intake_motor;
 
-    private Servo servo_1, servo_2;
+    private Servo right_servo, left_servo;
 
     private double POSITION_IN = 1;
     private double POSITION_OUT = 0;
@@ -25,9 +25,8 @@ public class Intake {
         intake_motor = hardwareMap.get(DcMotorEx.class, "intake");
         intake_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        servo_1 = hardwareMap.get(Servo.class, "intake servo 1");
-        servo_2 = hardwareMap.get(Servo.class, "intake servo 2");
-        servo_2.setDirection(Servo.Direction.REVERSE);
+        right_servo = hardwareMap.get(Servo.class, "right stop");
+        left_servo = hardwareMap.get(Servo.class, "left stop");
     }
 
     public void on(){
@@ -45,13 +44,13 @@ public class Intake {
     }
 
     public void servosIn() {
-        servo_1.setPosition(POSITION_IN);
-        servo_2.setPosition(POSITION_IN);
+        right_servo.setPosition(0);
+        left_servo.setPosition(1);
     }
 
     public void servosOut() {
-        servo_1.setPosition(POSITION_OUT);
-        servo_2.setPosition(POSITION_OUT);
+        right_servo.setPosition(1);
+        left_servo.setPosition(0);
     }
     ///  since the servos and the intake are in this subsystem, we can code the logic needed switch between firing and intaking
 
