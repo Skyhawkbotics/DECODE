@@ -40,7 +40,7 @@ public class Turret {
     int RIGHT_LIMIT = 500; // TICKS. RIGHT IS MORE TICKS, LEFT IS LESS TICKS
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
-        limelight = new LL(hardwareMap, telemetry);
+      //  limelight = new LL(hardwareMap, telemetry);
         turret = hardwareMap.get(DcMotorEx.class, turret_name);
 
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

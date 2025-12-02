@@ -20,7 +20,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.019, ei = 0, ed = 0.00000, f = 0; ///these are good as of 10/11
+    public static double ep = 0.005, ei = 0, ed = 0.00000, f = 0.05; ///these are good as of 10/11
 
     public static int max = 2000;
     public static int three_fourths = 750;
@@ -30,7 +30,7 @@ public class constants {
     /// constants for halle
     ///
     public static int auto_speed = 1100;
-    public static int perf_value = 1300; ///vertex of largest triangle
+    public static int perf_value = 1450; ///vertex of largest triangle
 
     public static int far_side_shoot = 1560; ///vertex of smallest triangle
 

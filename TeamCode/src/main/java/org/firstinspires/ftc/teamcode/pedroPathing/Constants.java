@@ -22,7 +22,7 @@ public class Constants {
             .headingPIDFCoefficients(new PIDFCoefficients(1.0, 0, 0.00005, 0.01));
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
-            .rightFrontMotorName(" ")
+            .rightFrontMotorName("right_front")
             .rightRearMotorName("right_back")
             .leftRearMotorName("left_back")
             .leftFrontMotorName("left_front")

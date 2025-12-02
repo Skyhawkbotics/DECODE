@@ -57,8 +57,8 @@ public class     Shooter {
             pid.setPID(ep, ei, ed);
             left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-            double pid_output = pid.calculate(left_motor.getVelocity(), target);
-            power = pid_output;
+            double pid_output = pid.calculate(right_motor.getVelocity(), target);
+            power = pid_output + f;
             left_motor.setPower(power);
             right_motor.setPower(power);
         } else {
@@ -95,17 +95,25 @@ public class     Shooter {
 
     ///  Methods for quick PID target values, methods for the four velocities
     public void perf_velocity() {
+        toggle_update_true();
+
         setTarget(perf_value);
     }
     public void auto_speed() {
+        toggle_update_true();
+
         setTarget(auto_speed);
     }
     public void closest (){
         setTarget(closest);
+        toggle_update_true();
+
     }
 
     public void middle(){
         setTarget(middle_of_field);
+        toggle_update_true();
+
     }
 
     public void setShooterSpeed(double distance) {
@@ -197,8 +205,8 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("motor speed in ticks", left_motor.getVelocity());
-        telemetry.addData("motor position", left_motor.getCurrentPosition());
+        telemetry.addData("motor speed in ticks", right_motor.getVelocity());
+        telemetry.addData("motor position", right_motor.getCurrentPosition());
         telemetry.addData("motor rpm", conversion_RPM(left_motor.getVelocity()));
         telemetry.addData("Motor power", left_motor.getPower());
         telemetry.addData("Motor power", right_motor.getPower());
