@@ -44,7 +44,7 @@ public class TurretNEW {
             heading_turret_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
-            double pid_output = heading_turret_pid.calculate(turret.getVelocity(), offset);
+            double pid_output = heading_turret_pid.calculate(turret.getCurrentPosition(), offset);
 
 
             turret.setPower(pid_output + turret_f);
