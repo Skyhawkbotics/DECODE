@@ -5,7 +5,6 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.core.subsystems.TurretNEW;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -13,7 +12,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 public class TurretTest extends OpMode {
     private TurretNEW turret;
     private Follower follower;
-    private Pose startPoseRed = new Pose(118, 130,Math.toDegrees(38));
+    private Pose startPoseRed = new Pose(118, 130,0);
+
+    private double offset;
 
 
     @Override
@@ -26,14 +27,27 @@ public class TurretTest extends OpMode {
 
     @Override
     public void loop() {
-        follower.setTeleOpDrive(gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x, true);
-        follower.startTeleopDrive();
-        follower.update();
-        double distance = turret.calculate_distance(follower.getPose(), true);
-        double angle = turret.calculate_angle(follower.getPose(), true);
-        telemetry.addData("Follower Pose", follower.getPose());
-        telemetry.addData("Distance", distance);
+        offset = turret.calculate_angle_offset(follower.getPose().getHeading(), 0);
+        turret.turret_update(offset);
+
+        if(gamepad1.aWasPressed()) {
+            turret.reset_turret();
+        }
+        if(gamepad1.xWasPressed()) {
+            turret.turret_update_toggle();
+        }
+
+
+
+        telemetry();
         telemetry.update();
+        follower.update();
+    }
+
+    public void telemetry() { ///  TELEMETRY
+        turret.turret_telemetry();
+        telemetry.addData("offset", offset);
+        //telemetry.addData("Follower Pose", follower.getPose());
 
     }
 }
