@@ -104,7 +104,7 @@ public class Robot {
         } else if (g1.left_trigger > 0){
             intake.fire();
         } else {
-            intake.servosOut();
+            intake.off();
         }
 
         if(g1.aWasPressed()) {

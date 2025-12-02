@@ -60,7 +60,7 @@ public class Intake {
     }
     public void fire() {
         servosOut();
-        off();
+        on();
     }
 }
 
