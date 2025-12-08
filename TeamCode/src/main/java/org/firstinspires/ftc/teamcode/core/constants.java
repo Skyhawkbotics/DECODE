@@ -13,6 +13,8 @@ import com.pedropathing.geometry.Pose;
 public class constants {
     /// Hardware names
     public static String turret_name = "turret";
+    public static double left_limit = 0;
+    public static double right_limit = 0;
 
     public static int blue_ID = 20;
     public static int red_ID = 24;
@@ -25,7 +27,6 @@ public class constants {
     public static int max = 2000;
 
 
-    /// constants for halle
     ///
     public static int auto_speed = 1100;
     public static int perf_value = 1450; ///vertex of largest triangle
@@ -57,7 +58,5 @@ public class constants {
     public static double intake_speed = 0.8;
 
 
-    public static double elevator_shoot = 0.05;
-    public static double elevator_retract = 0.4;
 
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 
 public class shooterSpeed {
     public shooterSpeed() {
+
     }
 
     public double calcVelocity(double d) {
@@ -34,4 +35,6 @@ public class shooterSpeed {
         return servo_position;
 
     }
+
+
 }
