@@ -12,7 +12,7 @@ public class Single_motor_test extends OpMode {
     @Override
     public void init() {
         motor = hardwareMap.get(DcMotorEx.class, "motor");
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     @Override
@@ -25,7 +25,6 @@ public class Single_motor_test extends OpMode {
         }
         if (gamepad1.x) {
             motor.setPower(-1);
-
         }
     }
 }
