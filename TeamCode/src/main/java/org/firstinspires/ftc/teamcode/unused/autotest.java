@@ -1,24 +1,14 @@
-package org.firstinspires.ftc.teamcode.auto; // make sure this aligns with class location
+package org.firstinspires.ftc.teamcode.unused; // make sure this aligns with class location
 
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
-import com.pedropathing.paths.PathChain;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import  com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
-import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
-import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 
 @Autonomous(name = "Test Auto", group = "Test")
 @Disabled
-public class autotest extends OpMode {
+public class autotest {
+    /*
 
 
     private Follower follower;
@@ -195,5 +185,7 @@ public class autotest extends OpMode {
         telemetry.addData("arm state", armstate);
         telemetry.update();
     }
+
+     */
 }
 

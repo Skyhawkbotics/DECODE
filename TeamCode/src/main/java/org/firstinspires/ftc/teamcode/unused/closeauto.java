@@ -1,24 +1,18 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.unused;
 
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.unused.dontuse;
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
-
-import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Close Auto", group = "Test")
 @Disabled
 public class closeauto extends OpModeCommand {
+    @Override
+    public void initialize() {
+
+    }
+    /*
     whole_robot bot;
     private Follower follower;
     private Timer pathTimer, actionTimer, opmodeTimer;
@@ -60,4 +54,6 @@ public class closeauto extends OpModeCommand {
         );
 
     }
+
+     */
 }

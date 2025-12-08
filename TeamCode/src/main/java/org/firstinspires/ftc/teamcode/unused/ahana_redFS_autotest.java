@@ -1,22 +1,19 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.unused;
 
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.pedropathing.geometry.BezierCurve;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
-
-import ftclib.FollowPath;
 import ftclib.OpModeCommand;
+
 
 @Autonomous (name = "red far side o", group = "gf")
 @Disabled
 public class ahana_redFS_autotest extends OpModeCommand {
+    @Override
+    public void initialize() {
+
+    }
+    /*
     whole_robot bot;
     public static final Pose startPose = new Pose (58.21    ,9.05, Math.toRadians(90));
     public static final Pose first3pts = new Pose(57.6    ,27.56, Math.toRadians(90));
@@ -97,4 +94,6 @@ public class ahana_redFS_autotest extends OpModeCommand {
         );
     }
 
+
+     */
 }
