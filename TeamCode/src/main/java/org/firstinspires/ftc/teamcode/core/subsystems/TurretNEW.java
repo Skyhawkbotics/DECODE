@@ -16,7 +16,7 @@ public class TurretNEW {
     private PIDController heading_turret_pid;
 
     private Pose redPose = new Pose(135, 141, 0);
-    private Pose bluePose = new Pose(40, 4,0);
+    private Pose bluePose = new Pose(6, 143,0);
 
     private Telemetry telemetry;
 
@@ -101,6 +101,8 @@ public class TurretNEW {
             correctPose = bluePose;
         }
         return Math.abs(correctPose.getX() - followerPose.getX());
+
+
 
     }
     public double calculate_Y_distance(Pose followerPose, boolean isRED) {
