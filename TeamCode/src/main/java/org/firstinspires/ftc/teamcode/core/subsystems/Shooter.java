@@ -55,7 +55,6 @@ public class     Shooter {
     public void update() { /// PID Update loop
         if(is_updating) {
             pid.setPID(ep, ei, ed);
-            left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             double pid_output = pid.calculate(right_motor.getVelocity(), target);
             power = pid_output + f;

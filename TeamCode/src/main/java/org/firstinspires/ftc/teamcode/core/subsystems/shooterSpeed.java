@@ -50,7 +50,12 @@ public class shooterSpeed {
 
         double theta = (Math.asin(C / R) - phi) / 2.0;  // in radians
         double degrees = Math.toDegrees(theta); // in degrees
-        double servo_position = -(degrees / 30) + 2;
+        double servo_position =  -0.85 / 30 * degrees - 0.7;
+        // 0.15, 60
+        // 1, 30
+        // 60 0.15
+        // 30 1
+        // 0.15 - 1 / 60 - 30
         return servo_position;
     }
 }
