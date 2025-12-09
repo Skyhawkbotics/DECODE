@@ -81,20 +81,30 @@ public class Robot {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
 
-        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true);
+        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        double speedMultiplier = 1.0;
 
-        if (g1.right_trigger > 0) {
-            intake.servosOut();
-        } else if (g1.rightBumperWasPressed()) {
-            intake.servosIn();
+        if (g1.right_bumper) {
+            speedMultiplier = 0.3;
+            follower.setTeleOpDrive(
+                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+
+        } else {
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+
         }
+
         if (g1.left_trigger > 0) {
-            intake.on();
+            intake.intake();
+            }
+        else if (g2.right_bumper) {
+            intake.fire();
+        } else if (g1.right_trigger > 0) {
+            intake.reverse();
         }
-        if (g1.left_bumper) {
+        else {
             intake.off();
         }
-
 
         if (g2.dpadUpWasPressed()) {
             shooter.perf_velocity();
