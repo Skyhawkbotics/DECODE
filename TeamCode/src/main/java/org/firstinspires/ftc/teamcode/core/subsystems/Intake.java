@@ -19,7 +19,7 @@ public class Intake {
     private Servo right_servo, left_servo;
 
     private double POSITION_IN = 1;
-    private double POSITION_OUT = 0;
+    private double POSITION_OUT = 0.8;
 
     public Intake (HardwareMap hardwareMap, Telemetry telemetry){
         intake_motor = hardwareMap.get(DcMotorEx.class, "intake");

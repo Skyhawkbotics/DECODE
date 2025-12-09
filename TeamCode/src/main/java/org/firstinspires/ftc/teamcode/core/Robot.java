@@ -94,6 +94,15 @@ public class Robot {
         if (g1.left_bumper) {
             intake.off();
         }
+        if (g1.dpadUpWasPressed()) {
+            shooter.setShooterSpeed(2.04);
+        }
+        if (g1.dpadLeftWasPressed()) {
+            shooter.setShooterSpeed(3.11);
+        }
+        if (g1.dpadDownWasPressed()) {
+            shooter.turnOFF();
+        }
 
 
         if (g2.dpadUpWasPressed()) {
