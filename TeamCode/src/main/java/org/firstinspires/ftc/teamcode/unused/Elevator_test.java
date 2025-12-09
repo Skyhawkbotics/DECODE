@@ -1,16 +1,25 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.unused;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
 @TeleOp (name = "Elevator_test", group = "Tests")
 @Disabled
 public class Elevator_test extends OpMode {
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
+    /*
     private Elevator elevator;
     private Intake intake;
 
@@ -50,4 +59,6 @@ public class Elevator_test extends OpMode {
         }
 
     }
+
+     */
 }

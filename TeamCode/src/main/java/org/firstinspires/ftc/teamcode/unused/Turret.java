@@ -1,16 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.subsystems;
-
-import static org.firstinspires.ftc.teamcode.core.constants.*;
-
-import com.arcrobotics.ftclib.controller.PIDController;
-import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+package org.firstinspires.ftc.teamcode.unused;
 
 ///  Idea of turret: Two modes of correction
 /// One using Limelight
@@ -31,6 +19,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 /// maybe after a range like when the PID is outputting little to no correction
 /// then we turn off the heading turret PID and then use the limelight PID
 public class Turret {
+    /*
     private LL limelight;
     public DcMotorEx turret;
     public Boolean usingHeadingCorrection;
@@ -127,4 +116,6 @@ public class Turret {
         setTurretPower(pid_output);
         // return pid_output;
     }
+
+     */
 }

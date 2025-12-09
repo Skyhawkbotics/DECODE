@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -19,7 +20,7 @@ public class TurretNEW {
 
     private Telemetry telemetry;
 
-    private Boolean isUpdating;
+    private Boolean isUpdating = true;
 
 
 ///  Init
@@ -38,8 +39,8 @@ public class TurretNEW {
 
 
 
-/// PID correction loop
-    public void turret_update(double offset) {
+/// PID correction loop, toggle for manual
+    public void turret_update(double offset, double manual_power) {
         if(isUpdating) {
             heading_turret_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -48,6 +49,8 @@ public class TurretNEW {
 
 
             turret.setPower(pid_output + turret_f);
+        } else {
+            turret.setPower(manual_power); // add a multiplier if its too slow
         }
 
     }
@@ -66,14 +69,20 @@ public class TurretNEW {
     ///  turret offset depending on robot change in heading
     public double calculate_angle_offset(double heading, double angle ) {
 
-        double correct_angle_offset;
+        double raw_angle_offset;
         double angle_offset = Math.toDegrees(heading);
+        double correct_angle_offset;
 
-       // if(angle_offset >= 180) {
-       //     correct_angle_offset =  offset_to_position(angle_offset - 360 + angle);
-     //   } else {
-            correct_angle_offset =  offset_to_position(angle_offset + angle);
-       // }
+
+            raw_angle_offset =  offset_to_position(angle_offset + angle);
+            if(raw_angle_offset <= left_limit) { // if it's bigger than left limit
+                correct_angle_offset= left_limit;
+            } else if(raw_angle_offset >= right_limit) {// if it's smaller than right limit
+                correct_angle_offset = right_limit;
+            } else {
+                correct_angle_offset = raw_angle_offset;
+            }
+
         return correct_angle_offset;
     }
 
@@ -84,23 +93,6 @@ public class TurretNEW {
     }
 
 
-
-
-
-
-
-
-
-
-    public double calculate_distance(Pose followerPose, boolean isRED) { /// angle is in degrees
-        double x_distance = calculate_Y_distance(followerPose, isRED);
-        double y_distance = calculate_X_distance(followerPose, isRED);
-
-
-        double distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
-
-        return distance;
-    }
     public double calculate_X_distance(Pose followerPose, boolean isRED) {
         Pose correctPose;
         if(isRED) {
@@ -124,7 +116,7 @@ public class TurretNEW {
         double x_distance = calculate_Y_distance(followerPose, isRED);
         double y_distance = calculate_X_distance(followerPose, isRED);
 
-        double angle = Math.atan(y_distance/x_distance);
+        double angle = Math.toDegrees(Math.atan(y_distance/x_distance));
         if(isRED) {
             angle = -angle;
         }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.auto;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
@@ -11,7 +11,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
+
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 

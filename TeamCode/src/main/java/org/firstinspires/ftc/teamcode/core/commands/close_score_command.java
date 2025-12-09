@@ -32,12 +32,10 @@ public class close_score_command extends CommandBase {
             case -1:
                 break;
             case 1:
-                bot.getElevator().on();
                 setState(2);
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 0.75) { //1
-                    bot.getElevator().off();
                     setState(3);
                 }
                 break;
@@ -55,13 +53,11 @@ public class close_score_command extends CommandBase {
                 break;
             case 5:
                 if (timer.getElapsedTimeSeconds() > 0.5) {//4
-                    bot.getElevator().on();
                     setState(6);
                 }
                 break;
             case 6:
                 if (timer.getElapsedTimeSeconds() > 1) { //5
-                    bot.getElevator().off();
                     setState(7);
                 }
                 break;
@@ -73,13 +69,11 @@ public class close_score_command extends CommandBase {
                 break;
             case 8:
                 if (timer.getElapsedTimeSeconds() > 2) { //7.5
-                    bot.getElevator().on();
                     setState(10);
                 }
                 break;
             case 10:
                 if (timer.getElapsedTimeSeconds() > 1) { // 9
-                    bot.getElevator().off();
                     setState(-1);
                 }
                 break;

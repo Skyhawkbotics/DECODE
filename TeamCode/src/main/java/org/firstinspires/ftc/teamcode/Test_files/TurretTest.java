@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.Test_files;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
@@ -12,10 +12,11 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 public class TurretTest extends OpMode {
     private TurretNEW turret;
     private Follower follower;
-    private Pose startPoseRed = new Pose(118, 130,0);
+    private Pose startPoseRed = new Pose(71, 24,0);
 
     private double offset;
-
+    private double angle = 0;
+    private boolean isred = true;
 
     @Override
     public void init() {
@@ -27,16 +28,23 @@ public class TurretTest extends OpMode {
 
     @Override
     public void loop() {
-        offset = turret.calculate_angle_offset(follower.getPose().getHeading(), 0);
-        turret.turret_update(offset);
+        offset = turret.calculate_angle_offset(follower.getPose().getHeading(), angle);
 
-        if(gamepad1.aWasPressed()) {
+
+        angle = turret.calculate_angle(follower.getPose(), isred);
+
+        if(gamepad1.bWasPressed()) { // toggle alliance side
+            isred = !isred;
+        }
+
+        if(gamepad1.aWasPressed()) {///  RESET
             turret.reset_turret();
         }
-        if(gamepad1.xWasPressed()) {
+        if(gamepad1.xWasPressed()) {///  toggle the PID updating
             turret.turret_update_toggle();
         }
 
+        turret.turret_update(offset, gamepad1.left_stick_x * 0.2);
 
 
         telemetry();
@@ -47,7 +55,10 @@ public class TurretTest extends OpMode {
     public void telemetry() { ///  TELEMETRY
         turret.turret_telemetry();
         telemetry.addData("offset", offset);
-        //telemetry.addData("Follower Pose", follower.getPose());
+        telemetry.addData("angle", angle);
+        telemetry.addData("Follower Pose", follower.getPose());
+        telemetry.addData(" x = toggle update", 0);
+        telemetry.addData(" a = reset turret", 0);
 
     }
 }
