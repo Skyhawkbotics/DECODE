@@ -35,6 +35,15 @@ public class Robot {
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
 
+    private double offset;
+    private double angle = 0;
+    private boolean isred = true;
+
+    private Boolean using_turret = true;
+
+    private double PID_output;
+
+
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -81,17 +90,28 @@ public class Robot {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
 
-        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true);
+        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        double speedMultiplier = 1.0;
 
-        if (g1.right_trigger > 0) {
-            intake.servosOut();
-        } else if (g1.rightBumperWasPressed()) {
-            intake.servosIn();
+        if (g1.right_bumper) {
+            speedMultiplier = 0.3;
+            follower.setTeleOpDrive(
+                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+
+        } else {
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+
         }
+
         if (g1.left_trigger > 0) {
-            intake.on();
+            intake.intake();
+            }
+        else if (g2.right_bumper) {
+            intake.fire();
+        } else if (g1.right_trigger > 0) {
+            intake.reverse();
         }
-        if (g1.left_bumper) {
+        else {
             intake.off();
         }
         if (g1.dpadUpWasPressed()) {
@@ -104,19 +124,51 @@ public class Robot {
             shooter.turnOFF();
         }
 
-
         if (g2.dpadUpWasPressed()) {
             shooter.perf_velocity();
         } else if (g2.dpadDownWasPressed()) {
             shooter.turnOFF();
         }
 
+
+        if(g2.rightBumperWasPressed()) {///  RESET
+            turretNEW.reset_turret();
+        }
+
+        if(g2.bWasPressed()) {///  toggle the PID updating
+            turretNEW.turret_update_toggle();
+        }
+
+        if(g2.yWasPressed()) {
+            using_turret = !using_turret;
+        }
+
+
+
+
+        if(using_turret) {
+            PID_output = offset;
+        } else {
+            PID_output = 0;
+        }
+        turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
+
+
     }
 
     public void robot_telemetry() {
+        turretNEW.turret_telemetry();
+        telemetry.addData("offset", offset);
+        telemetry.addData("angle", angle);
+        telemetry.addData("Follower Pose", follower.getPose());
 
     }
     public void robot_update () {
+        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
+
+        angle = turretNEW.calculate_angle(follower.getPose(), isred);
+
+
 
         shooter.shooter_telemetry();
         shooter.update();

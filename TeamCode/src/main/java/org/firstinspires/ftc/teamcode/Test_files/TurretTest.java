@@ -18,6 +18,10 @@ public class TurretTest extends OpMode {
     private double angle = 0;
     private boolean isred = true;
 
+    private Boolean using_turret = true;
+
+    private double PID_output;
+
     @Override
     public void init() {
         turret = new TurretNEW(hardwareMap, telemetry);
@@ -44,8 +48,15 @@ public class TurretTest extends OpMode {
             turret.turret_update_toggle();
         }
 
-        turret.turret_update(offset, gamepad1.left_stick_x * 0.2);
-
+        turret.turret_update(PID_output, gamepad1.left_stick_x * 0.2);
+        if(using_turret) {
+            PID_output = offset;
+        } else {
+            PID_output = 0;
+        }
+        if(gamepad1.yWasPressed()) {
+            using_turret = !using_turret;
+        }
 
         telemetry();
         telemetry.update();
