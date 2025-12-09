@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 public class TurretTest extends OpMode {
     private TurretNEW turret;
     private Follower follower;
-    private Pose startPoseRed = new Pose(118, 130,0);
+    private Pose startPoseRed = new Pose(71, 24,0);
 
     private double offset;
     private double angle = 0;
@@ -28,7 +28,7 @@ public class TurretTest extends OpMode {
 
     @Override
     public void loop() {
-        offset = turret.calculate_angle_offset(follower.getPose().getHeading(), 0);
+        offset = turret.calculate_angle_offset(follower.getPose().getHeading(), angle);
 
 
         angle = turret.calculate_angle(follower.getPose(), isred);
@@ -44,7 +44,7 @@ public class TurretTest extends OpMode {
             turret.turret_update_toggle();
         }
 
-        turret.turret_update(offset, gamepad1.left_stick_x);
+        turret.turret_update(offset, gamepad1.left_stick_x * 0.2);
 
 
         telemetry();

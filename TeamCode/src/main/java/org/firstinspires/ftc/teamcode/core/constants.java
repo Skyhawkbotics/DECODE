@@ -13,8 +13,8 @@ import com.pedropathing.geometry.Pose;
 public class constants {
     /// Hardware names
     public static String turret_name = "turret";
-    public static double left_limit = 0;
-    public static double right_limit = 0;
+    public static double left_limit = -750;
+    public static double right_limit = 750;
 
     public static int blue_ID = 20;
     public static int red_ID = 24;
