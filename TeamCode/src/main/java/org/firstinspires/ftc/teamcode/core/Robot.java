@@ -90,7 +90,6 @@ public class Robot {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
 
-        follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
         double speedMultiplier = 1.0;
 
         if (g1.right_bumper) {
@@ -106,12 +105,12 @@ public class Robot {
         if (g1.left_trigger > 0) {
             intake.intake();
             }
-        else if (g2.right_bumper) {
-            intake.fire();
-        } else if (g1.right_trigger > 0) {
+         else if (g1.right_trigger > 0) {
+            intake.servosIn();
             intake.reverse();
         }
         else {
+            intake.servosIn();
             intake.off();
         }
         if (g1.dpadUpWasPressed()) {
@@ -122,6 +121,9 @@ public class Robot {
         }
         if (g1.dpadDownWasPressed()) {
             shooter.turnOFF();
+        }
+        if (g2.right_bumper) {
+            intake.fire();
         }
 
         if (g2.dpadUpWasPressed()) {
