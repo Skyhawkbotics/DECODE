@@ -19,7 +19,7 @@ public class Robot {
 
     private Shooter shooter;
     private Intake intake;
-    private TurretNEW turretNEW;
+    //private TurretNEW turretNEW;
     private int ID;
 
 
@@ -55,7 +55,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turretNEW = new TurretNEW(hardwareMap, telemetry);
+        //turretNEW = new TurretNEW(hardwareMap, telemetry);
 
 
         this.g1 = new Gamepad();
@@ -132,11 +132,11 @@ public class Robot {
 
 
         if(g2.rightBumperWasPressed()) {///  RESET
-            turretNEW.reset_turret();
+           // turretNEW.reset_turret();
         }
 
         if(g2.bWasPressed()) {///  toggle the PID updating
-            turretNEW.turret_update_toggle();
+           // turretNEW.turret_update_toggle();
         }
 
         if(g2.yWasPressed()) {
@@ -151,22 +151,22 @@ public class Robot {
         } else {
             PID_output = 0;
         }
-        turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
+        //turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
 
     }
 
     public void robot_telemetry() {
-        turretNEW.turret_telemetry();
+        //turretNEW.turret_telemetry();
         telemetry.addData("offset", offset);
         telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
 
     }
     public void robot_update () {
-        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
+        //offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
 
-        angle = turretNEW.calculate_angle(follower.getPose(), isred);
+       // angle = turretNEW.calculate_angle(follower.getPose(), isred);
 
 
 
@@ -191,9 +191,9 @@ public class Robot {
     public Shooter getShooter() {
         return shooter;
     }
-    public TurretNEW getTurretNEW() {
-        return turretNEW;
-    }
+   //public TurretNEW getTurretNEW() {
+       // return turretNEW;
+    //}
     public Telemetry getTelemetry() {
         return telemetry;
     }
