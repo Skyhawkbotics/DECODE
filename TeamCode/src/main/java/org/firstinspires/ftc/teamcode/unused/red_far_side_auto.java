@@ -1,22 +1,17 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.unused;
 
 
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.pedropathing.geometry.BezierCurve;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.core.Robot;
-import ftclib.FollowPath;
 import ftclib.OpModeCommand;
-
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 @Autonomous(name = "Red side far auto", group = "gf")
 public class red_far_side_auto extends OpModeCommand {
+    @Override
+    public void initialize() {
+
+    }
+    /*
     Robot bot;
 
     public static final Pose startPose = new Pose(89,7.2, Math.toRadians(-90));
@@ -51,10 +46,10 @@ public class red_far_side_auto extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot=new Robot(hardwareMap,telemetry,red_ID,startPose);
+        bot=new Robot(hardwareMap,telemetry,startPose);
 
         schedule(
-                new RunCommand(bot::auto_robot_update), // This is a method reference ::
+                new RunCommand(bot::autonomous_robot_update), // This is a method reference ::
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), pickuphpballs)
                                 .andThen(
@@ -74,4 +69,6 @@ public class red_far_side_auto extends OpModeCommand {
         );
 
     }
+
+     */
 }

@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode.core.commands;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
+
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class intake_swallow extends CommandBase {
+public class Shooter_off extends CommandBase {
     private int state = 1;
 
     private final Robot bot;
@@ -15,7 +17,7 @@ public class intake_swallow extends CommandBase {
 
 
 
-    public intake_swallow(Robot bot) { // runs the Command
+    public Shooter_off(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,14 +34,9 @@ public class intake_swallow extends CommandBase {
             case -1:
                 break;
             case 1:
-                bot.getIntake().on();
-                setState(2);
-                break;
-            case 2:
-                if (timer.getElapsedTimeSeconds() > 2.5) { //1
-                    bot.getIntake().off();
-                    setState(-1);
-                }
+                bot.getShooter().turnOFF();
+                bot.getIntake().servosIn();
+                setState(-1);
                 break;
         }
     }

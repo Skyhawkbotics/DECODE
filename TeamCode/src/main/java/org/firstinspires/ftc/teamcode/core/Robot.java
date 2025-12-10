@@ -67,12 +67,11 @@ public class Robot {
 
         follower.setStartingPose(startPose);
         follower.startTeleopDrive();
-        follower.update();
 
         this.ID = ID;
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry,int  ID, Pose startPose) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -80,8 +79,20 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
+        turretNEW = new TurretNEW(hardwareMap, telemetry);
+        follower.update();
+        intake.servosIn();
 
+    }
 
+    public void autonomous_robot_update () {
+        shooter.shooter_telemetry();
+        shooter.update();
+        robot_telemetry();
+        follower.update();
+        telemetry.update();
+
+        turretNEW.turret_update(0, g2.left_stick_x * 0.2);
 
     }
 
@@ -105,25 +116,27 @@ public class Robot {
 
         if (g1.left_trigger > 0) {
             intake.intake();
-            }
-         else if (g1.right_trigger > 0) {
+        }
+        else if (g1.right_trigger > 0) {
             intake.reverse();
         }
         else {
             intake.off();
         }
-        if (g1.dpadUpWasPressed()) {
+
+
+        if (g2.dpadUpWasPressed()) {
             shooter.setShooterSpeed(2.04);
         }
-        if (g1.dpadLeftWasPressed()) {
+        if (g2.dpadLeftWasPressed()) {
             shooter.setShooterSpeed(3.11);
         }
-        if (g1.dpadDownWasPressed()) {
-            shooter.turnOFF();
-        }
+
+
         if (g2.right_trigger >0) {
             intake.fire();
         }
+
 
         if (g2.dpadUpWasPressed()) {
             shooter.perf_velocity();
@@ -140,21 +153,19 @@ public class Robot {
             turretNEW.turret_update_toggle();
         }
 
-        if(g2.yWasPressed()) {
-            using_turret = !using_turret;
-        }
 
-
-
-
-        if(using_turret) {
+        if(g2.y) {
             PID_output = offset;
         } else {
             PID_output = 0;
         }
+
+
         turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
+        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
 
+        angle = turretNEW.calculate_angle(follower.getPose(), isred);
     }
 
     public void robot_telemetry() {
@@ -165,12 +176,6 @@ public class Robot {
 
     }
     public void robot_update () {
-        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
-
-        angle = turretNEW.calculate_angle(follower.getPose(), isred);
-
-
-
         shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
@@ -179,13 +184,8 @@ public class Robot {
 
 
     }
-    public void auto_robot_update() {
-        shooter.shooter_telemetry();
-        shooter.update();
-        robot_telemetry();
-        follower.update();
-        telemetry.update();
-    }
+
+
     public Follower getFollower() {
         return follower;
     }

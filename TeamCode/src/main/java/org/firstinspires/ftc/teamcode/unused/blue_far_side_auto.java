@@ -21,6 +21,11 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "blue side far auto", group = "gf")
 @Disabled
 public class blue_far_side_auto extends OpModeCommand {
+    @Override
+    public void initialize() {
+
+    }
+    /*
     Robot bot;
 
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
@@ -48,7 +53,7 @@ public class blue_far_side_auto extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot=new Robot(hardwareMap,telemetry,red_ID,startPose); // startpose
+        bot=new Robot(hardwareMap,telemetry,startPose); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 
@@ -68,4 +73,6 @@ public class blue_far_side_auto extends OpModeCommand {
         );
 
     }
+
+     */
 }
