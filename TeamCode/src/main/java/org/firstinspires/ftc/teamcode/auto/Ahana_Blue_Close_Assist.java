@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.AUTO;
+package org.firstinspires.ftc.teamcode.auto;
 
 import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
 
@@ -75,8 +75,7 @@ public class Ahana_Blue_Close_Assist extends OpModeCommand {
         schedule(
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(),scorepres
-                                )
+                        new FollowPath(bot.getFollower(),scorepres)
                                 /*
                                 .andThen(
                                         new WaitCommand(7000)

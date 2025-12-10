@@ -19,19 +19,44 @@ public class shooterSpeed {
                 (d * Math.tan(angle) - VERTICAL_DISTANCE);
         double velocity_meters = Math.sqrt(numerator/denominator);
         double velocity_rpm = (velocity_meters * 60) / (2 * PI * FLYWHEEL_RADIUS);
+        double velocity_tps = velocity_rpm * 28 / 60;
 
 
         // does not account for drag. because drag will reduce the distance it goes, this
         // velocity should be increased by a coefficient, maybe of like 1.05 or something minor.
-        return velocity_rpm;
+        return velocity_tps * 2.8;
     }
 
     public double calcAngle(double d) {
         double degrees = 60 - 8 * (d - 1.5);
+        // this is based off of regression
         // 30 degrees for 1 position
         // 0.1 change in position is equal to change in 3 degrees
         double servo_position = -(degrees / 30) + 2;
         return servo_position;
 
+    }
+
+    public double newAngle(double d) {
+        double GRAVITY = 9.80665;
+        double h = 0.661;     // vertical distance
+        double v = 10.8;       // constant velocity
+
+        double A = v*v * d;
+        double B = -v*v * h;
+        double C = GRAVITY * d*d + v*v * h;
+
+        double R = Math.sqrt(A*A + B*B);
+        double phi = Math.atan2(B, A);
+
+        double theta = (Math.asin(C / R) - phi) / 2.0;  // in radians
+        double degrees = Math.toDegrees(theta); // in degrees
+        double servo_position =  -0.85 / 30 * degrees - 0.7;
+        // 0.15, 60
+        // 1, 30
+        // 60 0.15
+        // 30 1
+        // 0.15 - 1 / 60 - 30
+        return servo_position;
     }
 }

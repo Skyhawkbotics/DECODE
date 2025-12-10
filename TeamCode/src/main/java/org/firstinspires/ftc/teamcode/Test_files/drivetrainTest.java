@@ -1,14 +1,12 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.Test_files;
 
 import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.core.subsystems.Drivetrain;
 
 @TeleOp (name = "Drivetrain Test", group = "Tests")
-@Disabled
 public class drivetrainTest extends OpMode {
     private Pose startPose = new Pose(3, 3, Math.toRadians(90));
     private Drivetrain follower;

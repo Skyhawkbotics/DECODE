@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode.test_files;
+package org.firstinspires.ftc.teamcode.Test_files;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
 @TeleOp(name = "ShooterTest", group = "Tests")
-@Disabled
+
 public class ShooterTest extends OpMode {
     private Shooter shooter;
 
@@ -40,41 +39,9 @@ public class ShooterTest extends OpMode {
             // motor to max target
             shooter.perf_velocity();
         }
-        if (gamepad1.leftBumperWasPressed()) {
-            shooter.setShooterSpeed(2.04);
-            // shooter.setShooterAngle(2.04);
-        }
-
-        if (gamepad1.left_bumper)  {
-            telemetry.addData("LEFT BUMPER", "");
-        }
-
-        if (gamepad1.right_bumper) {
-            telemetry.addData("RIGHT BUMPER", "");
-        }
-
-        if (gamepad1.rightBumperWasPressed()) {
-            shooter.setShooterSpeed(3.11);
-            // shooter.setShooterAngle(3.11);
-        }
-
-        if (gamepad1.bWasPressed()) {
-            shooter.turnOFF();
-        }
 
 
 
-
-        ///  change angle incrementally
-
-        if (gamepad1.yWasPressed()) {
-            ///Increase the position 0.1
-            shooter.increasePosition();
-        }
-        if (g1.xWasPressed()) {
-            // Decrease the position 0.1
-            shooter.decreasePosition();
-        }
         ///  to the max angles
         if(g1.dpadLeftWasPressed()) {
             shooter.positionMin();

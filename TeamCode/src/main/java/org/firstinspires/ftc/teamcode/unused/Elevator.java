@@ -1,18 +1,10 @@
-package org.firstinspires.ftc.teamcode.core.subsystems;
+package org.firstinspires.ftc.teamcode.unused;
 
-import static org.firstinspires.ftc.teamcode.core.constants.elevator_retract;
-import static org.firstinspires.ftc.teamcode.core.constants.elevator_shoot;
-
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Elevator {
-
-
+/*
+    public static double elevator_shoot = 0.05;
+    public static double elevator_retract = 0.4;
     private Telemetry telemetry;
     private CRServo servo_1;
     private Servo flip;
@@ -38,5 +30,7 @@ public class Elevator {
 
     }
 
+
+ */
 
 }

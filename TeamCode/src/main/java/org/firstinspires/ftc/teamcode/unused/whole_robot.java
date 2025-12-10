@@ -1,17 +1,7 @@
 package org.firstinspires.ftc.teamcode.unused;
 
-import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.core.subsystems.Elevator;
-import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-
 public class whole_robot {
-
+/*
     private Shooter shooter;
 
     private Elevator elevator;
@@ -47,7 +37,6 @@ public class whole_robot {
         follower = Constants.createFollower(hardwareMap);
 
         shooter = new Shooter(hardwareMap, telemetry);
-        elevator = new Elevator(hardwareMap, telemetry);
         shooter.positionMax();
 
 
@@ -74,7 +63,7 @@ public class whole_robot {
             shooter.decreasePosition();
         }
 
-       */
+
         ///  to the max angles
 
         if(dummyg1.right_bumper) {
@@ -124,4 +113,5 @@ public class whole_robot {
         }
 
 
+        */
 }
