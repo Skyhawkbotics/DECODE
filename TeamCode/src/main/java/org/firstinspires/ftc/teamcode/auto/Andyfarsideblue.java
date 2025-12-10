@@ -74,12 +74,11 @@ public class Andyfarsideblue extends OpModeCommand {
         line10 = new Path (new BezierLine(grab6, shootpos));
         line10.setLinearHeadingInterpolation(grab6.getHeading(), shootpos.getHeading());
 
-        line11 = new Path (new BezierLine(shootpos, startpos));
+        line11 = new Path(new BezierLine(shootpos, startpos));
         line11.setLinearHeadingInterpolation(shootpos.getHeading(), startpos.getHeading());
 
         line12 = new Path(new BezierLine(shootpos, end));
         line12.setLinearHeadingInterpolation(shootpos.getHeading(), end.getHeading());
-
     }
 
     public void  initialize() {
