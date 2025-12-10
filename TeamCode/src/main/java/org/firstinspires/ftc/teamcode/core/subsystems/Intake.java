@@ -47,12 +47,12 @@ public class Intake {
         left_servo.setPosition(1);
     }
     ///  since the servos and the intake are in this subsystem, we can code the logic needed switch between firing and intaking
-    public void intake() {
-        servosIn();
-        on();
-    }
     public void fire() {
         servosOut();
+        on();
+    }
+    public void intake() {
+        servosIn();
         on();
     }
 }

@@ -44,7 +44,7 @@ public class Robot {
     private double PID_output;
 
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -52,6 +52,7 @@ public class Robot {
 
         this.dummyg1 = game1;
         this.dummyg2 = game2;
+        this.isred = red;
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
@@ -103,15 +104,12 @@ public class Robot {
         }
 
         if (g1.left_trigger > 0) {
-            intake.servosIn();
             intake.intake();
             }
          else if (g1.right_trigger > 0) {
-            intake.servosIn();
             intake.reverse();
         }
         else {
-            intake.servosIn();
             intake.off();
         }
         if (g1.dpadUpWasPressed()) {
@@ -123,7 +121,7 @@ public class Robot {
         if (g1.dpadDownWasPressed()) {
             shooter.turnOFF();
         }
-        if (g2.right_bumper) {
+        if (g2.right_trigger >0) {
             intake.fire();
         }
 
