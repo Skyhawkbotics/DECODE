@@ -103,6 +103,7 @@ public class Robot {
         }
 
         if (g1.left_trigger > 0) {
+            intake.servosIn();
             intake.intake();
             }
          else if (g1.right_trigger > 0) {
