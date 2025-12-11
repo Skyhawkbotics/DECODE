@@ -24,6 +24,9 @@ public class Robot {
     private Follower follower;
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
 
+    public static final Pose resetPose = new Pose(72   ,80, Math.toRadians(90));
+
+
 
     private double pid_output = 0;
 
@@ -102,6 +105,13 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
+        if (g1.right_bumper) {
+            double speedMultiplier = 0.3;
+            follower.setTeleOpDrive(
+                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+        } else {
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        }
         // follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
         if (ID == 24) {
@@ -114,7 +124,6 @@ public class Robot {
         depot_distance = Math.sqrt(x * x + y * y) * 2.54 / 100;
 
 
-        double speedMultiplier = 1.0;
 
        // if (g1.right_bumper) {
           //  speedMultiplier = 0.3;
@@ -123,13 +132,7 @@ public class Robot {
         //    follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
       //  }
-        if (g1.right_bumper) {
-            speedMultiplier = 0.3;
-            follower.setTeleOpDrive(
-                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
-        } else {
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
-        }
+
 
         if (g1.left_trigger > 0) {
             intake.intake();
@@ -141,13 +144,17 @@ public class Robot {
             intake.off();
         }
 
+        if(g1.rightBumperWasPressed()) {
+            follower.setPose(resetPose);
+        }
 
-        if (g1.dpadUpWasPressed()) {
+
+        if (g2.dpadUpWasPressed()) {
             v = shooter.setShooterSpeed(depot_distance);
             s = shooter.getShooterAngle(depot_distance);
             shooter.setposition(s);
         }
-        if (g1.dpadDownWasPressed()) {
+        if (g2.dpadDownWasPressed()) {
             if (depot_distance > 2.50) {
                 shooter.positionMax();
             } else if (depot_distance < 2.50) {
@@ -155,16 +162,20 @@ public class Robot {
             }
         }
 
+        if (g2.dpadLeftWasPressed()) {
+            shooter.turnOFF();
+        }
+
         if (g2.right_trigger > 0) {
             intake.fire();
         }
 
 
-        if (g2.dpadUpWasPressed()) {
+        /* if (g2.dpadUpWasPressed()) {
             shooter.perf_velocity();
         } else if (g2.dpadDownWasPressed()) {
             shooter.turnOFF();
-        }
+        } */
 
 
         if(g2.rightBumperWasPressed()) {///  RESET

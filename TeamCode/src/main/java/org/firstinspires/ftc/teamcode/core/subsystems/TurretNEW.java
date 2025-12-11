@@ -15,8 +15,8 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(135, 141, 0);
-    private Pose bluePose = new Pose(6, 143,0);
+    private Pose redPose = new Pose(136, 137, 0);
+    private Pose bluePose = new Pose(7, 137,0);
 
     private Telemetry telemetry;
 
@@ -123,7 +123,7 @@ public class TurretNEW {
             angle = -angle;
         }
 
-        return angle -90;
+        return angle - 90;
     }
 
 ///  90 - angle

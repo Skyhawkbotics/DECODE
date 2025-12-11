@@ -48,14 +48,14 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.01, turret_i = 0, turret_d = 0, turret_f = 0.01;
+    public static double turret_p = 0.01, turret_i = 0, turret_d = 0.01, turret_f = 0.01;
     public static double turret_align_heading = 0;
     public static double degrees_to_ticks;
 
 
     /// Intake speed constants
 
-    public static double intake_speed = 0.8;
+    public static double intake_speed = 1;
 
 
 
