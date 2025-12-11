@@ -19,7 +19,7 @@ public class Robot {
 
     private Shooter shooter;
     private Intake intake;
-    //private TurretNEW turretNEW;
+    private TurretNEW turretNEW;
     private int ID;
 
 
@@ -43,6 +43,8 @@ public class Robot {
 
     private double PID_output;
 
+    private double x, y, depot_distance;
+
 
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red) {
         this.hardwareMap = hardwareMap;
@@ -56,8 +58,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        //turretNEW = new TurretNEW(hardwareMap, telemetry);
-
+        turretNEW = new TurretNEW(hardwareMap, telemetry);
 
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
@@ -101,6 +102,15 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
+
+        if (ID == 24) {
+            x = turretNEW.calculate_X_distance(follower.getPose(), true);
+            y = turretNEW.calculate_Y_distance(follower.getPose(), true);
+        } else if (ID == 20) {
+            x = turretNEW.calculate_X_distance(follower.getPose(), false);
+            y = turretNEW.calculate_Y_distance(follower.getPose(), false);
+        }
+        depot_distance = Math.sqrt(x * x + y * y);
 
         double speedMultiplier = 1.0;
 
@@ -146,11 +156,11 @@ public class Robot {
 
 
         if(g2.rightBumperWasPressed()) {///  RESET
-           // turretNEW.reset_turret();
+            turretNEW.reset_turret();
         }
 
         if(g2.bWasPressed()) {///  toggle the PID updating
-           // turretNEW.turret_update_toggle();
+           turretNEW.turret_update_toggle();
         }
 
 
@@ -173,6 +183,7 @@ public class Robot {
         telemetry.addData("offset", offset);
         telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
+        telemetry.addData("Distance from Depot", depot_distance);
 
     }
     public void robot_update () {
@@ -192,9 +203,9 @@ public class Robot {
     public Shooter getShooter() {
         return shooter;
     }
-   //public TurretNEW getTurretNEW() {
-       // return turretNEW;
-    //}
+   public TurretNEW getTurretNEW() {
+       return turretNEW;
+    }
     public Telemetry getTelemetry() {
         return telemetry;
     }
