@@ -19,7 +19,7 @@ public class Robot {
 
     private Shooter shooter;
     private Intake intake;
-    private TurretNEW turretNEW;
+    //private TurretNEW turretNEW;
     private int ID;
 
 
@@ -56,7 +56,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turretNEW = new TurretNEW(hardwareMap, telemetry);
+        //turretNEW = new TurretNEW(hardwareMap, telemetry);
 
 
         this.g1 = new Gamepad();
@@ -146,11 +146,11 @@ public class Robot {
 
 
         if(g2.rightBumperWasPressed()) {///  RESET
-            turretNEW.reset_turret();
+           // turretNEW.reset_turret();
         }
 
         if(g2.bWasPressed()) {///  toggle the PID updating
-            turretNEW.turret_update_toggle();
+           // turretNEW.turret_update_toggle();
         }
 
 
@@ -169,7 +169,7 @@ public class Robot {
     }
 
     public void robot_telemetry() {
-        turretNEW.turret_telemetry();
+        //turretNEW.turret_telemetry();
         telemetry.addData("offset", offset);
         telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
@@ -192,9 +192,9 @@ public class Robot {
     public Shooter getShooter() {
         return shooter;
     }
-    public TurretNEW getTurretNEW() {
-        return turretNEW;
-    }
+   //public TurretNEW getTurretNEW() {
+       // return turretNEW;
+    //}
     public Telemetry getTelemetry() {
         return telemetry;
     }

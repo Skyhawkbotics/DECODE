@@ -83,7 +83,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
         shoot3.setLinearHeadingInterpolation(gather3.getHeading(), pres.getHeading());
     }
 
-    public void initialize(){
+    public void initialize() {
         buildPaths();
         bot = new Robot (hardwareMap, telemetry, startpose);
 
