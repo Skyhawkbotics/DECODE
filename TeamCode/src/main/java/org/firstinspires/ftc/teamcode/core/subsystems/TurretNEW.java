@@ -123,10 +123,11 @@ public class TurretNEW {
             angle = -angle;
         }
 
-        return 90 + angle;
+        return angle;
     }
 
-
+///  90 - angle
+///
     public void turret_telemetry() {
         telemetry.addData("turret position", turret.getCurrentPosition());
         telemetry.addData("turret PID output", turret.getPower());

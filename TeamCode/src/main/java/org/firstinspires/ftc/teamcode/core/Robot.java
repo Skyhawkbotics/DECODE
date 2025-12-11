@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
-
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -12,7 +9,6 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.core.subsystems.TurretNEW;
-import org.firstinspires.ftc.teamcode.unused.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class Robot {
@@ -44,6 +40,7 @@ public class Robot {
     private double PID_output;
 
     private double x, y, depot_distance;
+    private double v, s;
 
 
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red) {
@@ -83,6 +80,7 @@ public class Robot {
         turretNEW = new TurretNEW(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
+        turretNEW.reset_turret();
 
     }
 
@@ -93,7 +91,7 @@ public class Robot {
         follower.update();
         telemetry.update();
 
-        turretNEW.turret_update(0, g2.left_stick_x * 0.2);
+        turretNEW.turret_update(0,  0);
 
     }
 
@@ -102,6 +100,7 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
+        // follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
         if (ID == 24) {
             x = turretNEW.calculate_X_distance(follower.getPose(), true);
@@ -110,19 +109,18 @@ public class Robot {
             x = turretNEW.calculate_X_distance(follower.getPose(), false);
             y = turretNEW.calculate_Y_distance(follower.getPose(), false);
         }
-        depot_distance = Math.sqrt(x * x + y * y);
+        depot_distance = Math.sqrt(x * x + y * y) * 2.54 / 100;
+
 
         double speedMultiplier = 1.0;
 
-        if (g1.right_bumper) {
-            speedMultiplier = 0.3;
-            follower.setTeleOpDrive(
-                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+       // if (g1.right_bumper) {
+          //  speedMultiplier = 0.3;
+          //  follower.setTeleOpDrive(speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+      //  } else {
+        //    follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
-        } else {
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
-
-        }
+      //  }
 
         if (g1.left_trigger > 0) {
             intake.intake();
@@ -135,11 +133,12 @@ public class Robot {
         }
 
 
-        if (g2.dpadUpWasPressed()) {
-            shooter.setShooterSpeed(2.04);
-        }
-        if (g2.dpadLeftWasPressed()) {
-            shooter.setShooterSpeed(3.11);
+        if (g1.dpadUpWasPressed()) {
+            v = shooter.setShooterSpeed(depot_distance);
+            s = shooter.getShooterAngle(depot_distance);
+            shooter.setposition(s);
+
+
         }
 
 
@@ -184,6 +183,9 @@ public class Robot {
         telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
         telemetry.addData("Distance from Depot", depot_distance);
+
+        telemetry.addData("CALCULATED ANGLE", s);
+        telemetry.addData("CALCULATED VELOCITY", v);
 
     }
     public void robot_update () {

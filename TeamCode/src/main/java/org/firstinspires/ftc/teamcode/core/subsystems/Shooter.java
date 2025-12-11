@@ -31,6 +31,8 @@ public class     Shooter {
     private double power;
     private boolean is_updating;
 
+    private double shooter_position, shooter_velocity;
+
 
 
 
@@ -111,16 +113,17 @@ public class     Shooter {
 
     }
 
-    public void setShooterSpeed(double distance) {
+    public double setShooterSpeed(double distance) {
         toggle_update_true();
-        setTarget((int) shooterSpeed.calcVelocity(distance));
-        telemetry.addData("calculated speed", shooterSpeed.calcVelocity(distance));
+        shooter_velocity = shooterSpeed.calcVelocity(distance);
+        setTarget((int) shooter_velocity);
+        return shooter_velocity;
     }
 
-    public void setShooterAngle(double distance) {
+    public double getShooterAngle(double distance) {
         toggle_update_true();
-        servo.setPosition(shooterSpeed.calcAngle(distance));
-        telemetry.addData("calculated position", shooterSpeed.calcAngle(distance));
+        shooter_position = shooterSpeed.calcAngle(distance);
+        return shooter_position;
     }
     public void back_perf() {
         setTarget(far_side_shoot);
@@ -135,6 +138,9 @@ public class     Shooter {
     public void stress() {
         toggle_update_true();
         setTarget(max);
+    }
+    public void setposition(double position) {
+        servo.setPosition(position);
     }
 
 
@@ -216,8 +222,9 @@ public class     Shooter {
     public int getvelocity() {
         return (int) left_motor.getVelocity();
     }
+
     public Boolean velocityReached() {
-        return target - left_motor.getVelocity() < 60;
+        return target - right_motor.getVelocity() < 60;
     }
 }
 

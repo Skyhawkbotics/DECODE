@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.005, ei = 0, ed = 0.00000, f = 0.05; ///these are good as of 10/11
+    public static double ep = 0.008, ei = 0, ed = 0.00000, f = 0.05; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -37,8 +37,8 @@ public class constants {
 
     public static int middle_of_field = 1200; ///position from middle of the largest triangle
 
-    public static double positionMin = 0.0;
-    public static double positionMax = 0.4;
+    public static double positionMin = 0.05;
+    public static double positionMax = 0.85;
     public static double bottom = 1;
 
     public static double top = 0.5;

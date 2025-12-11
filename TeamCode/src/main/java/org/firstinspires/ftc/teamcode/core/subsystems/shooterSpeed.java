@@ -7,11 +7,11 @@ public class shooterSpeed {
     public double calcVelocity(double d) {
 
         double GRAVITY = 9.80665; // gravitational constant
-        double VERTICAL_DISTANCE = 0.661; // 1.041 - 0.381
+        double VERTICAL_DISTANCE = 0.661 + 0.039; // 1.041 - 0.381
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
 
-        double degrees = 60; // - 8 * (d - 1.5); // FROM THE HORIZONTAL
+        double degrees = 60 - 8 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
 
         double numerator = GRAVITY * Math.pow(d, 2); //
@@ -32,7 +32,7 @@ public class shooterSpeed {
         // this is based off of regression
         // 30 degrees for 1 position
         // 0.1 change in position is equal to change in 3 degrees
-        double servo_position = -(degrees / 30) + 2;
+        double servo_position = - 0.85 / 30 * degrees + 1.7;
         return servo_position;
 
     }
