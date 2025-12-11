@@ -121,6 +121,13 @@ public class Robot {
         //    follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
       //  }
+        if (g1.right_bumper) {
+            speedMultiplier = 0.3;
+            follower.setTeleOpDrive(
+                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+        } else {
+            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        }
 
         if (g1.left_trigger > 0) {
             intake.intake();
