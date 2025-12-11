@@ -68,6 +68,8 @@ public class Robot {
 
         this.ID = ID;
 
+        shooter.positionMax();
+
     }
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
@@ -137,12 +139,16 @@ public class Robot {
             v = shooter.setShooterSpeed(depot_distance);
             s = shooter.getShooterAngle(depot_distance);
             shooter.setposition(s);
-
-
+        }
+        if (g1.dpadDownWasPressed()) {
+            if (depot_distance > 2.50) {
+                shooter.positionMax();
+            } else if (depot_distance < 2.50) {
+                shooter.positionMin();
+            }
         }
 
-
-        if (g2.right_trigger >0) {
+        if (g2.right_trigger > 0) {
             intake.fire();
         }
 

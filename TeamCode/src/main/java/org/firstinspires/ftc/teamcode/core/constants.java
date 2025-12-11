@@ -38,7 +38,7 @@ public class constants {
     public static int middle_of_field = 1200; ///position from middle of the largest triangle
 
     public static double positionMin = 0.05;
-    public static double positionMax = 0.85;
+    public static double positionMax = 0.80;
     public static double bottom = 1;
 
     public static double top = 0.5;

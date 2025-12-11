@@ -119,11 +119,11 @@ public class TurretNEW {
         double y_distance = calculate_X_distance(followerPose, isRED);
 
         double angle = Math.toDegrees(Math.atan(y_distance/x_distance));
-        if(isRED) {
+        if(!isRED) {
             angle = -angle;
         }
 
-        return angle;
+        return angle -90;
     }
 
 ///  90 - angle

@@ -121,7 +121,6 @@ public class     Shooter {
     }
 
     public double getShooterAngle(double distance) {
-        toggle_update_true();
         shooter_position = shooterSpeed.calcAngle(distance);
         return shooter_position;
     }
