@@ -39,20 +39,20 @@ public class Intake {
         intake_motor.setPower(-1);
     }
     public void servosIn() {
-        right_servo.setPosition(0);
-        left_servo.setPosition(1);
+        right_servo.setPosition(0.8);
+        left_servo.setPosition(0.2);
     }
     public void servosOut() {
-        right_servo.setPosition(1);
-        left_servo.setPosition(0);
+        right_servo.setPosition(0.2);
+        left_servo.setPosition(0.8);
     }
     ///  since the servos and the intake are in this subsystem, we can code the logic needed switch between firing and intaking
-    public void intake() {
-        servosIn();
-        on();
-    }
     public void fire() {
         servosOut();
+        on();
+    }
+    public void intake() {
+        servosIn();
         on();
     }
 }

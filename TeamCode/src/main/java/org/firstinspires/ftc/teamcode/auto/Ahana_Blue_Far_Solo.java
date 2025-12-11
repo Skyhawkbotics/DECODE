@@ -54,7 +54,7 @@ public class Ahana_Blue_Far_Solo extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap,telemetry, blue_ID, startpose);
+        bot = new Robot(hardwareMap,telemetry, startpose);
         bot.getFollower().setStartingPose(startpose);
 
         schedule(

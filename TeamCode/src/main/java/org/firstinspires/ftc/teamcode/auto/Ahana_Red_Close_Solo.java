@@ -72,7 +72,7 @@ public class Ahana_Red_Close_Solo extends OpModeCommand {
 
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, red_ID, startPose);
+        bot = new Robot(hardwareMap, telemetry, startPose);
 
         schedule(
                 new RunCommand(bot::robot_update), // This is a method reference ::

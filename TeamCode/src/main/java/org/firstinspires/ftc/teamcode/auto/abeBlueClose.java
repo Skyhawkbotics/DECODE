@@ -90,7 +90,7 @@ public class abeBlueClose extends OpModeCommand {
     }
     public void initialize(){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, red_ID, pose1);
+        bot = new Robot(hardwareMap, telemetry, pose1);
 
         schedule(
                 new RunCommand(bot::robot_update),

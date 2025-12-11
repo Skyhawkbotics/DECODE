@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
-
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.bylazar.configurables.annotations.Configurable;
@@ -13,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.close_score_command;
-import org.firstinspires.ftc.teamcode.core.commands.intake_swallow;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -72,14 +70,14 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, red_ID, startpose);
+        bot = new Robot(hardwareMap, telemetry, startpose);
 
         schedule(
-                new RunCommand(bot::auto_robot_update),
+                new RunCommand(bot::autonomous_robot_update),
                 new SequentialCommandGroup(
                         new Prep_Shooter(bot) // this is the final decider of when everything ends
                                 .alongWith(
-                                        new intake_swallow(bot)
+                                        new Intake_on(bot)
                                                 .alongWith(
                                                         new FollowPath(bot.getFollower(),scorepres)
                                                         // this is the final decider of when everything ends
@@ -92,14 +90,14 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), to_load),
                                         new FollowPath(bot.getFollower(), load1, 0.8)
                                                 .alongWith(
-                                                        new intake_swallow(bot)
+                                                        new Intake_on(bot)
                                                 )
 
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score1, 1.0)
                                                 .alongWith(
-                                                        new intake_swallow(bot)
+                                                        new Intake_on(bot)
                                                 )
                                 )
                                 .andThen(

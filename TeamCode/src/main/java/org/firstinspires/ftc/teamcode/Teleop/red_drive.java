@@ -7,17 +7,17 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "Eric Halle Red Drive", group = "Opmode")
+@TeleOp (name = "Red Drive", group = "Opmode")
 
 public class red_drive extends OpMode {
     private Robot robot;
     int ID = 24;
-    public Pose startPose = new Pose(56   ,8, Math.toRadians(90));
+    private Pose startPoseRed = new Pose(71, 24,0);
 
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, true);
 
     }
 

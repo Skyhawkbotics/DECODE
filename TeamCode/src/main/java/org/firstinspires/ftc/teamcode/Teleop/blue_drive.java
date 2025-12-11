@@ -12,11 +12,11 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 public class blue_drive extends OpMode {
     private Robot robot;
     int ID = 20;
-    public Pose startPose = new Pose(56   ,8, Math.toRadians(90));
+    private Pose startPoseRed = new Pose(71, 24,0);
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, false);
 
     }
 
