@@ -1,32 +1,29 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
-
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.unused.whole_robot;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "blue close side o", group = "gf")
+@Autonomous (name = "blue close side ", group = "gf")
 @Disabled
 public class abeBlueClose extends OpModeCommand {
     Robot bot;
-    public static final Pose pose1  = new Pose(21.083, 123.514);
-    public static final Pose pose2  = new Pose(46.343, 98.055);
-    public static final Pose pose3  = new Pose(33.613, 83.735);
+    public static final Pose startPose  = new Pose(21.083, 123.514, Math.toRadians(143));
+    public static final Pose scorePose  = new Pose(46.343, 98.055, Math.toRadians(130));
+    public static final Pose pose3  = new Pose(33.613, 83.735, Math.toRadians(180));
     public static final Pose pose4  = new Pose(16.707, 83.934);
     public static final Pose pose5  = new Pose(46.541, 97.657);
     public static final Pose pose6  = new Pose(38.983, 60.066);
@@ -35,16 +32,16 @@ public class abeBlueClose extends OpModeCommand {
     public static final Pose pose9  = new Pose(39.580, 35.602);
     public static final Pose pose10 = new Pose(15.116, 35.602);
     public static final Pose pose11 = new Pose(45.547, 123.912);
-    private Path path1, path2, path3, path4,  path5, path6, path7, path8, path9, path10;
+    private Path score_preload, path2, path3, path4,  path5, path6, path7, path8, path9, path10;
     public void buildPaths(){
-        path1 = new Path(new BezierLine(pose1, pose2));
-        path1.setLinearHeadingInterpolation(pose1.getHeading(), pose2.getHeading());
+        score_preload = new Path(new BezierLine(startPose, scorePose));
+        score_preload.setLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading());
 
         path2 = new Path(new BezierCurve(
-                pose2,
+                startPose,
                 new Pose (51.3149, 83.5359116),
                 pose3));
-        path2.setLinearHeadingInterpolation(pose2.getHeading(), pose3.getHeading());
+        path2.setLinearHeadingInterpolation(startPose.getHeading(), pose3.getHeading());
 
         path3 = new Path(new BezierLine(pose3, pose4));
         path3.setLinearHeadingInterpolation(pose3.getHeading(), pose4.getHeading());
@@ -90,12 +87,18 @@ public class abeBlueClose extends OpModeCommand {
     }
     public void initialize(){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, pose1);
+        bot = new Robot(hardwareMap, telemetry, startPose);
 
         schedule(
-                new RunCommand(bot::robot_update),
+                new RunCommand(bot::autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), path1)
+                        new FollowPath(bot.getFollower(), score_preload)
+                                .alongWith(
+                                        new Prep_Shooter(bot)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), path2)
                                 )

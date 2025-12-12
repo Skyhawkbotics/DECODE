@@ -150,8 +150,8 @@ public class Robot {
 
 
         if (g2.dpadUpWasPressed()) {
-            v = shooter.setShooterSpeed(depot_distance);
-            s = shooter.getShooterAngle(depot_distance);
+            v = shooter.setShooterSpeed(depot_distance - 0.3);
+            s = shooter.getShooterAngle(depot_distance - 0.3);
             shooter.setposition(s);
         }
         if (g2.dpadDownWasPressed()) {

@@ -15,7 +15,7 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(136, 137, 0);
+    private Pose redPose = new Pose(135, 132, 0);
     private Pose bluePose = new Pose(7, 137,0);
 
     private Telemetry telemetry;

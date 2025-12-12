@@ -24,11 +24,11 @@ public class shooterSpeed {
 
         // does not account for drag. because drag will reduce the distance it goes, this
         // velocity should be increased by a coefficient, maybe of like 1.05 or something minor.
-        return velocity_tps * 2.8;
+        return velocity_tps * 2.833;
     }
 
     public double calcAngle(double d) {
-        double degrees = 60 - 8 * (d - 1.5);
+        double degrees = 60; // - 8 * (d - 1.5);
         // this is based off of regression
         // 30 degrees for 1 position
         // 0.1 change in position is equal to change in 3 degrees
@@ -39,7 +39,7 @@ public class shooterSpeed {
 
     public double newAngle(double d) {
         double GRAVITY = 9.80665;
-        double h = 0.661;     // vertical distance
+        double h = 0.661 + 0.039;     // vertical distance
         double v = 10.8;       // constant velocity
 
         double A = v*v * d;

@@ -22,7 +22,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
     Robot bot;
 
     public static final Pose startpose = new Pose (117.24590163934427,130.62295081967213, Math.toRadians(38));
-    public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(38));
+    public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(25));
     public final Pose get2gate = new Pose (100.72131147540983, 72.19672131147541, Math.toRadians(0));
     public final Pose kaimen = new Pose (128.06557377049182,71.40983606557378, Math.toRadians(0));
     public final Pose controlpoint1 = new Pose (114,71, Math.toRadians(90));
