@@ -22,14 +22,15 @@ public class ahanaRedCloseNEW extends OpModeCommand {
     Robot bot;
 
     public static final Pose startpose = new Pose (117.24590163934427,130.62295081967213, Math.toRadians(38));
-    public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(25));
-    public final Pose get2gate = new Pose (100.72131147540983, 72.19672131147541, Math.toRadians(0));
-    public final Pose kaimen = new Pose (128.06557377049182,71.40983606557378, Math.toRadians(0));
+    public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(47));
+    public final Pose get2gate = new Pose (100.72131147540983, 80.19672131147541, Math.toRadians(0));
+    public final Pose kaimen = new Pose (123.06557377049182,80.40983606557378, Math.toRadians(0));
+
     public final Pose controlpoint1 = new Pose (114,71, Math.toRadians(90));
 
     public final Pose posit = new Pose (100.91803278688523,72.78688524590164, Math.toRadians(0));
     public final Pose posit1 = new Pose (100.52459016393443,83.80327868852459, Math.toRadians(0));
-    public final Pose gather1 = new Pose (124.327868852459,83.60655737704919, Math.toRadians(0));
+    public final Pose gather1 = new Pose (115.327868852459,83.60655737704919, Math.toRadians(0));
     public final Pose scoreuno = new Pose (100.72131147540983,100.72131147540983, Math.toRadians(45));
     public final Pose posit2 = new Pose (100.91803278688523,59.80327868852459, Math.toRadians(0));
     public final Pose gather2 = new Pose (124.327868852459,59.60655737704917, Math.toRadians(0));
@@ -56,7 +57,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                 gather1,
                 controlpoint1,
                 kaimen));
-        opengate.setConstantHeadingInterpolation(Math.toRadians(90));
+        opengate.setConstantHeadingInterpolation(Math.toRadians(180));
 
        // posithalf = new Path (new BezierLine(kaimen, posit));
        // posithalf.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -95,21 +96,24 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                         new Prep_Shooter(bot) ///  also preps servos
                                 )
                                 .andThen(
+                                        new WaitCommand(1000)
+                                )
+                                .andThen(
                                         new Intake_on(bot) // Firing
                                 ) /// Test 1
-                                /*
                                 .andThen(
                                         new Shooter_off(bot), ///  also servo
                                         new FollowPath(bot.getFollower(), get2balls)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(),intake1, 0.8)
+                                        new FollowPath(bot.getFollower(),intake1, 0.5)
                                                 .alongWith(
                                                         new Intake_on(bot)
                                                 )
+
                                 ) ///  Test 2
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), opengate)
+                                        new FollowPath(bot.getFollower(), opengate, 0.5)
                                 )
                                 .andThen(
                                         new WaitCommand(1000)
@@ -119,8 +123,12 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
+                                        new WaitCommand(1000)
+                                )
+                                .andThen(
                                         new Intake_on(bot) ///  firing
-                                ) ///  Test 3
+                                )
+                        /*///  Test 3
                                 .andThen(
                                         new FollowPath(bot.getFollower(), get2balls2)
                                                 .alongWith(

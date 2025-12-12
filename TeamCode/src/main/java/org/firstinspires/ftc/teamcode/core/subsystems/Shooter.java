@@ -223,7 +223,7 @@ public class     Shooter {
     }
 
     public Boolean velocityReached() {
-        return target - right_motor.getVelocity() < 60;
+        return target - right_motor.getVelocity() < 100;
     }
 }
 
