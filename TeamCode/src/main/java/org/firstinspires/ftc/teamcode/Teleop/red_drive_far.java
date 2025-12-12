@@ -7,12 +7,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "Red Drive", group = "Opmode")
+@TeleOp (name = "Red Drive Close", group = "Opmode")
 
-public class red_drive extends OpMode {
+public class red_drive_far extends OpMode {
     private Robot robot;
     int ID = 24;
-    private Pose startPoseRed = new Pose(71, 24,Math.toRadians(90));
+    private Pose startPoseRed = new Pose(106.03, 102.10,Math.toRadians(45));
+
+    ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
 
 
     @Override
