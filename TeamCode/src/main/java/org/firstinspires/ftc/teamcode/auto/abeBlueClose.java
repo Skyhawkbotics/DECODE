@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.unused.whole_robot;
 
 import ftclib.FollowPath;
@@ -96,6 +97,9 @@ public class abeBlueClose extends OpModeCommand {
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), path1)
+                                .alongWith(
+                                        new Prep_Shooter(bot) ///  also preps servos
+                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), path2)
                                 )
