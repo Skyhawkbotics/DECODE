@@ -36,7 +36,7 @@ public class Intake_on extends CommandBase {
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 3) { //1
+                if (timer.getElapsedTimeSeconds() > 1.5) { //1
                     bot.getIntake().off();
                     setState(-1); //3
                 }

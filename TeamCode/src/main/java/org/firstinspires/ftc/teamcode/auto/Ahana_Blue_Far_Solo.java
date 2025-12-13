@@ -17,7 +17,6 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "solo blue far", group = "gf")
-@Disabled
 public class Ahana_Blue_Far_Solo extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose (46.23, 8.26, Math.toRadians(90));

@@ -18,17 +18,20 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "blue close side ", group = "gf")
-@Disabled
+@Autonomous (name = "blue close side ", group = "Blue")
 public class abeBlueClose extends OpModeCommand {
     Robot bot;
-    public static final Pose startPose  = new Pose(26.7540983607, 130.62295081967213, Math.toRadians(143));
-    public  final Pose pres  = new Pose(43.475, 100.91803278688523, Math.toRadians(130));
+    public static final Pose startPose  = new Pose(24.566243194192378, 128.58076225045372, Math.toRadians(143));
+    public  final Pose pres  = new Pose(45.21234119782214, 108.19600725952813, Math.toRadians(143));
+
+    public  final Pose posit1  = new Pose(43.475, 90, Math.toRadians(180));
+
+    public  final Pose gather1  = new Pose(20, 90, Math.toRadians(180));
+
+
     public  final Pose get2gate  = new Pose(49.279, 72.19672131147541, Math.toRadians(0));
     public  final Pose kaimen  = new Pose(20.934, 71.40983606557378, Math.toRadians(0));
     public  final Pose posit  = new Pose(43.082, 72.78688524590164, Math.toRadians(180));
-    public  final Pose posit1  = new Pose(43.475, 83.80327868852459, Math.toRadians(180));
-    public  final Pose gather1  = new Pose(28.672, 83.60655737704919, Math.toRadians(180));
     public  final Pose scoreuno  = new Pose(43.279, 100.72131147540983, Math.toRadians(130));
     public  final Pose posit2  = new Pose(47.082, 59.80327868852459, Math.toRadians(180));
     public  final Pose gather2 = new Pose(28.67, 59.60655737704917, Math.toRadians(180));
@@ -104,7 +107,7 @@ public class abeBlueClose extends OpModeCommand {
                                         new WaitCommand(1000)
                                 )
                                 /// Test 2
-                                .andThen(
+                               /* .andThen(
                                         new FollowPath(bot.getFollower(),opengate,.5) //shooter
                                 )
                                 .andThen(
@@ -162,6 +165,8 @@ public class abeBlueClose extends OpModeCommand {
                                         //.andThen(
                                         // new Intake_on(bot)
                 )
+
+                                */
                 )
         );
     }

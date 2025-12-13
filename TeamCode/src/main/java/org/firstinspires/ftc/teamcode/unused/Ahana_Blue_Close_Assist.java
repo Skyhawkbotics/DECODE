@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
-
-import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
+package org.firstinspires.ftc.teamcode.unused;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -8,6 +6,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 
@@ -15,7 +14,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "assist blue close", group = "gf")
-
+@Disabled
 public class Ahana_Blue_Close_Assist extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose (31.95,135.6, Math.toRadians(90));

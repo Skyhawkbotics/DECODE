@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Teleop.oldTeleops;
+package org.firstinspires.ftc.teamcode.Teleop;
 
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "Blue Drive Old", group = "Opmode")
+@TeleOp (name = "FAR Blue Drive", group = "Opmode")
 
 public class blue_drive_far extends OpMode {
     private Robot robot;

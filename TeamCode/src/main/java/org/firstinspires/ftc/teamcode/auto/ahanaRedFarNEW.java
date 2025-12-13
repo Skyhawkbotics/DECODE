@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "redFarNEW", group = "gf")
+@Autonomous(name = "redFarNEW", group = "Red")
 public class ahanaRedFarNEW extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose(95.60655737704917,7.868852459016386, Math.toRadians(90));

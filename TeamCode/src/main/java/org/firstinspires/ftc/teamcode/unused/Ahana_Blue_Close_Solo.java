@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
-
-import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
+package org.firstinspires.ftc.teamcode.unused;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;

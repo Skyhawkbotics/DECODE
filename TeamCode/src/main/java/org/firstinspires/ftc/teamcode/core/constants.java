@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.008, ei = 0, ed = 0.00000, f = 0.05; ///these are good as of 10/11
+    public static double ep = 0.006, ei = 0, ed = 0.00000, f = 0.5; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -48,7 +48,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.01, turret_i = 0, turret_d = 0, turret_f = 0.01;
+    public static double turret_p = 0.005, turret_i = 0, turret_d = 0, turret_f = 0.01;
     public static double turret_align_heading = 0;
     public static double degrees_to_ticks;
 

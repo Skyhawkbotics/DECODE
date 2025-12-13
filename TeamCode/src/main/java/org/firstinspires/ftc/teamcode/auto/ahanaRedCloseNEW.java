@@ -1,12 +1,16 @@
 package org.firstinspires.ftc.teamcode.auto;
 
+import android.graphics.Point;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.BezierPoint;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -15,32 +19,41 @@ import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 
 import ftclib.FollowPath;
+import ftclib.HoldPoint;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "redcloseNEW", group = "gf")
+@Autonomous(name = "Red Close Ahana", group = "gf")
 public class ahanaRedCloseNEW extends OpModeCommand {
     Robot bot;
 
-    public static final Pose startpose = new Pose (117.24590163934427,130.62295081967213, Math.toRadians(38));
+    public static final Pose startpose = new Pose (119.17241379310344,128.58076225045372, Math.toRadians(38));
     public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(47));
     public final Pose get2gate = new Pose (94.72131147540983, 80.19672131147541, Math.toRadians(0));
-    public final Pose kaimen = new Pose (123.06557377049182,89.40983606557378, Math.toRadians(180));
 
     public final Pose controlpoint1 = new Pose (114,71, Math.toRadians(90));
 
     public final Pose posit = new Pose (100.91803278688523,72.78688524590164, Math.toRadians(0));
     public final Pose posit1 = new Pose (100.52459016393443,83.80327868852459, Math.toRadians(0));
     public final Pose gather1 = new Pose (115.327868852459,83.60655737704919, Math.toRadians(0));
+
+    public final Pose reversepose = new Pose (112,72, Math.toRadians(0));
+
+    public final Pose kaimen = new Pose (119.5,72, 0);
+
+
     public final Pose scoreuno = new Pose (100.72131147540983,100.72131147540983, Math.toRadians(45));
     public final Pose posit2 = new Pose (96.91803278688523,59.80327868852459, Math.toRadians(0));
     public final Pose gather2 = new Pose (115.327868852459,59.60655737704917, Math.toRadians(0));
     public final Pose score2 = new Pose (88.52459016393443,87.73770491803279, Math.toRadians(45));
     public final Pose posit3 = new Pose (88.91803278688525,37.18032786885246, Math.toRadians(0));
-    public final Pose gather3 = new Pose (115.1311475409836,36.59016393442622, Math.toRadians(0));
+    public final Pose gather3 = new Pose (114.1311475409836,36.59016393442622, Math.toRadians(0));
     public final Pose score3 = new Pose (88.72131147540983,87.73770491803279, Math.toRadians(0));
     public final Pose finalrestingplace = new Pose (115.327868852459,83.60655737704919, Math.toRadians(90));
 
+
+
     private Path scorepres, posit2gate, opengate, posithalf, get2balls, intake1, shoot1, get2balls2, intake2, shoot2, get2balls3, intake3, shoot3, leave;
+    private Path reverse;
     public void buildPaths (){
         scorepres = new Path (new BezierLine(startpose,pres)); // preload
         scorepres.setLinearHeadingInterpolation(startpose.getHeading(), pres.getHeading());
@@ -51,11 +64,16 @@ public class ahanaRedCloseNEW extends OpModeCommand {
         intake1 = new Path (new BezierLine(posit1, gather1));
         intake1.setConstantHeadingInterpolation(0);
 
+        reverse = new Path(new BezierLine(gather1, reversepose));
+        reverse.setConstantHeadingInterpolation(0);
+
+
        // posit2gate = new Path (new BezierLine(gather1,get2gate));
        // posit2gate.setLinearHeadingInterpolation(gather1.getHeading(), get2gate.getHeading());
 
-        opengate = new Path (new BezierLine(gather1, kaimen));
-        opengate.setConstantHeadingInterpolation(Math.toRadians(180));
+        opengate = new Path (new BezierLine(reversepose, kaimen));
+        opengate.setConstantHeadingInterpolation(Math.toRadians(0));
+        opengate.setTValueConstraint(0.8);
 
        // posithalf = new Path (new BezierLine(kaimen, posit));
        // posithalf.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -94,95 +112,102 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                 new RunCommand(bot::autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), scorepres)
-                                //.alongWith(
-                                       // new Prep_Shooter(bot) ///  also preps servos
+                                .alongWith(
+                                       new Prep_Shooter(bot) ///  also preps servos
+                                )
                                 .andThen(
                                         new WaitCommand(1000)
                                 )
-                                //.andThen(
-                                       // new Intake_on(bot) // Firing
+                                .andThen(
+                                        new Intake_on(bot) // Firing
                                 ) /// Test 1
                                 .andThen(
-                                        //new Shooter_off(bot), ///  also servo
+                                        new Shooter_off(bot), ///  also servo
                                         new FollowPath(bot.getFollower(), get2balls)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),intake1, 0.5)
-                                                //.alongWith(
-                                                       // new Intake_on(bot)
+                                                .alongWith(
+                                                        new Intake_on(bot)
                                                 )
-                                .andThen (
-                                        new WaitCommand(1000)
-                                         )
-
-                                 ///  Test 2
+                                )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), opengate, 0.5)
+                                new WaitCommand (500)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), reverse, 0.5)
+
+                                )
+                                .andThen(
+                                        new WaitCommand(200)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), opengate, 0.4)
                                 )
                                 .andThen(
                                         new WaitCommand(1500)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), shoot1) ///  need shooter
-                                                //.alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
                                         new WaitCommand(1000)
                                 )
-                                //.andThen(
-                                 //       new Intake_on(bot) ///  firing
-                                //)
+                                .andThen(
+                                        new Intake_on(bot) ///  firing
+                                )
                         ///  Test 3
                                 .andThen(
                                         new FollowPath(bot.getFollower(), get2balls2)
-                                               // .alongWith(
-                                                //        new Shooter_off(bot)
-                                               // )
+                                                .alongWith(
+                                                        new Shooter_off(bot)
+                                               )
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake2, 0.5) /// need intake
-                                               // .alongWith(
-                                             //           new Intake_on(bot)
+                                                .alongWith(
+                                                  new Intake_on(bot)
                                                 )
-                                .andThen(
-                                        new WaitCommand(1000)
                                 )
+
 
                                  ///  Test 3
                                 .andThen(
                                         new FollowPath(bot.getFollower(),shoot2)/// shooter
-                                              //  .alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter(bot))
                                 )
                                  .andThen(
                                          new WaitCommand(1000)
                                 )
-                               // .andThen(
-                                       // new Intake_on(bot)
-                               // )
+                               .andThen(
+                                        new Intake_on(bot)
+                                )
                                 ///  Test 4
                                 .andThen(
                                         new FollowPath(bot.getFollower(), get2balls3)
-                                              //  .alongWith(new Shooter_off(bot))
+                                                .alongWith(new Shooter_off(bot))
                                 )
                                 .andThen (
                                         new FollowPath(bot.getFollower(), intake3, 0.5) /// need intake
-                                               // .alongWith(new Intake_on(bot))
+                                                .alongWith(new Intake_on(bot))
                                 )
-                                .andThen(
-                                new WaitCommand(1000)
-                                )
+
                                 ///  Test 5
                                 .andThen(
                                         new FollowPath(bot.getFollower(),shoot3) /// need shoot
-                                              //  .alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter(bot))
                                 )
-                                //.andThen(
-                                       // new Intake_on(bot)
-                                //)
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), leave)
+                                )
 
 
-
-                );
+                )
+        );
 
     }
 

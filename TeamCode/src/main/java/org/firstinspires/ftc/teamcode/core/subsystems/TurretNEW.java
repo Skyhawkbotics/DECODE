@@ -15,8 +15,8 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(135, 132, 0);
-    private Pose bluePose = new Pose(7, 137,0);
+    private Pose redPose = new Pose(127.7967332123412, 133.0235934664247, 0);
+    private Pose bluePose = new Pose(15.941923774954628, 132.23956442831215,0);
 
     private Telemetry telemetry;
 
@@ -88,7 +88,7 @@ public class TurretNEW {
 
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double offset_to_position(double offset) {
-        return offset / 360 * 3100;
+        return offset / 360 * 3090;
 
     }
 
