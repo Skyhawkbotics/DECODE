@@ -101,6 +101,11 @@ public class     Shooter {
 
         setTarget(auto_speed);
     }
+    public void auto_speed_blue() {
+        toggle_update_true();
+
+        setTarget(auto_speed_blue);
+    }
     public void closest (){
         setTarget(closest);
         toggle_update_true();

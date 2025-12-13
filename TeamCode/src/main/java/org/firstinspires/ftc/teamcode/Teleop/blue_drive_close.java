@@ -12,14 +12,14 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 public class blue_drive_close extends OpMode {
     private Robot robot;
     int ID = 20;
-    private Pose startPoseRed = new Pose(71, 24,Math.toRadians(90));
+    public Pose pres  = new Pose(45.21234119782214, 108.19600725952813, Math.toRadians(143));
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
 
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, false);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, pres, false);
 
     }
 

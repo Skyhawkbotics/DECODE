@@ -12,14 +12,14 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 public class red_drive_close extends OpMode {
     private Robot robot;
     int ID = 24;
-    private Pose startPoseRed = new Pose(45.55, 123.91,Math.toRadians(0));
+    public  Pose finalrestingplace = new Pose (115.327868852459,83.60655737704919, Math.toRadians(90));
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
 
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, true);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, finalrestingplace, true);
 
     }
 

@@ -28,7 +28,8 @@ public class constants {
 
 
     ///
-    public static int auto_speed = 1200;
+    public static int auto_speed = 1130;
+    public static int auto_speed_blue = 1100;
     public static int perf_value = 1450; ///vertex of largest triangle
 
     public static int far_side_shoot = 1560; ///vertex of smallest triangle
