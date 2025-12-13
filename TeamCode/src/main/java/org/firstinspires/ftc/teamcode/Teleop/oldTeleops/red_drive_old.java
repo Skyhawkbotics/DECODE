@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Teleop.oldTeleops;
 
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -8,7 +9,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 
 @TeleOp (name = "Red Drive Old", group = "Opmode")
-
+@Disabled
 public class red_drive_old extends OpMode {
     private Robot robot;
     int ID = 24;
