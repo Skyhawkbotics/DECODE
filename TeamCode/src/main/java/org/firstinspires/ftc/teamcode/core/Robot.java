@@ -45,8 +45,11 @@ public class Robot {
     private double x, y, depot_distance;
     private double v, s;
 
+    private Pose resetPose1;
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red) {
+
+    private Boolean parking = false;
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -70,8 +73,8 @@ public class Robot {
         follower.startTeleopDrive();
 
         this.ID = ID;
+        resetPose1 = resetPose;
 
-        shooter.positionMax();
 
     }
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
@@ -105,7 +108,10 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        if (g1.right_bumper) {
+        if(g1.leftBumperWasPressed()) {
+            parking = !parking;
+        }
+        if (parking) {
             double speedMultiplier = 0.3;
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
@@ -145,7 +151,7 @@ public class Robot {
         }
 
         if(g1.rightBumperWasPressed()) {
-            follower.setPose(resetPose);
+            follower.setPose(resetPose1);
         }
 
 

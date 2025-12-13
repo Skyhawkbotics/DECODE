@@ -11,6 +11,8 @@ public class shooterSpeed {
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
         double shooter_constant = 1.25;
+        double dampening_constant = 0.975;
+        double sharpening_constant = 1.03;
 
         double degrees = 60 - 8 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
@@ -20,6 +22,12 @@ public class shooterSpeed {
                 (d * Math.tan(angle) - VERTICAL_DISTANCE);
         double velocity_meters = Math.sqrt(numerator/denominator);
         double velocity_rpm = (velocity_meters * 60) / (2 * PI * FLYWHEEL_RADIUS);
+
+        if (d < 2.5) {
+            velocity_rpm = velocity_rpm * dampening_constant;
+        } else if (d > 2.5) {
+            velocity_rpm = velocity_rpm * sharpening_constant;
+        }
 
 
         // does not account for drag. because drag will reduce the distance it goes, this

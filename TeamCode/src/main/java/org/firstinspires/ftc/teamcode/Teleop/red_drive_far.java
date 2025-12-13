@@ -19,7 +19,7 @@ public class red_drive_far extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, true);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPoseRed, true, startPoseRed);
 
     }
 

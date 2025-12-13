@@ -36,9 +36,9 @@ public class ahanaRedCloseNEW extends OpModeCommand {
     public final Pose posit1 = new Pose (100.52459016393443,83.80327868852459, Math.toRadians(0));
     public final Pose gather1 = new Pose (115.327868852459,83.60655737704919, Math.toRadians(0));
 
-    public final Pose reversepose = new Pose (112,72, Math.toRadians(0));
+    public final Pose reversepose = new Pose (112,72.4, Math.toRadians(0));
 
-    public final Pose kaimen = new Pose (119.75,71, 0);
+    public final Pose kaimen = new Pose (119.75,72.4, 0);
 
 
     public final Pose scoreuno = new Pose (100.72131147540983,100.72131147540983, Math.toRadians(45));
@@ -131,10 +131,10 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                                 )
                                 )
                                 .andThen(
-                                new WaitCommand (500)
+                                new WaitCommand (750)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), reverse, 0.5)
+                                        new FollowPath(bot.getFollower(), reverse, 0.4)
 
                                 )
                                 .andThen(
@@ -196,7 +196,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                 )
 
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(750)
                                 )
                                 ///  Test 5
                                 .andThen(
