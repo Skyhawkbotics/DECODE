@@ -38,7 +38,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
 
     public final Pose reversepose = new Pose (112,72, Math.toRadians(0));
 
-    public final Pose kaimen = new Pose (119.5,72, 0);
+    public final Pose kaimen = new Pose (119.75,71, 0);
 
 
     public final Pose scoreuno = new Pose (100.72131147540983,100.72131147540983, Math.toRadians(45));
@@ -73,7 +73,6 @@ public class ahanaRedCloseNEW extends OpModeCommand {
 
         opengate = new Path (new BezierLine(reversepose, kaimen));
         opengate.setConstantHeadingInterpolation(Math.toRadians(0));
-        opengate.setTValueConstraint(0.8);
 
        // posithalf = new Path (new BezierLine(kaimen, posit));
        // posithalf.setConstantHeadingInterpolation(Math.toRadians(0));
@@ -170,6 +169,9 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                                   new Intake_on(bot)
                                                 )
                                 )
+                                .andThen(
+                                        new WaitCommand(200)
+                                )
 
 
                                  ///  Test 3
@@ -193,13 +195,22 @@ public class ahanaRedCloseNEW extends OpModeCommand {
                                                 .alongWith(new Intake_on(bot))
                                 )
 
+                                .andThen(
+                                        new WaitCommand(300)
+                                )
                                 ///  Test 5
                                 .andThen(
                                         new FollowPath(bot.getFollower(),shoot3) /// need shoot
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
+                                        new WaitCommand(400)
+                                )
+                                .andThen(
                                         new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new WaitCommand(200)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), leave)
