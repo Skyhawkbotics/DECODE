@@ -86,10 +86,10 @@ public class Andyfarsidered extends OpModeCommand {
 
     public void  initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, red_ID, startpos);
+        bot = new Robot(hardwareMap, telemetry, startpos);
 
         schedule(
-                new RunCommand(bot::auto_robot_update),
+                new RunCommand(bot ::robot_update),
                 new SequentialCommandGroup(
 
 
