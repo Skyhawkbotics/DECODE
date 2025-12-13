@@ -9,6 +9,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
@@ -18,6 +19,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "redFarNEW", group = "Red")
+@Disabled
 public class ahanaRedFarNEW extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose(95.60655737704917,7.868852459016386, Math.toRadians(90));
