@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
+import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -32,14 +33,17 @@ public class simplefarred extends OpModeCommand {
         buildPaths();
         bot = new Robot (hardwareMap,telemetry,startpose);
         schedule (
-                new RunCommand(bot ::robot_update),
+                new RunCommand(bot ::autonomous_robot_update),
                 new SequentialCommandGroup(
                         new Prep_Shooter(bot)
                                 .andThen(
-                                        new Intake_on(bot) //firing
+                                        new Intake_on(bot) //firingvvbhub
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), leavelaunch)
+                                )
+                                .andThen(
+                                        new Shooter_off(bot)
                                 )
 
                 )

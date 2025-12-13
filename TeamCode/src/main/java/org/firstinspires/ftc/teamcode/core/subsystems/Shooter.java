@@ -101,6 +101,11 @@ public class     Shooter {
 
         setTarget(auto_speed);
     }
+    public void far_auto_speed() {
+        toggle_update_true();
+
+        setTarget(1730);
+    }
     public void auto_speed_blue() {
         toggle_update_true();
 
