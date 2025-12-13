@@ -32,14 +32,14 @@ public class abeBlueClose extends OpModeCommand {
 
 
     public  final Pose get2gate  = new Pose(18, 77, Math.toRadians(180));
-    public  final Pose kaimen  = new Pose(11, 77, Math.toRadians(180));
+    public  final Pose kaimen  = new Pose(10.5, 77, Math.toRadians(180));
     public  final Pose posit  = new Pose(41.082, 72.78688524590164, Math.toRadians(180));
     public  final Pose scoreuno  = new Pose(43.279, 100.72131147540983, Math.toRadians(130));
     public  final Pose posit2  = new Pose(41.082, 63, Math.toRadians(180));
-    public  final Pose gather2 = new Pose(20, 63, Math.toRadians(180));
+    public  final Pose gather2 = new Pose(18, 63, Math.toRadians(180));
     public  final Pose score2 = new Pose(55.475, 87.73770491803279, Math.toRadians(130));
     public  final Pose posit3 = new Pose (41.082,41, Math.toRadians(180));
-    public final Pose gather3 = new Pose (20,41, Math.toRadians(180));
+    public final Pose gather3 = new Pose (18,41, Math.toRadians(180));
     public final Pose score3 = new Pose (43.082,87.73770491803279, Math.toRadians(130));
     public final Pose finalrestingplace = new Pose (28.6721311475,83.60655737704919, Math.toRadians(90));
     private Path score_preload, get2balls1, intake1, opengate, shoot1, get2balls2, intake2, shoot2, get2balls3, intake3, shoot3;
