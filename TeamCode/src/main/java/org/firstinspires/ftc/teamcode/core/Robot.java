@@ -109,7 +109,7 @@ public class Robot {
         g1.copy(dummyg1);
         g2.copy(dummyg2);
         if(g1.leftBumperWasPressed()) {
-            parking = !parking;
+            parking =!parking;
         }
         if (parking) {
             double speedMultiplier = 0.3;
@@ -155,9 +155,20 @@ public class Robot {
         }
 
 
+
+
         if (g2.dpadUpWasPressed()) {
-            v = shooter.setShooterSpeed(depot_distance - 0.15);
-            s = shooter.getShooterAngle(depot_distance - 0.15);
+            if (ID == 24) {
+                if (depot_distance < 2.9) {
+                    depot_distance = depot_distance - 0.1;
+                } else if (depot_distance < 2.9) {
+                    depot_distance = depot_distance - 0.125;
+                }
+            } else if (ID == 20) {
+                depot_distance = depot_distance - 0.300;
+            }
+            v = shooter.setShooterSpeed(depot_distance);
+            s = shooter.getShooterAngle(depot_distance);
         }
         if (g2.dpadDownWasPressed()) {
             if (depot_distance > 2.50) {

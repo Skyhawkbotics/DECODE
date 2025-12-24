@@ -31,8 +31,8 @@ public class abeBlueClose extends OpModeCommand {
     public  final Pose gather1  = new Pose(18, 90, Math.toRadians(180));
 
 
-    public  final Pose get2gate  = new Pose(18, 77, Math.toRadians(180));
-    public  final Pose kaimen  = new Pose(10.5, 77, Math.toRadians(180));
+    public  final Pose get2gate  = new Pose(18, 78, Math.toRadians(180));
+    public  final Pose kaimen  = new Pose(13, 78, Math.toRadians(180));
     public  final Pose posit  = new Pose(41.082, 72.78688524590164, Math.toRadians(180));
     public  final Pose scoreuno  = new Pose(43.279, 100.72131147540983, Math.toRadians(130));
     public  final Pose posit2  = new Pose(41.082, 63, Math.toRadians(180));

@@ -58,7 +58,7 @@ public class     Shooter {
         if(is_updating) {
             pid.setPID(ep, ei, ed);
 
-            double pid_output = pid.calculate(left_motor.getVelocity(), target);
+            double pid_output = pid.calculate(right_motor.getVelocity(), target);
             power = pid_output + f;
             left_motor.setPower(power);
             right_motor.setPower(power);
@@ -208,9 +208,9 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("motor speed in ticks", left_motor.getVelocity());
-        telemetry.addData("motor position", left_motor.getCurrentPosition());
-        telemetry.addData("motor rpm", conversion_RPM(left_motor.getVelocity()));
+        telemetry.addData("motor speed in ticks", right_motor.getVelocity());
+        telemetry.addData("motor position", right_motor.getCurrentPosition());
+        telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
         telemetry.addData(" left Motor power", left_motor.getPower());
         telemetry.addData("right Motor power", right_motor.getPower());
         telemetry.addData("Shooter Angle position", servo.getPosition());
