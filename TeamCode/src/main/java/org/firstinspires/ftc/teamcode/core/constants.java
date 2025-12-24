@@ -58,6 +58,11 @@ public class constants {
 
     public static double intake_speed = 1;
 
+    public static double right_servos_in_pos = 0.75;
+    public static double left_servos_in_pos = 0.625;
+    public static double right_servos_out_pos = 0.5;
+    public static double left_servos_out_pos = 0.825;
+
 
 
 }
