@@ -158,7 +158,7 @@ public class Robot {
 
 
         if (g2.dpadUpWasPressed()) {
-            if (ID == 24) {
+            /*if (ID == 24) {
                 if (depot_distance < 2.9) {
                     depot_distance = depot_distance - 0.1;
                 } else if (depot_distance < 2.9) {
@@ -167,6 +167,8 @@ public class Robot {
             } else if (ID == 20) {
                 depot_distance = depot_distance - 0.300;
             }
+
+             */
             v = shooter.setShooterSpeed(depot_distance);
             s = shooter.getShooterAngle(depot_distance);
         }
@@ -223,13 +225,13 @@ public class Robot {
         telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
         telemetry.addData("Distance from Depot", depot_distance);
+        turretNEW.turret_telemetry();
 
         telemetry.addData("CALCULATED ANGLE", s);
         telemetry.addData("CALCULATED VELOCITY", v);
 
     }
     public void robot_update () {
-        shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
         follower.update();

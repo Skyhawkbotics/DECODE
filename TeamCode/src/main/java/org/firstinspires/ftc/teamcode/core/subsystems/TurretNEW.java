@@ -15,8 +15,8 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(134.06896551724137, 129.88747731397459, 0);
-    private Pose bluePose = new Pose(7.317604355716878, 129.88747731397459,0);
+    private Pose redPose = new Pose(131.97822141560798, 136.42105263157896, 0);
+    private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
 
     private Telemetry telemetry;
 
@@ -88,7 +88,7 @@ public class TurretNEW {
 
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double offset_to_position(double offset) {
-        return offset / 360 * 3090;
+        return offset / 360 * 3100;
 
     }
 
@@ -114,11 +114,14 @@ public class TurretNEW {
         }
         return correctPose.getY() - followerPose.getY();
     }
-    public double calculate_angle(Pose followerPose,boolean isRED) { ///  calculates best angle for turret
-        double x_distance = calculate_Y_distance(followerPose, isRED);
-        double y_distance = calculate_X_distance(followerPose, isRED);
 
-        double angle = Math.toDegrees(Math.atan(y_distance/x_distance));
+    public double calculate_angle(Pose followerPose,boolean isRED) { ///  calculates best angle for turret
+        double x_distance = calculate_X_distance(followerPose, isRED);
+        double y_distance = calculate_Y_distance(followerPose, isRED);
+
+        double angle = Math.toDegrees(Math.atan2(y_distance, x_distance));
+
+
         if(!isRED) {
             angle = -angle;
         }
@@ -126,8 +129,8 @@ public class TurretNEW {
         return angle - 90;
     }
 
-///  90 - angle
-///
+///  angle + 90 made it face the opposite direction aka our  human player xzone??
+/// angle - 90 as a fix,
     public void turret_telemetry() {
         telemetry.addData("turret position", turret.getCurrentPosition());
         telemetry.addData("turret PID output", turret.getPower());

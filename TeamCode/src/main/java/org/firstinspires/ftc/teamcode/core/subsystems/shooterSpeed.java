@@ -7,11 +7,16 @@ public class shooterSpeed {
     public double calcVelocity(double d) {
 
         double GRAVITY = 9.80665; // gravitational constant
-        double VERTICAL_DISTANCE = 0.661; // 1.041 - 0.381
+        double VERTICAL_DISTANCE = 0.741; // 1.041 - 0.300
+        ///  remeasured constants: 0.3 m for robot flywheel
+        /// 0.99 for depot
+        ///  old : 0.661  // 1.041 - 0.381
+        ///  new = 0.69??
+
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
-        double shooter_constant = 1.24;
-        double dampening_constant = 0.98;
+        double shooter_constant = 1.20;
+        double dampening_constant = 0.96;
         double sharpening_constant = 1.016;
 
         double degrees = 60 - 8 * (d - 1.5); // FROM THE HORIZONTAL

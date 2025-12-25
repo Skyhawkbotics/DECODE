@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Test_files;
 
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -9,6 +11,7 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 @TeleOp(name = "ShooterTest", group = "Tests")
 
 public class ShooterTest extends OpMode {
+
     private Shooter shooter;
 
     private Gamepad g1 = new Gamepad();
@@ -53,6 +56,8 @@ public class ShooterTest extends OpMode {
 
         shooter.shooter_telemetry();
         telemetry.update();
+
+
 
     }
 }
