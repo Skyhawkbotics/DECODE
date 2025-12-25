@@ -20,18 +20,18 @@ import ftclib.OpModeCommand;
 @Autonomous (name = "redFarHV", group ="Red")
 public class redfarHV extends OpModeCommand {
     Robot bot;
-    public static final Pose startpose = new Pose (84.98360655737704,9.245901639344265, Math.toRadians(90));
-    public static Pose pres = new Pose (85.18032786885246,14.75409836065573, Math.toRadians(60));
-    public static Pose posit1 = new Pose (85.57377049180329,35.8032786885246, Math.toRadians(0));
-    public static Pose gather1 = new Pose (124.72131147540983,35.60655737704918, Math.toRadians(0));
-    public static Pose shoot1 = new Pose (84.78688524590164,14.163934426229508, Math.toRadians(60));
-    public static Pose gather2 = new Pose (125.70491803278689,15.344262295081968, Math.toRadians(45));
-    public static Pose gatherer = new Pose (132,34.62295081967214, Math.toRadians(90));
-    public static Pose shoot2 = new Pose (85.18032786885246,14.557377049180328, Math.toRadians(60));
-    public static Pose gather3 = new Pose (125.50819672131146,15.344262295081968, Math.toRadians(45));
-    public static Pose gathersan = new Pose (132,35.213114754098356, Math.toRadians(90));
-    public static Pose shoot3 = new Pose (85.18032786885246,14.360655737704926, Math.toRadians(60));
-    public static Pose myfinalrestingplace = new Pose (85.37704918032787,35.8032786885246, Math.toRadians(90));
+    public static final Pose startpose = new Pose (80.45901639344262,8.852459016393444, Math.toRadians(90));
+    public static Pose pres = new Pose (90.68852459016394,12.786885245901646, Math.toRadians(60));
+    public static Pose posit1 = new Pose (88.1311475409836,24.786885245901637, Math.toRadians(0));
+    public static Pose gather1 = new Pose (125.50819672131146,25.770491803278695, Math.toRadians(0));
+    public static Pose shoot1 = new Pose (90.68852459016394,12.786885245901646, Math.toRadians(60));
+    public static Pose gather2 = new Pose (125.70491803278689,11.409836065573767, Math.toRadians(45));
+    public static Pose gatherer = new Pose (136.72131147540983,36, Math.toRadians(90));
+    public static Pose shoot2 = new Pose (90.68852459016394,12.786885245901646, Math.toRadians(60));
+    public static Pose gather3 = new Pose (125.70491803278689,11.606557377049185, Math.toRadians(45));
+    public static Pose gathersan = new Pose (136.72131147540983,35.8032786885246, Math.toRadians(90));
+    public static Pose shoot3 = new Pose (90.49180327868854,12.590163934426227, Math.toRadians(60));
+    public static Pose myfinalrestingplace = new Pose (90.49180327868854,22.819672131147534, Math.toRadians(90));
 
 
     private Path scorepres, get2balls, intake1, score1, intake2, intakeer, score2, intake3, intakesan, score3, end;
@@ -50,13 +50,13 @@ public class redfarHV extends OpModeCommand {
 
         intake2 = new Path (new BezierCurve(
                 shoot1,
-                new Pose (110.36065573770492,10.229508196721307),
+                new Pose (110.36065573770492,1.3770491803278624),
                 gather2));
         intake2.setLinearHeadingInterpolation(shoot1.getHeading(),gather2.getHeading());
 
         intakeer = new Path (new BezierCurve(
                 gather2,
-                new Pose(134.55737704918033,18.68852459016393),
+                new Pose(139.67213114754097,15.54098360655737),
                 gatherer
         ));
         intakeer.setLinearHeadingInterpolation(gather2.getHeading(),gatherer.getHeading());
@@ -66,14 +66,14 @@ public class redfarHV extends OpModeCommand {
 
         intake3 = new Path (new BezierCurve(
                 shoot2,
-                new Pose (110.36065573770492,10.229508196721307),
+                new Pose (110.36065573770492,1.3770491803278624),
                 gather3
         ));
         intake3.setLinearHeadingInterpolation(shoot2.getHeading(),gather3.getHeading());
 
         intakesan = new Path (new BezierCurve(
                 gather3,
-                new Pose (134.55737704918033,18.88524590163935),
+                new Pose (139.67213114754097,15.54098360655737),
                 gathersan
         ));
         intakesan.setLinearHeadingInterpolation(gather3.getHeading(),gathersan.getHeading());
