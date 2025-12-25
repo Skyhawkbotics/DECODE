@@ -25,7 +25,7 @@ public class Light {
     }
 
     public void red() {
-        light.setPosition(0.1);
+        light.setPosition(0.135);
     }
 
     public void green() {

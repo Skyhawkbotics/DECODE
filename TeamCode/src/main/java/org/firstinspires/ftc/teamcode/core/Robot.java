@@ -48,6 +48,8 @@ public class Robot {
 
     private boolean updating_shooter = false;
 
+    private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
+
     private double PID_output;
 
     private double x, y, depot_distance;
@@ -56,7 +58,7 @@ public class Robot {
     private Pose resetPose1;
 
 
-    private Boolean parking = false;
+    private boolean parking = false;
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -185,24 +187,22 @@ public class Robot {
         }
 
         if (g1.dpadLeftWasPressed()) {
-            light.increase();
+            turret_telemetry = !turret_telemetry;
+        }
+        if (g1.dpadUpWasPressed()) {
+            light_telemetry = !light_telemetry;
         }
         if (g1.dpadRightWasPressed()) {
-            light.decrease();
+            shooter_telemetry = !shooter_telemetry;
+        }
+        if (g1.dpadDownWasPressed()) {
+            robot_telemetry = !robot_telemetry;
         }
 
-        if(shooter.getVelocity() >= shooter.getTarget() - 75) {
+        if(shooter.velocityReached()) {
             light.green();
         } else {
             light.red();
-
-
-
-
-
-
-
-
         }
 
         if(g2.y) {
@@ -224,16 +224,22 @@ public class Robot {
     }
 
     public void robot_telemetry() {
-        //turretNEW.turret_telemetry();
-        telemetry.addData("offset", offset);
-        telemetry.addData("angle", angle);
-        telemetry.addData("complementary angle for turret", turret_angle);
-        telemetry.addData("Follower Pose", follower.getPose());
-        telemetry.addData("Distance from Depot", depot_distance);
-        turretNEW.turret_telemetry();
-        light.light_telemetry();
-        telemetry.addData("CALCULATED ANGLE", s);
-        telemetry.addData("CALCULATED VELOCITY", v);
+        if (robot_telemetry) {
+            telemetry.addData("Follower Pose", follower.getPose());
+            telemetry.addData("Distance from Depot", depot_distance);
+        }
+        if (turret_telemetry) {
+            telemetry.addData("offset", offset);
+            telemetry.addData("angle", angle);
+            telemetry.addData("complementary angle for turret", turret_angle);
+            turretNEW.turret_telemetry();
+        }
+        if (light_telemetry) {
+            light.light_telemetry();
+        }
+        if (shooter_telemetry) {
+            shooter.shooter_telemetry();
+        }
 
     }
     public void robot_update () {

@@ -206,14 +206,15 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("motor speed in ticks", right_motor.getVelocity());
-        telemetry.addData("motor position", right_motor.getCurrentPosition());
-        telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
-        telemetry.addData(" left Motor power", left_motor.getPower());
-        telemetry.addData("right Motor power", right_motor.getPower());
+        telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
+        // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
+        // telemetry.addData("left Motor power", left_motor.getPower());
+        // telemetry.addData("right Motor power", right_motor.getPower());
         telemetry.addData("Shooter Angle position", servo.getPosition());
-        telemetry.addData("current target", target);
-        telemetry.addData("pid output", power);
+        telemetry.addData("Target", target);
+        telemetry.addData("PID Output for power", power);
+
+        telemetry.addData("Shooter Reached", velocityReached());
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public int getTarget() {
@@ -223,8 +224,8 @@ public class     Shooter {
         return (int) left_motor.getVelocity();
     }
 
-    public Boolean velocityReached() {
-        return Math.abs(target - left_motor.getVelocity()) < 40;
+    public boolean velocityReached() {
+        return Math.abs(target - right_motor.getVelocity()) <= 50;
     }
 }
 

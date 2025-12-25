@@ -15,7 +15,7 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(144, 144, 0);
+    private Pose redPose = new Pose(133, 134, 0);
     private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
 
     private Telemetry telemetry;
@@ -142,8 +142,6 @@ public class TurretNEW {
 /// angle - 90 as a fix,
     public void turret_telemetry() {
         telemetry.addData("turret position", turret.getCurrentPosition());
-        telemetry.addData("turret PID output", turret.getPower());
-        telemetry.addData("PID P", heading_turret_pid.getP());
     }
 
 
