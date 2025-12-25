@@ -36,6 +36,8 @@ public class Robot {
 
     private double offset;
     private double angle = 0;
+
+    private double turret_angle = 0;
     private boolean isred = true;
 
     private Boolean using_turret = true;
@@ -214,15 +216,20 @@ public class Robot {
 
         turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
-        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
+        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), turret_angle);
 
         angle = turretNEW.calculate_angle(follower.getPose(), isred);
+
+        turret_angle = turretNEW.calculate_turret_angle_complementary(angle, isred);
+
+
     }
 
     public void robot_telemetry() {
         //turretNEW.turret_telemetry();
         telemetry.addData("offset", offset);
         telemetry.addData("angle", angle);
+        telemetry.addData("complementary angle for turret", turret_angle);
         telemetry.addData("Follower Pose", follower.getPose());
         telemetry.addData("Distance from Depot", depot_distance);
         turretNEW.turret_telemetry();

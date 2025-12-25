@@ -15,7 +15,7 @@ public class TurretNEW {
     public DcMotorEx turret;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(131.97822141560798, 136.42105263157896, 0);
+    private Pose redPose = new Pose(144, 144, 0);
     private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
 
     private Telemetry telemetry;
@@ -67,30 +67,7 @@ public class TurretNEW {
 
     ///  calculate
     ///  turret offset depending on robot change in heading
-    public double calculate_angle_offset(double heading, double angle ) {
 
-        double raw_angle_offset;
-        double angle_offset = Math.toDegrees(heading);
-        double correct_angle_offset;
-
-
-            raw_angle_offset =  offset_to_position(angle_offset + angle);
-            if(raw_angle_offset <= left_limit) { // if it's bigger than left limit
-                correct_angle_offset= left_limit;
-            } else if(raw_angle_offset >= right_limit) {// if it's smaller than right limit
-                correct_angle_offset = right_limit;
-            } else {
-                correct_angle_offset = raw_angle_offset;
-            }
-
-        return correct_angle_offset;
-    }
-
-    ///  Takes the offset in degrees and turn it into a motor encoder reading
-    public double offset_to_position(double offset) {
-        return offset / 360 * 3100;
-
-    }
 
 
     public double calculate_X_distance(Pose followerPose, boolean isRED) {
@@ -122,13 +99,45 @@ public class TurretNEW {
         double angle = Math.toDegrees(Math.atan2(y_distance, x_distance));
 
 
+
+        return angle;
+    }
+
+    public double calculate_turret_angle_complementary(double angle, boolean isRED) {
         if(!isRED) {
             angle = -angle;
         }
 
-        return angle - 90;
+        return 90 - angle; // takes the complementary angle
+
     }
 
+
+    public double calculate_angle_offset(double robotHeading, double angle ) {
+
+        double raw_angle_offset;
+        double robot_heading = Math.toDegrees(robotHeading);
+        double converted_robot_heading = robot_heading - 90;
+        double correct_angle_offset;
+
+
+        raw_angle_offset =  offset_to_position(converted_robot_heading + angle);
+        if(raw_angle_offset <= left_limit) { // if it's bigger than left limit
+            correct_angle_offset= left_limit;
+        } else if(raw_angle_offset >= right_limit) {// if it's smaller than right limit
+            correct_angle_offset = right_limit;
+        } else {
+            correct_angle_offset = raw_angle_offset;
+        }
+
+        return correct_angle_offset;
+    }
+
+    ///  Takes the offset in degrees and turn it into a motor encoder reading
+    public double offset_to_position(double offset) {
+        return offset / 360 * 3100;
+
+    }
 ///  angle + 90 made it face the opposite direction aka our  human player xzone??
 /// angle - 90 as a fix,
     public void turret_telemetry() {
