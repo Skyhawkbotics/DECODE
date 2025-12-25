@@ -118,17 +118,15 @@ public class     Shooter {
 
     }
 
-    public double setShooterSpeed(double distance) {
+    public void setShooterSpeed(double distance) {
         toggle_update_true();
         shooter_velocity = shooterSpeed.calcVelocity(distance);
         setTarget((int) shooter_velocity);
-        return shooter_velocity;
     }
 
-    public double getShooterAngle(double distance) {
+    public void setShooterAngle(double distance) {
         shooter_position = shooterSpeed.calcAngle(distance);
         servo.setPosition(shooter_position);
-        return shooter_position;
     }
     public void back_perf() {
         setTarget(far_side_shoot);
@@ -221,7 +219,7 @@ public class     Shooter {
     public int getTarget() {
         return target;
     }
-    public int getvelocity() {
+    public int getVelocity() {
         return (int) left_motor.getVelocity();
     }
 
