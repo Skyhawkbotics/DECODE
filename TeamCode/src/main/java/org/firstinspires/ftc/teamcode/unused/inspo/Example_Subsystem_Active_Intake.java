@@ -1,17 +1,16 @@
-package org.firstinspires.ftc.teamcode.inspo;
+package org.firstinspires.ftc.teamcode.unused.inspo;
 
 
 
 
 /// Imports the Necessary Constants from the Constants file
 
-import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.barf_speed;
-import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.down_pos;
-import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.intake_speed;
-import static org.firstinspires.ftc.teamcode.inspo.Exapmle_Robot_Constants.up_pos;
+import static org.firstinspires.ftc.teamcode.unused.inspo.Exapmle_Robot_Constants.barf_speed;
+import static org.firstinspires.ftc.teamcode.unused.inspo.Exapmle_Robot_Constants.down_pos;
+import static org.firstinspires.ftc.teamcode.unused.inspo.Exapmle_Robot_Constants.intake_speed;
+import static org.firstinspires.ftc.teamcode.unused.inspo.Exapmle_Robot_Constants.up_pos;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;

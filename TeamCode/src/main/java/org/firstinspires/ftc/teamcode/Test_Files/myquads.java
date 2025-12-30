@@ -1,13 +1,10 @@
-package org.firstinspires.ftc.teamcode.Test_files;
+package org.firstinspires.ftc.teamcode.Test_Files;
 
-import com.bylazar.panels.Panels;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp(name = "Quadrupe Motor Test", group = "Tests")
 public class myquads extends OpMode {

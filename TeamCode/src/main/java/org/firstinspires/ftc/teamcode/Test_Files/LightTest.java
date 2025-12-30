@@ -1,13 +1,8 @@
-package org.firstinspires.ftc.teamcode.Test_files;
+package org.firstinspires.ftc.teamcode.Test_Files;
 
-import com.bylazar.lights.RGBIndicator;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Light;
-import com.qualcomm.robotcore.hardware.LightSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 @TeleOp(name = "Light Test")
 public class LightTest extends OpMode {
