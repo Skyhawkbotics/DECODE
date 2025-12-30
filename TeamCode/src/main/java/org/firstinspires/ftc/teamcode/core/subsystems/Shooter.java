@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -27,16 +28,17 @@ public class     Shooter {
 
     private double min_angle_serv_pos = 0;
 
-    private Telemetry telemetry; //hi sam
     private double power;
     private boolean is_updating;
 
     private double shooter_position, shooter_velocity;
 
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
 
 
-    public Shooter(HardwareMap hardwareMap, Telemetry telemetry) {
+
+    public Shooter(HardwareMap hardwareMap, PanelsTelemetry telemetry03) {
         // hi
         left_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
         left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -51,7 +53,8 @@ public class     Shooter {
         pid = new PIDController(ep, ei, ed);
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
-        this.telemetry = telemetry;
+        this.panelsTelemetry = telemetry03;
+
     }
 
     public void update() { /// PID Update loop
@@ -81,6 +84,7 @@ public class     Shooter {
         ///  sets PID target
         target = b;
     }
+
     public void setTarget(int t, boolean usingRPM) {
         // way to set target where target can be in RPM, just set usingRPM to true
         if (!usingRPM) {
@@ -207,15 +211,15 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
+        panelsTelemetry.getTelemetry().addData("Motor Speed (Ticks)", right_motor.getVelocity());
         // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
         // telemetry.addData("left Motor power", left_motor.getPower());
         // telemetry.addData("right Motor power", right_motor.getPower());
-        telemetry.addData("Shooter Angle position", servo.getPosition());
-        telemetry.addData("Target", target);
-        telemetry.addData("PID Output for power", power);
+        panelsTelemetry.getTelemetry().addData("Shooter Angle position", servo.getPosition());
+        panelsTelemetry.getTelemetry().addData("Target", target);
+        panelsTelemetry.getTelemetry().addData("PID Output for power", power);
 
-        telemetry.addData("Shooter Reached", velocityReached());
+        panelsTelemetry.getTelemetry().addData("Shooter Reached", velocityReached());
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public int getTarget() {

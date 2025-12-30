@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -18,13 +19,13 @@ public class TurretNEW {
     private Pose redPose = new Pose(133, 134, 0);
     private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
 
-    private Telemetry telemetry;
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     private Boolean isUpdating = true;
 
 
 ///  Init
-    public TurretNEW(HardwareMap hardwareMap, Telemetry telemetry) {
+    public TurretNEW(HardwareMap hardwareMap, PanelsTelemetry telemetry) {
         turret = hardwareMap.get(DcMotorEx.class, turret_name);
 
 
@@ -34,7 +35,7 @@ public class TurretNEW {
 
         heading_turret_pid = new PIDController(turret_p, turret_i, turret_d);
 
-        this.telemetry = telemetry;
+        this.panelsTelemetry = telemetry;
     }
 
 
@@ -92,6 +93,7 @@ public class TurretNEW {
         return correctPose.getY() - followerPose.getY();
     }
 
+
     public double calculate_angle(Pose followerPose,boolean isRED) { ///  calculates best angle for turret
         double x_distance = calculate_X_distance(followerPose, isRED);
         double y_distance = calculate_Y_distance(followerPose, isRED);
@@ -141,7 +143,7 @@ public class TurretNEW {
 ///  angle + 90 made it face the opposite direction aka our  human player xzone??
 /// angle - 90 as a fix,
     public void turret_telemetry() {
-        telemetry.addData("turret position", turret.getCurrentPosition());
+        panelsTelemetry.getTelemetry().addData("turret position", turret.getCurrentPosition());
     }
 
 

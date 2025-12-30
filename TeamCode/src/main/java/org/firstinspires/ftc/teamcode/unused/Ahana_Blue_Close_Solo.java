@@ -13,8 +13,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
-
-@Autonomous(name = "solo blue close", group = "gf")
+/*@Autonomous(name = "solo blue close", group = "gf")
 @Disabled
 public class Ahana_Blue_Close_Solo extends OpModeCommand {
     Robot bot;
@@ -90,3 +89,5 @@ public class Ahana_Blue_Close_Solo extends OpModeCommand {
         );
     }
 }
+
+ */

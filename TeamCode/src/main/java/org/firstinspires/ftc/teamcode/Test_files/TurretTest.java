@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test_files;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -11,6 +12,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 @TeleOp (name = "turret test", group = "tests")
 public class TurretTest extends OpMode {
     private TurretNEW turret;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     private Follower follower;
     private Pose startPoseRed = new Pose(71, 24,0);
 
@@ -24,7 +28,7 @@ public class TurretTest extends OpMode {
 
     @Override
     public void init() {
-        turret = new TurretNEW(hardwareMap, telemetry);
+        turret = new TurretNEW(hardwareMap, panelsTelemetry);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPoseRed);
         follower.update();

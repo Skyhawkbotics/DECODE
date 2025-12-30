@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
-
+/*
 @Autonomous(name = "Andy far side red")
 
 @Disabled
@@ -143,3 +143,6 @@ public class Andyfarsideblue extends OpModeCommand {
     }
 
 }
+
+
+ */

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -7,13 +8,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class Light {
     private Servo light;
-   private Telemetry telemetry;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
 
-
-    public Light(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Light(HardwareMap hardwareMap, PanelsTelemetry telemetry) {
         light = hardwareMap.get(Servo.class, "light");
-        this.telemetry = telemetry;
+        this.panelsTelemetry = telemetry;
     }
 
     public void increase() {
@@ -34,6 +35,6 @@ public class Light {
 
 
     public void light_telemetry() {
-        telemetry.addData("Light Value", light.getPosition());
+        panelsTelemetry.getTelemetry().addData("Light Value", light.getPosition());
     }
 }

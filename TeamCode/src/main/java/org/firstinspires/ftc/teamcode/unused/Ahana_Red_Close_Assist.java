@@ -15,6 +15,8 @@ import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
+/*
+
 
 @Autonomous(name = "assist red! close", group = "gf")
 @Configurable
@@ -55,7 +57,7 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
         getready1 = new Path (new BezierLine(pos4ophalf,pos4gat1));
         getready1.setConstantHeadingInterpolation(180);
 
-       */
+
         to_load = new Path(new BezierLine(presets, pos4gat1));
         to_load.setLinearHeadingInterpolation(presets.getHeading(), pos4gat1.getHeading());
 
@@ -150,10 +152,12 @@ public class Ahana_Red_Close_Assist extends OpModeCommand {
                                 .andThen(new WaitCommand(7000)
                                 )/// allows time for bot to score 2
 
-                                 */
+
                 )
 
         );
     }
 
 }
+
+ */

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -18,6 +19,9 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "blueFARHV", group = "Blue")
 public class bluefarHV extends OpModeCommand {
     Robot bot;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     public static final Pose startpose = new Pose (63.540983606557376,8.852459016393444, Math.toRadians(90));
     public static Pose pres = new Pose (53.31147540983606,12.786885245901646, Math.toRadians(120));
     public static Pose posit1 = new Pose (55.8688524590164,24.786885245901637, Math.toRadians(180));
@@ -83,7 +87,7 @@ public class bluefarHV extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap,telemetry,startpose);
+        bot = new Robot(hardwareMap,PanelsTelemetry.INSTANCE,startpose);
         schedule (
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(

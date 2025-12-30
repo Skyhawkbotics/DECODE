@@ -16,9 +16,10 @@ public class ShooterTest extends OpMode {
 
     private Gamepad g1 = new Gamepad();
     private Gamepad previousg1 = new Gamepad();
+    private PanelsTelemetry telemetry1 = PanelsTelemetry.INSTANCE;
 
     public void init() {
-        shooter = new Shooter(hardwareMap, telemetry);
+        shooter = new Shooter(hardwareMap, telemetry1);
         g1 = new Gamepad();
         previousg1 = new Gamepad();
     }
@@ -55,7 +56,7 @@ public class ShooterTest extends OpMode {
 
 
         shooter.shooter_telemetry();
-        telemetry.update();
+        telemetry1.getTelemetry().update();
 
 
 

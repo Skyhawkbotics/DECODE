@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.unused;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -16,6 +17,9 @@ import ftclib.OpModeCommand;
 @Autonomous (name = "assist blue close", group = "gf")
 @Disabled
 public class Ahana_Blue_Close_Assist extends OpModeCommand {
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     Robot bot;
     public static final Pose startpose = new Pose (31.95,135.6, Math.toRadians(90));
     public final Pose presets = new Pose (40.56,110.82, Math.toRadians(135));
@@ -68,7 +72,7 @@ public class Ahana_Blue_Close_Assist extends OpModeCommand {
 
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, startpose);
+        bot = new Robot(hardwareMap, panelsTelemetry, startpose);
         bot.getFollower().setStartingPose(startpose);
 
         schedule(

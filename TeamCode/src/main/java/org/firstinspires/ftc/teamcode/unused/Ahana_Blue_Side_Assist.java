@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
-
+/*
 @Autonomous (name = "assist blue far", group = "gf")
 @Disabled
 public class Ahana_Blue_Side_Assist extends OpModeCommand {
@@ -114,3 +114,6 @@ public class Ahana_Blue_Side_Assist extends OpModeCommand {
         );
     }
 }
+
+
+ */

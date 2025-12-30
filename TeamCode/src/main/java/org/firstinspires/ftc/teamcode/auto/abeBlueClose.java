@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.auto;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -23,6 +24,8 @@ import ftclib.OpModeCommand;
 @Autonomous (name = "blue close side ", group = "Blue")
 public class abeBlueClose extends OpModeCommand {
     Robot bot;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
     public static final Pose startPose  = new Pose(24.566243194192378, 128.58076225045372, Math.toRadians(143));
     public  final Pose pres  = new Pose(45.21234119782214, 108.19600725952813, Math.toRadians(143));
 
@@ -90,7 +93,7 @@ public class abeBlueClose extends OpModeCommand {
 
     public void initialize(){
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, startPose);
+        bot = new Robot(hardwareMap, panelsTelemetry, startPose);
 
         schedule(
                 new RunCommand(bot::autonomous_robot_update),

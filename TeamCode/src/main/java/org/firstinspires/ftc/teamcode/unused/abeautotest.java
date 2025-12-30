@@ -19,6 +19,16 @@ public class abeautotest extends OpMode {
     public void loop() {
 
     }
+    /*
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
 /*
     private TelemetryManager panelsTelemetry; // Panels Telemetry instance
     public Follower follower; // Pedro Pathing follower instance

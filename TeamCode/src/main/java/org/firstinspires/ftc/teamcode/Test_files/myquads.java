@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Test_files;
 
+import com.bylazar.panels.Panels;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -14,8 +16,10 @@ public class myquads extends OpMode {
     private DcMotorEx right_front;
     private DcMotorEx right_back;
 
+    public PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     public void init(){
-        left_front = hardwareMap.get(DcMotorEx.class, "left_front");
+        left_front = hardwareMap.get(DcMotorEx.class, "turret");
         left_front.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         left_back = hardwareMap.get(DcMotorEx.class, "left_back");
@@ -26,6 +30,7 @@ public class myquads extends OpMode {
 
         right_back = hardwareMap.get(DcMotorEx.class, "right_back");
         right_back.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
     public void loop(){
         if (gamepad1.a){
@@ -54,6 +59,10 @@ public class myquads extends OpMode {
         } else {
             right_back.setPower(0);//wrong
         }
+        panelsTelemetry.getFtcTelemetry().addData("hi",left_front.getCurrentPosition());
+        panelsTelemetry.getFtcTelemetry().update();
+        panelsTelemetry.getTelemetry().addData("hii,",left_front.getCurrentPosition());
+
 
     }
 }

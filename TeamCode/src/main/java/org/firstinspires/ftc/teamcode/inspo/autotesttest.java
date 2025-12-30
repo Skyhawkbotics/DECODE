@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -21,6 +22,9 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "blue dgddddf far auto", group = "gf")
 @Disabled
 public class autotesttest extends OpModeCommand {
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     Robot bot;
 
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
@@ -48,7 +52,7 @@ public class autotesttest extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry, startPose); // startpose
+        bot = new Robot(hardwareMap, panelsTelemetry, startPose); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

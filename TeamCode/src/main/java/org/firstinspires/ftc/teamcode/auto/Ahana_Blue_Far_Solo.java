@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -18,6 +19,9 @@ import ftclib.OpModeCommand;
 
 @Autonomous(name = "solo blue far", group = "gf")
 public class Ahana_Blue_Far_Solo extends OpModeCommand {
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     Robot bot;
     public static final Pose startpose = new Pose (46.23, 8.26, Math.toRadians(90));
     public final Pose presets = new Pose (46.033, 9.246, Math.toRadians(105));
@@ -53,7 +57,7 @@ public class Ahana_Blue_Far_Solo extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap,telemetry, startpose);
+        bot = new Robot(hardwareMap,panelsTelemetry, startpose);
         bot.getFollower().setStartingPose(startpose);
 
         schedule(

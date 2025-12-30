@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test_files;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -11,11 +12,13 @@ public class Intake_test extends OpMode {
     private Intake intake;
 
     boolean button_pressed;
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
 
 
     @Override
     public void init() {
-         intake = new Intake(hardwareMap, telemetry);
+         intake = new Intake(hardwareMap, panelsTelemetry);
     }
 
     @Override

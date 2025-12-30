@@ -5,6 +5,7 @@ import android.graphics.Point;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.BezierPoint;
@@ -25,6 +26,8 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "Red Close Ahana", group = "gf")
 public class ahanaRedCloseNEW extends OpModeCommand {
     Robot bot;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     public static final Pose startpose = new Pose (119.17241379310344,128.58076225045372, Math.toRadians(38));
     public final Pose pres = new Pose (100.52459016393443,100.91803278688523, Math.toRadians(47));
@@ -105,7 +108,7 @@ public class ahanaRedCloseNEW extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot (hardwareMap, telemetry, startpose);
+        bot = new Robot (hardwareMap, panelsTelemetry, startpose);
 
         schedule(
                 new RunCommand(bot::autonomous_robot_update),

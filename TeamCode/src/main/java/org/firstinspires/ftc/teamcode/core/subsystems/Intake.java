@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.left_servos_out_pos;
 import static org.firstinspires.ftc.teamcode.core.constants.right_servos_in_pos;
 import static org.firstinspires.ftc.teamcode.core.constants.right_servos_out_pos;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -24,13 +25,16 @@ public class Intake {
 
     private double POSITION_IN = 1;
     private double POSITION_OUT = 0.8;
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
-    public Intake (HardwareMap hardwareMap, Telemetry telemetry){
+    public Intake (HardwareMap hardwareMap, PanelsTelemetry telemetry1){
         intake_motor = hardwareMap.get(DcMotorEx.class, "intake");
         intake_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_servo = hardwareMap.get(Servo.class, "right stop");
         left_servo = hardwareMap.get(Servo.class, "left stop");
+
+        this.panelsTelemetry = telemetry1;
     }
 
     public void on(){

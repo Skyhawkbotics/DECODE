@@ -13,8 +13,8 @@ import com.pedropathing.geometry.Pose;
 public class constants {
     /// Hardware names
     public static String turret_name = "turret";
-    public static double left_limit = -750;
-    public static double right_limit = 750;
+    public static double left_limit = -857;
+    public static double right_limit = 667;
 
     public static int blue_ID = 20;
     public static int red_ID = 24;
@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.00675, ei = 0, ed = 0.00000, f = 0.675; ///these are good as of 10/11
+    public static double ep = 0.007, ei = 0, ed = 0.00001, f = 0.535; ///these are good as of 10/11
 
     public static int max = 2000;
 

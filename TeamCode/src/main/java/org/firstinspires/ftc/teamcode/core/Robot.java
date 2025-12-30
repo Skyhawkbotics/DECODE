@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -21,6 +22,8 @@ public class Robot {
 
 
     private HardwareMap hardwareMap;
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
     private Telemetry telemetry;
     private Follower follower;
 
@@ -59,9 +62,9 @@ public class Robot {
 
 
     private boolean parking = false;
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
+    public Robot(HardwareMap hardwareMap, PanelsTelemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
+        this.panelsTelemetry = telemetry;
 
         follower = Constants.createFollower(hardwareMap);
 
@@ -88,9 +91,9 @@ public class Robot {
 
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, PanelsTelemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
+        this.panelsTelemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
@@ -102,6 +105,7 @@ public class Robot {
         turretNEW.reset_turret();
 
     }
+
 
     public void autonomous_robot_update () {
         shooter.shooter_telemetry();
