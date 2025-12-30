@@ -23,8 +23,8 @@ import ftclib.FollowPath;
 import ftclib.HoldPoint;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "Red Close Ahana", group = "gf")
-public class ahanaRedCloseNEW extends OpModeCommand {
+@Autonomous(name = "12 Red Close", group = "gf")
+public class RedCloseAhana12 extends OpModeCommand {
     Robot bot;
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;

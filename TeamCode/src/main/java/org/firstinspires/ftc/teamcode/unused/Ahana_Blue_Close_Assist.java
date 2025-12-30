@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
-
+/*
 @Autonomous (name = "assist blue close", group = "gf")
 @Disabled
 public class Ahana_Blue_Close_Assist extends OpModeCommand {
@@ -122,10 +122,12 @@ public class Ahana_Blue_Close_Assist extends OpModeCommand {
                                 .andThen(new WaitCommand(7000)
                                 )/// allows time for bot to score 2
 
-                                 */
+
                 )
 
         );
     }
 
 }
+
+ */

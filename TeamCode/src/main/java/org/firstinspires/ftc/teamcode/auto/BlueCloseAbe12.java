@@ -21,8 +21,8 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "blue close side ", group = "Blue")
-public class abeBlueClose extends OpModeCommand {
+@Autonomous (name = "12 blue close Abe ", group = "Blue")
+public class BlueCloseAbe12 extends OpModeCommand {
     Robot bot;
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
