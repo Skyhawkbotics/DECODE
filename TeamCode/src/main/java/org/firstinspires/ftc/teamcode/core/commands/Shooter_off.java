@@ -9,7 +9,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Shooter_off extends CommandBase {
+public class Shooter_off extends CommandBase { ///  stops shooter, makes servos become stoppers
     private int state = 1;
 
     private final Robot bot;

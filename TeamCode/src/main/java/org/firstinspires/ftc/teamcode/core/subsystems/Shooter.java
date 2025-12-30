@@ -129,6 +129,7 @@ public class     Shooter {
         servo.setPosition(shooter_position);
     }
     public void back_perf() {
+        toggle_update_true();
         setTarget(far_side_shoot);
     }
     public void turnOFF() {
