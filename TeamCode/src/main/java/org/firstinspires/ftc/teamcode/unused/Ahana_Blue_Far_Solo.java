@@ -1,22 +1,6 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.unused;
 
-import static org.firstinspires.ftc.teamcode.core.constants.blue_ID;
-
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
-import org.firstinspires.ftc.teamcode.core.Robot;
-
-import ftclib.FollowPath;
-import ftclib.OpModeCommand;
-
+/*
 @Autonomous(name = "solo blue far", group = "gf")
 public class Ahana_Blue_Far_Solo extends OpModeCommand {
 
@@ -95,3 +79,5 @@ public class Ahana_Blue_Far_Solo extends OpModeCommand {
         );
     }
 }
+
+ */
