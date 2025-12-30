@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
-
+/*
 @Autonomous(name = "Andy's amazing auto but blue", group = "tests")
 @Disabled
 public class Super_awesome_and_very_complex_auto_but_blue extends OpMode {
@@ -98,3 +98,6 @@ public class Super_awesome_and_very_complex_auto_but_blue extends OpMode {
         setPathState(0);
     }
 }
+
+
+ */

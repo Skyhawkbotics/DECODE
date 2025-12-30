@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode.unused;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import ftclib.OpModeCommand;
-
+/*
 @Autonomous(name = "Red side far auto", group = "gf")
 public class red_far_side_auto extends OpModeCommand {
     @Override
@@ -70,5 +70,7 @@ public class red_far_side_auto extends OpModeCommand {
 
     }
 
-     */
+
 }
+
+ */
