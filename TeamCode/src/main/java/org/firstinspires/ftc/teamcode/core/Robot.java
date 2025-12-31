@@ -229,13 +229,14 @@ public class Robot {
 
     public void robot_telemetry() {
         if (robot_telemetry) {
-            telemetry.addData("Follower Pose", follower.getPose());
-            telemetry.addData("Distance from Depot", depot_distance);
+            panelsTelemetry.getTelemetry().addData("Follower Pose", follower.getPose());
+            panelsTelemetry.getTelemetry().addData("Distance from Depot", depot_distance);
         }
         if (turret_telemetry) {
-            telemetry.addData("offset", offset);
-            telemetry.addData("angle", angle);
-            telemetry.addData("complementary angle for turret", turret_angle);
+            panelsTelemetry.getTelemetry().addData("offset", offset);
+            panelsTelemetry.getTelemetry().addData("angle", angle);
+            panelsTelemetry.getTelemetry().addData("complementary angle for turret", turret_angle);
+
             turretNEW.turret_telemetry();
         }
         if (light_telemetry) {
@@ -250,8 +251,7 @@ public class Robot {
         shooter.update();
         robot_telemetry();
         follower.update();
-        telemetry.update();
-
+        panelsTelemetry.getTelemetry().update();
 
     }
 
