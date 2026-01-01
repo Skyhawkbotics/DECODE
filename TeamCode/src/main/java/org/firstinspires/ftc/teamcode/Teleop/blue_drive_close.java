@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 public class blue_drive_close extends OpMode {
     private Robot robot;
 
-    private Telemetry t;
     int ID = 20;
 
 
@@ -27,7 +26,7 @@ public class blue_drive_close extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, t, gamepad1, gamepad2, ID, pres, false, resetPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, pres, false, resetPose);
 
     }
 

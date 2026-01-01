@@ -212,14 +212,14 @@ public class Robot {
         }
 
         if(g2.y) {
-            // PID_output = offset;
-            turretNEW.LL_update(ID);
+            PID_output = offset;
+           // turretNEW.LL_update(ID);
         } else {
             PID_output = 0;
         }
 
 
-        // turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
+         turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
         offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), turret_angle);
 

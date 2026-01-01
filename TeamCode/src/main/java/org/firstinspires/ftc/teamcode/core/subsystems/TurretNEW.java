@@ -18,8 +18,8 @@ public class TurretNEW {
     private LL LL;
     private PIDController heading_turret_pid;
 
-    private Pose redPose = new Pose(133, 134, 0);
-    private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
+        private Pose redPose = new Pose(133, 135, 0);
+    private Pose bluePose = new Pose(11, 135,0);
 
 
     private Boolean isUpdating = true;
@@ -42,19 +42,22 @@ public class TurretNEW {
         this.telemetry = telemetry;
 
 
-        LL = new LL(hardwareMap, telemetry);
+       // LL = new LL(hardwareMap, telemetry);
     }
 
 
 
 /// PID correction loop, toggle for manual
-  /*  public void turret_update(double offset, double manual_power, Pose followerPose, boolean isRED) {
+  public void turret_update(Pose followerPose, boolean isRED, double manual_power) {
         if(isUpdating) {
             heading_turret_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
             double angle = calculate_angle(followerPose, isRED);
 
+            double complmentary_angle = calculate_turret_angle_complementary(angle, isRED);
 
+            double offset = calculate_angle_offset(followerPose.getHeading(), complmentary_angle);
 
             double pid_output = heading_turret_pid.calculate(turret.getCurrentPosition(), offset);
 
@@ -66,25 +69,25 @@ public class TurretNEW {
 
     }
 
-   */
+
     public void turret_update(double offset, double manual_power) {
         if(isUpdating) {
-            /* heading_turret_pid.setPID(turret_p, turret_i, turret_d);
+             heading_turret_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
             double pid_output = heading_turret_pid.calculate(turret.getCurrentPosition(), offset);
 
 
-            turret.setPower(pid_output + turret_f); */
+            turret.setPower(pid_output + turret_f);
         } else {
             turret.setPower(manual_power); // add a multiplier if its too slow
         }
 
     }
 
-    public void LL_update(int ID) {
-        turret.setPower(LL.turret_pid_update(telemetry, turret, ID));
-    }
+   // public void LL_update(int ID) {
+  //      turret.setPower(LL.turret_pid_update(telemetry, turret, ID));
+ //   }
 
 
 
@@ -138,12 +141,24 @@ public class TurretNEW {
     }
 
     public double calculate_turret_angle_complementary(double angle, boolean isRED) {
-        if(!isRED) {
-            angle = -angle;
+        double real_angle;
+        double correct_distance_angle;
+        if(isRED) {
+             real_angle = 90 - angle - 4;
+        } else {
+            real_angle = 90 - angle -4;
         }
-        double real_angle = 90 - angle;
-        return offset_to_position(real_angle); // takes the complementary angle
-
+        if(angle > 50) {
+            correct_distance_angle = real_angle - 5;
+        } else {
+            correct_distance_angle = real_angle;
+        }
+        double real_angle_position = correct_distance_angle; // takes the complementary angle
+        if(isRED) {
+            return real_angle_position;
+        } else {
+            return -real_angle_position;
+        }
     }
 
 
@@ -155,7 +170,7 @@ public class TurretNEW {
         double correct_angle_offset;
 
 
-        raw_angle_offset =  offset_to_position(converted_robot_heading) + angle;
+        raw_angle_offset =  offset_to_position(converted_robot_heading +angle);
         if(raw_angle_offset <= left_limit) { // if it's bigger than left limit
             correct_angle_offset= left_limit;
         } else if(raw_angle_offset >= right_limit) {// if it's smaller than right limit

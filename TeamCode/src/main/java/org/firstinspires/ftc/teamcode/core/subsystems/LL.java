@@ -36,7 +36,7 @@ public class LL {
 
     private Telemetry telemetry;
 
-    public LL(HardwareMap hardwareMap, Telemetry t) {
+    /*public LL(HardwareMap hardwareMap, Telemetry t) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         limelight.pipelineSwitch(0);
@@ -50,6 +50,8 @@ public class LL {
         telemetry.addData(">", "Robot Ready. Press Play.");
         telemetry.update();
     }
+
+     */
 
     /*
     public void RunLimelight(Telemetry telemetry) {
