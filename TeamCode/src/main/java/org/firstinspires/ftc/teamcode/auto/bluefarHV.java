@@ -11,6 +11,10 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Blue_Far;
+import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -91,35 +95,49 @@ public class bluefarHV extends OpModeCommand {
         schedule (
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(
+                        /// this section scores the preloads
                         new FollowPath(bot.getFollower(), scorepres)/// need shooter
-                                // .alongWith(new Prep_Shooter(bot))
+                                    .alongWith (new Prep_Shooter_Blue_Far(bot))
+                                .andThen(new Intake_on(bot))
                                 .andThen (new WaitCommand(3000))
-                                //  .andThen (new Intake_on(bot))
-                                // .andThen (new Shooter_off(bot))
+                                .andThen (new Shooter_off(bot))
 
-
+                       /* /// this section intakes and scores load1
                                 .andThen(new FollowPath(bot.getFollower(),get2balls))
                                 .andThen (new WaitCommand(500))// to get ready to posit
                                 .andThen(new FollowPath(bot.getFollower(),intake1, 0.5)) /// need intake
-                                //.alongWith (new Intake_on(bot))
+                                    .alongWith(new Intake_on(bot))
+                                .andThen (new WaitCommand(500))
                                 .andThen (new FollowPath(bot.getFollower(),score1))/// need shooter
-                                //.alongWith(new Prep_Shooter(bot))
+                                    .alongWith (new Prep_Shooter(bot))
+                                .andThen(new Intake_on(bot))
                                 .andThen (new WaitCommand(1000))
-                                //.andThen(new Intake_on(bot))
+                                .andThen (new Shooter_off(bot))
 
+                                /// this section intakes and scores collection 1
                                 .andThen (new FollowPath(bot.getFollower(),intake2,.5))
+                                    .alongWith (new Intake_on(bot))
                                 .andThen (new FollowPath(bot.getFollower(),intakeer,.5))/// need intake
+                                    .alongWith (new Intake_on(bot))
                                 .andThen (new FollowPath(bot.getFollower(),score2))/// need shooter
+                                    .alongWith (new Prep_Shooter(bot))
+                                .andThen(new Intake_on(bot))
                                 .andThen (new WaitCommand(1000))
+                                .andThen (new Shooter_off(bot))
 
+                                ///  this section intakes and scores collection 2
                                 .andThen (new FollowPath(bot.getFollower(),intake3,.5))
+                                    .alongWith(new Intake_on(bot))
                                 .andThen (new FollowPath(bot.getFollower(),intakesan,.5))/// need intake
+                                    .alongWith(new Intake_on(bot))
                                 .andThen (new FollowPath(bot.getFollower(),score3))/// need shooter
-                                .andThen (new WaitCommand(3000))
-
+                                       .alongWith (new Prep_Shooter(bot))
+                                .andThen(new Intake_on(bot))
+                                .andThen (new WaitCommand(1000))
+                                .andThen (new Shooter_off(bot))
                                 .andThen (new FollowPath(bot.getFollower(),end))
 
-                ));
+                */));
     }
 
 }
