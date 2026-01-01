@@ -71,7 +71,7 @@ public class ahanaRedFarNEW extends OpModeCommand {
 
     public void initialize (){
         buildPaths();
-        bot = new Robot (hardwareMap,panelsTelemetry,startpose);
+        bot = new Robot (hardwareMap,telemetry,startpose);
         schedule (
                 new RunCommand(bot ::robot_update),
                 new SequentialCommandGroup(

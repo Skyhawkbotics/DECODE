@@ -5,6 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
@@ -12,9 +13,10 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 public class blue_drive_close extends OpMode {
     private Robot robot;
+
+    private Telemetry t;
     int ID = 20;
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     public Pose pres  = new Pose(45.21234119782214, 108.19600725952813, Math.toRadians(143));
 
@@ -25,7 +27,7 @@ public class blue_drive_close extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, panelsTelemetry, gamepad1, gamepad2, ID, pres, false, resetPose);
+        robot = new Robot(hardwareMap, t, gamepad1, gamepad2, ID, pres, false, resetPose);
 
     }
 

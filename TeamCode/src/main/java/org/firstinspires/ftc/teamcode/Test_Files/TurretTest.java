@@ -6,6 +6,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.TurretNEW;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -14,6 +15,8 @@ public class TurretTest extends OpMode {
     private TurretNEW turret;
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
+    private Telemetry t;
 
     private Follower follower;
     private Pose startPoseRed = new Pose(71, 24,0);
@@ -28,7 +31,7 @@ public class TurretTest extends OpMode {
 
     @Override
     public void init() {
-        turret = new TurretNEW(hardwareMap, panelsTelemetry);
+        turret = new TurretNEW(hardwareMap, telemetry);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPoseRed);
         follower.update();

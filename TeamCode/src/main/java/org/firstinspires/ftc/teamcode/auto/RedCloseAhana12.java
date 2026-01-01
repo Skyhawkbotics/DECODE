@@ -108,7 +108,7 @@ public class RedCloseAhana12 extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot (hardwareMap, panelsTelemetry, startpose);
+        bot = new Robot (hardwareMap, telemetry, startpose);
 
         schedule(
                 new RunCommand(bot::autonomous_robot_update),

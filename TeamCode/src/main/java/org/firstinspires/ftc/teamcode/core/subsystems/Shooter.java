@@ -33,12 +33,11 @@ public class     Shooter {
 
     private double shooter_position, shooter_velocity;
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+    private Telemetry telemetry;
 
 
 
-
-    public Shooter(HardwareMap hardwareMap, PanelsTelemetry telemetry03) {
+    public Shooter(HardwareMap hardwareMap, Telemetry telemetry03) {
         // hi
         left_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
         left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
@@ -53,7 +52,7 @@ public class     Shooter {
         pid = new PIDController(ep, ei, ed);
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
-        this.panelsTelemetry = telemetry03;
+        this.telemetry = telemetry03;
 
     }
 
@@ -211,15 +210,15 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        panelsTelemetry.getTelemetry().addData("Motor Speed (Ticks)", right_motor.getVelocity());
+        telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
         // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
         // telemetry.addData("left Motor power", left_motor.getPower());
         // telemetry.addData("right Motor power", right_motor.getPower());
-        panelsTelemetry.getTelemetry().addData("Shooter Angle position", servo.getPosition());
-        panelsTelemetry.getTelemetry().addData("Target", target);
-        panelsTelemetry.getTelemetry().addData("PID Output for power", power);
+        telemetry.addData("Shooter Angle position", servo.getPosition());
+        telemetry.addData("Target", target);
+        telemetry.addData("PID Output for power", power);
 
-        panelsTelemetry.getTelemetry().addData("Shooter Reached", velocityReached());
+        telemetry.addData("Shooter Reached", velocityReached());
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public int getTarget() {

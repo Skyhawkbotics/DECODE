@@ -25,16 +25,15 @@ public class Intake {
 
     private double POSITION_IN = 1;
     private double POSITION_OUT = 0.8;
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
-
-    public Intake (HardwareMap hardwareMap, PanelsTelemetry telemetry1){
+    private Telemetry telemetry;
+    public Intake (HardwareMap hardwareMap, Telemetry telemetry1){
         intake_motor = hardwareMap.get(DcMotorEx.class, "intake");
         intake_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_servo = hardwareMap.get(Servo.class, "right stop");
         left_servo = hardwareMap.get(Servo.class, "left stop");
 
-        this.panelsTelemetry = telemetry1;
+        this.telemetry = telemetry1;
     }
 
     public void on(){

@@ -14,18 +14,22 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class TurretNEW {
     public DcMotorEx turret;
+
+    private LL LL;
     private PIDController heading_turret_pid;
 
     private Pose redPose = new Pose(133, 134, 0);
     private Pose bluePose = new Pose(13.589836660617062, 135.63702359346644,0);
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     private Boolean isUpdating = true;
 
+    private Telemetry telemetry;
+
+
 
 ///  Init
-    public TurretNEW(HardwareMap hardwareMap, PanelsTelemetry telemetry) {
+    public TurretNEW(HardwareMap hardwareMap, Telemetry telemetry) {
         turret = hardwareMap.get(DcMotorEx.class, turret_name);
 
 
@@ -35,16 +39,22 @@ public class TurretNEW {
 
         heading_turret_pid = new PIDController(turret_p, turret_i, turret_d);
 
-        this.panelsTelemetry = telemetry;
+        this.telemetry = telemetry;
+
+
+        LL = new LL(hardwareMap, telemetry);
     }
 
 
 
 /// PID correction loop, toggle for manual
-    public void turret_update(double offset, double manual_power) {
+  /*  public void turret_update(double offset, double manual_power, Pose followerPose, boolean isRED) {
         if(isUpdating) {
             heading_turret_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            double angle = calculate_angle(followerPose, isRED);
+
+
 
             double pid_output = heading_turret_pid.calculate(turret.getCurrentPosition(), offset);
 
@@ -55,6 +65,28 @@ public class TurretNEW {
         }
 
     }
+
+   */
+    public void turret_update(double offset, double manual_power) {
+        if(isUpdating) {
+            /* heading_turret_pid.setPID(turret_p, turret_i, turret_d);
+            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+            double pid_output = heading_turret_pid.calculate(turret.getCurrentPosition(), offset);
+
+
+            turret.setPower(pid_output + turret_f); */
+        } else {
+            turret.setPower(manual_power); // add a multiplier if its too slow
+        }
+
+    }
+
+    public void LL_update(int ID) {
+        turret.setPower(LL.turret_pid_update(telemetry, turret, ID));
+    }
+
+
 
     ///  manual controls
     public void turret_update_toggle() {
@@ -109,8 +141,8 @@ public class TurretNEW {
         if(!isRED) {
             angle = -angle;
         }
-
-        return 90 - angle; // takes the complementary angle
+        double real_angle = 90 - angle;
+        return offset_to_position(real_angle); // takes the complementary angle
 
     }
 
@@ -123,7 +155,7 @@ public class TurretNEW {
         double correct_angle_offset;
 
 
-        raw_angle_offset =  offset_to_position(converted_robot_heading + angle);
+        raw_angle_offset =  offset_to_position(converted_robot_heading) + angle;
         if(raw_angle_offset <= left_limit) { // if it's bigger than left limit
             correct_angle_offset= left_limit;
         } else if(raw_angle_offset >= right_limit) {// if it's smaller than right limit
@@ -143,7 +175,7 @@ public class TurretNEW {
 ///  angle + 90 made it face the opposite direction aka our  human player xzone??
 /// angle - 90 as a fix,
     public void turret_telemetry() {
-        panelsTelemetry.getTelemetry().addData("turret position", turret.getCurrentPosition());
+        telemetry.addData("turret position", turret.getCurrentPosition());
     }
 
 

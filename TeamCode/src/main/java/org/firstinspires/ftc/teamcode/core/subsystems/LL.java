@@ -34,7 +34,9 @@ public class LL {
 
     private double ld = 0.00007;
 
-    public LL(HardwareMap hardwareMap, Telemetry telemetry) {
+    private Telemetry telemetry;
+
+    public LL(HardwareMap hardwareMap, Telemetry t) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
         limelight.pipelineSwitch(0);
@@ -43,10 +45,13 @@ public class LL {
 
         pid = new PIDController(lp, li, ld);
 
+        this.telemetry = t;
+
         telemetry.addData(">", "Robot Ready. Press Play.");
         telemetry.update();
     }
 
+    /*
     public void RunLimelight(Telemetry telemetry) {
 
         LLStatus status = limelight.getStatus();
@@ -149,7 +154,7 @@ public class LL {
         telemetry.update();
 
     }
-
+    */
     public double getTx(Telemetry telemetry) {
         LLStatus status = limelight.getStatus();
         LLResult result = limelight.getLatestResult();

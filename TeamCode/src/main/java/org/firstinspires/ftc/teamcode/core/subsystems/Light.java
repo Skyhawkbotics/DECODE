@@ -9,12 +9,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class Light {
     private Servo light;
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+    private Telemetry telemetry;
 
-
-    public Light(HardwareMap hardwareMap, PanelsTelemetry telemetry) {
+    public Light(HardwareMap hardwareMap, Telemetry telemetry) {
         light = hardwareMap.get(Servo.class, "light");
-        this.panelsTelemetry = telemetry;
+        this.telemetry = telemetry;
     }
 
     public void increase() {
@@ -35,6 +34,6 @@ public class Light {
 
 
     public void light_telemetry() {
-        panelsTelemetry.getTelemetry().addData("Light Value", light.getPosition());
+        telemetry.addData("Light Value", light.getPosition());
     }
 }

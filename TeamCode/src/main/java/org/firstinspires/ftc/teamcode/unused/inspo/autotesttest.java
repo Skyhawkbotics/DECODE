@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 import ftclib.FollowPath;
@@ -52,7 +53,7 @@ public class autotesttest extends OpModeCommand {
 
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, panelsTelemetry, startPose); // startpose
+            bot = new Robot(hardwareMap, telemetry, startPose); // startpose
         bot.getFollower().setStartingPose(startPose);
 
 

@@ -60,11 +60,12 @@ public class Robot {
 
     private Pose resetPose1;
 
+    private Telemetry t;
 
     private boolean parking = false;
-    public Robot(HardwareMap hardwareMap, PanelsTelemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
-        this.panelsTelemetry = telemetry;
+        this.telemetry = telemetry;
 
         follower = Constants.createFollower(hardwareMap);
 
@@ -88,12 +89,13 @@ public class Robot {
 
         this.ID = ID;
         resetPose1 = resetPose;
+        this.t = t;
 
 
     }
-    public Robot(HardwareMap hardwareMap, PanelsTelemetry telemetry, Pose startPose) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
-        this.panelsTelemetry = telemetry;
+        this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
@@ -210,13 +212,14 @@ public class Robot {
         }
 
         if(g2.y) {
-            PID_output = offset;
+            // PID_output = offset;
+            turretNEW.LL_update(ID);
         } else {
             PID_output = 0;
         }
 
 
-        turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
+        // turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
         offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), turret_angle);
 
@@ -229,13 +232,13 @@ public class Robot {
 
     public void robot_telemetry() {
         if (robot_telemetry) {
-            panelsTelemetry.getTelemetry().addData("Follower Pose", follower.getPose());
-            panelsTelemetry.getTelemetry().addData("Distance from Depot", depot_distance);
+            telemetry.addData("Follower Pose", follower.getPose());
+            telemetry.addData("Distance from Depot", depot_distance);
         }
         if (turret_telemetry) {
-            panelsTelemetry.getTelemetry().addData("offset", offset);
-            panelsTelemetry.getTelemetry().addData("angle", angle);
-            panelsTelemetry.getTelemetry().addData("complementary angle for turret", turret_angle);
+            telemetry.addData("offset", offset);
+            telemetry.addData("angle", angle);
+            telemetry.addData("complementary angle for turret", turret_angle);
 
             turretNEW.turret_telemetry();
         }
@@ -251,8 +254,7 @@ public class Robot {
         shooter.update();
         robot_telemetry();
         follower.update();
-        panelsTelemetry.getTelemetry().update();
-
+        telemetry.update();
     }
 
 

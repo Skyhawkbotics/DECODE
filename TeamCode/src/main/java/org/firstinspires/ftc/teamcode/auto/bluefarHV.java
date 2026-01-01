@@ -87,7 +87,7 @@ public class bluefarHV extends OpModeCommand {
     }
     public void initialize (){
         buildPaths();
-        bot = new Robot(hardwareMap,PanelsTelemetry.INSTANCE,startpose);
+        bot = new Robot(hardwareMap, telemetry,startpose);
         schedule (
                 new RunCommand(bot::robot_update),
                 new SequentialCommandGroup(

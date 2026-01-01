@@ -18,7 +18,7 @@ public class Intake_test extends OpMode {
 
     @Override
     public void init() {
-         intake = new Intake(hardwareMap, panelsTelemetry);
+         intake = new Intake(hardwareMap, telemetry);
     }
 
     @Override

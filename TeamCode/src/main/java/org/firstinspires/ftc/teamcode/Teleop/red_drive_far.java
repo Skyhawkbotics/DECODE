@@ -5,6 +5,7 @@ import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
@@ -12,16 +13,17 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 
 public class red_drive_far extends OpMode {
     private Robot robot;
+
+    private Telemetry t;
     int ID = 24;
     private Pose startPoseRed = new Pose(106.03, 102.10,Math.toRadians(45));
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
 
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, panelsTelemetry, gamepad1, gamepad2, ID, startPoseRed, true, startPoseRed);
+        robot = new Robot(hardwareMap, t, gamepad1, gamepad2, ID, startPoseRed, true, startPoseRed);
 
     }
 
