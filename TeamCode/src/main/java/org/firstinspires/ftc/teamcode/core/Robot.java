@@ -138,11 +138,11 @@ public class Robot {
         // follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
         if (ID == 24) {
-            x = turretNEW.calculate_X_distance(follower.getPose(), true);
-            y = turretNEW.calculate_Y_distance(follower.getPose(), true);
+            // x = turretNEW.calculate_X_distance(follower.getPose(), true);
+            // y = turretNEW.calculate_Y_distance(follower.getPose(), true);
         } else if (ID == 20) {
-            x = turretNEW.calculate_X_distance(follower.getPose(), false);
-            y = turretNEW.calculate_Y_distance(follower.getPose(), false);
+            // x = turretNEW.calculate_X_distance(follower.getPose(), false);
+            // y = turretNEW.calculate_Y_distance(follower.getPose(), false);
         }
 
         depot_distance = Math.sqrt(x * x + y * y) * 2.54 / 100;
@@ -213,13 +213,12 @@ public class Robot {
 
         if(g2.y) {
             PID_output = offset;
-           // turretNEW.LL_update(ID);
         } else {
             PID_output = 0;
         }
 
 
-         turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
+        turretNEW.turret_update(PID_output, g2.left_stick_x * 0.2);
 
         offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), turret_angle);
 

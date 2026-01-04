@@ -15,11 +15,11 @@ public class shooterSpeed {
 
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
-        double shooter_constant = 1.35;
+        double shooter_constant = 1.3;
         double dampening_constant = 0.96;
         double sharpening_constant = 1.016;
 
-        double degrees = 60 - 8 * (d - 1.5); // FROM THE HORIZONTAL
+        double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
 
         double numerator = GRAVITY * Math.pow(d, 2); //
@@ -41,7 +41,7 @@ public class shooterSpeed {
     }
 
     public double calcAngle(double d) {
-        double degrees = 60 - 8 * (d - 1.5);
+        double degrees = 60 - 7 * (d - 1.5);
         // this is based off of regression
         // 30 degrees for 1 position
         // 0.1 change in position is equal to change in 3 degrees

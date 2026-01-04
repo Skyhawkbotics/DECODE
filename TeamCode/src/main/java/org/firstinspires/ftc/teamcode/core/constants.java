@@ -13,7 +13,7 @@ import com.pedropathing.geometry.Pose;
 public class constants {
     /// Hardware names
     public static String turret_name = "turret";
-    public static double left_limit = -857;
+    public static double left_limit = -750;
     public static double right_limit = 667;
 
     public static int blue_ID = 20;
@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.007, ei = 0, ed = 0.00001, f = 0.535; ///these are good as of 10/11
+    public static double ep = 0.006, ei = 0, ed = 0.00001, f = 0.535; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -52,6 +52,13 @@ public class constants {
     public static double turret_p = 0.005, turret_i = 0, turret_d = 0, turret_f = 0.06;
     public static double turret_align_heading = 0;
     public static double degrees_to_ticks;
+
+
+    ///  Limelight PID Controller
+
+    public static double lp = 0.02;
+    public static double li = 0;
+    public static double ld = 0.00000;
 
 
     /// Intake speed constants

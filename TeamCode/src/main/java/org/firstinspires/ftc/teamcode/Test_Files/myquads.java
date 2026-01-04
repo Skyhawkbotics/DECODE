@@ -8,10 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 @TeleOp(name = "Quadrupe Motor Test", group = "Tests")
 public class myquads extends OpMode {
-    private DcMotorEx left_front;
-    private DcMotorEx left_back;
-    private DcMotorEx right_front;
-    private DcMotorEx right_back;
+    private DcMotorEx left_front; // 3
+    private DcMotorEx left_back; // 2
+    private DcMotorEx right_front; // 1
+    private DcMotorEx right_back; // 0
 
     public PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
