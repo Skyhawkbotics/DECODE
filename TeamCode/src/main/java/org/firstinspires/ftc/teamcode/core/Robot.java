@@ -193,6 +193,10 @@ public class Robot {
             PID_output = 0;
         }
 
+        if (shooter.velocityReached()) {
+            g2.rumble (200);
+        }
+
 
         turretNEW.turret_update(PID_output, g2.left_stick_x * 0.5);
 
