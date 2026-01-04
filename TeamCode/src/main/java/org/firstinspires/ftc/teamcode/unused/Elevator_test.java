@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
-
+/*
 @TeleOp (name = "Elevator_test", group = "Tests")
 @Disabled
 public class Elevator_test extends OpMode {
@@ -60,5 +60,7 @@ public class Elevator_test extends OpMode {
 
     }
 
-     */
+
 }
+
+ */

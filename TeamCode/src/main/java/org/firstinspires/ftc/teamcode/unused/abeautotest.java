@@ -4,12 +4,22 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
+/*
 @Autonomous(name = "Pedro Pathing Autonomous", group = "Autonomous")
 @Configurable // Panels
 
 @Disabled
 public class abeautotest extends OpMode {
+    @Override
+    public void init() {
+
+    }
+
+    @Override
+    public void loop() {
+
+    }
+    /*
     @Override
     public void init() {
 
@@ -166,5 +176,7 @@ public class abeautotest extends OpMode {
         return pathState;
     }
 
- */
+
 }
+
+ */

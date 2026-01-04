@@ -2,7 +2,12 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 import static org.firstinspires.ftc.teamcode.core.constants.intake_speed;
+import static org.firstinspires.ftc.teamcode.core.constants.left_servos_in_pos;
+import static org.firstinspires.ftc.teamcode.core.constants.left_servos_out_pos;
+import static org.firstinspires.ftc.teamcode.core.constants.right_servos_in_pos;
+import static org.firstinspires.ftc.teamcode.core.constants.right_servos_out_pos;
 
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -20,13 +25,15 @@ public class Intake {
 
     private double POSITION_IN = 1;
     private double POSITION_OUT = 0.8;
-
-    public Intake (HardwareMap hardwareMap, Telemetry telemetry){
+    private Telemetry telemetry;
+    public Intake (HardwareMap hardwareMap, Telemetry telemetry1){
         intake_motor = hardwareMap.get(DcMotorEx.class, "intake");
         intake_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         right_servo = hardwareMap.get(Servo.class, "right stop");
         left_servo = hardwareMap.get(Servo.class, "left stop");
+
+        this.telemetry = telemetry1;
     }
 
     public void on(){
@@ -39,12 +46,12 @@ public class Intake {
         intake_motor.setPower(-1);
     }
     public void servosIn() {
-        right_servo.setPosition(0.8);
-        left_servo.setPosition(0.2);
+        right_servo.setPosition(right_servos_in_pos);
+        left_servo.setPosition(left_servos_in_pos);
     }
     public void servosOut() {
-        right_servo.setPosition(0.2);
-        left_servo.setPosition(0.8);
+        right_servo.setPosition(right_servos_out_pos);
+        left_servo.setPosition(left_servos_out_pos);
     }
     ///  since the servos and the intake are in this subsystem, we can code the logic needed switch between firing and intaking
     public void fire() {

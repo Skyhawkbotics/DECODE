@@ -5,6 +5,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -17,8 +18,11 @@ import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "redFarNEW", group = "gf")
+@Autonomous(name = "redFarNEW", group = "Red")
 public class ahanaRedFarNEW extends OpModeCommand {
+
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
+
     Robot bot;
     public static final Pose startpose = new Pose(95.60655737704917,7.868852459016386, Math.toRadians(90));
     public final Pose presets = new Pose (95.80327868852459,7.672131147540984,Math.toRadians(75));

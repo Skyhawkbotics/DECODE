@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
+/*
 
 @Autonomous(name = "blue side far auto", group = "gf")
 @Disabled
@@ -74,5 +75,8 @@ public class blue_far_side_auto extends OpModeCommand {
 
     }
 
-     */
+
 }
+
+ */
+

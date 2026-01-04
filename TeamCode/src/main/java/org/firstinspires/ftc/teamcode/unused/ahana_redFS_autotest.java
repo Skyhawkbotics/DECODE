@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.OpModeCommand;
 
-
+/*
 @Autonomous (name = "red far side o", group = "gf")
 @Disabled
 public class ahana_redFS_autotest extends OpModeCommand {
@@ -95,5 +95,8 @@ public class ahana_redFS_autotest extends OpModeCommand {
     }
 
 
-     */
+
 }
+
+ */
+

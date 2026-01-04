@@ -7,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Intake_on extends CommandBase {
+public class Intake_on extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
     private int state = 1;
 
     private final Robot bot;
@@ -36,7 +36,7 @@ public class Intake_on extends CommandBase {
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 3) { //1
+                if (timer.getElapsedTimeSeconds() > 1.5) { //1
                     bot.getIntake().off();
                     setState(-1); //3
                 }

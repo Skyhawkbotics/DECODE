@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import ftclib.OpModeCommand;
-
+/*
 @Autonomous(name = "Close Auto", group = "Test")
 @Disabled
 public class closeauto extends OpModeCommand {
@@ -55,5 +55,7 @@ public class closeauto extends OpModeCommand {
 
     }
 
-     */
+
 }
+
+ */

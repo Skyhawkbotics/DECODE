@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.unused;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
+/*
 @Autonomous(name = "abey auto", group = "auto")
 @Disabled
 public class abeyauto extends OpMode {
@@ -213,4 +213,4 @@ public class abeyauto extends OpMode {
     public void stop() {}
 
  */
-}
+//}
