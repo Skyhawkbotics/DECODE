@@ -43,6 +43,8 @@ public class Turret {
     private double angle;
 
     private double correct_angle;
+
+    private double robot_heading;
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
         ///  INITIALIZING LIMELIGHT
@@ -113,9 +115,13 @@ public class Turret {
                 correct_angle = -angle;
             }
 
-            double robot_heading= Math.toDegrees(followerPose.getHeading()) - 90;
-            turret_offset = correct_angle - robot_heading;
-            raw_turret_offset_position = offset_to_position(turret_offset);
+            robot_heading= Math.toDegrees(followerPose.getHeading());
+
+
+            turret_offset = robot_heading; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
+            raw_turret_offset_position = degrees_to_position(turret_offset);
+
+
             if(raw_turret_offset_position > 800) {
                 correct_turret_offset_position = 800;
             } else if(raw_turret_offset_position < -743) {
@@ -160,9 +166,12 @@ public class Turret {
 
 
     ///  Takes the offset in degrees and turn it into a motor encoder reading
-    public double offset_to_position(double offset) {
+    public double degrees_to_position(double offset) {
         return offset / 360 * 3100;
 
+    }
+    public double position_to_degrees(double position) {
+        return (position * 360) / 3100;
     }
 
     public void set_using_LL(int ID) {
@@ -188,8 +197,11 @@ public class Turret {
     public void turret_telemetry() {
         telemetry.addData("Using LL", using_LL);
         telemetry.addData("Turret Position", turret.getCurrentPosition());
+        telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));
         telemetry.addData("turret offset", turret_offset);
-        telemetry.addData("turret", correct_turret_offset_position);
+        telemetry.addData("turret offset (position)", raw_turret_offset_position);
+        telemetry.addData("Filtered turret Offset(position", correct_turret_offset_position);
+        telemetry.addData("robot heading", robot_heading);
         telemetry.addData("angle", angle);
     }
 
