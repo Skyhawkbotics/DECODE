@@ -4,16 +4,27 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.teamcode.core.subsystems.Light;
+
 @TeleOp(name = "Light Test")
 public class LightTest extends OpMode {
-    private Servo light;
+    private boolean isFull = false;
+    private Light light;
     public void init() {
-        light = hardwareMap.get(Servo.class, "light");
+        light = new Light(hardwareMap, telemetry);
     }
+
     public void loop() {
-        double power = gamepad1.left_stick_y * 0.00025;
-        light.setPosition(light.getPosition() + power);
-        telemetry.addData("Position", light.getPosition());
+
+        isFull = light.isFull();
+
+        if (isFull) {
+            light.green();
+        } else {
+            light.red();
+        }
+
+        light.light_telemetry();
         telemetry.update();
     }
 

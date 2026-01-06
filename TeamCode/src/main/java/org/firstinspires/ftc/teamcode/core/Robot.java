@@ -7,46 +7,46 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.core.subsystems.Light;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
-import org.firstinspires.ftc.teamcode.core.subsystems.TurretNEW;
+import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
 public class Robot {
 
+    /// SUBSYSTEMS
     private Shooter shooter;
     private Intake intake;
-    private TurretNEW turretNEW;
+    private Turret turret;
+    private Light light;
+
+
+
+    private boolean parking = false;
     private int ID;
 
-
+    ///  ROBOT STUFF
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
     public static final Pose startPose = new Pose(56   ,8, Math.toRadians(90));
-
-    public static final Pose resetPose = new Pose(72   ,80, Math.toRadians(90));
-
-
-
-    private double pid_output = 0;
-
+    private Pose resetPose;
 
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
 
 
-    private double offset;
-    private double angle = 0;
+
     private boolean isred = true;
 
-    private Boolean using_turret = true;
+    private boolean updating_shooter = false, isFull = false, using_turret = true;
 
-    private double PID_output;
-
-    private double x, y, depot_distance;
-    private double v, s;
+    private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
 
 
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red) {
+    private double depot_distance;
+
+
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
 
@@ -55,11 +55,18 @@ public class Robot {
         this.dummyg1 = game1;
         this.dummyg2 = game2;
         this.isred = red;
+        this.resetPose = resetPose;
 
+
+
+        ///  CONSTRUCTORS
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turretNEW = new TurretNEW(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry);
+        light = new Light(hardwareMap, telemetry);
 
+
+        ///  GAMEPADS
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
@@ -71,6 +78,8 @@ public class Robot {
 
         this.ID = ID;
 
+
+        ///  angle intialization :3
         shooter.positionMax();
 
     }
@@ -82,10 +91,9 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turretNEW = new TurretNEW(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
-        turretNEW.reset_turret();
 
     }
 
@@ -96,7 +104,6 @@ public class Robot {
         follower.update();
         telemetry.update();
 
-        turretNEW.turret_update(0,  0);
 
     }
 
@@ -105,7 +112,12 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
-        if (g1.right_bumper) {
+
+
+        if(g1.leftBumperWasPressed()) {
+            parking =!parking;
+        }
+        if (parking) {
             double speedMultiplier = 0.3;
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
@@ -114,14 +126,8 @@ public class Robot {
         }
         // follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
 
-        if (ID == 24) {
-            x = turretNEW.calculate_X_distance(follower.getPose(), true);
-            y = turretNEW.calculate_Y_distance(follower.getPose(), true);
-        } else if (ID == 20) {
-            x = turretNEW.calculate_X_distance(follower.getPose(), false);
-            y = turretNEW.calculate_Y_distance(follower.getPose(), false);
-        }
-        depot_distance = Math.sqrt(x * x + y * y) * 2.54 / 100;
+
+        isFull = light.isFull();
 
 
 
@@ -133,7 +139,17 @@ public class Robot {
 
       //  }
 
+        depot_distance = shooter.getDistance(follower.getPose(), isred);
 
+        if (isFull) {
+            light.green();
+        } else {
+            light.red();
+        }
+
+
+
+        /// KRISTEN'S CONTROLS
         if (g1.left_trigger > 0) {
             intake.intake();
         }
@@ -148,12 +164,22 @@ public class Robot {
             follower.setPose(resetPose);
         }
 
-
-        if (g2.dpadUpWasPressed()) {
-            v = shooter.setShooterSpeed(depot_distance);
-            s = shooter.getShooterAngle(depot_distance);
-            shooter.setposition(s);
+        ///  TELEMETRY TOGGLES
+        if (g1.dpadLeftWasPressed()) {
+            turret_telemetry = !turret_telemetry;
         }
+        if (g1.dpadUpWasPressed()) {
+            light_telemetry = !light_telemetry;
+        }
+        if (g1.dpadRightWasPressed()) {
+            shooter_telemetry = !shooter_telemetry;
+        }
+        if (g1.dpadDownWasPressed()) {
+            robot_telemetry = !robot_telemetry;
+        }
+
+
+        ///  ABRAHAM'S CONTROLS
         if (g2.dpadDownWasPressed()) {
             if (depot_distance > 2.50) {
                 shooter.positionMax();
@@ -170,50 +196,39 @@ public class Robot {
             intake.fire();
         }
 
-
-        /* if (g2.dpadUpWasPressed()) {
-            shooter.perf_velocity();
-        } else if (g2.dpadDownWasPressed()) {
-            shooter.turnOFF();
-        } */
-
-
         if(g2.rightBumperWasPressed()) {///  RESET
-            turretNEW.reset_turret();
+        turret.reset_turret();
         }
 
         if(g2.bWasPressed()) {///  toggle the PID updating
-           turretNEW.turret_update_toggle();
+            using_turret = !using_turret;
+        }
+        if(using_turret) {
+            turret.turret_update(ID, follower.getPose());
         }
 
-
-        if(g2.y) {
-            PID_output = offset;
+        if(g2.dpadUpWasPressed()) {
+            updating_shooter = !updating_shooter;
+        }
+        if (updating_shooter) {
+            shooter.setShooterSpeed(depot_distance);
+            shooter.setShooterAngle(depot_distance);
         } else {
-            PID_output = 0;
+            shooter.turnOFF();
         }
-
         if (shooter.velocityReached()) {
             g2.rumble (200);
         }
 
 
-        turretNEW.turret_update(PID_output, g2.left_stick_x * 0.5);
-
-        offset = turretNEW.calculate_angle_offset(follower.getPose().getHeading(), angle);
-
-        angle = turretNEW.calculate_angle(follower.getPose(), isred);
     }
 
     public void robot_telemetry() {
-        //turretNEW.turret_telemetry();
-        telemetry.addData("offset", offset);
-        telemetry.addData("angle", angle);
         telemetry.addData("Follower Pose", follower.getPose());
         telemetry.addData("Distance from Depot", depot_distance);
 
-        telemetry.addData("CALCULATED ANGLE", s);
-        telemetry.addData("CALCULATED VELOCITY", v);
+        telemetry.addData("CALCULATED ANGLE", shooter.getAngle());
+        telemetry.addData("CALCULATED VELOCITY", shooter.getTarget());
 
     }
     public void robot_update () {
@@ -222,8 +237,6 @@ public class Robot {
         robot_telemetry();
         follower.update();
         telemetry.update();
-
-
     }
 
 
@@ -233,9 +246,7 @@ public class Robot {
     public Shooter getShooter() {
         return shooter;
     }
-   public TurretNEW getTurretNEW() {
-       return turretNEW;
-    }
+
     public Telemetry getTelemetry() {
         return telemetry;
     }

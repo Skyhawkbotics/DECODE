@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.bylazar.telemetry.PanelsTelemetry;
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -181,6 +182,28 @@ public class     Shooter {
     }
 
 
+    public double getDistance(Pose followerPose, Boolean isRed) {
+        Pose redPose = new Pose(144, 144);
+        Pose bluePose = new Pose(0, 144);
+        double distance;
+
+        if(isRed) {
+            double x_distance = redPose.getX() - followerPose.getX();
+            double y_distance = redPose.getY() - followerPose.getY();
+
+            distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
+
+        } else {
+            double x_distance = bluePose.getX() - followerPose.getX();
+            double y_distance = bluePose.getY() - followerPose.getY();
+            distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
+
+        }
+        return distance;
+
+    }
+
+
 
     ///  old motor
     public void increaseVelocity() {
@@ -226,6 +249,10 @@ public class     Shooter {
     }
     public int getVelocity() {
         return (int) left_motor.getVelocity();
+    }
+
+    public double getAngle() {
+        return servo.getPosition();
     }
 
     public boolean velocityReached() {

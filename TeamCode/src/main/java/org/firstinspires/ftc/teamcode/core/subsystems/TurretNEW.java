@@ -18,8 +18,8 @@ public class TurretNEW {
     private LL LL;
     private PIDController heading_turret_pid;
 
-        private Pose redPose = new Pose(133, 135, 0);
-    private Pose bluePose = new Pose(11, 135,0);
+        private Pose redPose = new Pose(137.20508166969148, 140.8638838475499, 0);
+    private Pose bluePose = new Pose(7.056261343012704, 140.8638838475499,0);
 
 
     private Boolean isUpdating = true;

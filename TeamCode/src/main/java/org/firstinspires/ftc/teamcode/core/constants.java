@@ -56,9 +56,9 @@ public class constants {
 
     ///  Limelight PID Controller
 
-    public static double lp = 0.02;
+    public static double lp = 0.01;
     public static double li = 0;
-    public static double ld = 0.00000;
+    public static double ld = 0.00001;
 
 
     /// Intake speed constants

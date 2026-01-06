@@ -13,7 +13,9 @@ public class TurretTest extends OpMode {
     private Turret turret;
 
     private Follower follower;
-    private Pose startPose = new Pose(71.97724039829302,71.70412517780939, Math.toRadians(90));
+
+    private int ID = 24;
+    private Pose startPose = new Pose(72.13067150635209,79.44827586206897, Math.toRadians(90));
     @Override
     public void init() {
         turret = new Turret(hardwareMap, telemetry);
@@ -24,12 +26,21 @@ public class TurretTest extends OpMode {
 
     @Override
     public void loop() {
-        turret.set_using_LL(24);
+        turret.set_using_LL(ID);
         if (gamepad1.x) {
-            turret.turret_update(24, follower.getPose());
+            turret.turret_update(ID, follower.getPose());
         } else {
             turret.set_power(0);
         }
+
+        if (gamepad1.yWasPressed()) {
+            if (ID == 24) {
+                ID = 20;
+            } else if(ID == 20) {
+                ID = 24;
+            }
+        }
+        telemetry.addData("ID", ID);
         turret.turret_telemetry();
         telemetry.update();
         follower.update();

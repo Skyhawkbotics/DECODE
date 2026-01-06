@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
+import com.pedropathing.geometry.Pose;
+
 public class shooterSpeed {
     public shooterSpeed() {
     }
@@ -15,7 +17,7 @@ public class shooterSpeed {
 
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
-        double shooter_constant = 1.3;
+        double shooter_constant = 1.15;
         double dampening_constant = 0.96;
         double sharpening_constant = 1.016;
 
@@ -50,26 +52,4 @@ public class shooterSpeed {
 
     }
 
-    public double newAngle(double d) {
-        double GRAVITY = 9.80665;
-        double h = 0.661 + 0.039;     // vertical distance
-        double v = 10.8;       // constant velocity
-
-        double A = v*v * d;
-        double B = -v*v * h;
-        double C = GRAVITY * d*d + v*v * h;
-
-        double R = Math.sqrt(A*A + B*B);
-        double phi = Math.atan2(B, A);
-
-        double theta = (Math.asin(C / R) - phi) / 2.0;  // in radians
-        double degrees = Math.toDegrees(theta); // in degrees
-        double servo_position =  -0.85 / 30 * degrees - 0.7;
-        // 0.15, 60
-        // 1, 30
-        // 60 0.15
-        // 30 1
-        // 0.15 - 1 / 60 - 30
-        return servo_position;
-    }
 }

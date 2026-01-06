@@ -26,10 +26,12 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(133, 135, 0);
+    private Pose redPose = new Pose(137.20508166969148, 143.73865698729583, 0);
     private Pose bluePose = new Pose(11, 135,0);
 
     private Telemetry telemetry;
+
+    private double LL_buffer = 250;
 
     private Boolean using_LL = false;
 
@@ -44,7 +46,9 @@ public class Turret {
 
     private double correct_angle;
 
-    private double robot_heading;
+    private double robot_offset_to_zero;
+
+    private Pose correctPose;
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
         ///  INITIALIZING LIMELIGHT
@@ -100,25 +104,24 @@ public class Turret {
             }
         } else {
             ///  heading update
-            Pose correctPose;
             if(ID == 24) {
                 correctPose = redPose;
             } else {
                 correctPose = bluePose;
             }
-            double x_distance = Math.abs(correctPose.getX() - followerPose.getX());
-            double y_distance = Math.abs(correctPose.getY() - followerPose.getY());
-            angle = 90 - Math.toDegrees(Math.atan2(y_distance, x_distance));
+            double x_distance = correctPose.getX() - followerPose.getX();
+            double y_distance = correctPose.getY() - followerPose.getY();
+            angle = Math.toDegrees(Math.atan(y_distance/x_distance));
             if(ID == 24) {
                 correct_angle = angle;
             } else {
-                correct_angle = -angle;
+                correct_angle = 180-(angle*-1); // makes angle positive for blue depot
             }
 
-            robot_heading= Math.toDegrees(followerPose.getHeading());
+            robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
 
 
-            turret_offset = robot_heading; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
+            turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
             raw_turret_offset_position = degrees_to_position(turret_offset);
 
 
@@ -139,32 +142,6 @@ public class Turret {
 
         }
     }
-
-
-    public double calculate_turret_angle_complementary(double angle, boolean isRED) {
-        double real_angle;
-        double correct_distance_angle;
-        if(isRED) {
-            real_angle = 90 - angle - 4;
-        } else {
-            real_angle = 90 - angle -4;
-        }
-        if(angle > 50) {
-            correct_distance_angle = real_angle - 5;
-        } else {
-            correct_distance_angle = real_angle;
-        }
-        double real_angle_position = correct_distance_angle; // takes the complementary angle
-        if(isRED) {
-            return real_angle_position;
-        } else {
-            return -real_angle_position;
-        }
-    }
-
-
-
-
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double degrees_to_position(double offset) {
         return offset / 360 * 3100;
@@ -187,7 +164,7 @@ public class Turret {
             }
         }
 
-        if(timer.getElapsedTime() > 100) {
+        if(timer.getElapsedTime() > LL_buffer) {
             using_LL = false;
         } else {
             using_LL = true;
@@ -201,23 +178,22 @@ public class Turret {
         telemetry.addData("turret offset", turret_offset);
         telemetry.addData("turret offset (position)", raw_turret_offset_position);
         telemetry.addData("Filtered turret Offset(position", correct_turret_offset_position);
-        telemetry.addData("robot heading", robot_heading);
+        telemetry.addData("robot heading", robot_offset_to_zero);
         telemetry.addData("angle", angle);
+        telemetry.addData("correct angle", correct_angle);
+        telemetry.addData("correct pose", correctPose);
     }
 
     public void set_power(double p) {
         turret.setPower(p);
     }
+    public void reset_turret() {
+        turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    }
+
     public void manual_update(double input) {
 
     }
-    /*
-    if (detect limelight based off a timer) {
-     limelight correction
-    } else {
-     heading correction
-    }
-     */
-
 
 }
