@@ -199,7 +199,7 @@ public class     Shooter {
             distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
 
         }
-        return distance;
+        return distance * 2.54 / 100;
 
     }
 

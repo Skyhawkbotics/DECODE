@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import static org.firstinspires.ftc.teamcode.core.constants.angle;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -38,7 +40,7 @@ public class Robot {
 
     private boolean isred = true;
 
-    private boolean updating_shooter = false, isFull = false, using_turret = true;
+    private boolean updating_shooter = false, isFull = false, using_turret = false;
 
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
 
@@ -129,6 +131,8 @@ public class Robot {
 
         isFull = light.isFull();
 
+        turret.set_using_LL(ID);
+
 
 
        // if (g1.right_bumper) {
@@ -200,11 +204,15 @@ public class Robot {
         turret.reset_turret();
         }
 
-        if(g2.bWasPressed()) {///  toggle the PID updating
+        if(g2.dpadRightWasPressed()) {///  toggle the PID updating
             using_turret = !using_turret;
         }
+
         if(using_turret) {
             turret.turret_update(ID, follower.getPose());
+        } else {
+            turret.set_power(g2.left_trigger * 0.25);
+            ///  pls return to normal :(
         }
 
         if(g2.dpadUpWasPressed()) {
@@ -217,22 +225,31 @@ public class Robot {
             shooter.turnOFF();
         }
         if (shooter.velocityReached()) {
-            g2.rumble (200);
+            g2.rumble (1000);
         }
 
 
     }
 
     public void robot_telemetry() {
-        telemetry.addData("Follower Pose", follower.getPose());
-        telemetry.addData("Distance from Depot", depot_distance);
 
-        telemetry.addData("CALCULATED ANGLE", shooter.getAngle());
-        telemetry.addData("CALCULATED VELOCITY", shooter.getTarget());
+        if (robot_telemetry) {
+            telemetry.addData("Follower Pose", follower.getPose());
+            telemetry.addData("Distance from Depot", depot_distance);
+        }
+        if (turret_telemetry) {
+            turret.turret_telemetry();
+            telemetry.addData("Using Turret", using_turret);
+        }
+        if (light_telemetry) {
+            light.light_telemetry();
+        }
+        if (shooter_telemetry) {
+            shooter.shooter_telemetry();
+        }
 
     }
     public void robot_update () {
-        shooter.shooter_telemetry();
         shooter.update();
         robot_telemetry();
         follower.update();
