@@ -100,9 +100,12 @@ public class Robot {
     }
 
     public void autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        turret.turret_telemetry();
         shooter.shooter_telemetry();
+        turret.turret_update(ID, follower.getPose());
         shooter.update();
-        robot_telemetry();
         follower.update();
         telemetry.update();
 
@@ -255,6 +258,7 @@ public class Robot {
         follower.update();
         telemetry.update();
     }
+
 
 
     public Follower getFollower() {

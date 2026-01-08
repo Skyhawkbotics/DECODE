@@ -33,7 +33,7 @@ public class Turret {
 
     private double LL_buffer = 250;
 
-    private Boolean using_LL = false;
+    private Boolean using_LL = false, manual_turret = false;
 
     private Timer timer = new Timer();
 
@@ -49,6 +49,7 @@ public class Turret {
     private double robot_offset_to_zero;
 
     private Pose correctPose;
+
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
         ///  INITIALIZING LIMELIGHT
@@ -76,70 +77,75 @@ public class Turret {
     public void turret_update(int ID, Pose followerPose) {
 
         double ll_pid_output;
-        if (using_LL) {
-            LLResult result = ll.getLatestResult();
 
-            if (result.isValid()) {
-                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-                for (LLResultTypes.FiducialResult fr : fiducialResults) {
-                    if (fr.getFiducialId() == ID) {
-                        timer.resetTimer();
-                        ll_pid.setPID(lp, li, ld);
-                        double sign = Math.signum(-result.getTx());
-                        ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+        if (!manual_turret) {
+            if (using_LL) {
+                LLResult result = ll.getLatestResult();
 
-                        if ((turret.getCurrentPosition() <= left_limit) &&
-                                (Math.signum(ll_pid_output) == -1)) {
-                            turret.setPower(0);
-                        } else if ((turret.getCurrentPosition() >= right_limit) &&
-                                (Math.signum(ll_pid_output) == 1)) {
-                            turret.setPower(0);
-                        } else {
-                            turret.setPower(ll_pid_output);
+                if (result.isValid()) {
+                    List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                    for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                        if (fr.getFiducialId() == ID) {
+                            timer.resetTimer();
+                            ll_pid.setPID(lp, li, ld);
+                            double sign = Math.signum(-result.getTx());
+                            ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+
+                            if ((turret.getCurrentPosition() <= left_limit) &&
+                                    (Math.signum(ll_pid_output) == -1)) {
+                                turret.setPower(0);
+                            } else if ((turret.getCurrentPosition() >= right_limit) &&
+                                    (Math.signum(ll_pid_output) == 1)) {
+                                turret.setPower(0);
+                            } else {
+                                turret.setPower(ll_pid_output);
+                            }
+
+                            telemetry.addData("LL PID OUTPUT", ll_pid_output);
                         }
-
-                        telemetry.addData("LL PID OUTPUT", ll_pid_output);
                     }
                 }
+            } else {
+                ///  heading update
+                if (ID == 24) {
+                    correctPose = redPose;
+                } else {
+                    correctPose = bluePose;
+                }
+                double x_distance = correctPose.getX() - followerPose.getX();
+                double y_distance = correctPose.getY() - followerPose.getY();
+                angle = Math.toDegrees(Math.atan(y_distance / x_distance));
+                if (ID == 24) {
+                    correct_angle = angle;
+                } else {
+                    correct_angle = 180 - (angle * -1); // makes angle positive for blue depot
+                }
+
+                robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
+
+
+                turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
+                raw_turret_offset_position = degrees_to_position(turret_offset);
+
+
+                if (raw_turret_offset_position > 800) {
+                    correct_turret_offset_position = 800;
+                } else if (raw_turret_offset_position < -743) {
+                    correct_turret_offset_position = -743;
+                } else {
+                    correct_turret_offset_position = raw_turret_offset_position;
+                }
+
+
+                t_pid.setPID(turret_p, turret_i, turret_d);
+                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
+                turret.setPower(pid_output);
+
+
             }
         } else {
-            ///  heading update
-            if(ID == 24) {
-                correctPose = redPose;
-            } else {
-                correctPose = bluePose;
-            }
-            double x_distance = correctPose.getX() - followerPose.getX();
-            double y_distance = correctPose.getY() - followerPose.getY();
-            angle = Math.toDegrees(Math.atan(y_distance/x_distance));
-            if(ID == 24) {
-                correct_angle = angle;
-            } else {
-                correct_angle = 180-(angle*-1); // makes angle positive for blue depot
-            }
-
-            robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
-
-
-            turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
-            raw_turret_offset_position = degrees_to_position(turret_offset);
-
-
-            if(raw_turret_offset_position > 800) {
-                correct_turret_offset_position = 800;
-            } else if(raw_turret_offset_position < -743) {
-                correct_turret_offset_position = -743;
-            } else {
-                correct_turret_offset_position = raw_turret_offset_position;
-            }
-
-
-            t_pid.setPID(turret_p, turret_i, turret_d);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
-            turret.setPower(pid_output);
-
-
+            ///  manual move
         }
     }
     ///  Takes the offset in degrees and turn it into a motor encoder reading
@@ -175,13 +181,13 @@ public class Turret {
         telemetry.addData("Using LL", using_LL);
         telemetry.addData("Turret Position", turret.getCurrentPosition());
         telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));
-        telemetry.addData("turret offset", turret_offset);
-        telemetry.addData("turret offset (position)", raw_turret_offset_position);
+        //  telemetry.addData("turret offset", turret_offset);
+      //  telemetry.addData("turret offset (position)", raw_turret_offset_position);
         telemetry.addData("Filtered turret Offset(position", correct_turret_offset_position);
-        telemetry.addData("robot heading", robot_offset_to_zero);
-        telemetry.addData("angle", angle);
+       // telemetry.addData("robot heading", robot_offset_to_zero);
+       // telemetry.addData("angle", angle);
         telemetry.addData("correct angle", correct_angle);
-        telemetry.addData("correct pose", correctPose);
+       // telemetry.addData("correct pose", correctPose);
     }
 
     public void set_power(double p) {
