@@ -104,7 +104,7 @@ public class Robot {
         telemetry.addData("Current Path", follower.getCurrentPath());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-        turret.turret_update(ID, follower.getPose());
+        turret.turret_update(ID, follower.getPose(), 0);
         shooter.update();
         follower.update();
         telemetry.update();
@@ -202,20 +202,17 @@ public class Robot {
         if (g2.right_trigger > 0) {
             intake.fire();
         }
-
-        if(g2.rightBumperWasPressed()) {///  RESET
-        turret.reset_turret();
+        if(g2.rightBumperWasPressed()) {
+            turret.reset_turret();
         }
 
-        if(g2.dpadRightWasPressed()) {///  toggle the PID updating
-            using_turret = !using_turret;
-        }
-
-        if(using_turret) {
-            turret.turret_update(ID, follower.getPose());
+        if(g2.triangle) { //
+            turret.set_using_turret_true();
         } else {
-            turret.set_power(g2.left_trigger * 0.25);
-            ///  pls return to normal :(
+            turret.set_using_turret_false();
+        }
+        if(g2.circleWasPressed()) {
+            turret.toggle_manual_turret();
         }
 
         if(g2.dpadUpWasPressed()) {
