@@ -214,7 +214,7 @@ public class Robot {
         if(g2.circleWasPressed()) {
             turret.toggle_manual_turret();
         }
-
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
         if(g2.dpadUpWasPressed()) {
             updating_shooter = !updating_shooter;
         }

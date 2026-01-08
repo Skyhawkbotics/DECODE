@@ -33,7 +33,7 @@ public class Turret {
 
     private double LL_buffer = 250;
 
-    private Boolean using_LL = false, manual_turret = false, using_turret = true;
+    private Boolean using_LL = true, manual_turret = false, using_turret = true;
 
     private Timer timer = new Timer();
 
@@ -78,7 +78,7 @@ public class Turret {
 
         double ll_pid_output;
 
-        if(using_turret) {
+      //  if(using_turret) {
             if (!manual_turret) {
                 if (using_LL) {
                     LLResult result = ll.getLatestResult();
@@ -148,12 +148,14 @@ public class Turret {
             } else {
                 turret.setPower(manual_input * 0.4);
             }
-        } else { ///  set to 0 when not using
+        /*} else if(!using_turret){ ///  set to 0 when not using
             t_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             double pid_output = t_pid.calculate(turret.getCurrentPosition(), 0);
             turret.setPower(pid_output);
         }
+
+         */
     }
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double degrees_to_position(double offset) {
@@ -195,6 +197,9 @@ public class Turret {
        // telemetry.addData("angle", angle);
         telemetry.addData("correct angle", correct_angle);
        // telemetry.addData("correct pose", correctPose);
+        telemetry.addData("manual turret", manual_turret);
+        telemetry.addData("using turret", using_turret);
+
     }
 
     public void set_power(double p) {
