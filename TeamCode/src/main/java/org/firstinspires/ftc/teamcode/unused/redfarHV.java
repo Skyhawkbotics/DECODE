@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.unused;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -12,10 +12,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Blue;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Blue_Far;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

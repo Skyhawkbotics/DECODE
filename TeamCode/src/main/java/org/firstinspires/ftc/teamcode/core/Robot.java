@@ -85,6 +85,20 @@ public class Robot {
         shooter.positionMax();
 
     }
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID) {/// FOR AUTO
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+        follower.setStartingPose(startPose);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry);
+        follower.update();
+        intake.servosIn();
+        this.ID = ID;
+
+    }
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -98,6 +112,7 @@ public class Robot {
         intake.servosIn();
 
     }
+
 
     public void autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());

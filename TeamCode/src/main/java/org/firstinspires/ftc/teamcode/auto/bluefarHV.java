@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Blue_Far;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
@@ -102,7 +103,7 @@ public class bluefarHV extends OpModeCommand {
                                 .andThen (new WaitCommand(3000))
                                 .andThen (new Shooter_off(bot))
 
-                       /* /// this section intakes and scores load1
+                        /// this section intakes and scores load1
                                 .andThen(new FollowPath(bot.getFollower(),get2balls))
                                 .andThen (new WaitCommand(500))// to get ready to posit
                                 .andThen(new FollowPath(bot.getFollower(),intake1, 0.5)) /// need intake
@@ -137,7 +138,9 @@ public class bluefarHV extends OpModeCommand {
                                 .andThen (new Shooter_off(bot))
                                 .andThen (new FollowPath(bot.getFollower(),end))
 
-                */));
+                ));
     }
 
 }
+
+

@@ -79,7 +79,6 @@ public class Turret {
         double ll_pid_output;
 
       //  if(using_turret) {
-            if (!manual_turret) {
                 if (using_LL) {
                     LLResult result = ll.getLatestResult();
 
@@ -145,9 +144,7 @@ public class Turret {
 
 
                 }
-            } else {
-                turret.setPower(manual_input * 0.4);
-            }
+
         /*} else if(!using_turret){ ///  set to 0 when not using
             t_pid.setPID(turret_p, turret_i, turret_d);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
