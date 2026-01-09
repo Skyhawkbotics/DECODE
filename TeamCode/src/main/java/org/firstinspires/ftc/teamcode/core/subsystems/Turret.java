@@ -78,7 +78,7 @@ public class Turret {
 
         double ll_pid_output;
 
-      //  if(using_turret) {
+        if(!manual_turret) {
                 if (using_LL) {
                     LLResult result = ll.getLatestResult();
 
@@ -136,7 +136,6 @@ public class Turret {
                         correct_turret_offset_position = raw_turret_offset_position;
                     }
 
-
                     t_pid.setPID(turret_p, turret_i, turret_d);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
@@ -145,22 +144,25 @@ public class Turret {
 
                 }
 
-        /*} else if(!using_turret){ ///  set to 0 when not using
-            t_pid.setPID(turret_p, turret_i, turret_d);
-            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-            double pid_output = t_pid.calculate(turret.getCurrentPosition(), 0);
-            turret.setPower(pid_output);
+        } else if(manual_turret) {
+            turret.setPower(manual_input);
         }
 
-         */
     }
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double degrees_to_position(double offset) {
         return offset / 360 * 3100;
 
     }
+
     public double position_to_degrees(double position) {
         return (position * 360) / 3100;
+    }
+
+    public void toZero() {
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        turret.setTargetPosition(0);
+        turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void set_using_LL(int ID) {

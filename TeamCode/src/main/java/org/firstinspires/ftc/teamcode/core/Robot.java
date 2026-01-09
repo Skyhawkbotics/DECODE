@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import static org.firstinspires.ftc.teamcode.core.constants.angle;
+
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -102,7 +104,7 @@ public class Robot {
 
     }
 // Tele - Op Update
-    public void robot_update () {
+    public void robot_update() {
         shooter.update();
         robot_telemetry();
         follower.update();
@@ -131,6 +133,7 @@ public class Robot {
         shooter.update();
         follower.update();
         telemetry.update();
+
 
     }
 
@@ -187,8 +190,6 @@ public class Robot {
         ///  ABRAHAM'S CONTROLS
 
 
-
-
         if (g2.right_trigger > 0) {
             intake.fire();
         }
@@ -197,17 +198,16 @@ public class Robot {
         if(g2.rightBumperWasPressed()) {
             turret.reset_turret();
         }
-        if(g2.triangle) { //
-            turret.set_using_turret_true();
-        } else {
-            turret.set_using_turret_false();
-        }
-        if(g2.circleWasPressed()) {
+
+        if(g2.squareWasPressed()) {
             turret.toggle_manual_turret();
 
         }
         turret.set_using_LL(ID);
         turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
+        if (g2.triangleWasPressed()) {
+            turret.toZero();
+        }
 
 
 
@@ -226,21 +226,12 @@ public class Robot {
         } else {
             shooter.turnOFF();
         }
-        if (g2.dpadDownWasPressed()) {
-            if (depot_distance > 2.50) {
-                shooter.positionMax();
-            } else if (depot_distance < 2.50) {
-                shooter.positionMin();
-            }
-        }
 
 
 
         if (shooter.velocityReached()) {
             g2.rumble (1000);
         }
-
-
     }
     public void solo_drive() {
         prevg1.copy(g1);
@@ -339,9 +330,12 @@ public class Robot {
         if (shooter.velocityReached()) {
             g2.rumble (1000);
         }
+
+
     }
 
     public void robot_telemetry() {
+
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
             telemetry.addData("Distance from Depot", depot_distance);
@@ -358,11 +352,6 @@ public class Robot {
         }
 
     }
-
-
-
-
-
 
 
     public Follower getFollower() {
