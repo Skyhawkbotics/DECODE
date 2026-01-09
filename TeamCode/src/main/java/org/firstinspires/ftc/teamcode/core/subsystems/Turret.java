@@ -187,16 +187,15 @@ public class Turret {
         telemetry.addData("Using LL", using_LL);
         telemetry.addData("Turret Position", turret.getCurrentPosition());
         telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));
-        //  telemetry.addData("turret offset", turret_offset);
-      //  telemetry.addData("turret offset (position)", raw_turret_offset_position);
         telemetry.addData("Filtered turret Offset(position", correct_turret_offset_position);
-       // telemetry.addData("robot heading", robot_offset_to_zero);
-       // telemetry.addData("angle", angle);
         telemetry.addData("correct angle", correct_angle);
-       // telemetry.addData("correct pose", correctPose);
         telemetry.addData("manual turret", manual_turret);
         telemetry.addData("using turret", using_turret);
-
+        // telemetry.addData("correct pose", correctPose);
+        // telemetry.addData("robot heading", robot_offset_to_zero);
+        // telemetry.addData("angle", angle);
+        //  telemetry.addData("turret offset", turret_offset);
+        //  telemetry.addData("turret offset (position)", raw_turret_offset_position);
     }
 
     public void set_power(double p) {

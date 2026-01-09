@@ -33,7 +33,7 @@ public class blue_drive_far extends OpMode {
     @Override
     public void loop() {
         robot.robot_update();
-        robot.solo_drive();
+        robot.dual_drive();
         robot.robot_telemetry();
     }
 }

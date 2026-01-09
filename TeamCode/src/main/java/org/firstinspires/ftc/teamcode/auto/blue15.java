@@ -22,15 +22,17 @@ public class blue15 extends OpModeCommand {
     Robot bot;
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
-    public static final Pose startpose = new Pose(26.85530546623794, 128.7202572347267, Math.toRadians(315));
-    public final Pose preloads = new Pose(56.2572347266881, 85.89067524115754, Math.toRadians(315));
+    public static final Pose startpose = new Pose(28.446465687232415, 132.43296441704715, Math.toRadians(234));
+    public final Pose preloads = new Pose(56.2572347266881, 85.89067524115754, Math.toRadians(234));
     public final Pose posit = new Pose(55.562700964630224, 59.49839228295819, Math.toRadians(180));
     public final Pose grab1 = new Pose(20.372990353697748, 59.72990353697749, Math.toRadians(180));
     public final Pose shoot1 = new Pose(56.72025723472669, 85.89067524115754, Math.toRadians(180));
-    public final Pose grab2 = new Pose(19.215434083601288, 83.34405144694534, Math.toRadians(180));
-    public final Pose shoot2 = new Pose(42.135048231511256, 100.0128617363344, Math.toRadians(180));
     public final Pose posit2gate = new Pose(16.668810289389068, 60.655948553054664, Math.toRadians(130));
     public final Pose opengate = new Pose(12.038585209003216, 61.11897106109325, Math.toRadians(130));
+
+    public final Pose grab2 = new Pose(19.215434083601288, 83.34405144694534, Math.toRadians(180));
+    public final Pose shoot2 = new Pose(42.135048231511256, 100.0128617363344, Math.toRadians(180));
+
     public final Pose shoot3 = new Pose(45.60771704180064, 91.67845659163989, Math.toRadians(130));
     public final Pose posit2 = new Pose(44.450160771704184, 35.884244372990345, Math.toRadians(180));
     public final Pose grab4 = new Pose(19.215434083601288, 34.958199356913184, Math.toRadians(180));

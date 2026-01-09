@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -31,7 +30,7 @@ public class red_drive_far extends OpMode {
     public void loop() {
         robot.robot_update();
 
-        robot.solo_drive();
+        robot.dual_drive();
         robot.robot_telemetry();
     }
 }

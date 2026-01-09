@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Teleop;
 
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
@@ -33,7 +31,7 @@ public class blue_drive_close extends OpMode {
     @Override
     public void loop() {
         robot.robot_update();
-        robot.solo_drive();
+        robot.dual_drive();
         robot.robot_telemetry();
     }
 }
