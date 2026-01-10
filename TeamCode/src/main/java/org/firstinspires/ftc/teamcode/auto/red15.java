@@ -34,8 +34,8 @@ public class red15 extends OpModeCommand {
     public final Pose posit2gate = new Pose (116.67,61.32, Math.toRadians(45));
     public final Pose opengate = new Pose (128.95,60.32, Math.toRadians(45));
     public final Pose grab2 = new Pose (125.95, 51.72, Math.toRadians(45));
-    public final Pose posit2 = new Pose (89.59485530546624,67.13826366559485, Math.toRadians(40));
-    public final Pose shoot2 = new Pose (89.36334405144694,87.2700964630225, Math.toRadians(0));
+    public final Pose posit2 = new Pose (89.59485530546624,67.13826366559485, Math.toRadians(45));
+    public final Pose shoot2 = new Pose (89.36334405144694,87.2700964630225, Math.toRadians(45));
     public final Pose grab3 = new Pose (112.5144694533762,84.03858520900323, Math.toRadians(0));
     public final Pose shoot3 = new Pose (100.2443729903537,94.91961414790998, Math.toRadians(0));
     public final Pose posit3 = new Pose (98.17041800643086,39.884244372990345, Math.toRadians(0));
@@ -52,10 +52,10 @@ public class red15 extends OpModeCommand {
          position.setLinearHeadingInterpolation(preloads.getHeading(),posit.getHeading());
 
          intake1 = new Path (new BezierLine(posit,grab1));
-         intake1.setConstantHeadingInterpolation(Math.toRadians(0));
+         intake1.setConstantHeadingInterpolation(Math.toRadians(180));
 
          score1 = new Path (new BezierLine(grab1, shoot1));
-         score1.setConstantHeadingInterpolation(Math.toRadians(0));
+         score1.setConstantHeadingInterpolation(Math.toRadians(180));
 
          gateposition = new Path (new BezierLine(shoot1, posit2gate));
          gateposition.setLinearHeadingInterpolation(shoot1.getHeading(), posit2gate.getHeading());
@@ -83,7 +83,7 @@ public class red15 extends OpModeCommand {
          position3 = new Path (new BezierLine(shoot3, posit3));
          position3.setLinearHeadingInterpolation(shoot3.getHeading(),posit3.getHeading());
 
-         intake4 = new Path (new BezierLine(posit2, grab4));
+         intake4 = new Path (new BezierLine(posit3, grab4));
          intake4.setConstantHeadingInterpolation(Math.toRadians(0));
 
          score4 = new Path (new BezierLine(grab4, shoot4));
