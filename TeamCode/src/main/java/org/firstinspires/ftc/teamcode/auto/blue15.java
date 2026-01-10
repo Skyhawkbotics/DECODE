@@ -15,12 +15,11 @@ import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
-import org.opencv.core.Mat;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "blue15", group = "blue")
+@Autonomous (name = "blue 15", group = "blue")
 public class blue15 extends OpModeCommand {
     Robot bot;
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
@@ -41,10 +40,10 @@ public class blue15 extends OpModeCommand {
     public final Pose shoot2 = new Pose(54.645048231511256, 96, Math.toRadians(140));
     public final Pose positwhat = new Pose (49,84.038585, Math.toRadians(180));
     public final Pose grab3 = new Pose (20.4944694533762,84.03858520900323, Math.toRadians(180));
-    public final Pose shoot3 = new Pose(47.13357400722022, 96, Math.toRadians(132));
+    public final Pose shoot3 = new Pose(47.13357400722022, 96, Math.toRadians(140));
     public final Pose posit3 = new Pose(44, 39.884244372990345, Math.toRadians(180));
     public final Pose grab4 = new Pose(20.155434083601288, 39.884244372990345, Math.toRadians(180));
-    public final Pose shoot4 = new Pose(47.13357400722022, 96, Math.toRadians(132));
+    public final Pose shoot4 = new Pose(47.13357400722022, 96, Math.toRadians(140));
     public final Pose end = new Pose (35.87003610108303, 80.05776173285199, Math.toRadians(129));
 
     private Path scorepres, position, intake1, score1, intake2, intake3, position3, score2, gateposition, kaimen, score3, endme, intake4,score4, leave, posit4intake3;
