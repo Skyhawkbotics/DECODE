@@ -126,8 +126,6 @@ public class Robot {
         turret.turret_telemetry();
         shooter.shooter_telemetry();
 
-        turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0);
 
 
         shooter.update();
