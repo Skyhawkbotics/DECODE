@@ -145,7 +145,18 @@ public class Turret {
                 }
 
         } else if(manual_turret) {
-            turret.setPower(manual_input);
+
+            manual_input *= 0.5;
+
+            if ((turret.getCurrentPosition() <= left_limit) &&
+                    (Math.signum(manual_input) == -1)) {
+                turret.setPower(0);
+            } else if ((turret.getCurrentPosition() >= right_limit) &&
+                    (Math.signum(manual_input) == 1)) {
+                turret.setPower(0);
+            } else {
+                turret.setPower(manual_input);
+            }
         }
 
     }
