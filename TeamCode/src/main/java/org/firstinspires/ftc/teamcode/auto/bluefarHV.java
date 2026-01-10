@@ -9,6 +9,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
@@ -22,6 +23,7 @@ import ftclib.OpModeCommand;
 
 /// I lowkenuinely just mirrored all the points and headings from red side, i'll test tmr and make changes
 @Autonomous(name = "blueFARHV", group = "Blue")
+@Disabled
 public class bluefarHV extends OpModeCommand {
     Robot bot;
 

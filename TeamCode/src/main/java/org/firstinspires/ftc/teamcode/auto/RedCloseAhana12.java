@@ -13,6 +13,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
@@ -24,6 +25,7 @@ import ftclib.HoldPoint;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "12 Red Close", group = "gf")
+@Disabled
 public class RedCloseAhana12 extends OpModeCommand {
     Robot bot;
 

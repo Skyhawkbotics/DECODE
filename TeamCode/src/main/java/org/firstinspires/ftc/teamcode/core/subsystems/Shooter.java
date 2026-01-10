@@ -176,6 +176,10 @@ public class     Shooter {
         // increments servo
         servo.setPosition(servo.getPosition() - 0.01);
     }
+    public void setPos(double pos) {
+        // increments servo
+        servo.setPosition(pos);
+    }
 
     public void decreasePosition() {
         servo.setPosition(servo.getPosition() - 0.1);

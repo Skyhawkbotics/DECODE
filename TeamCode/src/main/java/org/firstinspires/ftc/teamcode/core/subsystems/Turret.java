@@ -74,7 +74,7 @@ public class Turret {
 
     ///  24 is red, 20 is blue
 
-    public void turret_update(int ID, Pose followerPose, float manual_input) {
+    public void turret_update(int ID, Pose followerPose, float manual_input, int isZero) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
 
@@ -138,7 +138,7 @@ public class Turret {
 
                     t_pid.setPID(turret_p, turret_i, turret_d);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
+                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position * isZero);
                     turret.setPower(pid_output);
 
 

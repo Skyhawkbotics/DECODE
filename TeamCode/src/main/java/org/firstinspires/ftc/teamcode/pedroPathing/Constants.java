@@ -22,7 +22,7 @@ public class Constants {
             .lateralZeroPowerAcceleration(85.9601893788)
             .translationalPIDFCoefficients(new PIDFCoefficients(0.2, 0, 0.02, 0))
             .headingPIDFCoefficients(new PIDFCoefficients(0.85, 0, 0, 0.01))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.007,0, 0.0005,0.95,0));
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.006,0, 0.0005,0.95,0));
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
             .rightFrontMotorName("right_front")
@@ -45,7 +45,7 @@ public class Constants {
             .forwardEncoderDirection(GoBildaPinpointDriver.EncoderDirection.FORWARD)
             .strafeEncoderDirection(GoBildaPinpointDriver.EncoderDirection.REVERSED);
 
-    public static PathConstraints pathConstraints = new PathConstraints(0.95, 100, 1, 1.25);
+    public static PathConstraints pathConstraints = new PathConstraints(0.95, 100, 1.1, 1.25);
 
     public static Follower createFollower(HardwareMap hardwareMap) {
         return new FollowerBuilder(followerConstants, hardwareMap)

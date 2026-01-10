@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Light;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
+import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
 import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -21,6 +22,7 @@ public class Robot {
     private Intake intake;
     private Turret turret;
     private Light light;
+    private Tilt tilt;
     ///  ROBOT STUFF
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -32,6 +34,7 @@ public class Robot {
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
+
 
 
     // Tele-OP Constructor
@@ -53,6 +56,7 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
 
 
         ///  GAMEPADS
@@ -126,6 +130,8 @@ public class Robot {
         turret.turret_telemetry();
         shooter.shooter_telemetry();
 
+        turret.set_using_LL(ID);
+        turret.turret_update(ID, follower.getPose(), 0, 0);
 
 
         shooter.update();
@@ -153,6 +159,14 @@ public class Robot {
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
             follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+        }
+
+        if(g1.cross) {
+            tilt.tilt();
+        } else if(g1.triangle)
+            tilt.reverse_tilt();
+        else {
+            tilt.stop_tilt();
         }
 
         if (g1.left_trigger > 0) {
@@ -202,7 +216,7 @@ public class Robot {
 
         }
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 1);
         if (g2.triangleWasPressed()) {
             turret.toZero();
         }
@@ -311,7 +325,7 @@ public class Robot {
 
 
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 1);
 
 
 
