@@ -11,7 +11,9 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
@@ -35,6 +37,14 @@ public class blue15 extends OpModeCommand {
     public final Pose posit2gate = new Pose(23, 68, Math.toRadians(180));
     public final Pose opengate = new Pose(10, 68, Math.toRadians(180));
 
+
+
+
+    public final Pose posit2gate_intake = new Pose(23, 60, Math.toRadians(130));
+
+    public final Pose opengate_intake = new Pose(6, 60, Math.toRadians(130));
+
+
     public final Pose grab2 = new Pose(16.215434083601288, 54.72, Math.toRadians(135));
     //public final Pose posit2 = new Pose (54.41,67.13826366559485, Math.toRadians(180));
     public final Pose shoot2 = new Pose(54.645048231511256, 96, Math.toRadians(140));
@@ -47,6 +57,7 @@ public class blue15 extends OpModeCommand {
     public final Pose end = new Pose (35.87003610108303, 80.05776173285199, Math.toRadians(129));
 
     private Path scorepres, position, intake1, score1, intake2, intake3, position3, score2, gateposition, kaimen, score3, endme, intake4,score4, leave, posit4intake3;
+    private Path go_to_intake_from_gate, intake_from_gate, score_gate;
     public void buildPaths(){
         scorepres = new Path (new BezierLine(startpose,preloads));
         scorepres.setLinearHeadingInterpolation(startpose.getHeading(), preloads.getHeading());
@@ -71,6 +82,14 @@ public class blue15 extends OpModeCommand {
         score1 = new Path (new BezierCurve(opengate, tempostshoot1, shoot1));
         score1.setLinearHeadingInterpolation(opengate.getHeading(), shoot1.getHeading());
 
+        go_to_intake_from_gate = new Path(new BezierCurve(shoot1, tempostshoot1, posit2gate_intake));
+        go_to_intake_from_gate.setLinearHeadingInterpolation(shoot1.getHeading(), posit2gate_intake.getHeading());
+
+        intake_from_gate = new Path (new BezierLine(posit2gate_intake, opengate_intake ));
+        intake_from_gate.setConstantHeadingInterpolation(posit2gate_intake.getHeading());
+
+        score_gate = new Path (new BezierCurve(opengate_intake, tempostshoot1, shoot1));
+        score_gate.setLinearHeadingInterpolation(opengate_intake.getHeading(), shoot1.getHeading());
 
 
 
@@ -160,40 +179,32 @@ public class blue15 extends OpModeCommand {
                                         new Intake_on(bot)
                                 )
                                 .andThen(
-                                        new Shooter_off(bot)
-                                )
-                               /* ///open gate and intakeset
-                                .andThen(new FollowPath(bot.getFollower(), gateposition))
-
-                                .andThen(
-                                        new FollowPath(bot.getFollower(),kaimen, 0.5)
-                                                .alongWith(new Intake_on_long(bot))
-                                                .raceWith(new WaitCommand(1500)
-                                ))
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), intake2,.5)
-                                                .alongWith(new Intake_on_long(bot))
+                                        new FollowPath(bot.getFollower(), go_to_intake_from_gate)
+                                                .alongWith(new Shooter_off(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new FollowPath(bot.getFollower(), intake_from_gate)
+                                                .alongWith(new Intake_on_forever(bot))
+                                                .raceWith(new WaitCommand(2500))
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), score2)
+                                        new WaitCommand(1000)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), score_gate)
+                                                .alongWith(new Intake_off(bot))
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
-                                .andThen(new WaitCommand(500))
                                 .andThen(
                                         new Intake_on(bot)
                                 )
-                                .andThen (
-                                        new WaitCommand(500))
-                                .andThen(
-                                        new Shooter_off(bot))
-*/
 
                                 /// intake and score third set
                                 .andThen(
                                         new FollowPath(bot.getFollower(), posit4intake3, 0.7)
+                                                .alongWith(
+                                                        new Shooter_off(bot)
+                                                )
                                 ).andThen(
                                         new FollowPath(bot.getFollower(),intake3, 0.85)
                                                 .alongWith(new Intake_on_long(bot))

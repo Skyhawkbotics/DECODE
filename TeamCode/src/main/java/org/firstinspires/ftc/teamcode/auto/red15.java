@@ -40,9 +40,12 @@ public class red15 extends OpModeCommand {
     public final Pose shoot1 = new Pose (90,87, Math.toRadians(49));
 
 
-    public final Pose posit2gate_intake = new Pose (116.67,60, Math.toRadians(45));
+    public final Pose posit2gate_intake = new Pose (116.67,60, Math.toRadians(34));
 
-    public final Pose opengate_intake = new Pose (128.95,60, Math.toRadians(45));
+//    public final Pose opengate_intake = new Pose (128.95,61, Math.toRadians(30));
+
+    public final Pose opengate_intake = new Pose (131.5,61, Math.toRadians(34));
+
     public final Pose grab2 = new Pose (125.95, 51.72, Math.toRadians(0));
     public final Pose posit2 = new Pose (90,67.13826366559485, Math.toRadians(49));
     public final Pose shoot2 = new Pose (90,87, Math.toRadians(46));
@@ -50,8 +53,8 @@ public class red15 extends OpModeCommand {
 
     public final Pose beforegrab3 = new Pose(95, 83.69675090252709, 0);
     public final Pose shoot3 = new Pose (90,87, Math.toRadians(46));
-    public final Pose posit3 = new Pose (95,39.884244372990345, Math.toRadians(0));
-    public final Pose grab4 = new Pose (115,39.884244372990345, Math.toRadians(0));
+    public final Pose posit3 = new Pose (90,39.884244372990345, Math.toRadians(0));
+    public final Pose grab4 = new Pose (120,39.884244372990345, Math.toRadians(0));
     public final Pose shoot4 = new Pose (90,87, Math.toRadians(46));
     public final Pose end = new Pose (94.68810289389067,85.60450160771704, Math.toRadians(49));
 
@@ -78,7 +81,7 @@ public class red15 extends OpModeCommand {
          score1.setLinearHeadingInterpolation(opengate.getHeading(),shoot1.getHeading());
 
          go_to_intake_from_gate = new Path(new BezierCurve(shoot1, tempshoot1, posit2gate_intake));
-         go_to_intake_from_gate.setLinearHeadingInterpolation(shoot1.getHeading(), opengate_intake.getHeading());
+         go_to_intake_from_gate.setLinearHeadingInterpolation(shoot1.getHeading(), posit2gate_intake.getHeading());
 
          intake_from_gate = new Path (new BezierLine(posit2gate_intake, opengate_intake ));
          intake_from_gate.setConstantHeadingInterpolation(opengate_intake.getHeading());
@@ -142,7 +145,7 @@ public class red15 extends OpModeCommand {
                                          new FollowPath(bot.getFollower(), gateposition)
                                  )
                                  .andThen(
-                                         new FollowPath(bot.getFollower(), kaimen)
+                                         new FollowPath(bot.getFollower(), kaimen, 0.7)
                                                  .raceWith(new WaitCommand(1200))
                                  )
 
@@ -162,8 +165,11 @@ public class red15 extends OpModeCommand {
                                  .andThen(
                                          new FollowPath(bot.getFollower(), intake_from_gate)
                                                  .alongWith(new Intake_on_forever(bot))
-                                                 .raceWith(new WaitCommand(2000))
+                                                 .raceWith(new WaitCommand(2500))
 
+                                 )
+                                 .andThen(
+                                         new WaitCommand(1000)
                                  )
 
                                  .andThen(
@@ -197,9 +203,6 @@ public class red15 extends OpModeCommand {
                                          new Intake_on(bot)
                                  )
                                  .andThen(
-                                         new WaitCommand(500)
-                                 )
-                                 .andThen(
                                          new Shooter_off(bot)
                                  )
 
@@ -209,7 +212,7 @@ public class red15 extends OpModeCommand {
                                  )
                                  .andThen (
                                          new FollowPath(bot.getFollower(), intake4, 0.65)
-                                                 .alongWith(new Intake_on(bot))
+                                                 .alongWith(new Intake_on_long(bot))
                                  )
                                  .andThen(
                                          new FollowPath(bot.getFollower(), score4)
