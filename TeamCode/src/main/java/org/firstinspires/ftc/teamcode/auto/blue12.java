@@ -26,25 +26,25 @@ public class blue12 extends OpModeCommand {
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     public static final Pose startpose = new Pose(23.656465687232415, 132.528, Math.toRadians(232));
-    public final Pose preloads = new Pose(47.13357400722022, 96, Math.toRadians(132));
+    public final Pose preloads = new Pose(48.178946058036914, 97.04537205081671, Math.toRadians(132));
     public final Pose posit = new Pose(47, 62, Math.toRadians(180));
     public final Pose grab1 = new Pose(24, 62, Math.toRadians(180));
 
     public final Pose tempostshoot1 = new Pose (58.05054151624549,73.81949458483754, Math.toRadians(129));
 
-    public final Pose shoot1 = new Pose(54.22382671480144, 95.82671480144404, Math.toRadians(140));
+    public final Pose shoot1 = new Pose(48.178946058036914, 97.04537205081671, Math.toRadians(140));
     public final Pose posit2gate = new Pose(23, 68, Math.toRadians(180));
     public final Pose opengate = new Pose(10, 68, Math.toRadians(180));
 
     public final Pose grab2 = new Pose(16.215434083601288, 54.72, Math.toRadians(135));
     //public final Pose posit2 = new Pose (54.41,67.13826366559485, Math.toRadians(180));
-    public final Pose shoot2 = new Pose(54.645048231511256, 96, Math.toRadians(140));
+    public final Pose shoot2 = new Pose(48.178946058036914, 97.04537205081671, Math.toRadians(140));
     public final Pose positwhat = new Pose (49,84.038585, Math.toRadians(180));
     public final Pose grab3 = new Pose (20.4944694533762,84.03858520900323, Math.toRadians(180));
-    public final Pose shoot3 = new Pose(47.13357400722022, 96, Math.toRadians(140));
+    public final Pose shoot3 = new Pose(48.178946058036914, 97.04537205081671, Math.toRadians(140));
     public final Pose posit3 = new Pose(44, 39.884244372990345, Math.toRadians(180));
     public final Pose grab4 = new Pose(20.155434083601288, 39.884244372990345, Math.toRadians(180));
-    public final Pose shoot4 = new Pose(47.13357400722022, 96, Math.toRadians(140));
+    public final Pose shoot4 = new Pose(48.178946058036914, 97.04537205081671, Math.toRadians(140));
     public final Pose end = new Pose (35.87003610108303, 80.05776173285199, Math.toRadians(129));
 
     private Path scorepres, position, intake1, score1, intake2, intake3, position3, score2, gateposition, kaimen, score3, endme, intake4,score4, leave, posit4intake3;
@@ -119,7 +119,7 @@ public class blue12 extends OpModeCommand {
                                         new Prep_Shooter(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(400  )
+                                        new WaitCommand(700  )
                                 )
                                 .andThen(
                                         new Intake_on(bot)

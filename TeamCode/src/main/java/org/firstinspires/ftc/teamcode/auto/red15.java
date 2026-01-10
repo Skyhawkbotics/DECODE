@@ -37,7 +37,7 @@ public class red15 extends OpModeCommand {
 
     public final Pose tempshoot1 = new Pose (90.46,61.86281588447653, Math.toRadians(49));
 
-    public final Pose shoot1 = new Pose (90,87, Math.toRadians(49));
+    public final Pose shoot1 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(49));
 
 
     public final Pose posit2gate_intake = new Pose (116.67,60, Math.toRadians(34));
@@ -48,15 +48,15 @@ public class red15 extends OpModeCommand {
 
     public final Pose grab2 = new Pose (125.95, 51.72, Math.toRadians(0));
     public final Pose posit2 = new Pose (90,67.13826366559485, Math.toRadians(49));
-    public final Pose shoot2 = new Pose (90,87, Math.toRadians(46));
+    public final Pose shoot2 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
     public final Pose grab3 = new Pose (115.5144694533762,84.03858520900323, Math.toRadians(0));
 
     public final Pose beforegrab3 = new Pose(95, 83.69675090252709, 0);
-    public final Pose shoot3 = new Pose (90,87, Math.toRadians(46));
+    public final Pose shoot3 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
     public final Pose posit3 = new Pose (90,39.884244372990345, Math.toRadians(0));
     public final Pose grab4 = new Pose (120,39.884244372990345, Math.toRadians(0));
     public final Pose shoot4 = new Pose (90,87, Math.toRadians(46));
-    public final Pose end = new Pose (94.68810289389067,85.60450160771704, Math.toRadians(49));
+    public final Pose end = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(49));
 
      private Path scorepres, position, intake1, score1,  gateposition,   kaimen, go_to_intake_from_gate, intake_from_gate, score_gate, intake2, endme, score2, intake3, score3, position3, intake4,score4, leave, transition3;
      public void buildPaths(){

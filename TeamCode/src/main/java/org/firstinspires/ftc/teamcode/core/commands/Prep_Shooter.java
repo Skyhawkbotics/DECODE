@@ -36,7 +36,7 @@ public class Prep_Shooter extends CommandBase { /// starts up tyhe shooter to a 
             case 1:
                 bot.getShooter().shooterON();
                 bot.getShooter().auto_speed();
-                bot.getShooter().setPos(0.13);
+                bot.getShooter().setPos(0.12);
                 bot.getIntake().servosOut();
                 setState(2);
                 break;

@@ -28,7 +28,7 @@ public class red12 extends OpModeCommand {
     Robot bot;
 
     public static final Pose startpose = new Pose (118.2020,132.528, Math.toRadians(303));
-    public final Pose preloads = new Pose (90,87, Math.toRadians(46));
+    public final Pose preloads = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
     public final Pose posit = new Pose (90,60, Math.toRadians(0));
     public final Pose grab1 = new Pose (113, 60, Math.toRadians(0));
     public final Pose posit2gate = new Pose (116.67,67, Math.toRadians(0));
@@ -36,20 +36,20 @@ public class red12 extends OpModeCommand {
 
     public final Pose tempshoot1 = new Pose (90.46,61.86281588447653, Math.toRadians(49));
 
-    public final Pose shoot1 = new Pose (90,87, Math.toRadians(49));
+    public final Pose shoot1 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(45));
 
 
     public final Pose grab2 = new Pose (125.95, 51.72, Math.toRadians(0));
-    public final Pose posit2 = new Pose (90,67.13826366559485, Math.toRadians(49));
-    public final Pose shoot2 = new Pose (90,87, Math.toRadians(46));
+    public final Pose posit2 = new Pose (90,67.13826366559485, Math.toRadians(46));
+    public final Pose shoot2 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
     public final Pose grab3 = new Pose (112.5144694533762,84.03858520900323, Math.toRadians(0));
 
     public final Pose beforegrab3 = new Pose(95, 83.69675090252709, 0);
-    public final Pose shoot3 = new Pose (90,87, Math.toRadians(46));
-    public final Pose posit3 = new Pose (95,39.884244372990345, Math.toRadians(0));
-    public final Pose grab4 = new Pose (133,39.884244372990345, Math.toRadians(0));
-    public final Pose shoot4 = new Pose (90,87, Math.toRadians(46));
-    public final Pose end = new Pose (94.68810289389067,85.60450160771704, Math.toRadians(49));
+    public final Pose shoot3 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
+    public final Pose posit3 = new Pose (85,39.884244372990345, Math.toRadians(0));
+    public final Pose grab4 = new Pose (127,39.884244372990345, Math.toRadians(0));
+    public final Pose shoot4 = new Pose (88.43194192377496,92.48820326678765, Math.toRadians(46));
+    public final Pose end = new Pose (94.68810289389067,85.60450160771704, Math.toRadians(46));
 
      private Path scorepres, position, intake1, score1,  gateposition,   kaimen, intake2, endme, score2, intake3, score3, position3, intake4,score4, leave, transition3;
      public void buildPaths(){
@@ -118,7 +118,7 @@ public class red12 extends OpModeCommand {
                                          new Prep_Shooter_red(bot)
                                  )
                                  .andThen(
-                                         new WaitCommand(400)
+                                         new WaitCommand(700)
                                  )
                                  .andThen(
                                          new Intake_on(bot)
@@ -148,7 +148,7 @@ public class red12 extends OpModeCommand {
                                          new FollowPath(bot.getFollower(), score1)
                                                  .alongWith(new Prep_Shooter_red(bot))
                                  )
-                                 .andThen (new WaitCommand(300))
+                                 .andThen (new WaitCommand(800))
                                  .andThen(
                                          new Intake_on(bot)
                                  )
@@ -200,14 +200,12 @@ public class red12 extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_red(bot))
                                  )
                                  .andThen(
-                                         new WaitCommand(500)
+                                         new WaitCommand(800)
                                  )
                                  .andThen(
                                          new Intake_on(bot)
                                  )
-                                 .andThen(
-                                         new WaitCommand(500)
-                                 )
+
                                  .andThen(
                                          new Shooter_off(bot)
                                  )
@@ -218,14 +216,14 @@ public class red12 extends OpModeCommand {
                                  )
                                  .andThen (
                                          new FollowPath(bot.getFollower(), intake4, 0.65)
-                                                 .alongWith(new Intake_on(bot))
+                                                 .alongWith(new Intake_on_long(bot))
                                  )
                                  .andThen(
                                          new FollowPath(bot.getFollower(), score4)
                                                .alongWith(new Prep_Shooter_red(bot))
                                  )
                                  .andThen(
-                                         new WaitCommand(500)
+                                         new WaitCommand(800)
                                  )
                                  .andThen(
                                          new Intake_on(bot)

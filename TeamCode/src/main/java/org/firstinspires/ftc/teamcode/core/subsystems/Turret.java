@@ -26,14 +26,14 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(137.20508166969148, 143.73865698729583, 0);
+    private Pose redPose = new Pose(134.33030852994557, 138.77313974591652, 0);
     private Pose bluePose = new Pose(11, 135,0);
 
     private Telemetry telemetry;
 
     private double LL_buffer = 250;
 
-    private Boolean using_LL = true, manual_turret = false, using_turret = true;
+    private Boolean using_LL = true, manual_turret = true, using_turret = true;
 
     private Timer timer = new Timer();
 
