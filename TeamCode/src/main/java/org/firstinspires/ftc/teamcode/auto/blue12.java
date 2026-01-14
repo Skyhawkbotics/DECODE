@@ -119,7 +119,7 @@ public class blue12 extends OpModeCommand {
                                         new Prep_Shooter(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(700  )
+                                        new WaitCommand(1000  )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -155,7 +155,7 @@ public class blue12 extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -204,7 +204,7 @@ public class blue12 extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -227,7 +227,7 @@ public class blue12 extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
