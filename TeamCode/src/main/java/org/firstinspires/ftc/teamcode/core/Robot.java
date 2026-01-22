@@ -379,6 +379,9 @@ public class Robot {
     public Intake getIntake() {
         return intake;
     }
+    public boolean isIsred() {
+        return isred;
+    }
 
 
 }

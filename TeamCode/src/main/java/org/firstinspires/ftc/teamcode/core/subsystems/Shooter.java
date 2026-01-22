@@ -40,13 +40,16 @@ public class     Shooter {
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry03) {
         // hi
-        left_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
+        left_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
         left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         left_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
-        right_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
+
+        right_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
         right_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         right_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+
         left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         shooterSpeed = new shooterSpeed();
 
@@ -61,7 +64,7 @@ public class     Shooter {
         if(is_updating) {
             pid.setPID(ep, ei, ed);
 
-            double pid_output = pid.calculate(right_motor.getVelocity(), target);
+            double pid_output = pid.calculate(left_motor.getVelocity(), target);
             power = pid_output + f;
             left_motor.setPower(power);
             right_motor.setPower(power);
@@ -237,7 +240,7 @@ public class     Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
+        telemetry.addData("Motor Speed (Ticks)", left_motor.getVelocity());
         // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
         // telemetry.addData("left Motor power", left_motor.getPower());
         // telemetry.addData("right Motor power", right_motor.getPower());
