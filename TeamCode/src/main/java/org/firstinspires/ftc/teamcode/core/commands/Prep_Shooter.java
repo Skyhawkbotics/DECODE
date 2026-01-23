@@ -42,9 +42,14 @@ public class Prep_Shooter extends CommandBase { /// starts up tyhe shooter to a 
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
-                    setState(-1);
+                    setState(3);
                 }
                 break;
+            case 3:
+                if(timer.getElapsedTimeSeconds() > 0.3) {
+                    bot.getIntake().on();
+                    setState(-1);
+                }
 
         }
     }

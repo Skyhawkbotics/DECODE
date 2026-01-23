@@ -28,7 +28,7 @@ public class constants {
 
 
     ///
-    public static int auto_speed = 1120;
+    public static int auto_speed = 1200;
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
@@ -49,7 +49,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.007, turret_i = 0, turret_d = 0, turret_f = 0.06;
+    public static double turret_p = 0.004, turret_i = 0, turret_d = 0, turret_f = 0.16;
     public static double turret_align_heading = 0;
     public static double degrees_to_ticks;
 

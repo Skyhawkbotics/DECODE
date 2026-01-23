@@ -129,9 +129,9 @@ public class Robot {
         telemetry.addData("Current Path", follower.getCurrentPath());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-
+        double distance = shooter.getDistance(follower.getPose(), isred);
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0, 0);
+        turret.turret_update(ID, follower.getPose(), 0);
 
 
         shooter.update();
@@ -216,7 +216,7 @@ public class Robot {
 
         }
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 1);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
         if (g2.triangleWasPressed()) {
             turret.toZero();
         }
@@ -325,7 +325,7 @@ public class Robot {
 
 
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 1);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
 
 
 

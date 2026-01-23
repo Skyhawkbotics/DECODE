@@ -9,6 +9,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
@@ -22,6 +23,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "blue 15", group = "blue")
+@Disabled
 public class blue15 extends OpModeCommand {
     Robot bot;
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;

@@ -32,6 +32,7 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
             case -1:
                 break;
             case 1:
+                bot.getIntake().servosIn();
                 bot.getIntake().on();
                 setState(2);
                 break;

@@ -26,14 +26,14 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(134.33030852994557, 138.77313974591652, 0);
+    private Pose redPose = new Pose(132.47821849779123, 138.31011723787793, 0);
     private Pose bluePose = new Pose(11, 135,0);
 
     private Telemetry telemetry;
 
     private double LL_buffer = 250;
 
-    private Boolean using_LL = true, manual_turret = true, using_turret = true;
+    private Boolean using_LL = true, manual_turret = false, using_turret = true;
 
     private Timer timer = new Timer();
 
@@ -74,7 +74,7 @@ public class Turret {
 
     ///  24 is red, 20 is blue
 
-    public void turret_update(int ID, Pose followerPose, float manual_input, int isZero) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+    public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
 
@@ -138,8 +138,8 @@ public class Turret {
 
                     t_pid.setPID(turret_p, turret_i, turret_d);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position * isZero);
-                    turret.setPower(pid_output);
+                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
+                    turret.setPower(pid_output +turret_f);
 
 
                 }
