@@ -149,6 +149,7 @@ public class Robot {
 
         shooter.recoil();
         shooter.update();
+        shooter.panelstelemetry();
         follower.update();
         telemetry.update();
 

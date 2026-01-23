@@ -36,6 +36,7 @@ public class     Shooter {
     private double shooter_position, shooter_velocity;
 
     private Telemetry telemetry;
+    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
 
 
@@ -58,6 +59,28 @@ public class     Shooter {
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
         this.telemetry = telemetry03;
+
+    }
+    public Shooter(HardwareMap hardwareMap, Telemetry telemetry03, PanelsTelemetry panelsTelemetry) {
+        // hi
+        left_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
+        left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        left_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+
+        right_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
+        right_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+        right_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+
+        left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
+        right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        shooterSpeed = new shooterSpeed();
+
+        pid = new PIDController(ep, ei, ed);
+
+        servo = hardwareMap.get(Servo.class, "shoot angle");
+        this.telemetry = telemetry03;
+        this.panelsTelemetry = panelsTelemetry;
 
     }
 
@@ -260,6 +283,11 @@ public class     Shooter {
 
         telemetry.addData("Shooter Reached", velocityReached());
         // telemetry.addData("Servo position", servo.getPosition());
+    }
+    public void panelstelemetry() {
+        panelsTelemetry.getTelemetry().addData("Target", target);
+        panelsTelemetry.getTelemetry().addData("motor speed", left_motor.getVelocity());
+        panelsTelemetry.getTelemetry().update();
     }
     public int getTarget() {
         return target;

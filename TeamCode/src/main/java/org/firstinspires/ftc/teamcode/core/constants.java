@@ -32,12 +32,12 @@ public class constants {
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
-    public static int far_side_shoot = 1740; ///vertex of smallest triangle
+    public static int far_side_shoot = 1720; ///vertex of smallest triangle
     public static double far_side_angle = 0.6;
 
     public static int far_side_turret_offset = 521;
 
-    public static double far_zone_tx = -2.5;
+    public static double far_zone_tx = -2;
 
     public static int closest = 1150; ///position closest on the line
 
@@ -80,7 +80,7 @@ public class constants {
 
 
 
-    public static double recoil_constant = 0.003;
+    public static double recoil_constant = 0.002;
 
 
 
