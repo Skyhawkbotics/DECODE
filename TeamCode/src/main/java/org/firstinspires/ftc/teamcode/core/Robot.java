@@ -129,7 +129,6 @@ public class Robot {
         telemetry.addData("Current Path", follower.getCurrentPath());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-        double distance = shooter.getDistance(follower.getPose(), isred);
         turret.set_using_LL(ID);
         turret.turret_update(ID, follower.getPose(), 0);
 

@@ -108,11 +108,19 @@ public class     Shooter {
 
         setTarget(auto_speed);
     }
+
     public void auto_speed_blue() {
         toggle_update_true();
 
         setTarget(auto_speed_blue);
     }
+    public void far_side_red() {
+        toggle_update_true();
+
+        setTarget(far_side_shoot);
+        setPos(far_side_angle);
+    }
+
     public void closest (){
         setTarget(closest);
         toggle_update_true();
