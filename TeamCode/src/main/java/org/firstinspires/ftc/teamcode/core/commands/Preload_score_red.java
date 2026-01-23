@@ -41,7 +41,12 @@ private int state = 1;
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
-                    bot.getIntake().on();
+                    setState(4);
+                }
+                break;
+            case 4:
+                if(timer.getElapsedTimeSeconds() > 0.2) {
+                    bot.getIntake().on_slow();
                     setState(3);
                 }
                 break;

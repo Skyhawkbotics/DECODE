@@ -26,8 +26,9 @@ import ftclib.OpModeCommand;
 public class disconnect_auto extends OpModeCommand {
     Robot bot;
 
-    public static final Pose startpose = new Pose(90, 6, Math.toRadians(0));
-    public final Pose pickup1 = new Pose(132, 6, Math.toRadians(0));
+    public static final Pose startpose = new Pose(88, 7, Math.toRadians(0));
+    // start pose is the tip of the triangle / the inner line of the next tile
+    public final Pose pickup1 = new Pose(132, 7, Math.toRadians(0));
     private Path pickupHP;
     public void buildPaths(){
         pickupHP = new Path (new BezierLine(startpose,pickup1));
@@ -39,15 +40,18 @@ public class disconnect_auto extends OpModeCommand {
         buildPaths();
         bot = new Robot(hardwareMap, telemetry,startpose, 24);
         schedule (
-                new RunCommand(bot :: autonomous_robot_update),
+                new RunCommand(bot :: far_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new Preload_score_red(bot)
+                                /*
                                 .andThen(
                                         new FollowPath(bot.getFollower(), pickupHP)
                                                 .alongWith(
                                                         new Intake_on_long(bot)
                                                 )
                                 )
+
+                                 */
                 )
 
         );

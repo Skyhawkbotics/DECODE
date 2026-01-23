@@ -139,6 +139,21 @@ public class Robot {
 
 
     }
+    public void far_autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        turret.turret_telemetry();
+        shooter.shooter_telemetry();
+        turret.set_using_LL(ID);
+        turret.turret_update_far(ID, follower.getPose());
+
+
+        shooter.update();
+        follower.update();
+        telemetry.update();
+
+
+    }
 
     public void dual_drive() {
         prevg1.copy(g1);

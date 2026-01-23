@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+import static org.firstinspires.ftc.teamcode.core.constants.intake_slow;
 import static org.firstinspires.ftc.teamcode.core.constants.intake_speed;
 import static org.firstinspires.ftc.teamcode.core.constants.left_servos_in_pos;
 import static org.firstinspires.ftc.teamcode.core.constants.left_servos_out_pos;
@@ -38,6 +39,9 @@ public class Intake {
 
     public void on(){
         intake_motor.setPower(intake_speed);
+    }
+    public void on_slow() {
+        intake_motor.setPower(intake_slow);
     }
     public void off(){
         intake_motor.setPower(0);

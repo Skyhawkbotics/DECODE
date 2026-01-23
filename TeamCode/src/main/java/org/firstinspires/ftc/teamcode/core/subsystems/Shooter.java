@@ -271,7 +271,7 @@ public class     Shooter {
     }
 
     public boolean velocityReached() {
-        return Math.abs(target - left_motor.getVelocity()) <= 30;
+        return Math.abs(target - left_motor.getVelocity()) <= 20;
     }
 }
 
