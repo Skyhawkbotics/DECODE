@@ -29,6 +29,7 @@ public class     Shooter {
 
     private double min_angle_serv_pos = 0;
 
+    double recoil_orgin = 0;
     private double power;
     private boolean is_updating;
 
@@ -190,6 +191,7 @@ public class     Shooter {
     public void setPos(double pos) {
         // increments servo
         servo.setPosition(pos);
+        recoil_orgin = pos;
     }
 
     public void decreasePosition() {
@@ -272,6 +274,23 @@ public class     Shooter {
 
     public boolean velocityReached() {
         return Math.abs(target - left_motor.getVelocity()) <= 20;
+    }
+    public void recoil() {
+        boolean using_recoil = false;
+        if(velocityReached()) {
+            using_recoil = true;
+        }
+        if(using_recoil) {
+            double error = target - left_motor.getVelocity();
+            double recoil = recoil_orgin - error * recoil_constant; // as error increases, the recoil increases
+            double actual_recoil;
+            if(recoil > recoil_orgin) {
+                actual_recoil = recoil_orgin;
+            } else {
+                actual_recoil = recoil;
+            }
+            servo.setPosition(actual_recoil);
+        }
     }
 }
 

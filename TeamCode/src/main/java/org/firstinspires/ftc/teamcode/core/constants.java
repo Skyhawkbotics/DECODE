@@ -80,4 +80,8 @@ public class constants {
 
 
 
+    public static double recoil_constant = 0.003;
+
+
+
 }
