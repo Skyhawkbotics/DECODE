@@ -28,7 +28,9 @@ public class RedClose15 extends OpModeCommand {
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
     public final Pose gather2= new Pose (128.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (132.25806451612902,64.29677419354837, Math.toRadians(0));
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen;
+    public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
+
+    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -48,6 +50,9 @@ public class RedClose15 extends OpModeCommand {
 
         kaimen = new Path (new BezierLine(gather2, opengate));
         kaimen.setLinearHeadingInterpolation(gather2.getHeading(),opengate.getHeading());
+
+        score2 = new Path (new BezierLine(opengate, shoot2));
+        score2.setLinearHeadingInterpolation(opengate.getHeading(), shoot2.getHeading());
 
         }
 
@@ -93,6 +98,13 @@ public class RedClose15 extends OpModeCommand {
                                 .andThen (
                                         new FollowPath(bot.getFollower(), kaimen)
                                                 .raceWith(new WaitCommand(2000))
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), score2)
+                                                .alongWith(new Prep_Shooter(bot))
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
                                 )
                 ));
     }
