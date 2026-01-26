@@ -22,8 +22,9 @@ import ftclib.OpModeCommand;
 import ftclib.OpModeCommand;
 import ftclib.Opmode;
 
-@Autonomous (name = "blueLQTsolo", group = "blue")
+/*@Autonomous (name = "blueLQTsolo", group = "blue")
 public class BlueClose15 extends OpModeCommand {
     Robot bot;
 }
+*/
 
