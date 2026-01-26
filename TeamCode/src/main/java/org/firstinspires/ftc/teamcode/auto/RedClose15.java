@@ -12,6 +12,7 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on_3rd_set;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
@@ -131,7 +132,7 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake3, .65)
-                                                .alongWith(new Intake_on_long(bot))
+                                                .alongWith(new Intake_on_3rd_set(bot))
                                 )
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score3)

@@ -22,7 +22,7 @@ import ftclib.OpModeCommand;
 import ftclib.OpModeCommand;
 import ftclib.Opmode;
 
-/*@Autonomous (name = "blueLQTsolo", group = "blue")
+@Autonomous (name = "blueLQTsolo", group = "blue")
 public class BlueClose15 extends OpModeCommand {
     Robot bot;
 
@@ -31,10 +31,33 @@ public class BlueClose15 extends OpModeCommand {
 
     private Path scorepres;
     public void buildPaths(){
-        scorepres =
+        scorepres = new Path (new BezierLine(startpose, preloads));
+        scorepres.setLinearHeadingInterpolation(startpose.getHeading(), preloads.getHeading());
     }
 
+    public void initialize() {
+        buildPaths();
+        bot = new Robot(hardwareMap, telemetry,startpose, 20);
+        schedule(
+                new RunCommand(bot:: autonomous_robot_update),
+                new SequentialCommandGroup(
+                        new FollowPath(bot.getFollower(), scorepres)
+                                .alongWith(
+                                        new Prep_Shooter(bot)
+                                )
+                                .andThen(
+                                        new WaitCommand(300)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Shooter_off(bot)
+                                )
+                ));
+
+    }
 }
 
- */
+
 
