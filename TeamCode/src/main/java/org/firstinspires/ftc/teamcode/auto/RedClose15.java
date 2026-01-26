@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
@@ -26,12 +27,13 @@ public class RedClose15 extends OpModeCommand {
     public final Pose gather1 = new Pose (132.48,77, Math.toRadians(0));
     public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
-    public final Pose gather2= new Pose (128.86451612903225, 53.76129032258066, Math.toRadians(0));
+    public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (137.25806451612902,61.29677419354837, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
     public final Pose get2balls2 = new Pose (100.74193548387095,35.7225806451613, Math.toRadians(0));
 
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2;
+    private Path scorepres, intake1, score1, posit1, kaimen, score2, posit2;
+    private PathChain intake2_gateopen;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -46,8 +48,20 @@ public class RedClose15 extends OpModeCommand {
         posit1 = new Path(new BezierLine(shoot1, get2balls1));
         posit1.setLinearHeadingInterpolation(shoot1.getHeading(), get2balls1.getHeading());
 
-        intake2 = new Path (new BezierLine(get2balls1, gather2));
-        intake2.setLinearHeadingInterpolation(get2balls1.getHeading(), gather2.getHeading());
+        intake2_gateopen = bot.getFollower().pathBuilder()
+                .addPath(
+                new BezierLine(get2balls1,gather2)
+        )
+                .setLinearHeadingInterpolation(get2balls1.getHeading(),gather2.getHeading()
+                )
+                .addPath(
+                        new BezierLine(gather2,opengate)
+                )
+                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .setGlobalDeceleration()
+                .build();
+
+
 
         kaimen = new Path (new BezierLine(gather2, opengate));
         kaimen.setLinearHeadingInterpolation(gather2.getHeading(),opengate.getHeading());
@@ -96,7 +110,7 @@ public class RedClose15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), posit1)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intake2, .65)
+                                        new FollowPath(bot.getFollower(), intake2_gateopen, .65)
                                                 .alongWith(new Intake_on_long(bot))
                                 )
                                 .andThen (
