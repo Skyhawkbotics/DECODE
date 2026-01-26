@@ -46,7 +46,7 @@ public class Prep_Shooter extends CommandBase { /// starts up tyhe shooter to a 
                 }
                 break;
             case 3:
-                if(timer.getElapsedTimeSeconds() > 0.3) {
+                if(timer.getElapsedTimeSeconds() > 0.5) {
                     bot.getIntake().on();
                     setState(-1);
                 }
