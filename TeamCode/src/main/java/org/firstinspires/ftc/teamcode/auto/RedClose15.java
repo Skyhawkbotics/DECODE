@@ -38,9 +38,10 @@ public class RedClose15 extends OpModeCommand {
     public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
     public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose get2balls3 = new Pose (135.32530120481928,10.657487091222029, Math.toRadians(270));
+    public final Pose get2balls3 = new Pose (145.32530120481928,29.657487091222029, Math.toRadians(270));
+    public final Pose gather4 = new Pose (145.32530120481928,10.750774526678143, Math.toRadians(270));
 
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3;
+    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -82,6 +83,9 @@ public class RedClose15 extends OpModeCommand {
                 new Pose(131.73232920472662,54.86334041472403),
                 get2balls3));
         posit3.setTangentHeadingInterpolation();
+
+        intake4 = new Path(new BezierCurve(get2balls3, gather4));
+        intake4.setLinearHeadingInterpolation(get2balls3.getHeading(),gather4.getHeading());
 
         }
 
@@ -171,6 +175,10 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),posit3)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intake4, .65)
+                                                .alongWith(new Intake_on_3rd_set(bot))
                                 )
                 ));
     }
