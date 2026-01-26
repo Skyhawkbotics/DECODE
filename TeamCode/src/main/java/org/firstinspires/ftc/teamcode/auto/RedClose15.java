@@ -31,10 +31,11 @@ public class RedClose15 extends OpModeCommand {
     public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (137.25806451612902,61.29677419354837, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
-    public final Pose get2balls2 = new Pose (102.74193548387095,37.2225806451613, Math.toRadians(0));
-    public final Pose gather3 = new Pose (123.85161290322581,35.84516129032261, Math.toRadians(0));
+    public final Pose get2balls2 = new Pose (102.74193548387095,36.84516129032261, Math.toRadians(0));
+    public final Pose gather3 = new Pose (122.85161290322581,36.84516129032261, Math.toRadians(0));
+    public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
 
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3;
+    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -66,6 +67,9 @@ public class RedClose15 extends OpModeCommand {
 
         intake3 = new Path (new BezierLine(get2balls2, gather3));
         intake3.setLinearHeadingInterpolation(get2balls2.getHeading(),gather3.getHeading());
+
+        score3 = new Path (new BezierLine(gather3, shoot3));
+        score3.setLinearHeadingInterpolation(gather3.getHeading(),shoot3.getHeading());
 
         }
 
