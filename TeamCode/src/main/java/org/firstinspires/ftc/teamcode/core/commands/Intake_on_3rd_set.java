@@ -37,7 +37,7 @@ private int state = 1;
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 2.2) { //1
+                if (timer.getElapsedTimeSeconds() > 1.5) { //1
                     bot.getIntake().off();
                     setState(-1); //3
                 }
