@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
 
+import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -22,6 +23,7 @@ import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter3;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_Zero;
 import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 
 import ftclib.FollowPath;
@@ -183,7 +185,10 @@ public class RedClose15 extends OpModeCommand {
                                 .andThen(
                                         new FollowPath(bot.getFollower(),posit3)
                                 )
-                                .andThen(
+                                        .andThen(
+                                        new turret_Zero(bot)
+                                        )
+                                        .andThen(
                                         new FollowPath(bot.getFollower(), intake4, .65)
                                                 .alongWith(new Intake_on_forever(bot))
                                 )

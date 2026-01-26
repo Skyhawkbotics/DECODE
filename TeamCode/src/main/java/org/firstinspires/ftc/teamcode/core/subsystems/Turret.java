@@ -50,6 +50,8 @@ public class Turret {
 
     private Pose correctPose;
 
+    private double turretPose = 420;
+
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
         ///  INITIALIZING LIMELIGHT
@@ -194,13 +196,19 @@ public class Turret {
 
                 t_pid.setPID(turret_p, turret_i, turret_d);
                 turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                double pid_output = t_pid.calculate(turret.getCurrentPosition(), turret_close_pos);
+                double pid_output = t_pid.calculate(turret.getCurrentPosition(), turretPose);
                 turret.setPower(pid_output + turret_f);
 
 
             }
 
 
+    }
+    public void turretcloseZero() {
+        turretPose = 0;
+    }
+    public void turretcloseNORMAL() {
+        turretPose = 420;
     }
 
 
