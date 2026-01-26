@@ -100,6 +100,10 @@ public class     Shooter {
 
 
     }
+    public void setTarget(int b) {
+        ///  sets PID target
+        target = b;
+    }
     public void toggle_update_true() {
         is_updating = true;
     }
@@ -107,10 +111,7 @@ public class     Shooter {
         is_updating = false;
     }
 
-    public void setTarget(int b) {
-        ///  sets PID target
-        target = b;
-    }
+
 
     public void setTarget(int t, boolean usingRPM) {
         // way to set target where target can be in RPM, just set usingRPM to true

@@ -146,7 +146,7 @@ public class Turret {
 
         } else if(manual_turret) {
 
-            manual_input *= 0.5;
+            manual_input *= -0.5;
 
             if ((turret.getCurrentPosition() <= left_limit) &&
                     (Math.signum(manual_input) == -1)) {

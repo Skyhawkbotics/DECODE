@@ -32,7 +32,7 @@ public class constants {
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
-    public static int far_side_shoot = 1720; ///vertex of smallest triangle
+    public static int far_side_shoot = 1740; ///vertex of smallest triangle
     public static double far_side_angle = 0.6;
 
     public static int far_side_turret_offset = 521;

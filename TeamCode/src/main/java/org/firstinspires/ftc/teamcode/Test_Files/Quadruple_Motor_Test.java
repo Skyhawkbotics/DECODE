@@ -16,7 +16,7 @@ public class Quadruple_Motor_Test extends OpMode {
     public PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     public void init(){
-        left_front = hardwareMap.get(DcMotorEx.class, "turret");
+        left_front = hardwareMap.get(DcMotorEx.class, "left_front");
         left_front.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         left_back = hardwareMap.get(DcMotorEx.class, "left_back");

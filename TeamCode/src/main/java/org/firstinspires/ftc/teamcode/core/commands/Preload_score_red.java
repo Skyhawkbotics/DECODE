@@ -53,7 +53,6 @@ private int state = 1;
             case 3:
                 if(timer.getElapsedTimeSeconds() > 2) {
                     bot.getIntake().servosIn();
-                    bot.getIntake().off();
                     setState(-1);
                 }
         }
