@@ -15,7 +15,10 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter3;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -74,8 +77,9 @@ public class RedClose15 extends OpModeCommand {
         }
 
     public void initialize() {
-        buildPaths();
         bot = new Robot(hardwareMap, telemetry,startpose, 24);
+        buildPaths();
+
         schedule(
         new RunCommand(bot:: autonomous_robot_update),
                 new SequentialCommandGroup(
@@ -85,6 +89,9 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new WaitCommand(300)
+                                )
+                                .andThen(
+                                        new turret_LL(bot)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -99,11 +106,17 @@ public class RedClose15 extends OpModeCommand {
                         //
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score1)
-                                                .alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter2(bot))
+                                )
+                                .andThen(
+                                        new turret_LL(bot)
                                 )
                                 .andThen(new WaitCommand(250))
                                 .andThen(
                                         new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Shooter_off(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), posit1)
@@ -118,9 +131,13 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score2)
-                                                .alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter3(bot))
                                 )
                                 .andThen(
+                                        new turret_LL(bot)
+                                ),
+                                new WaitCommand(300)
+                                        .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(

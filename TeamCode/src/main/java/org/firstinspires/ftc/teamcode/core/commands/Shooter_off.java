@@ -36,6 +36,7 @@ public class Shooter_off extends CommandBase { ///  stops shooter, makes servos 
             case 1:
                 bot.getShooter().turnOFF();
                 bot.getIntake().servosIn();
+                bot.getTurret().ll_pause();
                 setState(-1);
                 break;
         }

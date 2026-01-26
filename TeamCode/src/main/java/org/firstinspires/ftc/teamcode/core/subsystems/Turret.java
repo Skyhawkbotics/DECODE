@@ -33,7 +33,7 @@ public class Turret {
 
     private double LL_buffer = 250;
 
-    private Boolean using_LL = true, manual_turret = false, using_turret = true;
+    private Boolean using_LL = false, manual_turret = false, using_turret = true;
 
     private Timer timer = new Timer();
 
@@ -161,6 +161,49 @@ public class Turret {
 
     }
 
+    public void turret_update_close(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+        double ll_pid_output;
+            if (using_LL) {
+                LLResult result = ll.getLatestResult();
+
+                if (result.isValid()) {
+                    List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                    for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                        if (fr.getFiducialId() == ID) {
+                            timer.resetTimer();
+                            ll_pid.setPID(lp, li, ld);
+                            double sign = Math.signum(-result.getTx());
+                            ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+
+                            if ((turret.getCurrentPosition() <= left_limit) &&
+                                    (Math.signum(ll_pid_output) == -1)) {
+                                turret.setPower(0);
+                            } else if ((turret.getCurrentPosition() >= right_limit) &&
+                                    (Math.signum(ll_pid_output) == 1)) {
+                                turret.setPower(0);
+                            } else {
+                                turret.setPower(ll_pid_output + (sign *turret_f));
+                            }
+
+                            telemetry.addData("LL PID OUTPUT", ll_pid_output);
+                        }
+                    }
+                }
+            } else {
+
+                t_pid.setPID(turret_p, turret_i, turret_d);
+                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                double pid_output = t_pid.calculate(turret.getCurrentPosition(), turret_close_pos);
+                turret.setPower(pid_output + turret_f);
+
+
+            }
+
+
+    }
+
+
     public void turret_update_far(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
@@ -221,6 +264,12 @@ public class Turret {
         turret.setTargetPosition(0);
         turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
+   public void ll_pause() {
+        using_LL = false;
+   }
+   public void ll_start() {
+        using_LL = true;
+   }
 
     public void set_using_LL(int ID) {
         LLResult result = ll.getLatestResult();
@@ -240,6 +289,8 @@ public class Turret {
         } else {
             using_LL = true;
         }
+
+
     }
 
     public void turret_telemetry() {
@@ -282,5 +333,8 @@ public class Turret {
     }
     public void set_using_turret_false() {
         using_turret = false;
+    }
+    public boolean IsTurretDone() {
+        return turret_close_pos - turret.getCurrentPosition() < 20;
     }
 }

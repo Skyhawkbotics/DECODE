@@ -37,6 +37,7 @@ public class Intake_on extends CommandBase { ///  runs the intake , either for f
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 1.3) { //1
+                    bot.getTurret().ll_pause();
                     bot.getIntake().off();
                     setState(-1); //3
                 }

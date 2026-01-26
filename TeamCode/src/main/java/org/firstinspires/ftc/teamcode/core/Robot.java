@@ -129,8 +129,8 @@ public class Robot {
         telemetry.addData("Current Path", follower.getCurrentPath());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-        turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0);
+       //turret.set_using_LL(ID);
+        turret.turret_update_close(ID, follower.getPose());
 
 
         shooter.update();
@@ -144,7 +144,7 @@ public class Robot {
         telemetry.addData("Current Path", follower.getCurrentPath());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-        turret.set_using_LL(ID);
+        //turret.set_using_LL(ID);
         turret.turret_update_far(ID, follower.getPose());
 
         shooter.recoil();
@@ -393,6 +393,9 @@ public class Robot {
     }
     public Intake getIntake() {
         return intake;
+    }
+    public Turret getTurret() {
+        return turret;
     }
     public boolean isIsred() {
         return isred;

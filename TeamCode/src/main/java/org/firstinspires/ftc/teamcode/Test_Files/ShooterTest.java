@@ -49,8 +49,16 @@ public class ShooterTest extends OpMode {
         if(g1.dpadLeftWasPressed()) {
             shooter.positionMin();
         }
+        if(g1.dpadUpWasPressed()) {
+            shooter.increasePositionBare();
+        }
+
+
         if(g1.dpadRightWasPressed()) {
             shooter.positionMax();
+        }
+        if(g1.dpadDownWasPressed()) {
+            shooter.decreasePositionBare();
         }
 
 

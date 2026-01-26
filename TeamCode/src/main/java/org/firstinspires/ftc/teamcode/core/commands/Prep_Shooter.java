@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.commands;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.auto_speed;
 import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -35,22 +36,16 @@ public class Prep_Shooter extends CommandBase { /// starts up tyhe shooter to a 
                 break;
             case 1:
                 bot.getShooter().shooterON();
-                bot.getShooter().auto_speed();
-                bot.getShooter().setPos(0.13);
+                bot.getShooter().autonomous_speed(auto_speed);
+                bot.getShooter().setPos(0.2);
                 bot.getIntake().servosOut();
                 setState(2);
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
-                    setState(3);
-                }
-                break;
-            case 3:
-                if(timer.getElapsedTimeSeconds() > 0.5) {
-                    bot.getIntake().on();
                     setState(-1);
                 }
-
+                break;
         }
     }
 

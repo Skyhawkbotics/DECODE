@@ -28,7 +28,10 @@ public class constants {
 
 
     ///
-    public static int auto_speed = 1175;
+    public static int auto_speed = 1150;
+    public static int auto_speed2 = 1100;
+
+    public static int auto_speed3 = 1160;
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
@@ -38,6 +41,9 @@ public class constants {
     public static int far_side_turret_offset = 521;
 
     public static double far_zone_tx = -2;
+
+    public static double turret_close_pos = 420;
+
 
     public static int closest = 1150; ///position closest on the line
 
@@ -54,7 +60,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.004, turret_i = 0, turret_d = 0, turret_f = 0.05;
+    public static double turret_p = 0.006, turret_i = 0, turret_d = 0, turret_f = 0.05;
 
     public static double lf = 0.04;
     public static double turret_align_heading = 0;
