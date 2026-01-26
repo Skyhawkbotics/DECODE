@@ -26,5 +26,15 @@ import ftclib.Opmode;
 public class BlueClose15 extends OpModeCommand {
     Robot bot;
 
+    public static final Pose startpose = new Pose  (128,117, Math.toRadians(140));
+    public final Pose preloads = new Pose (19.54447837432682,84.05322303037032, Math.toRadians(180));
+
+    private Path scorepres;
+    public void buildPaths(){
+        scorepres =
+    }
+
 }
-*/
+
+ */
+

@@ -31,8 +31,8 @@ public class RedClose15 extends OpModeCommand {
     public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (137.25806451612902,61.29677419354837, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
-    public final Pose get2balls2 = new Pose (102.74193548387095,36.84516129032261, Math.toRadians(0));
-    public final Pose gather3 = new Pose (122.85161290322581,36.84516129032261, Math.toRadians(0));
+    public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
+    public final Pose gather3 = new Pose (122.85161290322581,34.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3;
@@ -124,11 +124,24 @@ public class RedClose15 extends OpModeCommand {
                                         new Intake_on(bot)
                                 )
                                 .andThen(
+                                        new Shooter_off(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), posit2)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake3, .65)
                                                 .alongWith(new Intake_on_long(bot))
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), score3)
+                                                .alongWith(new Prep_Shooter(bot))
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Shooter_off(bot)
                                 )
                 ));
     }
