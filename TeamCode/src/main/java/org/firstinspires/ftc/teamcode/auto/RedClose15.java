@@ -27,7 +27,7 @@ public class RedClose15 extends OpModeCommand {
     public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
     public final Pose gather2= new Pose (128.86451612903225, 53.76129032258066, Math.toRadians(0));
-    public final Pose opengate = new Pose (132.25806451612902,64.29677419354837, Math.toRadians(0));
+    public final Pose opengate = new Pose (132.25806451612902,61.29677419354837, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2;
