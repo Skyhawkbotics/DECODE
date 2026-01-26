@@ -31,9 +31,10 @@ public class RedClose15 extends OpModeCommand {
     public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (137.25806451612902,61.29677419354837, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
-    public final Pose get2balls2 = new Pose (100.74193548387095,35.7225806451613, Math.toRadians(0));
+    public final Pose get2balls2 = new Pose (102.74193548387095,37.2225806451613, Math.toRadians(0));
+    public final Pose gather3 = new Pose (123.85161290322581,35.84516129032261, Math.toRadians(0));
 
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2;
+    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -62,6 +63,9 @@ public class RedClose15 extends OpModeCommand {
 
         posit2 = new Path (new BezierLine(shoot2, get2balls2));
         posit2.setLinearHeadingInterpolation(shoot2.getHeading(),get2balls1.getHeading());
+
+        intake3 = new Path (new BezierLine(get2balls2, gather3));
+        intake3.setLinearHeadingInterpolation(get2balls2.getHeading(),gather3.getHeading());
 
         }
 
@@ -105,7 +109,7 @@ public class RedClose15 extends OpModeCommand {
                                                 .alongWith(new Intake_on_long(bot))
                                 )
                                 .andThen (
-                                        new FollowPath(bot.getFollower(), kaimen)
+                                        new FollowPath(bot.getFollower(), kaimen,.65)
                                                 .raceWith(new WaitCommand(2000))
                                 )
                                 .andThen (
@@ -117,6 +121,10 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), posit2)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intake3, .65)
+                                                .alongWith(new Intake_on_long(bot))
                                 )
                 ));
     }

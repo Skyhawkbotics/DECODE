@@ -25,6 +25,6 @@ import ftclib.Opmode;
 /*@Autonomous (name = "blueLQTsolo", group = "blue")
 public class BlueClose15 extends OpModeCommand {
     Robot bot;
+
 }
 */
-
