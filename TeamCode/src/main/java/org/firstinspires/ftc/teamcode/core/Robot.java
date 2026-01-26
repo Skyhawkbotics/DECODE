@@ -136,6 +136,7 @@ public class Robot {
         shooter.update();
         follower.update();
         telemetry.update();
+        shooter.recoil();
 
 
     }

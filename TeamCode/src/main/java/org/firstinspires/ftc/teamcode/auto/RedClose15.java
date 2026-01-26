@@ -14,10 +14,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_3rd_set;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter3;
+import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 
@@ -114,7 +116,7 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake1)
-                                                .alongWith(new Intake_on_long(bot))
+                                                .alongWith(new Intake_on_long1(bot))
                                 )
                         //
                                 .andThen(
@@ -165,9 +167,13 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score3)
-                                                .alongWith(new Prep_Shooter(bot))
+                                                .alongWith(new Prep_Shooter4(bot))
                                 )
-                                .andThen(
+                                        .andThen(
+                                                new turret_LL(bot)
+                                        ),
+                                new WaitCommand(200)
+                                        .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(

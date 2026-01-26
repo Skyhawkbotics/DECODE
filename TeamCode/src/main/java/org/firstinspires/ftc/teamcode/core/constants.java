@@ -31,7 +31,8 @@ public class constants {
     public static int auto_speed = 1150;
     public static int auto_speed2 = 1100;
 
-    public static int auto_speed3 = 1160;
+    public static int auto_speed3 = 1150;
+    public static int auto_speed4 = 1200;
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
