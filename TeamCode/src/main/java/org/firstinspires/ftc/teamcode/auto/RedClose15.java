@@ -23,9 +23,9 @@ public class RedClose15 extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
     public final Pose pres = new Pose (96,77, Math.toRadians(0));
-    public final Pose gather1 = new Pose (132.47909967845658,77, Math.toRadians(0));
-    public final Pose shoot1 = new Pose (108.84516129032257,97.08387096774194, Math.toRadians(0));
-    public final Pose get2balls1 = new Pose (104.35483870967742,53.76129032258066, Math.toRadians(0));
+    public final Pose gather1 = new Pose (132.48,77, Math.toRadians(0));
+    public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
+    public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
     public final Pose gather2= new Pose (128.86451612903225, 53.76129032258066, Math.toRadians(0));
     public final Pose opengate = new Pose (132.25806451612902,64.29677419354837, Math.toRadians(0));
     private Path scorepres, intake1, score1, posit1, intake2, kaimen;
