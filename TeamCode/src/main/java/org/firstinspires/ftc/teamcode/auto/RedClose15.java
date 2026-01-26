@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_3rd_set;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
@@ -35,8 +36,8 @@ public class RedClose15 extends OpModeCommand {
     public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
     public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose get2balls3 = new Pose (145.32530120481928,29.657487091222029, Math.toRadians(270));
-    public final Pose gather4 = new Pose (145.32530120481928,10.750774526678143, Math.toRadians(270));
+    public final Pose get2balls3 = new Pose (135.32530120481928,36.657487091222029, Math.toRadians(270));
+    public final Pose gather4 = new Pose (144.32530120481928,5.750774526678143, Math.toRadians(270));
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4;
 
@@ -126,7 +127,7 @@ public class RedClose15 extends OpModeCommand {
                                                 .alongWith(new Intake_on_long(bot))
                                 )
                                 .andThen (
-                                        new FollowPath(bot.getFollower(), kaimen,.5)
+                                        new FollowPath(bot.getFollower(), kaimen,.4)
                                                 .raceWith(new WaitCommand(2500))
                                 )
                                 .andThen (
@@ -161,7 +162,7 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake4, .65)
-                                                .alongWith(new Intake_on_3rd_set(bot))
+                                                .alongWith(new Intake_on_forever(bot))
                                 )
                 ));
     }
