@@ -24,6 +24,7 @@ import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter3;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_Zero;
+import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_yes;
 import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 
 import ftclib.FollowPath;
@@ -45,8 +46,9 @@ public class RedClose15 extends OpModeCommand {
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
     public final Pose get2balls3 = new Pose (143.32530120481928,30.657487091222029, Math.toRadians(330));
     public final Pose gather4 = new Pose (143.32530120481928,10.750774526678143, Math.toRadians(330));
+    public final Pose shoot4 = new Pose (84.76133473988118,83.63759924490589, Math.toRadians(0));
 
-    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4;
+    private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4, score4;
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -91,6 +93,9 @@ public class RedClose15 extends OpModeCommand {
         intake4 = new Path(new BezierCurve(get2balls3, gather4));
         intake4.setLinearHeadingInterpolation(get2balls3.getHeading(),gather4.getHeading());
 
+        score4 = new Path (new BezierLine(gather4, shoot4));
+        score4.setLinearHeadingInterpolation(gather4.getHeading(), shoot4.getHeading());
+
         }
 
     public void initialize() {
@@ -105,7 +110,7 @@ public class RedClose15 extends OpModeCommand {
                                         new Prep_Shooter(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(200)
                                 )
                                 .andThen(
                                         new turret_LL(bot)
@@ -139,11 +144,11 @@ public class RedClose15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), posit1)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intake2, .65)
+                                        new FollowPath(bot.getFollower(), intake2, .7)
                                                 .alongWith(new Intake_on_long(bot))
                                 )
                                 .andThen (
-                                        new FollowPath(bot.getFollower(), kaimen,.4)
+                                        new FollowPath(bot.getFollower(), kaimen,.5)
                                                 .raceWith(new WaitCommand(2500))
                                 )
                                 .andThen (
@@ -161,10 +166,10 @@ public class RedClose15 extends OpModeCommand {
                                         new Shooter_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), posit2)
+                                        new FollowPath(bot.getFollower(), posit2,1.5)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intake3, .65)
+                                        new FollowPath(bot.getFollower(), intake3, .7)
                                                 .alongWith(new Intake_on_3rd_set(bot))
                                 )
                                 .andThen (
@@ -182,15 +187,23 @@ public class RedClose15 extends OpModeCommand {
                                         new Shooter_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(),posit3)
+                                        new FollowPath(bot.getFollower(),posit3,1.5)
                                 )
                                 .andThen(
                                         new turret_Zero(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intake4, .65)
-                                                .alongWith(new Intake_on_forever(bot))
+                                        new FollowPath(bot.getFollower(), intake4, .7)
+                                                .alongWith(new Intake_on(bot))
                                 )
+                                .andThen(
+                                        new turret_yes(bot)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), score4)
+                                                .alongWith(new Prep_Shooter4(bot))
+                                )
+
                 ));
     }
 }
