@@ -28,7 +28,7 @@ public class constants {
 
 
     ///
-    public static int auto_speed = 1150;
+    public static int auto_speed = 1170;
     public static int auto_speed2 = 1100;
 
     public static int auto_speed3 = 1150;
