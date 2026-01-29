@@ -7,6 +7,7 @@ import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.BezierPoint;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
@@ -29,28 +30,33 @@ import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret
 import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 
 import ftclib.FollowPath;
+import ftclib.HoldPoint;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "redLQTsolo", group = "red")
 public class RedClose15 extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
-    public final Pose pres = new Pose (96,77, Math.toRadians(0));
-    public final Pose gather1 = new Pose (132.48,77, Math.toRadians(0));
+    public static final Pose startpose1 = new Pose  (124.2098,124.8848, Math.toRadians(307.21));
+
+    public final Pose pres = new Pose (96,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
     public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
     public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
-    public final Pose opengate = new Pose (137.25806451612902,61.29677419354837, Math.toRadians(0));
+    public final Pose opengate = new Pose (137.25806451612902,70, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
     public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
     public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose get2balls3 = new Pose (143.32530120481928,30.657487091222029, Math.toRadians(340));
-    public final Pose gather4 = new Pose (143.32530120481928,10.750774526678143, Math.toRadians(340));
+    public final Pose get2balls3 = new Pose (139.32530120481928,30.657487091222029, Math.toRadians(340));
+    public final Pose gather4 = new Pose (139.32530120481928,10.750774526678143, Math.toRadians(340));
     public final Pose shoot4 = new Pose (84.76133473988118,83.63759924490589, Math.toRadians(0));
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4, score4;
     private Path curve3spikemark, curve2spikemark;
+
+    private BezierPoint kaimenPoint = new BezierPoint(new Pose(128.26,66,Math.toRadians(271.91)));
 
     public void buildPaths() {
         scorepres = new Path(new BezierLine(startpose, pres));
@@ -69,6 +75,7 @@ public class RedClose15 extends OpModeCommand {
                         gather2
                 )
         );
+        curve2spikemark.setConstantHeadingInterpolation(0);
 
         posit1 = new Path(new BezierLine(shoot1, get2balls1));
         posit1.setLinearHeadingInterpolation(shoot1.getHeading(), get2balls1.getHeading());
@@ -158,7 +165,7 @@ public class RedClose15 extends OpModeCommand {
                                 .andThen(
                                         new Shooter_off(bot)
                                 )
-                                /*.andThen(
+                                .andThen(
                                         new FollowPath(bot.getFollower(), curve2spikemark)
                                                 .alongWith(new Intake_on_forever(bot))
                                 )
@@ -166,7 +173,7 @@ public class RedClose15 extends OpModeCommand {
                                         new Intake_off(bot)
                                 )
 
-                                 */
+                                /*
                                 .andThen(
                                         new FollowPath(bot.getFollower(), posit1)
                                 )
@@ -175,10 +182,14 @@ public class RedClose15 extends OpModeCommand {
                                                 .alongWith(new Intake_on_long(bot))
                                 )
 
+                                 */
                                 .andThen (
                                         new FollowPath(bot.getFollower(), kaimen,.5)
                                                 .raceWith(new WaitCommand(2500))
                                 )
+
+
+
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score2)
                                                 .alongWith(new Prep_Shooter3(bot))
@@ -228,16 +239,21 @@ public class RedClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),posit3)
-                                )
-                                .andThen(
-                                        new turret_Zero(bot)
+                                                .alongWith(
+                                                        new Intake_on_forever(bot),
+                                                        new turret_Zero(bot)
+                                                )
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake4, .7)
-                                                .alongWith(new Intake_on_long(bot))
                                 )
                                 .andThen(
+                                    new WaitCommand(500)
+                                )
+                                .andThen(
+                                        new Intake_off(bot),
                                         new turret_yes(bot)
+
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score4)
@@ -249,6 +265,7 @@ public class RedClose15 extends OpModeCommand {
                                 .andThen(
                                         new Intake_on(bot)
                                 )
+
 
                 ));
     }
