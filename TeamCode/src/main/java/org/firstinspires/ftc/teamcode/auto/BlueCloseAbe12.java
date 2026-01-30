@@ -22,7 +22,6 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "12 blue close Abe ", group = "Blue")
-@Disabled
 public class BlueCloseAbe12 extends OpModeCommand {
     Robot bot;
 

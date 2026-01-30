@@ -33,6 +33,7 @@ public class Intake_off extends CommandBase { ///  runs the intake , either for 
                 break;
             case 1:
                 bot.getIntake().off();
+                bot.getIntake().servosIn();
                 setState(-1);
                 break;
 

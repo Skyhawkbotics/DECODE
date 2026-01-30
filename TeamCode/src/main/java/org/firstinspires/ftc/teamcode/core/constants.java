@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.006, ei = 0, ed = 0.00001, f = 0.6; ///these are good as of 10/11
+    public static double ep = 0.006, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
 
     public static int max = 2000;
 

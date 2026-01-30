@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
 @TeleOp(name = "ShooterTest", group = "Tests")
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 public class ShooterTest extends OpMode {
 
     private Shooter shooter;
+    private Intake intake;
 
     private Gamepad g1 = new Gamepad();
     private Gamepad previousg1 = new Gamepad();
@@ -19,6 +21,8 @@ public class ShooterTest extends OpMode {
 
     public void init() {
         shooter = new Shooter(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+
         g1 = new Gamepad();
         previousg1 = new Gamepad();
     }
@@ -43,6 +47,13 @@ public class ShooterTest extends OpMode {
             shooter.perf_velocity();
         }
 
+        if(gamepad1.right_trigger > 0) {
+            intake.intake();
+        } else if(gamepad1.left_trigger >0) {
+            intake.fire();
+        } else {
+            intake.off();
+        }
 
 
         ///  to the max angles
@@ -63,6 +74,8 @@ public class ShooterTest extends OpMode {
 
 
         shooter.shooter_telemetry();
+        shooter.panelstelemetry();
+
         telemetry1.getTelemetry().update();
 
 
