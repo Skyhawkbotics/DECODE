@@ -32,21 +32,21 @@ import ftclib.OpModeCommand;
 public class RedClose15DISCONNECTFINAL extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
-    public static final Pose startpose1 = new Pose  (124.2098,124.8848, Math.toRadians(307.21));
 
-    public final Pose pres = new Pose (96,79, Math.toRadians(0));
-    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
-    public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
+    public final Pose all_scores = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
+
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
-    public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
-    public final Pose opengate = new Pose (137.25806451612902,70, Math.toRadians(0));
-    public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
-    public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
-    public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
-    public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose get2balls3 = new Pose (139.32530120481928,30.657487091222029, Math.toRadians(350));
-    public final Pose gather4 = new Pose (139.32530120481928,10.750774526678143, Math.toRadians(350));
-    public final Pose shoot4 = new Pose (84.76133473988118,83.63759924490589, Math.toRadians(0));
+    public final Pose gather2 = new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
+
+    ///  put intake here
+
+
+    ///come last
+    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
+    public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
+
+
+
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4, score4;
     private Path curve3spikemark, curve2spikemark;
@@ -54,67 +54,8 @@ public class RedClose15DISCONNECTFINAL extends OpModeCommand {
     private BezierPoint kaimenPoint = new BezierPoint(new Pose(128.26,66,Math.toRadians(271.91)));
 
     public void buildPaths() {
-        scorepres = new Path(new BezierLine(startpose, pres));
-        scorepres.setLinearHeadingInterpolation(startpose.getHeading(), pres.getHeading());
-
-        intake1 = new Path (new BezierLine(pres, gather1));
-        intake1.setLinearHeadingInterpolation(pres.getHeading(),gather1.getHeading());
-
-        score1 = new Path(new BezierLine(gather1, shoot1));
-        score1.setLinearHeadingInterpolation(gather1.getHeading(), shoot1.getHeading());
-
-        curve2spikemark = new Path(
-                new BezierCurve(
-                        shoot1,
-                        new Pose(89.23475352731101, 50.477832094139686),
-                        gather2
-                )
-        );
-        curve2spikemark.setConstantHeadingInterpolation(0);
-
-        posit1 = new Path(new BezierLine(shoot1, get2balls1));
-        posit1.setLinearHeadingInterpolation(shoot1.getHeading(), get2balls1.getHeading());
-
-        intake2 =new Path(new BezierLine(get2balls1, gather2));
-        intake2.setLinearHeadingInterpolation(get2balls1.getHeading(),gather2.getHeading());
-
-        kaimen = new Path(new BezierCurve(
-                gather2,
-                new Pose(115.07917383820997,63.4860029981678),
-                opengate));
-        kaimen.setLinearHeadingInterpolation(gather2.getHeading(),opengate.getHeading());
-
-        score2 = new Path (new BezierLine(opengate, shoot2));
-        score2.setLinearHeadingInterpolation(opengate.getHeading(), shoot2.getHeading());
-
-        posit2 = new Path (new BezierLine(shoot2, get2balls2));
-        posit2.setLinearHeadingInterpolation(shoot2.getHeading(),get2balls1.getHeading());
-
-        intake3 = new Path (new BezierLine(get2balls2, gather3));
-        intake3.setLinearHeadingInterpolation(get2balls2.getHeading(),gather3.getHeading());
-
-        curve3spikemark = new Path(
-                new BezierCurve(
-                        shoot2,
-                        new Pose(95, 27),
-                        gather3
-        )
-        );
-        curve3spikemark.setConstantHeadingInterpolation(0);
-        score3 = new Path (new BezierLine(gather3, shoot3));
-        score3.setLinearHeadingInterpolation(gather3.getHeading(),shoot3.getHeading());
-
-        posit3 = new Path (new BezierCurve(
-                shoot3,
-                new Pose(137.4328455558454 ,61.307402376858285),
-                get2balls3));
-        posit3.setTangentHeadingInterpolation();
-
-        intake4 = new Path(new BezierCurve(get2balls3, gather4));
-        intake4.setLinearHeadingInterpolation(get2balls3.getHeading(),gather4.getHeading());
-
-        score4 = new Path (new BezierLine(gather4, shoot4));
-        score4.setLinearHeadingInterpolation(gather4.getHeading(), shoot4.getHeading());
+        scorepres = new Path(new BezierLine(startpose, all_scores));
+        scorepres.setLinearHeadingInterpolation(startpose.getHeading(), all_scores.getHeading());
 
         }
 
