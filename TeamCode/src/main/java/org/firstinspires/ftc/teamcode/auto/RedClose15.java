@@ -49,8 +49,8 @@ public class RedClose15 extends OpModeCommand {
     public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
     public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose get2balls3 = new Pose (139.32530120481928,30.657487091222029, Math.toRadians(340));
-    public final Pose gather4 = new Pose (139.32530120481928,10.750774526678143, Math.toRadians(340));
+    public final Pose get2balls3 = new Pose (139.32530120481928,30.657487091222029, Math.toRadians(350));
+    public final Pose gather4 = new Pose (139.32530120481928,10.750774526678143, Math.toRadians(350));
     public final Pose shoot4 = new Pose (84.76133473988118,83.63759924490589, Math.toRadians(0));
 
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4, score4;
@@ -224,11 +224,13 @@ public class RedClose15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intake3, .7)
                                                 .alongWith(new Intake_on_3rd_set(bot))
                                 )
+
+                                         */
                                 .andThen(
                                         new Intake_off(bot)
                                 )
 
-                                         */
+
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score3)
                                                 .alongWith(
