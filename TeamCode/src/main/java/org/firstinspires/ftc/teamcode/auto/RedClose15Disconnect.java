@@ -31,6 +31,8 @@ import ftclib.OpModeCommand;
 
 @Autonomous(name = "Disconnect Auto 15", group = "red")
 public class RedClose15Disconnect extends OpModeCommand {
+
+
     Robot bot;
     public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
     public static final Pose startpose1 = new Pose  (124.2098,124.8848, Math.toRadians(307.21));
