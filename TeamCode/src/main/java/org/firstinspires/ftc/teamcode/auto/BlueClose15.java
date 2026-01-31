@@ -11,6 +11,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
@@ -35,6 +36,7 @@ import ftclib.OpModeCommand;
 import ftclib.Opmode;
 
 @Autonomous (name = "blueLQTsolo", group = "blue")
+@Disabled
 public class BlueClose15 extends OpModeCommand {
     Robot bot;
 

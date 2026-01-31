@@ -32,7 +32,7 @@ public class Intake_on extends CommandBase { ///  runs the intake , either for f
             case -1:
                 break;
             case 1:
-                bot.getIntake().on();
+                bot.getIntake().on_slow();
                 setState(2);
                 break;
             case 2:

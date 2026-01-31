@@ -12,6 +12,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
@@ -34,6 +35,7 @@ import ftclib.HoldPoint;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "redLQTsolo", group = "red")
+@Disabled
 public class RedClose15 extends OpModeCommand {
     Robot bot;
     public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));

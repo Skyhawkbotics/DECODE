@@ -35,7 +35,8 @@ public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set
                 if(bot.getTurret().IsTurretDone()) {
                     bot.getTurret().ll_start();
                     setState(-1);
-                }
+               }
+                break;
         }
     }
 

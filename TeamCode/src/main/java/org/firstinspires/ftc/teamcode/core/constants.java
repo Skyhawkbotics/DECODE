@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.006, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
+    public static double ep = 0.0045, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -32,7 +32,7 @@ public class constants {
     public static int auto_speed2 = 1100;
 
     public static int auto_speed3 = 1150;
-    public static int auto_speed4 = 1200;
+    public static int auto_speed4 = 1180;
     public static int auto_speed_blue = 1140;
     public static int perf_value = 1450; ///vertex of largest triangle
 
