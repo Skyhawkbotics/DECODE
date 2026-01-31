@@ -53,7 +53,7 @@ public class BLUEClose15DISCONNECTFINAL extends OpModeCommand {
 
     public final Pose bluegateintake1 = gateintake1.mirror();
 
-    public final Pose gateintakeFINAL = new Pose(131, 61, Math.toRadians(25));
+    public final Pose gateintakeFINAL = new Pose(135, 61, Math.toRadians(25));
 
     public final Pose bluegateintakeFINAL = gateintakeFINAL.mirror();
 

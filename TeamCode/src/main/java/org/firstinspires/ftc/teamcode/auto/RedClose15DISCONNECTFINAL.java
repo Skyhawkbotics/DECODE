@@ -48,7 +48,7 @@ public class RedClose15DISCONNECTFINAL extends OpModeCommand {
     ///  put intake here
 
     public final Pose gateintake1 = new Pose(125, 61, Math.toRadians(25));
-    public final Pose gateintakeFINAL = new Pose(131, 61, Math.toRadians(25));
+    public final Pose gateintakeFINAL = new Pose(135, 61, Math.toRadians(25));
 
     ///come last
     public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
