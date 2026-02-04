@@ -32,10 +32,10 @@ public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set
             case -1:
                 break;
             case 1:
-                if(bot.getTurret().IsTurretDone()) {
+                //if(bot.getTurret().IsTurretDone()) {
                     bot.getTurret().ll_start();
                     setState(-1);
-               }
+               //}
                 break;
         }
     }

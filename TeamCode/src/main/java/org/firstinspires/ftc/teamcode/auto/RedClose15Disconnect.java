@@ -44,7 +44,7 @@ public class RedClose15Disconnect extends OpModeCommand {
     public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
     public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
-    public final Pose opengate = new Pose (137.25806451612902,70, Math.toRadians(0));
+    public final Pose opengate = new Pose (137.25806451612902,68, Math.toRadians(0));
     public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
     public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
     public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
@@ -139,6 +139,7 @@ public class RedClose15Disconnect extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -157,8 +158,10 @@ public class RedClose15Disconnect extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(new WaitCommand(250))
+
                                 .andThen(
                                         new Intake_on(bot)
                                 )
@@ -196,7 +199,7 @@ public class RedClose15Disconnect extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
-                                ),
+                                                .raceWith(new WaitCommand(500)),
                                 new WaitCommand(300)
                                         .andThen(
                                         new Intake_on(bot)
@@ -229,7 +232,8 @@ public class RedClose15Disconnect extends OpModeCommand {
                                 )
                                         .andThen(
                                                 new turret_LL(bot)
-                                        ),
+                                        )
+                                        .raceWith(new WaitCommand(500)),
                                 new WaitCommand(200)
                                         .andThen(
                                         new Intake_on(bot)
@@ -261,13 +265,14 @@ public class RedClose15Disconnect extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
 
 
-                ));
+                )));
     }
 }
 

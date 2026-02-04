@@ -38,11 +38,11 @@ public class RedClose15DISCONNECTFINAL extends OpModeCommand {
 
     /// Intake Spike Mark Two,
 
-    public final Pose gather2 = new Pose (126.86451612903225, 51.76129032258066, Math.toRadians(0));
+    public final Pose gather2 = new Pose (128.86451612903225, 51.76129032258066, Math.toRadians(0));
     public final Pose kaimencontrolpoint =  new Pose(113.24977274928074,61.395258896534415);
 
-    public final Pose opengate = new Pose (137.28165798255372,70, Math.toRadians(0));
-    public final Pose opengateREAL = new Pose (131.28165798255372,70, Math.toRadians(0));
+    public final Pose opengate = new Pose (138.28165798255372,67, Math.toRadians(0));
+    public final Pose opengateREAL = new Pose (131.28165798255372,67, Math.toRadians(0));
 
     public final Pose kaimen_back_control_point =  new Pose(103,59);
     public final Pose kaimen_back_control_point1 =  new Pose(102,64);
@@ -51,13 +51,13 @@ public class RedClose15DISCONNECTFINAL extends OpModeCommand {
     ///  put intake here
 
     public final Pose gateintake1 = new Pose(125, 59, Math.toRadians(30));
-    public final Pose gateintakeFINAL = new Pose(137, 58.5, Math.toRadians(30));
+    public final Pose gateintakeFINAL = new Pose(139, 58.5, Math.toRadians(30));
 
-    public final Pose gateintakeFINAL1 = new Pose(137, 57, Math.toRadians(30));
+    public final Pose gateintakeFINAL1 = new Pose(139, 57, Math.toRadians(30));
 
 
     ///come last
-    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (125,79, Math.toRadians(0));
     public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose curve2spikemarkcontrolpoint = new Pose(89.23475352731101, 50.477832094139686);
 
@@ -194,7 +194,7 @@ public class RedClose15DISCONNECTFINAL extends OpModeCommand {
         new RunCommand(bot:: autonomous_robot_update),
                 new SequentialCommandGroup(
 //              CYCLE 1, Preloads
-                        new FollowPath(bot.getFollower(), scorepres, 0.5)
+                        new FollowPath(bot.getFollower(), scorepres,.8)
                                 .alongWith(
                                         new Prep_Shooter4(bot)
                                 )

@@ -29,7 +29,7 @@ public class constants {
 
     ///
     public static int auto_speed = 1170;
-    public static int auto_speed2 = 1100;
+    public static int auto_speed2 = 1060;
 
     public static int auto_speed3 = 1150;
     public static int auto_speed4 = 1180;
@@ -70,9 +70,9 @@ public class constants {
 
     ///  Limelight PID Controller
 
-    public static double lp = 0.012;
+    public static double lp = 0.011;
     public static double li = 0;
-    public static double ld = 0.00001;
+    public static double ld = 0.00002;
 
 
     /// Intake speed constants

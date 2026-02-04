@@ -19,12 +19,12 @@ public class shooterSpeed {
         double PI = 3.14159265358979234;
         double shooter_constant = 1.075;
         double dampening_constant = 0.95;
-        double sharpening_constant = 1.0375;
+        double sharpening_constant = 1.05;
 
         double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
 
-        if (d > 4) {
+        if (d < 3.9) {
             angle *= dampening_constant;
         }
 
@@ -37,7 +37,7 @@ public class shooterSpeed {
         if (d < 4) {
             velocity_rpm = velocity_rpm * dampening_constant;
         } else */
-        if (d > 4) {
+        if (d > 3.9) {
             velocity_rpm = velocity_rpm * sharpening_constant;
         }
 

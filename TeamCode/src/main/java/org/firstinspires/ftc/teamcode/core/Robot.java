@@ -56,7 +56,6 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
-        tilt = new Tilt(hardwareMap, telemetry);
 
 
         ///  GAMEPADS
@@ -191,14 +190,6 @@ public class Robot {
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
             follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
-        }
-
-        if(g1.cross) {
-            tilt.tilt();
-        } else if(g1.triangle)
-            tilt.reverse_tilt();
-        else {
-            tilt.stop_tilt();
         }
 
         if (g1.left_trigger > 0) {
