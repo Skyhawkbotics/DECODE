@@ -27,7 +27,7 @@ import org.firstinspires.ftc.teamcode.core.commands.turret_LL_blue;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "RED 12 USE THIS", group = "Red")
+@Autonomous(name = "RED 12 CONSISTENT", group = "Red")
 public class red12LTbleh extends OpModeCommand {
 
 
