@@ -28,6 +28,8 @@ public class constants {
 
 
     ///
+    public static int tof_constant;
+    public static int tof_coefficient;
     public static int auto_speed = 1170;
     public static int auto_speed2 = 1060;
 
