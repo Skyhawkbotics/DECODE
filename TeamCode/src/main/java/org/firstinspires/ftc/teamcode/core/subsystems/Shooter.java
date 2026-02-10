@@ -253,7 +253,9 @@ public class     Shooter {
 
     }
 
-
+    public double tof (double distance) {
+        return tof_constant + (distance*tof_coef);
+    }
 
     ///  old motor
     public void increaseVelocity() {
