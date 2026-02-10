@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -9,15 +9,12 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.BezierPoint;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
-import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_3rd_set;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
@@ -32,39 +29,38 @@ import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-import ftclib.OpModeCommand;
-import ftclib.Opmode;
-
-@Autonomous (name = "blueLQTsolo", group = "blue")
+@Autonomous(name = "redLQTsolo", group = "red")
 @Disabled
-public class BlueClose15 extends OpModeCommand {
+public class RedClose15 extends OpModeCommand {
     Robot bot;
+    public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
+    public static final Pose startpose1 = new Pose  (124.2098,124.8848, Math.toRadians(307.21));
 
-    public static final Pose startpose = new Pose  (16,117, Math.toRadians(140));
-    public final Pose preloads = new Pose (52.46,77, Math.toRadians(180));
-    public final Pose gather1 = new Pose (11.52, 77, Math.toRadians(180));
-    public final Pose shoot1 = new Pose (35.15, 97.1, Math.toRadians(180));
-    public final Pose get2balls1 = new Pose (35.15, 53.76, Math.toRadians(180));
-    public final Pose gather2 = new Pose (19.14,53.76, Math.toRadians(180));
-    public final Pose opengate = new Pose (6.74,61.3, Math.toRadians(180));
-    public final Pose shoot2 = new Pose (41.61, 90.05, Math.toRadians(180));
-    public final Pose get2balls2 = new Pose (41.61, 34.845, Math.toRadians(180));
-    public final Pose gather3 = new Pose (13.15, 34.845, Math.toRadians(180));
-    public final Pose shoot3 = new Pose (54.374,76.89, Math.toRadians(180));
-    public final Pose get2balls3 = new Pose (0.675, 30.657, Math.toRadians(210));
-    public final Pose gather4 = new Pose (0.675, 10.75, Math.toRadians(210));
-    public final Pose shoot4 = new Pose (59.24,83.6376, Math.toRadians(180));
+    public final Pose pres = new Pose (96,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
+    public final Pose shoot1 = new Pose (108.85,97.1, Math.toRadians(0));
+    public final Pose get2balls1 = new Pose (104.35,53.76129032258066, Math.toRadians(0));
+    public final Pose gather2= new Pose (124.86451612903225, 53.76129032258066, Math.toRadians(0));
+    public final Pose opengate = new Pose (137.25806451612902,68, Math.toRadians(0));
+    public final Pose shoot2 = new Pose (102.39354838709677,90.0516129032258, Math.toRadians(0));
+    public final Pose get2balls2 = new Pose (102.74193548387095,34.84516129032261, Math.toRadians(0));
+    public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
+    public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
+    public final Pose get2balls3 = new Pose (139.32530120481928,30.657487091222029, Math.toRadians(350));
+    public final Pose gather4 = new Pose (139.32530120481928,10.750774526678143, Math.toRadians(350));
+    public final Pose shoot4 = new Pose (86.76133473988118,87.63759924490589, Math.toRadians(0));
+
     private Path scorepres, intake1, score1, posit1, intake2, kaimen, score2, posit2, intake3, score3, posit3, intake4, score4;
     private Path curve3spikemark, curve2spikemark;
 
     private BezierPoint kaimenPoint = new BezierPoint(new Pose(128.26,66,Math.toRadians(271.91)));
 
     public void buildPaths() {
-        scorepres = new Path(new BezierLine(startpose, preloads));
-        scorepres.setLinearHeadingInterpolation(startpose.getHeading(), preloads.getHeading());
+        scorepres = new Path(new BezierLine(startpose, pres));
+        scorepres.setLinearHeadingInterpolation(startpose.getHeading(), pres.getHeading());
 
-        intake1 = new Path (new BezierLine(preloads, gather1));
-        intake1.setLinearHeadingInterpolation(preloads.getHeading(),gather1.getHeading());
+        intake1 = new Path (new BezierLine(pres, gather1));
+        intake1.setLinearHeadingInterpolation(pres.getHeading(),gather1.getHeading());
 
         score1 = new Path(new BezierLine(gather1, shoot1));
         score1.setLinearHeadingInterpolation(gather1.getHeading(), shoot1.getHeading());
@@ -104,7 +100,7 @@ public class BlueClose15 extends OpModeCommand {
                         shoot2,
                         new Pose(95, 27),
                         gather3
-                )
+        )
         );
         curve3spikemark.setConstantHeadingInterpolation(0);
         score3 = new Path (new BezierLine(gather3, shoot3));
@@ -122,14 +118,14 @@ public class BlueClose15 extends OpModeCommand {
         score4 = new Path (new BezierLine(gather4, shoot4));
         score4.setLinearHeadingInterpolation(gather4.getHeading(), shoot4.getHeading());
 
-    }
+        }
 
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry,startpose, 24);
         buildPaths();
 
         schedule(
-                new RunCommand(bot:: autonomous_robot_update),
+        new RunCommand(bot:: autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), scorepres)
                                 .alongWith(
@@ -137,6 +133,7 @@ public class BlueClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(200)
@@ -151,13 +148,14 @@ public class BlueClose15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intake1)
                                                 .alongWith(new Intake_on_long1(bot))
                                 )
-                                //
+                        //
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score1)
                                                 .alongWith(new Prep_Shooter2(bot))
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(250)
@@ -202,6 +200,7 @@ public class BlueClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(300)
@@ -212,21 +211,21 @@ public class BlueClose15 extends OpModeCommand {
                                 .andThen(
                                         new Shooter_off(bot)
                                 )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), curve3spikemark)
-                                                .alongWith(new Intake_on_forever(bot))
+                                 .andThen(
+                                                new FollowPath(bot.getFollower(), curve3spikemark)
+                                                        .alongWith(new Intake_on_forever(bot))
                                 )
-                                /*
+                                        /*
 
-                        .andThen(
-                                new FollowPath(bot.getFollower(), posit2,1)
-                        )
-                                  .andThen(
-                                new FollowPath(bot.getFollower(), intake3, .7)
-                                        .alongWith(new Intake_on_3rd_set(bot))
-                        )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), posit2,1)
+                                )
+                                          .andThen(
+                                        new FollowPath(bot.getFollower(), intake3, .7)
+                                                .alongWith(new Intake_on_3rd_set(bot))
+                                )
 
-                                 */
+                                         */
                                 .andThen(
                                         new Intake_off(bot)
                                 )
@@ -240,6 +239,7 @@ public class BlueClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(200)
@@ -261,7 +261,7 @@ public class BlueClose15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intake4, .7)
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                    new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_off(bot),
@@ -274,6 +274,7 @@ public class BlueClose15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
+                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(200)
@@ -286,6 +287,4 @@ public class BlueClose15 extends OpModeCommand {
                 ));
     }
 }
-
-
 

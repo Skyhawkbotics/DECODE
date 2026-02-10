@@ -249,6 +249,9 @@ public class Turret {
     public void turretcloseZero() {
         turretPose = 0;
     }
+    public void turretcloseRED() {
+        turretPose = 395;
+    }
     public void turretcloseNORMAL() {
         turretPose = 420;
     }
