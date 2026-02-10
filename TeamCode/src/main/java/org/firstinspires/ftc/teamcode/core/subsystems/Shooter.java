@@ -233,8 +233,7 @@ public class     Shooter {
 
 
     public double getDistance(Pose followerPose, Boolean isRed) {
-        Pose redPose = new Pose(144, 144);
-        Pose bluePose = new Pose(0, 144);
+
         double distance;
 
         if(isRed) {

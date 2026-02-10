@@ -12,6 +12,7 @@ import com.pedropathing.geometry.Pose;
 @Configurable
 public class constants {
     /// Hardware names
+
     public static String turret_name = "turret";
     public static double left_limit = -750;
     public static double right_limit = 667;
@@ -26,7 +27,8 @@ public class constants {
 
     public static int max = 2000;
 
-
+    public static Pose redPose = new Pose(144, 144);
+    public static Pose bluePose = new Pose(0, 144);
     ///
     public static int tof_constant;
     public static int tof_coefficient;
