@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.core.commands.turret_LL_blue;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "RED 12 Consistent", group = "Red")
+@Autonomous(name = "RED 12 CONSISTENT", group = "Red")
 public class red12LTbleh extends OpModeCommand {
 
 
@@ -61,14 +61,16 @@ public class red12LTbleh extends OpModeCommand {
     public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
 
     /// Gather 3
+    public final Pose semiposit = new Pose (102.74,59, Math.toRadians(0));
+
     public final Pose get2balls2 = new Pose (102.74193548387095,33.84516129032261, Math.toRadians(0));
-    public final Pose gather3 = new Pose (130.85161290322581,33.84516129032261, Math.toRadians(0));
+    public final Pose gather3 = new Pose (133.85161290322581,33.84516129032261, Math.toRadians(0));
     public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
     public final Pose curve2spikemarkcontrolpoint = new Pose(89.23475352731101, 50.477832094139686);
 
 
-    private Path scorepres, intake1, score1, score2, posit1, posit2, intake3;
-    private PathChain kaimen;
+    private Path scorepres, intake1, score1, score2, posit1, intake3;
+    private PathChain kaimen, posit2;
     private Path curve2spikemark;
     private PathChain kaimenslow;
 
@@ -134,8 +136,13 @@ public class red12LTbleh extends OpModeCommand {
         score1.setLinearHeadingInterpolation(gather1.getHeading(), last_shot.getHeading());
 
 // Spike Mark 3 Intake
-        posit2 = new Path (new BezierLine(last_shot, get2balls2))    ;
-        posit2.setLinearHeadingInterpolation(last_shot.getHeading(),get2balls2.getHeading());
+        posit2 = bot.getFollower().pathBuilder().addPath(
+                        new BezierLine(
+                                get2balls2,
+                                gather3)
+                )
+                .setLinearHeadingInterpolation(get2balls2.getHeading(),gather3.getHeading())
+                .build();
 
         intake3 = new Path (new BezierLine(get2balls2,gather3));
         intake3.setLinearHeadingInterpolation(get2balls2.getHeading(), gather3.getHeading());
@@ -146,11 +153,11 @@ public class red12LTbleh extends OpModeCommand {
 
         park = new Path(
                 new BezierLine(
-                        last_shot,
-                        new Pose(35 , 129)
+                        all_scores,
+                        gather2
                 )
         );
-        park.setConstantHeadingInterpolation(Math.toRadians(90));
+        park.setLinearHeadingInterpolation(all_scores.getHeading(), gather2.getHeading());
 
 
     }
@@ -251,7 +258,7 @@ public class red12LTbleh extends OpModeCommand {
                                 .andThen(new FollowPath(bot.getFollower(), posit2)
                                         .alongWith(new Intake_on_forever(bot))
                                 )
-                                .andThen(new FollowPath(bot.getFollower(), intake3,.7))
+                                .andThen(new FollowPath(bot.getFollower(), intake3,.6))
                                 .andThen(
                                         new WaitCommand(200)
                                 )
@@ -268,11 +275,9 @@ public class red12LTbleh extends OpModeCommand {
                                                 .andThen(
                                                         new Intake_on(bot)
                                                 )
-//              CYCLE 6, Leave
-
-
-
                                 )
+                                //              CYCLE 6, Leave
+                                .andThen(new FollowPath(bot.getFollower(), park))
                 ));
     }
 }
