@@ -39,7 +39,7 @@ public class constants {
     public static int far_side_shoot = 1740; ///vertex of smallest triangle
     public static double far_side_angle = 0.6;
 
-    public static int far_side_turret_offset = 521;
+    public static int far_side_turret_offset = 521, far_side_turret_offset_blue = -400;
 
     public static double far_zone_tx = -2;
 
