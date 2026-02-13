@@ -34,7 +34,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
 
     public static final Pose bluestartpos = startpos.mirror();
 
-    public final Pose shootload = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shootload = new Pose(55, 16, Math.toRadians(114));
 
     public final Pose blueshootload = shootload.mirror();
 
@@ -42,7 +42,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
 
     public final Pose bluehumanintake = humanintake.mirror();
 
-    public final Pose shoottres = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shoottres = new Pose(55, 16, Math.toRadians(114));
 
     public final Pose blueshoottres = shoottres.mirror();
 
@@ -50,7 +50,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
 
     public final Pose bluegametime = gametime.mirror();
 
-    public final Pose curvy = new Pose(40, 9.88);
+    public final Pose curvy = new Pose(40, 11);
 
     public final Pose bluecurvy = curvy.mirror();
 
@@ -64,7 +64,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
         intakeuno.setLinearHeadingInterpolation(blueshootload.getHeading(), bluehumanintake.getHeading());
 
         dametime = new Path (new BezierLine(bluehumanintake, blueshoottres));
-        dametime.setConstantHeadingInterpolation(Math.toRadians(57));
+        dametime.setConstantHeadingInterpolation(Math.toRadians(114));
 
         end = new Path (new BezierLine(blueshoottres, bluegametime));
         end.setLinearHeadingInterpolation(blueshoottres.getHeading(), bluegametime.getHeading());
@@ -90,6 +90,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                                 .alongWith(new Shooter_off(bot))
                                                 .alongWith(new Intake_on_forever(bot))
+                                                .alongWith(new WaitCommand(300))
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)

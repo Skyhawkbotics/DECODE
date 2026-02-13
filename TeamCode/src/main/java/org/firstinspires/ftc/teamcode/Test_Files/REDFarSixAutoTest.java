@@ -46,7 +46,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
         scorepre1 = new Path (new BezierLine(startpos,shootload));
         scorepre1.setLinearHeadingInterpolation(startpos.getHeading(), shootload.getHeading());
 
-        intakeuno = new Path (new BezierCurve(shootload, new Pose (40,9.88), humanintake));
+        intakeuno = new Path (new BezierCurve(shootload, new Pose (40,11), humanintake));
         intakeuno.setLinearHeadingInterpolation(shootload.getHeading(), humanintake.getHeading());
 
         dametime = new Path (new BezierLine(humanintake, shoottres));
