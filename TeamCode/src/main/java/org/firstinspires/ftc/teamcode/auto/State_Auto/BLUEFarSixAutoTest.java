@@ -79,7 +79,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_far_blue(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(400  )
+                                        new WaitCommand(4000  )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -88,7 +88,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                                 .alongWith(new Shooter_off(bot))
                                                 .alongWith(new Intake_on_forever(bot))
-                                                .alongWith(new WaitCommand(300))
+                                                .alongWith(new WaitCommand(2000))
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
@@ -96,7 +96,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_far_blue(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(400)
+                                        new WaitCommand(4000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)

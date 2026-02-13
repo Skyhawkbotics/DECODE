@@ -64,7 +64,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_far_red(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(400  )
+                                        new WaitCommand(4000 )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -73,6 +73,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                                 .alongWith(new Shooter_off(bot))
                                                 .alongWith(new Intake_on_forever(bot))
+                                                .alongWith(new WaitCommand(3000))
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
@@ -80,7 +81,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_far_red(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(400)
+                                        new WaitCommand(4000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
