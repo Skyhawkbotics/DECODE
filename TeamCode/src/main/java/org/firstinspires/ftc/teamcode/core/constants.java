@@ -30,8 +30,8 @@ public class constants {
     public static Pose redPose = new Pose(144, 144);
     public static Pose bluePose = new Pose(0, 144);
     ///
-    public static int tof_constant;
-    public static int tof_coefficient;
+    public static double tof_constant;
+    public static double tof_coefficient;
     public static int auto_speed = 1170;
     public static int auto_speed2 = 1060;
 
