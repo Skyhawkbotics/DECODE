@@ -17,14 +17,14 @@ public class TargetFrameVel {
         double dx = target.getX() - robotPose.getX();
         double dy = target.getY() - robotPose.getY();
     
-        double r = Math.hypot(dx, dy);
-        if (r < 1e-6) {
+        double distancefromtarget = Math.hypot(dx, dy);
+        if (distancefromtarget < 1e-6) {
             return new TargetFrameVel(0.0, 0.0);
         }
     
         // Unit vector from robot -> target
-        double ux = dx / r;
-        double uy = dy / r;
+        double ux = dx / distancefromtarget;
+        double uy = dy / distancefromtarget;
     
         // Left/CCW perpendicular
         double px = -uy;
