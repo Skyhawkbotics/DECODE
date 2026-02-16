@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import static org.firstinspires.ftc.teamcode.core.constants.*;
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -293,6 +294,7 @@ public class     Shooter {
         telemetry.addData("PID Output for power", power);
 
         telemetry.addData("Shooter Reached", velocityReached());
+        telemetry.addData("Estimated TOF", tof(getDistance(follower.getPose(), Boolean.TRUE)));
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public void panelstelemetry() {
