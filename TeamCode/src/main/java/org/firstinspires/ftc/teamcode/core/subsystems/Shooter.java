@@ -294,7 +294,6 @@ public class     Shooter {
         telemetry.addData("PID Output for power", power);
 
         telemetry.addData("Shooter Reached", velocityReached());
-        telemetry.addData("Estimated TOF", tof(getDistance(follower.getPose(), Boolean.TRUE)));
         // telemetry.addData("Servo position", servo.getPosition());
     }
     public void panelstelemetry() {

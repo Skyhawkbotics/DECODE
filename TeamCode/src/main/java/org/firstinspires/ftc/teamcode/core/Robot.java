@@ -32,7 +32,7 @@ public class Robot {
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
     private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
-    private double depot_distance;
+    public double depot_distance;
     private int ID;
 
 
@@ -391,6 +391,7 @@ public class Robot {
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
             telemetry.addData("Distance from Depot", depot_distance);
+            telemetry.addData("Estimated TOF", shooter.tof(depot_distance));
         }
         if (turret_telemetry) {
             turret.turret_telemetry();
