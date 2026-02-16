@@ -32,10 +32,9 @@ public class turret_Zero extends CommandBase { /// starts up tyhe shooter to a s
             case -1:
                 break;
             case 1:
-                if(bot.getTurret().IsTurretDone()) {
                     bot.getTurret().turretcloseZero();
                     setState(-1);
-                }
+                break;
         }
     }
 

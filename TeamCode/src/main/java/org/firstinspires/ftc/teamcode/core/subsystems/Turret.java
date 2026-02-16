@@ -249,6 +249,9 @@ public class Turret {
     public void turretcloseZero() {
         turretPose = 0;
     }
+    public void turretcloseRED() {
+        turretPose = 395;
+    }
     public void turretcloseNORMAL() {
         turretPose = 420;
     }
@@ -257,7 +260,7 @@ public class Turret {
     }
 
 
-    public void turret_update_far(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+    public void turret_update_far_red(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
 
@@ -289,12 +292,59 @@ public class Turret {
                     }
                 }
             } else {
+                if(ID == 24) {
+                    t_pid.setPID(turret_p, turret_i, turret_d);
+                    turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), far_side_turret_offset);
+                    double sign = Math.signum(pid_output);
+                    turret.setPower(pid_output + (sign * turret_f));
+                }
 
-                t_pid.setPID(turret_p, turret_i, turret_d);
-                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                double pid_output = t_pid.calculate(turret.getCurrentPosition(), far_side_turret_offset);
-                double sign = Math.signum(pid_output);
-                turret.setPower(pid_output + (sign * turret_f));
+
+            }
+
+        }
+
+    }
+    public void turret_update_far_blue(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+        double ll_pid_output;
+
+        if(!manual_turret) {
+            if (using_LL) {
+                LLResult result = ll.getLatestResult();
+
+                if (result.isValid()) {
+                    List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                    for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                        if (fr.getFiducialId() == ID) {
+                            timer.resetTimer();
+                            ll_pid.setPID(lp, li, ld);
+                            ll_pid_output = ll_pid.calculate(result.getTx(), far_zone_tx); // + sign * turret_f;
+                            double sign = Math.signum(ll_pid_output);
+
+                            if ((turret.getCurrentPosition() <= left_limit) &&
+                                    (Math.signum(ll_pid_output) == -1)) {
+                                turret.setPower(0);
+                            } else if ((turret.getCurrentPosition() >= right_limit) &&
+                                    (Math.signum(ll_pid_output) == 1)) {
+                                turret.setPower(0);
+                            } else {
+                                turret.setPower(ll_pid_output + (sign * lf));
+                            }
+
+                            telemetry.addData("LL PID OUTPUT", ll_pid_output);
+                        }
+                    }
+                }
+            } else {
+                if(ID == 24) {
+                    t_pid.setPID(turret_p, turret_i, turret_d);
+                    turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    double pid_output = t_pid.calculate(turret.getCurrentPosition(), far_side_turret_offset_blue);
+                    double sign = Math.signum(pid_output);
+                    turret.setPower(pid_output + (sign * turret_f));
+                }
 
 
             }

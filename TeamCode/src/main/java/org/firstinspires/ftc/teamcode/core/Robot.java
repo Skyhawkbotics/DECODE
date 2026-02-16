@@ -161,7 +161,24 @@ public class Robot {
         turret.turret_telemetry();
         shooter.shooter_telemetry();
         //turret.set_using_LL(ID);
-        turret.turret_update_far(ID, follower.getPose());
+            turret.turret_update_far_blue(ID, follower.getPose());
+
+        shooter.recoil();
+        shooter.update();
+        shooter.panelstelemetry();
+        follower.update();
+        telemetry.update();
+
+
+    }
+    public void far_autonomous_robot_update_blue () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        turret.turret_telemetry();
+        shooter.shooter_telemetry();
+        //turret.set_using_LL(ID);
+        turret.turret_update_far_blue(ID, follower.getPose());
+
 
         shooter.recoil();
         shooter.update();

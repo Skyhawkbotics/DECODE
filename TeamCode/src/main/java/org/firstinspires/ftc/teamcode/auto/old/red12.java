@@ -1,11 +1,8 @@
-package org.firstinspires.ftc.teamcode.auto;
-
-import android.provider.Settings;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -16,7 +13,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_red;
 import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 

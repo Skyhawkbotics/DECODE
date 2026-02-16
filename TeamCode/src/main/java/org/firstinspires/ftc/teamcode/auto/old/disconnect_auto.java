@@ -1,25 +1,16 @@
-package org.firstinspires.ftc.teamcode.auto;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.Preload_score_red;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
-import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
