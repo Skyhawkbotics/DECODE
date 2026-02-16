@@ -31,7 +31,7 @@ public class blue12LT extends OpModeCommand {
 
 
     Robot bot;
-    public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
+    public static final Pose startpose = new Pose (125,120, Math.toRadians(40)); // old pose (128,117, Math.toRadians(40));
     public static final Pose bluestartpose = startpose.mirror();
 
     /// Main ScorePose

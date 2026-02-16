@@ -31,7 +31,7 @@ public class red12LTbleh extends OpModeCommand {
 
 
     Robot bot;
-    public static final Pose startpose = new Pose  (128,117, Math.toRadians(40));
+    public static final Pose startpose = new Pose (125,120, Math.toRadians(40)); // this is old pose(128,117, Math.toRadians(40));
 
     /// Main ScorePose
     public final Pose all_scores = new Pose (91,82, Math.toRadians(0));
