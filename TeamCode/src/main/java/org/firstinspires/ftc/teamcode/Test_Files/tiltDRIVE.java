@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.Test_Files;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.core.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
@@ -39,9 +37,9 @@ public class tiltDRIVE extends OpMode {
             follower.setTeleOpDrive(0.8 * -gamepad1.left_stick_y, 0.4 * -gamepad1.left_stick_x, 0.5 * -gamepad1.right_stick_x, true );
         }
         if(gamepad1.triangle) {
-            tilt.tilt();
+            tilt.tiltZERO();
         } else {
-            tilt.stop_tilt();
+            tilt.tiltFULL();
         }
 
     }

@@ -1,6 +1,9 @@
 package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
 
+import static org.firstinspires.ftc.teamcode.core.constants.auto_speed2;
+import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -12,28 +15,34 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
-import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_Zero;
-import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_yes;
-import org.firstinspires.ftc.teamcode.core.commands.turret_LL_blue;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_Zero;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_yes;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "RED 12 CONSISTENT", group = "Red")
+@Autonomous(name = "RED 12 CONSISTENT", group = "Consistent")
 public class red12LTbleh extends OpModeCommand {
 
 
     Robot bot;
-    public static final Pose startpose = new Pose (125,120, Math.toRadians(40)); // this is old pose(128,117, Math.toRadians(40));
+    public static final Pose startpose = new Pose (118,131, Math.toRadians(37));
+    ///  Start_pose is against the goal front wall left border
+    /// when the wall of the depot hits the back wall touching the field perimeter
+    /// when the angled front segment of the depot connects to the back wall of the depot that is parallel to the front wall
 
-    /// Main ScorePose
+
+
+
     public final Pose all_scores = new Pose (91,82, Math.toRadians(0));
 
 
@@ -172,13 +181,13 @@ public class red12LTbleh extends OpModeCommand {
 //              CYCLE 1, Preloads
                         new FollowPath(bot.getFollower(), scorepres, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter4(bot)
+                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                 )
                                 .andThen(
                                         new turret_LL_blue(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -198,22 +207,24 @@ public class red12LTbleh extends OpModeCommand {
                                 .andThen(
                                         new WaitCommand(500)
                                 )
-                                //              CYCLE 3, Gate Opening
+//               Gate Opening
                                 .andThen (
                                         new FollowPath(bot.getFollower(), kaimenslow,true,0.65)
                                                 .raceWith(new WaitCommand(5000))
                                 )
                                 .andThen(
-                                        new Intake_off(bot)
-                                )
-
-                                .andThen(
                                         new WaitCommand(800)
                                 )
+                                .andThen(
+                                        new Intake_off(bot)
+                                )
+// Scoring Second Spike Mark
 
                                 .andThen (
                                         new FollowPath(bot.getFollower(), score2, 0.65)
-                                                .alongWith(new Prep_Shooter4(bot))
+                                                .alongWith(
+                                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
+                                                )
                                                 .alongWith(
                                                         new turret_yes(bot)
                                                 )
@@ -222,7 +233,7 @@ public class red12LTbleh extends OpModeCommand {
                                         new turret_LL_blue(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -232,15 +243,21 @@ public class red12LTbleh extends OpModeCommand {
                                 )
 
 //              CYCLE 4, Intake 1st Set
-
-                                .andThen(new FollowPath(bot.getFollower(),posit1))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(),posit1)
+                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake1, 0.7)
-                                                .alongWith(new Intake_on_long1(bot))
+                                                .alongWith(new Intake_on_forever(bot))
+                                )
+                                .andThen(
+                                        new Intake_off(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score1)
-                                                .alongWith(new Prep_Shooter2(bot))
+                                                .alongWith(
+                                                        new Prep_Shooter_any(bot, auto_speed2, 0.25)
+                                                )
                                 )
                                 .andThen(
                                         new turret_LL_blue(bot)
@@ -254,30 +271,42 @@ public class red12LTbleh extends OpModeCommand {
                                 .andThen(
                                         new Shooter_off(bot)
                                 )
+
 //              CYCLE 5, Intake 3rd Set
-                                .andThen(new FollowPath(bot.getFollower(), posit2)
-                                        .alongWith(new Intake_on_forever(bot))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), posit2)
+                                        .alongWith(
+                                                new Intake_on_forever(bot)
+                                        )
                                 )
-                                .andThen(new FollowPath(bot.getFollower(), intake3,.6))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intake3,.6)
+                                )
                                 .andThen(
                                         new WaitCommand(200)
                                 )
                                 .andThen(
                                         new Intake_off(bot)
                                 )
-                                .andThen(new FollowPath(bot.getFollower(), score2)
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), score2)
                                                 .alongWith(
-                                                        new Prep_Shooter4(bot)
-                                                )
-                                                .andThen(
-                                                        new WaitCommand(750)
-                                                )
-                                                .andThen(
-                                                        new Intake_on(bot)
+                                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                                 )
                                 )
+                                .andThen(
+                                        new WaitCommand(750)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_off(bot)
+                                )
                                 //              CYCLE 6, Leave
-                                .andThen(new FollowPath(bot.getFollower(), park))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), park)
+                                )
                 ));
     }
 }

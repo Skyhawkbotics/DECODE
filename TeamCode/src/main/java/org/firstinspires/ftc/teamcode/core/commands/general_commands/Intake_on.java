@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -7,7 +7,8 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
+public class Intake_on extends CommandBase {
+    ///  This is the main firing command. Servo Stopper position not specified
     private int state = 1;
 
     private final Robot bot;
@@ -15,7 +16,7 @@ public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter t
 
 
 
-    public Prep_Shooter_red(Robot bot) { // runs the Command
+    public Intake_on(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,15 +33,14 @@ public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter t
             case -1:
                 break;
             case 1:
-                bot.getShooter().shooterON();
-                bot.getShooter().auto_speed_blue();
-                bot.getShooter().setPos(0.11);
-                bot.getIntake().servosOut();
+                bot.getIntake().on_slow();
                 setState(2);
                 break;
             case 2:
-                if (bot.getShooter().velocityReached()) { //1
-                    setState(-1);
+                if (timer.getElapsedTimeSeconds() > 1.3) { //1
+                    bot.getTurret().ll_pause();
+                    bot.getIntake().off();
+                    setState(-1); //3
                 }
                 break;
 

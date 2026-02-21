@@ -1,13 +1,11 @@
-package org.firstinspires.ftc.teamcode.core.commands;
-
-
+package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
-
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
+
+public class Intake_on_forever extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
     private int state = 1;
 
     private final Robot bot;
@@ -15,7 +13,7 @@ public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set
 
 
 
-    public turret_LL(Robot bot) { // runs the Command
+    public Intake_on_forever(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,11 +30,10 @@ public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set
             case -1:
                 break;
             case 1:
-                //if(bot.getTurret().IsTurretDone()) {
-                    bot.getTurret().ll_start();
-                    setState(-1);
-               //}
+                bot.getIntake().on();
+                setState(-1);
                 break;
+
         }
     }
 

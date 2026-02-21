@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter_Blue_Far;
-import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.unused.Prep_Shooter_Blue_Far;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;

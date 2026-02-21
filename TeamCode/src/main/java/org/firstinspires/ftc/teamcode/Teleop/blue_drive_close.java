@@ -22,9 +22,11 @@ public class blue_drive_close extends OpMode {
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
 
 
+    public final Pose gather2 = new Pose (126.86451612903225, 51.76129032258066, Math.toRadians(0));
+    public final Pose bluegather2 = gather2.mirror();
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, pres, false, resetPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, bluegather2, false, resetPose);
 
     }
 

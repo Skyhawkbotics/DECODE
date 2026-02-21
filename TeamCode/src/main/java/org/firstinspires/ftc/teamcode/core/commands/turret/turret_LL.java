@@ -1,7 +1,5 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.turret;
 
-
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
@@ -9,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Shooter_off extends CommandBase { ///  stops shooter, makes servos become stoppers
+public class turret_LL extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
     private int state = 1;
 
     private final Robot bot;
@@ -17,7 +15,7 @@ public class Shooter_off extends CommandBase { ///  stops shooter, makes servos 
 
 
 
-    public Shooter_off(Robot bot) { // runs the Command
+    public turret_LL(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -34,10 +32,10 @@ public class Shooter_off extends CommandBase { ///  stops shooter, makes servos 
             case -1:
                 break;
             case 1:
-                bot.getShooter().turnOFF();
-                bot.getIntake().servosIn();
-                bot.getTurret().ll_pause();
-                setState(-1);
+                //if(bot.getTurret().IsTurretDone()) {
+                    bot.getTurret().ll_start();
+                    setState(-1);
+               //}
                 break;
         }
     }

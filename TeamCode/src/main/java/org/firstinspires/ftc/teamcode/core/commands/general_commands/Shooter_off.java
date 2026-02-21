@@ -1,21 +1,21 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-/// intake specifically for the third set of balls for the close solo auto
 
-public class Intake_on_3rd_set extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
-private int state = 1;
+
+public class Shooter_off extends CommandBase { ///  stops shooter, makes servos become stoppers
+    private int state = 1;
 
     private final Robot bot;
     private Timer timer = new Timer();
 
 
 
-    public Intake_on_3rd_set(Robot bot) { // runs the Command
+    public Shooter_off(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,17 +32,11 @@ private int state = 1;
             case -1:
                 break;
             case 1:
+                bot.getShooter().turnOFF();
                 bot.getIntake().servosIn();
-                bot.getIntake().on();
-                setState(2);
+                bot.getTurret().ll_pause();
+                setState(-1);
                 break;
-            case 2:
-                if (timer.getElapsedTimeSeconds() > 1.5) { //1
-                    bot.getIntake().off();
-                    setState(-1); //3
-                }
-                break;
-
         }
     }
 
