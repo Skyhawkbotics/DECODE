@@ -16,30 +16,31 @@ public class Tilt {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         tilt1 = hardwareMap.get(Servo.class, "tilt1");
+        tilt1.setDirection(Servo.Direction.REVERSE);
         tilt2 = hardwareMap.get(Servo.class, "tilt2");
         tilt2.setDirection(Servo.Direction.FORWARD);
 
     }
-    public void tiltZERO() {
-        tilt1.setPosition(0);
-       tilt2.setPosition(0);
+    public void tiltREAL() {
+        tilt1.setPosition(0.8);
+       tilt2.setPosition(0.8);
 
     }
     public void tilt1Zero() {
-        tilt1.setPosition(0);
+        tilt1.setPosition(1);
     }
     public void tilt2Zero() {
-        tilt2.setPosition(0);
+        tilt2.setPosition(1);
     }
-    public void tiltFULL() {
+    public void tiltZERO() {
        tilt1.setPosition(1);
         tilt2.setPosition(1);
     }
     public void tilt1FULL() {
-        tilt1.setPosition(1);
+        tilt1.setPosition(0.5);
     }
     public void tilt2FULL() {
-        tilt2.setPosition(1);
+        tilt2.setPosition(0.5);
     }
     public void tilt_telemetry() {
         telemetry.addData("tilt 1", tilt1.getPosition());

@@ -30,7 +30,7 @@ public class Robot {
     public Pose startPose;
     private Pose resetPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false;
+    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
@@ -56,6 +56,8 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        tilt.tiltZERO();
 
 
         ///  GAMEPADS
@@ -84,9 +86,11 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
         this.ID = ID;
+        tilt.tiltZERO();
 
     }
 
@@ -101,6 +105,8 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        tilt.tiltZERO();
 
         follower.update();
         intake.servosIn();
@@ -121,6 +127,7 @@ public class Robot {
         } else {
             light.red();
         }
+
     }
 // Autonomous Robot Update Loop
     public void autonomous_robot_update () {
@@ -136,7 +143,7 @@ public class Robot {
         follower.update();
         telemetry.update();
         shooter.recoil();
-
+        tilt.tiltZERO();
 
     }
     public void blue_autonomous_robot_update () {
@@ -152,6 +159,7 @@ public class Robot {
         follower.update();
         telemetry.update();
         shooter.recoil();
+        tilt.tiltZERO();
 
 
     }
@@ -169,6 +177,7 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        tilt.tiltZERO();
 
     }
     public void far_autonomous_robot_update_blue () {
@@ -186,6 +195,7 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        tilt.tiltZERO();
 
     }
 
@@ -219,6 +229,14 @@ public class Robot {
             intake.off();
         }
 
+        if(g1.triangleWasPressed()) {
+            isTilting = !isTilting;
+        }
+        if(isTilting) {
+            tilt.tiltREAL();
+        } else {
+            tilt.tiltZERO();
+        }
 
         if(g1.rightBumperWasPressed()) {
             follower.setPose(resetPose);

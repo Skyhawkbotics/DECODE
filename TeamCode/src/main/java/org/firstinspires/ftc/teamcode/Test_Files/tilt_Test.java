@@ -16,10 +16,10 @@ public class tilt_Test extends OpMode {
     @Override
     public void loop() {
         if(gamepad1.dpadUpWasPressed()) {
-            tilt.tiltFULL();
+            tilt.tiltZERO();
         }
         if(gamepad1.dpadDownWasPressed()) {
-            tilt.tiltZERO();
+            tilt.tiltREAL();
         }
         if(gamepad1.triangleWasPressed()) {
             tilt.tilt1FULL();

@@ -37,9 +37,9 @@ public class tiltDRIVE extends OpMode {
             follower.setTeleOpDrive(0.8 * -gamepad1.left_stick_y, 0.4 * -gamepad1.left_stick_x, 0.5 * -gamepad1.right_stick_x, true );
         }
         if(gamepad1.triangle) {
-            tilt.tiltZERO();
+            tilt.tiltREAL();
         } else {
-            tilt.tiltFULL();
+            tilt.tiltZERO();
         }
 
     }

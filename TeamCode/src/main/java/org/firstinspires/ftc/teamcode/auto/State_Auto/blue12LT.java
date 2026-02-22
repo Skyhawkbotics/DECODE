@@ -45,58 +45,53 @@ public class blue12LT extends OpModeCommand {
     public final Pose all_scores = new Pose (91,82, Math.toRadians(0));
     public final Pose blueall_scores = all_scores.mirror();
 
+    public final Pose curve2spikemarkcontrolpoint = new Pose(82, 57);
+    public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
+
+
+
     /// Intake Spike Mark Two,
 
-    public final Pose gather2 = new Pose (126.86451612903225, 51.76129032258066, Math.toRadians(0));
+    public final Pose gather2 = new Pose (125, 58, Math.toRadians(0));
     public final Pose bluegather2 = gather2.mirror();
 
     /// Opengate
-    public final Pose kaimencontrolpoint =  new Pose(113.24977274928074,61.395258896534415);
-    public final Pose bluekaimencontrolpoint = kaimencontrolpoint.mirror();
+    public final Pose opengateSLOW_Control_Point = new Pose (120,64, Math.toRadians(270));
 
+    public final Pose blueopengateSLOW_Control_Point = opengateSLOW_Control_Point.mirror();
 
-    public final Pose opengate = new Pose (135.28,64.5, Math.toRadians(0));
-    public final Pose blueopengate = opengate.mirror();
-    public final Pose opengateREAL = new Pose (131.28,64.5, Math.toRadians(0));
-    public final Pose blueopengateREAL = opengateREAL.mirror();
-    public final Pose kaimen_back_control_point =  new Pose(103,59);
-    public final Pose bluekaimen_back_control_point = kaimen_back_control_point.mirror();
-    public final Pose opengateSLOW = new Pose (135.28,64.5, Math.toRadians(270));
+    public final Pose opengateSLOW = new Pose (128.5,68, Math.toRadians(270));
     public final Pose blueopengateSLOW = opengateSLOW.mirror();
 
+
+    public final Pose score1_5_pose = new Pose(106, 68, Math.toRadians(270));
+
+    public final Pose bluescore1_5_pose = score1_5_pose.mirror();
 
 
     /// then we need to score that
     ///come second
-    public final Pose get2balls1 = new Pose (96,79, Math.toRadians(0));
+    public final Pose get2balls1 = new Pose (96,84, Math.toRadians(0));
     public final Pose blueget2balls1 = get2balls1.mirror();
 
-    public final Pose gather1 = new Pose (127.5,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (124,84, Math.toRadians(0));
     public final Pose bluegather1 = gather1.mirror();
     public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
-    public final Pose bluelast_shot = last_shot.mirror();
 
     /// Gather 3
 
-    public final Pose get2balls2 = new Pose (102.74193548387095,33.84516129032261, Math.toRadians(0));
+    public final Pose get2balls2 = new Pose (102.74193548387095,37, Math.toRadians(0));
     public final Pose blueget2balls2 = get2balls2.mirror();
-    public final Pose gather3 = new Pose (133.85161290322581,33.84516129032261, Math.toRadians(0));
+    public final Pose gather3 = new Pose (133.85161290322581,37, Math.toRadians(0));
     public final Pose bluegather3 = gather3.mirror();
-    public final Pose shoot3 = new Pose (89.62580645161289,76.89032258064516, Math.toRadians(0));
-    public final Pose blueshoot3 = shoot3.mirror();
-    public final Pose curve2spikemarkcontrolpoint = new Pose(89.23475352731101, 50.477832094139686);
-    public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
 
-
-    private Path scorepres, intake1, score1, score2, posit1, intake3;
+    private Path scorepres, intake1, score1, score2, posit1, intake3, score1_5;
     private PathChain kaimen, posit2;
     private Path curve2spikemark;
     private PathChain kaimenslow;
 
 
     //
-    private Path get_to_gate_intake_FIRST, gate_intake, gate_intake_back, get_to_gate_intake, gate_intake_backwards;
-    private PathChain openGate;
     private Path park;
 
     public void buildPaths() {
@@ -117,18 +112,10 @@ public class blue12LT extends OpModeCommand {
         curve2spikemark.setConstantHeadingInterpolation(bluegather2.getHeading());
 
         ///  Open Gate
-
-        kaimen = bot.getFollower().pathBuilder().addPath(
+        kaimenslow = bot.getFollower().pathBuilder().addPath(
                         new BezierCurve(
                                 bluegather2,
-                                bluekaimencontrolpoint,
-                                blueopengate)
-                )
-                .setLinearHeadingInterpolation(bluegather2.getHeading(),blueopengate.getHeading())
-                .build();
-        kaimenslow = bot.getFollower().pathBuilder().addPath(
-                        new BezierLine(
-                                bluegather2,
+                                blueopengateSLOW_Control_Point,
                                 blueopengateSLOW
 
                         )
@@ -136,12 +123,17 @@ public class blue12LT extends OpModeCommand {
                 .setConstantHeadingInterpolation(Math.toRadians(270))
                 .build();
 
+        score1_5 = new Path(
+                new BezierLine(
+                        blueopengateSLOW,
+                        bluescore1_5_pose
+                ));
+        score1_5.setConstantHeadingInterpolation(bluescore1_5_pose.getHeading());
 
         ///  Score Spike Mark Two
-        score2 = new Path (new BezierCurve(blueopengateREAL,
-                bluekaimen_back_control_point,
+        score2 = new Path (new BezierCurve(bluescore1_5_pose,
                 blueall_scores));
-        score2.setLinearHeadingInterpolation(blueopengateREAL.getHeading(), blueall_scores.getHeading());
+        score2.setConstantHeadingInterpolation(blueall_scores.getHeading());
 
 
 //  Spike Mark 1 Intake
@@ -151,16 +143,17 @@ public class blue12LT extends OpModeCommand {
         intake1 = new Path (new BezierLine(blueget2balls1, bluegather1));
         intake1.setLinearHeadingInterpolation(blueget2balls1.getHeading(),bluegather1.getHeading());
 
-        score1 = new Path(new BezierLine(bluegather1, bluelast_shot));
-        score1.setLinearHeadingInterpolation(bluegather1.getHeading(), bluelast_shot.getHeading());
+        score1 = new Path(new BezierLine(bluegather1, blueall_scores));
+        score1.setLinearHeadingInterpolation(bluegather1.getHeading(), blueall_scores.getHeading());
 
 // Spike Mark 3 Intake
         posit2 = bot.getFollower().pathBuilder().addPath(
                         new BezierLine(
-                                blueget2balls2,
-                                bluegather3)
+                                blueall_scores,
+                                get2balls2)
                 )
-                .setLinearHeadingInterpolation(blueget2balls2.getHeading(),bluegather3.getHeading())
+                .setConstantHeadingInterpolation(Math.toRadians(180))
+                .setBrakingStrength(3.5)
                 .build();
 
         intake3 = new Path (new BezierLine(blueget2balls2,bluegather3));
@@ -230,13 +223,16 @@ public class blue12LT extends OpModeCommand {
                                 )
 // scoring second spike mark
                                 .andThen (
-                                        new FollowPath(bot.getFollower(), score2, 0.65)
+                                        new FollowPath(bot.getFollower(), score1_5, 0.65)
                                                 .alongWith(
                                                         new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                                 )
                                                 .alongWith(
                                                         new turret_yes(bot)
                                                 )
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), score2, 0.7)
                                 )
                                 .andThen(
                                         new turret_LL_blue(bot)
@@ -262,9 +258,9 @@ public class blue12LT extends OpModeCommand {
                                         new Intake_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), score1)
+                                        new FollowPath(bot.getFollower(), score1, 0.8)
                                                 .alongWith(
-                                                        new Prep_Shooter_any(bot, auto_speed2, 0.25)
+                                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                                 )
                                 )
                                 .andThen(
