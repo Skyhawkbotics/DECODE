@@ -35,57 +35,52 @@ public class blue12LT extends OpModeCommand {
 
 
     Robot bot;
-    public static final Pose bluestartpose = new Pose (27,131, Math.toRadians(142)); // old pose (128,117, Math.toRadians(40));
-
+    public static final Pose startpose = new Pose(118, 131, Math.toRadians(37));
+    public static final Pose bluestartpose = startpose.mirror();
     ///  Start_pose is against the goal front wall left border
     /// when the wall of the depot hits the back wall touching the field perimeter
     /// when the angled front segment of the depot connects to the back wall of the depot that is parallel to the front wall
 
-    /// Main ScorePose
-    public final Pose all_scores = new Pose (91,82, Math.toRadians(0));
+
+    public final Pose all_scores = new Pose(91, 82, Math.toRadians(0));
     public final Pose blueall_scores = all_scores.mirror();
 
     public final Pose curve2spikemarkcontrolpoint = new Pose(82, 57);
-    public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
 
-
-
+public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
     /// Intake Spike Mark Two,
 
-    public final Pose gather2 = new Pose (125, 58, Math.toRadians(0));
-    public final Pose bluegather2 = gather2.mirror();
+    public final Pose gather2 = new Pose(125, 58, Math.toRadians(0));
 
+public final Pose bluegather2 = gather2.mirror();
     /// Opengate
-    public final Pose opengateSLOW_Control_Point = new Pose (120,64, Math.toRadians(270));
-
-    public final Pose blueopengateSLOW_Control_Point = opengateSLOW_Control_Point.mirror();
-
-    public final Pose opengateSLOW = new Pose (128.5,68, Math.toRadians(270));
-    public final Pose blueopengateSLOW = opengateSLOW.mirror();
-
-
+    public final Pose opengateSLOW_Control_Point = new Pose(120, 64, Math.toRadians(270));
+public final Pose blueopengateSLOW_Control_Point = opengateSLOW_Control_Point.mirror();
+    public final Pose opengateSLOW = new Pose(128.5, 68, Math.toRadians(270));
+public final Pose blueopengateSlow = opengateSLOW.mirror();
     public final Pose score1_5_pose = new Pose(106, 68, Math.toRadians(270));
-
-    public final Pose bluescore1_5_pose = score1_5_pose.mirror();
-
+public final Pose bluescore1_5_pose = score1_5_pose.mirror();
 
     /// then we need to score that
-    ///come second
-    public final Pose get2balls1 = new Pose (96,84, Math.toRadians(0));
-    public final Pose blueget2balls1 = get2balls1.mirror();
+    /// come second
+    public final Pose get2balls1 = new Pose(96, 84, Math.toRadians(0));
+public final Pose blueget2balls1 = get2balls1.mirror();
 
-    public final Pose gather1 = new Pose (124,84, Math.toRadians(0));
-    public final Pose bluegather1 = gather1.mirror();
-    public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
+    public final Pose gather1 = new Pose(124, 84, Math.toRadians(0));
+public final Pose bluegather1 = gather1.mirror();
+    public final Pose last_shot = new Pose(108.85, 97.1, Math.toRadians(0));
+ public final Pose bluelast_shot = last_shot.mirror();
 
     /// Gather 3
+    public final Pose semiposit = new Pose(102.74, 59, Math.toRadians(0));
 
-    public final Pose get2balls2 = new Pose (102.74193548387095,37, Math.toRadians(0));
-    public final Pose blueget2balls2 = get2balls2.mirror();
-    public final Pose gather3 = new Pose (133.85161290322581,37, Math.toRadians(0));
-    public final Pose bluegather3 = gather3.mirror();
+    public final Pose get2balls2 = new Pose(97.74193548387095, 40, Math.toRadians(0));
+  public final Pose blueget2balls2 = get2balls2.mirror();
 
-    private Path scorepres, intake1, score1, score2, posit1, intake3, score1_5;
+    public final Pose gather3 = new Pose(127, 40, Math.toRadians(0));
+public final Pose bluegather3 = gather3.mirror();
+
+    private Path scorepres, intake1, score1, score2, score1_5, posit1, intake3;
     private PathChain kaimen, posit2;
     private Path curve2spikemark;
     private PathChain kaimenslow;
@@ -112,11 +107,13 @@ public class blue12LT extends OpModeCommand {
         curve2spikemark.setConstantHeadingInterpolation(bluegather2.getHeading());
 
         ///  Open Gate
+
+
         kaimenslow = bot.getFollower().pathBuilder().addPath(
                         new BezierCurve(
                                 bluegather2,
                                 blueopengateSLOW_Control_Point,
-                                blueopengateSLOW
+                                blueopengateSlow
 
                         )
                 )
@@ -125,23 +122,23 @@ public class blue12LT extends OpModeCommand {
 
         score1_5 = new Path(
                 new BezierLine(
-                        blueopengateSLOW,
+                        blueopengateSlow,
                         bluescore1_5_pose
                 ));
-        score1_5.setConstantHeadingInterpolation(bluescore1_5_pose.getHeading());
+        score1_5.setConstantHeadingInterpolation(Math.toRadians(270));
 
         ///  Score Spike Mark Two
-        score2 = new Path (new BezierCurve(bluescore1_5_pose,
+        score2 = new Path(new BezierLine(bluescore1_5_pose,
                 blueall_scores));
         score2.setConstantHeadingInterpolation(blueall_scores.getHeading());
 
 
 //  Spike Mark 1 Intake
-        posit1 = new Path (new BezierLine(blueall_scores, blueget2balls1));
+        posit1 = new Path(new BezierLine(blueall_scores, blueget2balls1));
         posit1.setLinearHeadingInterpolation(blueall_scores.getHeading(), blueget2balls1.getHeading());
 
-        intake1 = new Path (new BezierLine(blueget2balls1, bluegather1));
-        intake1.setLinearHeadingInterpolation(blueget2balls1.getHeading(),bluegather1.getHeading());
+        intake1 = new Path(new BezierLine(blueget2balls1, bluegather1));
+        intake1.setLinearHeadingInterpolation(blueget2balls1.getHeading(), bluegather1.getHeading());
 
         score1 = new Path(new BezierLine(bluegather1, blueall_scores));
         score1.setLinearHeadingInterpolation(bluegather1.getHeading(), blueall_scores.getHeading());
@@ -150,13 +147,13 @@ public class blue12LT extends OpModeCommand {
         posit2 = bot.getFollower().pathBuilder().addPath(
                         new BezierLine(
                                 blueall_scores,
-                                get2balls2)
+                                blueget2balls2)
                 )
                 .setConstantHeadingInterpolation(Math.toRadians(180))
                 .setBrakingStrength(3.5)
                 .build();
 
-        intake3 = new Path (new BezierLine(blueget2balls2,bluegather3));
+        intake3 = new Path(new BezierLine(blueget2balls2, bluegather3));
         intake3.setLinearHeadingInterpolation(blueget2balls2.getHeading(), bluegather3.getHeading());
 
         score2 = new Path(new BezierLine(bluegather3, blueall_scores));
@@ -175,11 +172,12 @@ public class blue12LT extends OpModeCommand {
     }
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,bluestartpose, 20);
+        buildPaths();
+        bot = new Robot(hardwareMap, telemetry, startpose, 20);
         buildPaths();
 
         schedule(
-                new RunCommand(bot:: blue_autonomous_robot_update),
+                new RunCommand(bot::blue_autonomous_robot_update),
                 new SequentialCommandGroup(
 //              CYCLE 1, Preloads
                         new FollowPath(bot.getFollower(), scorepres, 0.8)
@@ -204,15 +202,15 @@ public class blue12LT extends OpModeCommand {
 
 //              CYCLE 2, Second Spike Mark
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), curve2spikemark,.8)
+                                        new FollowPath(bot.getFollower(), curve2spikemark, .8)
                                                 .alongWith(new Intake_on_forever(bot))
                                 )
                                 .andThen(
                                         new WaitCommand(500)
                                 )
-                                //              CYCLE 3, Gate Opening
-                                .andThen (
-                                        new FollowPath(bot.getFollower(), kaimenslow,true,0.65)
+//               Gate Opening
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), kaimenslow, true, 0.65)
                                                 .raceWith(new WaitCommand(5000))
                                 )
                                 .andThen(
@@ -221,8 +219,9 @@ public class blue12LT extends OpModeCommand {
                                 .andThen(
                                         new Intake_off(bot)
                                 )
-// scoring second spike mark
-                                .andThen (
+// Scoring Second Spike Mark
+
+                                .andThen(
                                         new FollowPath(bot.getFollower(), score1_5, 0.65)
                                                 .alongWith(
                                                         new Prep_Shooter_any(bot, auto_speed4, 0.35)
@@ -248,8 +247,9 @@ public class blue12LT extends OpModeCommand {
                                 )
 
 //              CYCLE 4, Intake 1st Set
-
-                                .andThen(new FollowPath(bot.getFollower(),posit1))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), posit1)
+                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intake1, 0.7)
                                                 .alongWith(new Intake_on_forever(bot))
@@ -258,7 +258,10 @@ public class blue12LT extends OpModeCommand {
                                         new Intake_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), score1, 0.8)
+                                        new WaitCommand(200)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), score1, 0.5)
                                                 .alongWith(
                                                         new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                                 )
@@ -275,15 +278,19 @@ public class blue12LT extends OpModeCommand {
                                 .andThen(
                                         new Shooter_off(bot)
                                 )
+
 //              CYCLE 5, Intake 3rd Set
                                 .andThen(
                                         new FollowPath(bot.getFollower(), posit2)
-                                        .alongWith(
-                                                new Intake_on_forever(bot)
-                                        )
+                                                .alongWith(
+                                                        new Intake_on_forever(bot)
+                                                )
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intake3,.6)
+                                        new WaitCommand(200)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intake3, .6)
                                 )
                                 .andThen(
                                         new WaitCommand(200)
@@ -293,12 +300,9 @@ public class blue12LT extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), score2)
-                                        .alongWith(
-                                                new Prep_Shooter_any(bot, auto_speed4, 0.35)
-                                        )
-                                )
-                                .andThen(
-                                        new turret_LL_blue(bot)
+                                                .alongWith(
+                                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
+                                                )
                                 )
                                 .andThen(
                                         new WaitCommand(750)
@@ -309,12 +313,12 @@ public class blue12LT extends OpModeCommand {
                                 .andThen(
                                         new Intake_off(bot)
                                 )
-
                                 //              CYCLE 6, Leave
                                 .andThen(
                                         new FollowPath(bot.getFollower(), park)
                                 )
                 ));
+
     }
 }
 
