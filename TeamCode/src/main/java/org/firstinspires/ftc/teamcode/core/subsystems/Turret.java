@@ -272,6 +272,7 @@ public class Turret {
                     List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                     for (LLResultTypes.FiducialResult fr : fiducialResults) {
                         if (fr.getFiducialId() == ID) {
+
                             timer.resetTimer();
                             ll_pid.setPID(lp, li, ld);
                             ll_pid_output = ll_pid.calculate(result.getTx(), far_zone_tx); // + sign * turret_f;

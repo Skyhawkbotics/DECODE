@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.core.subsystems.LL;
 import org.firstinspires.ftc.teamcode.core.subsystems.Light;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
@@ -23,6 +24,8 @@ public class Robot {
     private Turret turret;
     private Light light;
     private Tilt tilt;
+    private LL ll;
+
     ///  ROBOT STUFF
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -30,7 +33,9 @@ public class Robot {
     public Pose startPose;
     private Pose resetPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false;
+    private boolean updating_shooter = false, isFull = false,
+            using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
+            LLDistance = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
@@ -53,6 +58,7 @@ public class Robot {
 
         ///  CONSTRUCTORS
         shooter = new Shooter(hardwareMap, telemetry);
+        ll = new LL(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
@@ -119,6 +125,11 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        if(LLDistance) {
+            isValid = ll.isValid();
+        } else {
+            isValid = false;
+        }
 
         isFull = light.isFull();
 
@@ -282,7 +293,18 @@ public class Robot {
 
 
 // Shooter
-        depot_distance = shooter.getDistance(follower.getPose(), isred);
+
+        if (g2.touchpad) {
+            LLDistance = !LLDistance;
+        }
+
+        if (isValid){// limelight is working/
+            // depot_distance = (shooter.getDistance(follower.getPose(),isred) +
+            //        ll.calc_Distance()) / 2;
+        } else {
+            depot_distance = shooter.getDistance(follower.getPose(), isred);
+        }
+        ///  can average w/ ll..??????????????
 
         if (g2.dpadLeftWasPressed()) {
             shooter.turnOFF();

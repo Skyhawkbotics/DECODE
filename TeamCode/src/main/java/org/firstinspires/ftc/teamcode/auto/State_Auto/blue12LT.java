@@ -172,7 +172,6 @@ public final Pose bluegather3 = gather3.mirror();
     }
 
     public void initialize() {
-        buildPaths();
         bot = new Robot(hardwareMap, telemetry, startpose, 20);
         buildPaths();
 

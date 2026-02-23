@@ -36,6 +36,8 @@ public class LL {
 
     private Telemetry telemetry;
 
+    private double distance;
+
     public LL(HardwareMap hardwareMap, Telemetry t) {
         limelight = hardwareMap.get(Limelight3A.class, "limelight");
 
@@ -82,5 +84,25 @@ public class LL {
             }
             telemetry.update();
         return pid_output;
+    }
+
+    public boolean isValid() {
+        LLResult result = limelight.getLatestResult();
+        return result.isValid();
+    }
+    public double calc_Distance() {
+        LLResult result = limelight.getLatestResult();
+        if (result.isValid()) {
+            List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+            for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                if (fr.getFiducialId() == 20 || fr.getFiducialId() == 24) {
+                    ///  do some work
+                    double angle = result.getTy() + 7.5;
+                    double v_distance = TAG_HEIGHT - 11.5;
+                    distance = v_distance / Math.tan(angle);
+                }
+            }
+        }
+        return distance;
     }
 }

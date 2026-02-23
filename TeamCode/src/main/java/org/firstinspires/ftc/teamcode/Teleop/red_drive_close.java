@@ -14,7 +14,7 @@ public class red_drive_close extends OpMode {
     int ID = 24;
 
 
-    public  Pose finalrestingplace = new Pose (115.327868852459,83.60655737704919, Math.toRadians(90));
+    public final Pose gather2 = new Pose (125, 58, Math.toRadians(0));
 
     public Pose resetPose = new Pose(14.89655172413793, 15.157894736842088, Math.toRadians(90));
 
@@ -23,7 +23,7 @@ public class red_drive_close extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, finalrestingplace, true, resetPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, gather2, true, resetPose);
 
     }
 

@@ -43,7 +43,7 @@ public class red12LTbleh extends OpModeCommand {
 
 
 
-    public final Pose all_scores = new Pose (91,82, Math.toRadians(0));
+    public final Pose all_scores = new Pose (90,83, Math.toRadians(0));
 
     public final Pose curve2spikemarkcontrolpoint = new Pose(82, 57);
 
