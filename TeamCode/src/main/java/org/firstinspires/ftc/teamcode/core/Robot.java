@@ -144,6 +144,8 @@ public class Robot {
     public void autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
         telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("follower busy", follower.isBusy());
+        telemetry.addData("is robot stuck", follower.isRobotStuck());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
        //turret.set_using_LL(ID);

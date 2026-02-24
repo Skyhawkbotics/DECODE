@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
 
-import static org.firstinspires.ftc.teamcode.core.constants.auto_speed2;
 import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -18,9 +17,6 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 import org.firstinspires.ftc.teamcode.core.commands.turret.turret_Zero;
@@ -31,7 +27,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "BLUE 12 CONSISTENT", group = "Consistent")
-public class blue12LT extends OpModeCommand {
+public class BLUE_12_Consistent extends OpModeCommand {
 
 
     Robot bot;
