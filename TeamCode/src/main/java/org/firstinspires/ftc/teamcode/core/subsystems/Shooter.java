@@ -253,6 +253,13 @@ public class     Shooter {
 
     }
 
+    public double getGoalDistance(Pose followerPose, Pose targetPose){
+        double distance;
+        double x_distance = targetPose.getX() - followerPose.getX();
+        double y_distance = targetPose.getY() - followerPose.getY();
+
+        return distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
+    }
     public double tof (double distance) {
         return tof_constant + (distance*tof_coefficient);
     }

@@ -4,8 +4,8 @@ import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.pedropathing.geometry.Pose;
 
 public class TargetFrameVel {
-    public double vAway;  // + = moving away from target
-    public double vSide;  // + = moving left/CCW around target
+    public static double vAway;  // + = moving away from target
+    public static double vSide;  // + = moving left/CCW around target
 
     public TargetFrameVel(double vAway, double vSide) {
         this.vAway = vAway;
