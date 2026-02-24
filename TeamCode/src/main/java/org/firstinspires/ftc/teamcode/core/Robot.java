@@ -32,6 +32,7 @@ public class Robot {
     private Follower follower;
     public Pose startPose;
     private Pose resetPose;
+    private double turretPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
     private boolean updating_shooter = false, isFull = false,
             using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
@@ -118,6 +119,25 @@ public class Robot {
         intake.servosIn();
 
     }
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID, double turretPose) {/// FOR AUTO
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+        follower.setStartingPose(startPose);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry);
+        light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        this.ID = ID;
+        tilt.tiltZERO();
+
+        follower.update();
+        intake.servosIn();
+        this.turretPose = turretPose;
+
+    }
 // Tele - Op Update
     public void robot_update() {
         shooter.update();
@@ -152,6 +172,22 @@ public class Robot {
         turret.turret_update_close(ID, follower.getPose());
 
 
+        shooter.update();
+        follower.update();
+        telemetry.update();
+        shooter.recoil();
+        tilt.tiltZERO();
+
+    }
+    public void any_autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("follower busy", follower.isBusy());
+        telemetry.addData("is robot stuck", follower.isRobotStuck());
+        turret.turret_telemetry();
+        shooter.shooter_telemetry();
+        //turret.set_using_LL(ID);
+        turret.turret_update_close(ID, follower.getPose(), turretPose);
         shooter.update();
         follower.update();
         telemetry.update();
@@ -229,7 +265,7 @@ public class Robot {
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
         }
 
         if (g1.left_trigger > 0) {

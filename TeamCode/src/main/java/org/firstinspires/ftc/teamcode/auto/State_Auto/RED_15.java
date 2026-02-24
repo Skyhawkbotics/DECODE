@@ -19,6 +19,8 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_pause;
 import org.firstinspires.ftc.teamcode.core.commands.turret.turret_Zero;
 import org.firstinspires.ftc.teamcode.core.commands.turret.turret_yes;
 import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
@@ -38,7 +40,7 @@ public class RED_15 extends OpModeCommand {
     private final Pose beforeSpike2 = new Pose(100, 60);
     private final Pose spike2End = new Pose(120, 60);
     private final Pose openGatePosePrep = new Pose(121, 63, Math.toRadians(0));
-    private final Pose openGatePose = new Pose(127, 63, Math.toRadians(0));
+    private final Pose openGatePose = new Pose(128, 63, Math.toRadians(0));
     private final Pose openGateBackPose = new Pose(121, 65, Math.toRadians(0));
 
 
@@ -58,12 +60,14 @@ public class RED_15 extends OpModeCommand {
                         beforeScorePose
                     )
                 )
-                .addPath(
+               .addPath(
                         new BezierLine(
                         beforeScorePose,
                         scorePose
                         )
                 )
+
+
                 .setBrakingStrength(5)
                 .setGlobalLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading())
                 .build();
@@ -84,6 +88,12 @@ public class RED_15 extends OpModeCommand {
                         )
                 )
                 .setTangentHeadingInterpolation()
+                .setGlobalDeceleration(1.6)
+                .build();
+
+
+        opengate = bot.getFollower()
+                .pathBuilder()
                 .addPath(
                         new BezierLine(
                                 spike2End,
@@ -92,12 +102,6 @@ public class RED_15 extends OpModeCommand {
                         )
                 )
                 .setConstantHeadingInterpolation(openGatePosePrep.getHeading())
-             //   .setGlobalDeceleration()
-                .build();
-
-
-        opengate = bot.getFollower()
-                .pathBuilder()
                 .addPath(
                         new BezierLine(
                                 openGatePosePrep,
@@ -105,6 +109,7 @@ public class RED_15 extends OpModeCommand {
                         )
                 )
                 .setConstantHeadingInterpolation(openGatePose.getHeading())
+                .setGlobalDeceleration()
                 .build();
 
 
@@ -115,7 +120,6 @@ public class RED_15 extends OpModeCommand {
                 // but also make it correct last minute for turret
                         new BezierLine(
                                 openGatePose,
-
                                 openGateBackPose
                         )
                 )
@@ -136,25 +140,34 @@ public class RED_15 extends OpModeCommand {
                                 )
                 ).setConstantHeadingInterpolation(scorePose.getHeading())
                 .build();
+
     }
 
 
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,startPose, 24);
+        bot = new Robot(hardwareMap, telemetry,startPose, 24, 724);
         buildPaths();
 
         schedule(
-                new RunCommand(bot:: autonomous_robot_update),
+                new RunCommand(bot:: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
-                                .andThen(
-                                        new WaitCommand(2000)
+                                .alongWith(
+                                        new Prep_Shooter_any(bot, 1220, 0.15)
                                 )
+                                .andThen(
+                                        new turret_LL(bot)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                /*
                                .andThen(
                                         new FollowPath(bot.getFollower(), spike2)
                                                 .alongWith(
-                                                        new Intake_on_forever(bot)
+                                                        new Intake_on_forever(bot),
+                                                        new turret_LL_pause(bot)
                                                 )
                                 )
 
@@ -162,18 +175,23 @@ public class RED_15 extends OpModeCommand {
                                         new WaitCommand(2000)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), opengate)
+                                        new Intake_off(bot)
                                 )
-                                /*
                                 .andThen(
-                                        new WaitCommand(2000)
+                                        new FollowPath(bot.getFollower(), opengate, true)
+                                                .raceWith(
+                                                        new WaitCommand(1000)
+                                                )
+                                )
+                                .andThen(
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike2Return1)
                                 )
 
 
-                               */
+                                 */
 
                 ));
     }

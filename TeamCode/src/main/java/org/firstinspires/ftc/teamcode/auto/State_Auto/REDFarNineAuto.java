@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
 
+import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
@@ -21,7 +22,7 @@ public class REDFarNineAuto extends OpModeCommand {
 
     public final Pose firstintake = new Pose (12.8, 35.5, Math.toRadians(180));
 
-    public final P ose greengiant = new Pose (56, 15.2, Math.toRadians(113));
+    public final Pose greengiant = new Pose (56, 15.2, Math.toRadians(113));
 
     public final Pose humanin = new Pose (10.5, 9.6);
 
@@ -35,8 +36,12 @@ public class REDFarNineAuto extends OpModeCommand {
         scorepreset1 = new Path (new BezierLine(startpoes, preloadgreen));
         scorepreset1.setLinearHeadingInterpolation(startpoes.getHeading(), preloadgreen.getHeading());
 
-        loadtres = new Path (new BezierLine(preloadgreen, new Pose (55.4, 29.8), loadprep));
+        loadtres = new Path (new BezierCurve(preloadgreen, new Pose (55.4, 29.8), loadprep));
         loadtres.setLinearHeadingInterpolation(preloadgreen.getHeading(), loadprep.getHeading());
     }
 
+    @Override
+    public void initialize() {
+
+    }
 }
