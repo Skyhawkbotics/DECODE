@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import static org.firstinspires.ftc.teamcode.core.constants.*;
+import static org.firstinspires.ftc.teamcode.pedroPathing.Tuning.follower;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.bylazar.telemetry.PanelsTelemetry;
@@ -233,8 +234,7 @@ public class     Shooter {
 
 
     public double getDistance(Pose followerPose, Boolean isRed) {
-        Pose redPose = new Pose(144, 144);
-        Pose bluePose = new Pose(0, 144);
+
         double distance;
 
         if(isRed) {
@@ -253,7 +253,16 @@ public class     Shooter {
 
     }
 
+    public double getGoalDistance(Pose followerPose, Pose targetPose){
+        double distance;
+        double x_distance = targetPose.getX() - followerPose.getX();
+        double y_distance = targetPose.getY() - followerPose.getY();
 
+        return distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
+    }
+    public double tof (double distance) {
+        return tof_constant + (distance*tof_coefficient);
+    }
 
     ///  old motor
     public void increaseVelocity() {

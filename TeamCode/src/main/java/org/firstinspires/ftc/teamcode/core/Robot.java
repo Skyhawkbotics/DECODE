@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import static org.firstinspires.ftc.teamcode.core.constants.angle;
+import static org.firstinspires.ftc.teamcode.core.constants.redPose;
 
+import com.arcrobotics.ftclib.geometry.Vector2d;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -15,6 +17,7 @@ import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
 import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
+import org.firstinspires.ftc.teamcode.core.subsystems.TargetFrameVel;
 
 public class Robot {
 
@@ -38,7 +41,7 @@ public class Robot {
             using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
             LLDistance = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
-    private double depot_distance;
+    public double depot_distance;
     private int ID;
 
 
@@ -463,12 +466,21 @@ public class Robot {
 
 
     }
+    // compute goal offset
+    // ASSUMES RED POSE! FIX THIS SOON.
+    Pose toGoal = redPose.minus(follower.getPose());
+    Pose rHat = toGoal.times(1.0 / depot_distance);          // toward goal
+    Pose tHat = new Pose(-rHat.getX(), rHat.getY());     // left of goal line
+    Pose vField = rHat.times(TargetFrameVel.vAway).plus(tHat.times(TargetFrameVel.vSide));
+
+    public Pose goalAim = redPose.minus(vField.times(shooter.tof(depot_distance)));
 
     public void robot_telemetry() {
 
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
             telemetry.addData("Distance from Depot", depot_distance);
+            telemetry.addData("Estimated TOF", shooter.tof(depot_distance));
         }
         if (turret_telemetry) {
             turret.turret_telemetry();
