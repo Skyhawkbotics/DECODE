@@ -10,23 +10,24 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_forever;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
 import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
-import org.firstinspires.ftc.teamcode.core.commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_Zero;
-import org.firstinspires.ftc.teamcode.core.commands.fifthteenballcommands.turret_gate;
-import org.firstinspires.ftc.teamcode.core.commands.turret_LL;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_Zero;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Alliance Red", group = "red")
+@Disabled
 public class RedClose15DISCONNECTFINAL extends OpModeCommand {
 
 

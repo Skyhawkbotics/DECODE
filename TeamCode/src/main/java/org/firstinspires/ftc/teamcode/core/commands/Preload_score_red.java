@@ -9,7 +9,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Preload_score_red extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
+public class Preload_score_red extends CommandBase { /// starts up the shooter to a set velocity and puts the stopper servos out of the way
 private int state = 1;
 
     private final Robot bot;

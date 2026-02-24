@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
+import org.firstinspires.ftc.teamcode.core.subsystems.LL;
 import org.firstinspires.ftc.teamcode.core.subsystems.Light;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
@@ -26,14 +27,19 @@ public class Robot {
     private Turret turret;
     private Light light;
     private Tilt tilt;
+    private LL ll;
+
     ///  ROBOT STUFF
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     private Follower follower;
     public Pose startPose;
     private Pose resetPose;
+    private double turretPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false;
+    private boolean updating_shooter = false, isFull = false,
+            using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
+            LLDistance = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     public double depot_distance;
     private int ID;
@@ -56,9 +62,12 @@ public class Robot {
 
         ///  CONSTRUCTORS
         shooter = new Shooter(hardwareMap, telemetry);
+        ll = new LL(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        tilt.tiltZERO();
 
 
         ///  GAMEPADS
@@ -87,9 +96,11 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
         this.ID = ID;
+        tilt.tiltZERO();
 
     }
 
@@ -104,9 +115,30 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        tilt.tiltZERO();
 
         follower.update();
         intake.servosIn();
+
+    }
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID, double turretPose) {/// FOR AUTO
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+        follower.setStartingPose(startPose);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry);
+        light = new Light(hardwareMap, telemetry);
+        tilt = new Tilt(hardwareMap, telemetry);
+        this.ID = ID;
+        tilt.tiltZERO();
+
+        follower.update();
+        intake.servosIn();
+        this.turretPose = turretPose;
 
     }
 // Tele - Op Update
@@ -116,6 +148,11 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        if(LLDistance) {
+            isValid = ll.isValid();
+        } else {
+            isValid = false;
+        }
 
         isFull = light.isFull();
 
@@ -124,11 +161,14 @@ public class Robot {
         } else {
             light.red();
         }
+
     }
 // Autonomous Robot Update Loop
     public void autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
         telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("follower busy", follower.isBusy());
+        telemetry.addData("is robot stuck", follower.isRobotStuck());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
        //turret.set_using_LL(ID);
@@ -139,7 +179,23 @@ public class Robot {
         follower.update();
         telemetry.update();
         shooter.recoil();
+        tilt.tiltZERO();
 
+    }
+    public void any_autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("follower busy", follower.isBusy());
+        telemetry.addData("is robot stuck", follower.isRobotStuck());
+        turret.turret_telemetry();
+        shooter.shooter_telemetry();
+        //turret.set_using_LL(ID);
+        turret.turret_update_close(ID, follower.getPose(), turretPose);
+        shooter.update();
+        follower.update();
+        telemetry.update();
+        shooter.recoil();
+        tilt.tiltZERO();
 
     }
     public void blue_autonomous_robot_update () {
@@ -155,6 +211,7 @@ public class Robot {
         follower.update();
         telemetry.update();
         shooter.recoil();
+        tilt.tiltZERO();
 
 
     }
@@ -172,6 +229,7 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        tilt.tiltZERO();
 
     }
     public void far_autonomous_robot_update_blue () {
@@ -189,6 +247,7 @@ public class Robot {
         follower.update();
         telemetry.update();
 
+        tilt.tiltZERO();
 
     }
 
@@ -209,7 +268,7 @@ public class Robot {
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
         }
 
         if (g1.left_trigger > 0) {
@@ -222,6 +281,14 @@ public class Robot {
             intake.off();
         }
 
+        if(g1.triangleWasPressed()) {
+            isTilting = !isTilting;
+        }
+        if(isTilting) {
+            tilt.tiltREAL();
+        } else {
+            tilt.tiltZERO();
+        }
 
         if(g1.rightBumperWasPressed()) {
             follower.setPose(resetPose);
@@ -267,7 +334,18 @@ public class Robot {
 
 
 // Shooter
-        depot_distance = shooter.getDistance(follower.getPose(), isred);
+
+        if (g2.touchpad) {
+            LLDistance = !LLDistance;
+        }
+
+        if (isValid){// limelight is working/
+            // depot_distance = (shooter.getDistance(follower.getPose(),isred) +
+            //        ll.calc_Distance()) / 2;
+        } else {
+            depot_distance = shooter.getDistance(follower.getPose(), isred);
+        }
+        ///  can average w/ ll..??????????????
 
         if (g2.dpadLeftWasPressed()) {
             shooter.turnOFF();

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.turret;
 
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -7,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class turret_LL_blue extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
+public class turret_Zero extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
     private int state = 1;
 
     private final Robot bot;
@@ -15,7 +15,7 @@ public class turret_LL_blue extends CommandBase { /// starts up tyhe shooter to 
 
 
 
-    public turret_LL_blue(Robot bot) { // runs the Command
+    public turret_Zero(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,10 +32,8 @@ public class turret_LL_blue extends CommandBase { /// starts up tyhe shooter to 
             case -1:
                 break;
             case 1:
-                if(bot.getTurret().IsTurretDone_BLUE()) {
-                    bot.getTurret().ll_start();
+                    bot.getTurret().turretcloseZero();
                     setState(-1);
-               }
                 break;
         }
     }

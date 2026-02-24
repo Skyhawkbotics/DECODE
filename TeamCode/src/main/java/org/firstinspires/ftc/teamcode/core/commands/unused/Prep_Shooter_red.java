@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.unused;
 
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -7,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Intake_on_long extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
+public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
     private int state = 1;
 
     private final Robot bot;
@@ -15,7 +15,7 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
 
 
 
-    public Intake_on_long(Robot bot) { // runs the Command
+    public Prep_Shooter_red(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -32,14 +32,15 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
             case -1:
                 break;
             case 1:
-                bot.getIntake().servosIn();
-                bot.getIntake().on();
+                bot.getShooter().shooterON();
+                bot.getShooter().auto_speed_blue();
+                bot.getShooter().setPos(0.11);
+                bot.getIntake().servosOut();
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 1.4) { //1
-                    bot.getIntake().off();
-                    setState(-1); //3
+                if (bot.getShooter().velocityReached()) { //1
+                    setState(-1);
                 }
                 break;
 

@@ -1,7 +1,5 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 
-
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
@@ -9,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Shooter_off extends CommandBase { ///  stops shooter, makes servos become stoppers
+public class Intake_on_long extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
     private int state = 1;
 
     private final Robot bot;
@@ -17,7 +15,7 @@ public class Shooter_off extends CommandBase { ///  stops shooter, makes servos 
 
 
 
-    public Shooter_off(Robot bot) { // runs the Command
+    public Intake_on_long(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -34,11 +32,17 @@ public class Shooter_off extends CommandBase { ///  stops shooter, makes servos 
             case -1:
                 break;
             case 1:
-                bot.getShooter().turnOFF();
                 bot.getIntake().servosIn();
-                bot.getTurret().ll_pause();
-                setState(-1);
+                bot.getIntake().on();
+                setState(2);
                 break;
+            case 2:
+                if (timer.getElapsedTimeSeconds() > 1.4) { //1
+                    bot.getIntake().off();
+                    setState(-1); //3
+                }
+                break;
+
         }
     }
 

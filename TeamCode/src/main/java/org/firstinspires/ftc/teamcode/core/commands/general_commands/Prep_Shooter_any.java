@@ -1,5 +1,7 @@
-package org.firstinspires.ftc.teamcode.core.commands;
+package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 
+
+import static org.firstinspires.ftc.teamcode.core.constants.auto_speed;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
@@ -7,16 +9,22 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter to a set velocity and puts the stopper servos out of the way
+public class Prep_Shooter_any extends CommandBase {
+    ///  This command will set a shooter speed and servo pos that you give it
+    /// this replaces need for creation of new commands for new velocity/angles
+    /// no more repetitiveness! 2/20/2026
     private int state = 1;
 
     private final Robot bot;
     private Timer timer = new Timer();
+    private int speed;
+    private double servoPos;
 
 
-
-    public Prep_Shooter_red(Robot bot) { // runs the Command
+    public Prep_Shooter_any(Robot bot, int speed, double servoPos) { // runs the Command
         this.bot = bot;
+        this.speed = speed;
+        this.servoPos = servoPos;
     }
 
     @Override
@@ -33,9 +41,8 @@ public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter t
                 break;
             case 1:
                 bot.getShooter().shooterON();
-                bot.getShooter().auto_speed_blue();
-                bot.getShooter().setPos(0.11);
-                bot.getIntake().servosOut();
+                bot.getShooter().autonomous_speed(speed);
+                bot.getShooter().setPos(servoPos);
                 setState(2);
                 break;
             case 2:
@@ -43,7 +50,6 @@ public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter t
                     setState(-1);
                 }
                 break;
-
         }
     }
 

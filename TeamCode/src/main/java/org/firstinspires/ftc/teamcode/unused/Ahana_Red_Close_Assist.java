@@ -1,20 +1,5 @@
 package org.firstinspires.ftc.teamcode.unused;
 
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.bylazar.configurables.annotations.Configurable;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
-import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter;
-import org.firstinspires.ftc.teamcode.core.commands.close_score_command;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on;
-
-import ftclib.FollowPath;
-import ftclib.OpModeCommand;
 /*
 
 

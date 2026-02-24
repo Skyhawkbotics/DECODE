@@ -74,7 +74,7 @@ public class constants {
 
     ///  Limelight PID Controller
 
-    public static double lp = 0.011;
+    public static double lp = 0.02;
     public static double li = 0;
     public static double ld = 0.00002;
 
@@ -92,6 +92,8 @@ public class constants {
 
 
     public static double recoil_constant = 0.002;
+
+    public static double feedforward = 0.05;
 
 
 

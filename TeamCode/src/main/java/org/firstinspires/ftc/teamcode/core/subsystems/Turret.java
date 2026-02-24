@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.controller.PIDFController;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.util.Timer;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -20,7 +21,7 @@ import java.util.List;
 public class Turret {
 
     private Limelight3A ll;
-    private PIDController ll_pid, t_pid;
+    private PIDFController ll_pid, t_pid;
 
     public double ll_pid_output;
 
@@ -61,7 +62,7 @@ public class Turret {
         ll.start();
 
         ///  INITIALIZING PID
-        ll_pid = new PIDController(lp, li, ld);
+        ll_pid = new PIDFController(lp, li, ld, feedforward);
         ll_pid.setTolerance(0.5);
         t_pid = new PIDController(turret_p, turret_i, turret_d);
 
@@ -90,7 +91,7 @@ public class Turret {
                         for (LLResultTypes.FiducialResult fr : fiducialResults) {
                             if (fr.getFiducialId() == ID) {
                                 timer.resetTimer();
-                                ll_pid.setPID(lp, li, ld);
+                                ll_pid.setPIDF(lp, li, ld, 0.05);
                                 double sign = Math.signum(-result.getTx());
                                 ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
 
@@ -101,7 +102,7 @@ public class Turret {
                                         (Math.signum(ll_pid_output) == 1)) {
                                     turret.setPower(0);
                                 } else {
-                                    turret.setPower(ll_pid_output + (sign *turret_f));
+                                    turret.setPower(ll_pid_output);
                                 }
 
                                 telemetry.addData("LL PID OUTPUT", ll_pid_output);
@@ -139,10 +140,10 @@ public class Turret {
                         correct_turret_offset_position = raw_turret_offset_position;
                     }
 
-                    t_pid.setPID(turret_p, turret_i, turret_d);
+                    t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
-                    turret.setPower(pid_output + turret_f);
+                    turret.setPower(pid_output);
 
 
                 }
@@ -175,7 +176,7 @@ public class Turret {
                     for (LLResultTypes.FiducialResult fr : fiducialResults) {
                         if (fr.getFiducialId() == ID) {
                             timer.resetTimer();
-                            ll_pid.setPID(lp, li, ld);
+                            ll_pid.setPIDF(lp, li, ld, 0.05);
                             double sign = Math.signum(-result.getTx());
                             ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
 
@@ -186,7 +187,7 @@ public class Turret {
                                     (Math.signum(ll_pid_output) == 1)) {
                                 turret.setPower(0);
                             } else {
-                                turret.setPower(ll_pid_output + (sign *turret_f));
+                                turret.setPower(ll_pid_output);
                             }
 
                             telemetry.addData("LL PID OUTPUT", ll_pid_output);
@@ -195,13 +196,54 @@ public class Turret {
                 }
             } else {
 
-                t_pid.setPID(turret_p, turret_i, turret_d);
+                t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
                 turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                 double pid_output = t_pid.calculate(turret.getCurrentPosition(), turretPose);
-                turret.setPower(pid_output + turret_f);
+                turret.setPower(pid_output);
 
 
             }
+
+
+    }
+    public void turret_update_close(int ID, Pose followerPose, double turretPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+        double ll_pid_output;
+        if (using_LL) {
+            LLResult result = ll.getLatestResult();
+
+            if (result.isValid()) {
+                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                    if (fr.getFiducialId() == ID) {
+                        timer.resetTimer();
+                        ll_pid.setPIDF(lp, li, ld, feedforward);
+                        double sign = Math.signum(-result.getTx());
+                        ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+
+                        if ((turret.getCurrentPosition() <= left_limit) &&
+                                (Math.signum(ll_pid_output) == -1)) {
+                            turret.setPower(0);
+                        } else if ((turret.getCurrentPosition() >= right_limit) &&
+                                (Math.signum(ll_pid_output) == 1)) {
+                            turret.setPower(0);
+                        } else {
+                            turret.setPower(ll_pid_output);
+                        }
+
+                        telemetry.addData("LL PID OUTPUT", ll_pid_output);
+                    }
+                }
+            }
+        } else {
+
+            t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
+            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            double pid_output = t_pid.calculate(turret.getCurrentPosition(), turretPose);
+            turret.setPower(pid_output);
+
+
+        }
 
 
     }
@@ -216,7 +258,7 @@ public class Turret {
                 for (LLResultTypes.FiducialResult fr : fiducialResults) {
                     if (fr.getFiducialId() == ID) {
                         timer.resetTimer();
-                        ll_pid.setPID(lp, li, ld);
+                        ll_pid.setPIDF(lp, li, ld, 0.05);
                         double sign = Math.signum(-result.getTx());
                         ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
 
@@ -227,7 +269,7 @@ public class Turret {
                                 (Math.signum(ll_pid_output) == 1)) {
                             turret.setPower(0);
                         } else {
-                            turret.setPower(ll_pid_output + (sign *turret_f));
+                            turret.setPower(ll_pid_output );
                         }
 
                         telemetry.addData("LL PID OUTPUT", ll_pid_output);
@@ -236,10 +278,10 @@ public class Turret {
             }
         } else {
 
-            t_pid.setPID(turret_p, turret_i, turret_d);
+            t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
             turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             double pid_output = t_pid.calculate(turret.getCurrentPosition(), turret_close_pos_BLUE);
-            turret.setPower(pid_output + turret_f);
+            turret.setPower(pid_output);
 
 
         }
@@ -272,8 +314,9 @@ public class Turret {
                     List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                     for (LLResultTypes.FiducialResult fr : fiducialResults) {
                         if (fr.getFiducialId() == ID) {
+
                             timer.resetTimer();
-                            ll_pid.setPID(lp, li, ld);
+                            ll_pid.setPIDF(lp, li, ld, 0.05);
                             ll_pid_output = ll_pid.calculate(result.getTx(), far_zone_tx); // + sign * turret_f;
                             double sign = Math.signum(ll_pid_output);
 
@@ -284,7 +327,7 @@ public class Turret {
                                     (Math.signum(ll_pid_output) == 1)) {
                                 turret.setPower(0);
                             } else {
-                                turret.setPower(ll_pid_output + (sign * lf));
+                                turret.setPower(ll_pid_output);
                             }
 
                             telemetry.addData("LL PID OUTPUT", ll_pid_output);
@@ -293,7 +336,7 @@ public class Turret {
                 }
             } else {
                 if(ID == 24) {
-                    t_pid.setPID(turret_p, turret_i, turret_d);
+                    t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), far_side_turret_offset);
                     double sign = Math.signum(pid_output);
@@ -319,7 +362,7 @@ public class Turret {
                     for (LLResultTypes.FiducialResult fr : fiducialResults) {
                         if (fr.getFiducialId() == ID) {
                             timer.resetTimer();
-                            ll_pid.setPID(lp, li, ld);
+                            ll_pid.setPIDF(lp, li, ld, 0.05);
                             ll_pid_output = ll_pid.calculate(result.getTx(), far_zone_tx); // + sign * turret_f;
                             double sign = Math.signum(ll_pid_output);
 
@@ -330,7 +373,7 @@ public class Turret {
                                     (Math.signum(ll_pid_output) == 1)) {
                                 turret.setPower(0);
                             } else {
-                                turret.setPower(ll_pid_output + (sign * lf));
+                                turret.setPower(ll_pid_output);
                             }
 
                             telemetry.addData("LL PID OUTPUT", ll_pid_output);
@@ -339,7 +382,7 @@ public class Turret {
                 }
             } else {
                 if(ID == 24) {
-                    t_pid.setPID(turret_p, turret_i, turret_d);
+                    t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), far_side_turret_offset_blue);
                     double sign = Math.signum(pid_output);
