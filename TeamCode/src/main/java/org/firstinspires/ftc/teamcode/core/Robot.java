@@ -181,19 +181,20 @@ public class Robot {
     }
     public void any_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
-        telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("Current chain index", follower.getChainIndex());
+        telemetry.addData("heading error", follower.getHeadingError());
+        telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
         telemetry.addData("is robot stuck", follower.isRobotStuck());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-        //turret.set_using_LL(ID);
-        turret.turret_update_close(ID, follower.getPose(), turretPose);
+        turret.set_using_LL(ID);
+        turret.turret_update(ID, follower.getPose(), 0);
         shooter.update();
         follower.update();
         telemetry.update();
-        shooter.recoil();
         tilt.tiltZERO();
-
+        //shooter.recoil();
     }
     public void blue_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());

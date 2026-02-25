@@ -37,8 +37,9 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 1.4) { //1
+                if (timer.getElapsedTimeSeconds() > 2.3) { //1
                     bot.getIntake().off();
+                    bot.getIntake().servosOut();
                     setState(-1); //3
                 }
                 break;

@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.0045, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
+    public static double ep = 0.004, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -70,7 +70,7 @@ public class constants {
 
     ///  Limelight PID Controller
 
-    public static double lp = 0.02;
+    public static double lp = 0.015;
     public static double li = 0;
     public static double ld = 0.00002;
 
@@ -87,9 +87,9 @@ public class constants {
 
 
 
-    public static double recoil_constant = 0.002;
+    public static double recoil_constant = 0.005;
 
-    public static double feedforward = 0.05;
+    public static double feedforward = 0;
 
 
 

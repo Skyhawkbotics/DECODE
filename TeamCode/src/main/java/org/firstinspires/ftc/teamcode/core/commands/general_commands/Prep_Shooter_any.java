@@ -41,6 +41,7 @@ public class Prep_Shooter_any extends CommandBase {
                 break;
             case 1:
                 bot.getShooter().shooterON();
+                bot.getIntake().servosOut();
                 bot.getShooter().autonomous_speed(speed);
                 bot.getShooter().setPos(servoPos);
                 setState(2);
