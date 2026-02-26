@@ -33,11 +33,13 @@ public class Intake_on extends CommandBase {
             case -1:
                 break;
             case 1:
+                bot.getIntake().servosOut();
                 bot.getIntake().on_slow();
                 setState(2);
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 1.2) { //1
+                    bot.getIntake().servosIn();
                     bot.getIntake().off();
                     setState(-1); //3
                 }

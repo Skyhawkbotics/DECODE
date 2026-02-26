@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
 
-import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
-
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -13,11 +11,13 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
+import org.firstinspires.ftc.teamcode.core.commands.unused.Intake_on_3rd_set;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -31,42 +31,65 @@ public class RED_15 extends OpModeCommand {
     private final Pose beforeScorePose = new Pose(96, 103);
     private final Pose scorePose = new Pose(87, 85, Math.toRadians(320));
     private final Pose beforeSpike2 = new Pose(100, 60);
-    private final Pose spike2End = new Pose(122, 60);
-    private final Pose gate_intake = new Pose(129, 62, Math.toRadians(35));
-    private final Pose gate_intake_down = new Pose(131, 60, Math.toRadians(45));
+    private final Pose spike2End = new Pose(124, 60);
+    private final Pose gate_intake = new Pose(130, 62, Math.toRadians(35));
+    private final Pose gate_intake_down = new Pose(131, 60, Math.toRadians(50));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
     private final Pose spike1Pose = new Pose(115, 84, Math.toRadians(0));
+    private final Pose beforeSpike3 = new Pose(95, 36);
+    private final Pose spike3EndPose = new Pose(123, 36, Math.toRadians(0));
+    private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
 
 
-
+    ///  Control Points
 
     private final Pose control_point1 = new Pose(90.000, 60.000);
     private final Pose control_point2 = new Pose(103.000, 68.000);
     private final Pose control_point3 = new Pose(96, 83);
-    private final Pose control_point4 = new Pose(92, 80);
-    private final Pose control_point5 = new Pose(92, 80);
+    private final Pose control_point4 = new Pose(89, 33);
 
-    private PathChain preload,spike2, gateintake1, gateintake1_5, gateintake_back, gate_intake_back_secondary,spike1;
 
-//    private PathChain open_gate, spike2Return1;
-//    private final Pose openGatePosePrep = new Pose(121, 63, Math.toRadians(0));
-//    private final Pose openGatePose = new Pose(128, 63, Math.toRadians(0));
-//    private final Pose openGateBackPose = new Pose(121, 65, Math.toRadians(0));
+    private final Pose startPose_blue = startPose.mirror();
+    private final Pose beforeScorePose_blue = beforeScorePose.mirror();
+    private final Pose scorePose_blue = scorePose.mirror();
+    private final Pose beforeSpike2_blue = beforeSpike2.mirror();
+    private final Pose spike2End_blue = spike2End.mirror();
+    private final Pose gate_intake_blue = gate_intake.mirror();
+    private final Pose gate_intake_down_blue = gate_intake_down.mirror();
+    private final Pose gate_intake_back_Pose_blue = gate_intake_back_Pose.mirror();
+    private final Pose spike1Pose_blue= spike1Pose.mirror();
+    private final Pose beforeSpike3_blue = beforeSpike3.mirror();
+    private final Pose spike3EndPose_blue = spike3EndPose.mirror();
+    private final Pose parkPose_blue = parkPose.mirror();
 
+
+    ///  Control Points
+
+    private final Pose control_point1_blue = control_point1.mirror();
+    private final Pose control_point2_blue = control_point2.mirror();
+    private final Pose control_point3_blue = control_point3.mirror();
+    private final Pose control_point4_blue = control_point4.mirror();
+
+
+
+
+    private PathChain preload, spike2, gateintake1, gateintake1_5, gateintake_back, spike1, spike3;
+    private PathChain gate_intake_back_secondary;
 
     public void buildPaths() {
-        preload = bot.getFollower().pathBuilder()
+
+        preload = bot.getFollower().pathBuilder() ///  this can be optimized if i need
                 .addPath(
-                    new BezierLine(
-                        startPose,
-                        beforeScorePose
-                    )
+                        new BezierLine(
+                                startPose,
+                                beforeScorePose
+                        )
                 )
-               .addPath(
-                    new BezierLine(
-                            beforeScorePose,
-                            scorePose
-                    )
+                .addPath(
+                        new BezierLine(
+                                beforeScorePose,
+                                scorePose
+                        )
                 )
                 .setBrakingStrength(1.6)
                 .setGlobalLinearHeadingInterpolation(startPose.getHeading(), scorePose.getHeading())
@@ -75,13 +98,13 @@ public class RED_15 extends OpModeCommand {
 
         spike2 = bot.getFollower().pathBuilder()
                 .addPath(
-                new BezierCurve(
-                        scorePose,
-                        control_point1, // Control Point1
-                        beforeSpike2
+                        new BezierCurve(
+                                scorePose,
+                                control_point1, // Control Point1
+                                beforeSpike2
                         )
                 )
-                .setLinearHeadingInterpolation(scorePose.getHeading(),beforeSpike2.getHeading())
+                .setLinearHeadingInterpolation(scorePose.getHeading(), beforeSpike2.getHeading())
                 .addPath(
                         new BezierLine(
                                 beforeSpike2,
@@ -119,7 +142,6 @@ public class RED_15 extends OpModeCommand {
                 .setLinearHeadingInterpolation(scorePose.getHeading(), gate_intake.getHeading())
                 .setBrakingStrength(1.6)
                 .build();
-
 
         gateintake1_5 = bot.getFollower().pathBuilder().addPath(
                         new BezierLine(
@@ -172,7 +194,6 @@ public class RED_15 extends OpModeCommand {
                 .setGlobalDeceleration(1.6)
                 .build();
 
-
         spike1 = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
@@ -185,51 +206,78 @@ public class RED_15 extends OpModeCommand {
                 .setTangentHeadingInterpolation()
                 .addPath(
                         new BezierLine(
-                        spike1Pose,
-                        scorePose
+                                spike1Pose,
+                                scorePose
                         )
                 )
                 .setConstantHeadingInterpolation(scorePose.getHeading())
                 .build();
+        spike3 = bot.getFollower().pathBuilder()
+                .addPath(
+                        new BezierCurve(
+                                scorePose,
+                                control_point4, /// control point 4
+                                beforeSpike3
+                        )
+                )
+                .setTangentHeadingInterpolation()
+                .addPath(
+                        new BezierLine(
+                                beforeSpike3,
+                                spike3EndPose
+                        )
+                )
+                .setConstantHeadingInterpolation(spike3EndPose.getHeading())
+                .addPath(
+                        new BezierLine(
+                                spike3EndPose,
+                                parkPose
+                        )
+                )
+                .setTangentHeadingInterpolation()
+                .setReversed()
+                .setGlobalDeceleration()
+                .build();
     }
 
 
-
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,startPose, 24);
+        bot = new Robot(hardwareMap, telemetry, startPose, 24);
         buildPaths();
 
         schedule(
-                new RunCommand(bot:: any_autonomous_robot_update),
+                new RunCommand(bot::any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, (1300), 0.25)
+                                        new Prep_Shooter_any(bot, (1280), 0.27)
                                                 .raceWith(
                                                         new WaitCommand(4000)
                                                 )
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(400)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), spike2, true, 0.85)
-                                                .setCompletionThreshold(0.98)
-                                                .alongWith(
-                                                        new Intake_on_long(bot)
-                                                )
+                                        new Intake_on_forever(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new FollowPath(bot.getFollower(), spike2, 0.85)
+                                )
+                                .andThen(
+                                        new Intake_off(bot)
+                                )
+                                .andThen(
+                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(),gateintake1, true, 0.7)
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
                                                 .alongWith(
                                                         new Intake_on_forever(bot)
                                                 )
@@ -256,12 +304,12 @@ public class RED_15 extends OpModeCommand {
 
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(400)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
-                        /// ///////
+                                /// ///////
 //                                .andThen(
 //                                        new FollowPath(bot.getFollower(),gateintake1, true,0.7)
 //                                                .alongWith(
@@ -292,24 +340,33 @@ public class RED_15 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
                                                 .setCompletionThreshold(0.95)
                                                 .alongWith(
-                                                        new Intake_on_long(bot)
+                                                        new Intake_on_3rd_set(bot)
                                                 )
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(500)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), spike3, .8)
+                                                .setCompletionThreshold(.95)
+                                                .alongWith(
+                                                        new Intake_on_long1(bot)
+                                                )
+                                )
+                                .andThen(
+                                        new Prep_Shooter_any(bot, (1180), 0.18)
+                                )
+                                .andThen(
+                                        new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
 
-
-
-
-
-
-
-
-                ));
+                )
+        );
     }
 }
-

@@ -91,6 +91,8 @@ public class constants {
 
     public static double feedforward = 0;
 
+    public static double sharpening_constant = 1.05;
+
 
 
 }

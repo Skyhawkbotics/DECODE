@@ -27,6 +27,7 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
     @Override
     public void execute() {
         bot.getShooter().update();
+        bot.getFollower().update();
 
         switch (state) {
             case -1:
@@ -37,10 +38,15 @@ public class Intake_on_long extends CommandBase { ///  runs the intake , either 
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 2.3) { //1
+                if (bot.getFollower().getChainIndex() > 2) { //1
                     bot.getIntake().off();
+                    setState(3); //3
+                }
+                break;
+            case 3:
+                if(timer.getElapsedTimeSeconds() > 0.2) {
                     bot.getIntake().servosOut();
-                    setState(-1); //3
+                    setState(-1);
                 }
                 break;
 

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import com.pedropathing.geometry.Pose;
+import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 public class shooterSpeed {
     public shooterSpeed() {
@@ -19,7 +20,7 @@ public class shooterSpeed {
         double PI = 3.14159265358979234;
         double shooter_constant = 1.075;
         double dampening_constant = 0.95;
-        double sharpening_constant = 1.0375;
+        sharpening_constant = 1.05; // prev 1.0375
 
         double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);

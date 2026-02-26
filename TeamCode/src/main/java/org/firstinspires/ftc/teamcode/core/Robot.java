@@ -194,7 +194,7 @@ public class Robot {
         follower.update();
         telemetry.update();
         tilt.tiltZERO();
-        //shooter.recoil();
+        shooter.recoil();
     }
     public void blue_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
