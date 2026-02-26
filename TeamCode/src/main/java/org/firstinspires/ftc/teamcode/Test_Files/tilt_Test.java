@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.core.subsystems.Tilt;
 
-@TeleOp (name = "tilt TEST")
+@TeleOp (name = "tilt test", group = "Z")
 public class tilt_Test extends OpMode {
     private Tilt tilt;
     @Override

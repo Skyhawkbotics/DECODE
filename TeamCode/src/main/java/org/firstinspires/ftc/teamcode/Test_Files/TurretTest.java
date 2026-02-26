@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.subsystems.Turret;
 import org.firstinspires.ftc.teamcode.pedroPathing.Constants;
 
-@TeleOp(name = "Turret Test")
+@TeleOp(name = "Turret Test", group = "Z")
 public class TurretTest extends OpMode {
     private Turret turret;
 

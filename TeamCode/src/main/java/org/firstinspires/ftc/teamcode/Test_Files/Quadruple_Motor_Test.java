@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp(name = "Quadruple Motor Test", group = "Tests")
+@TeleOp(name = "Quadruple Motor Test", group = "Z")
 public class Quadruple_Motor_Test extends OpMode {
     private DcMotorEx left_front; // 3
     private DcMotorEx left_back; // 2

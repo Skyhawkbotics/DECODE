@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
-@TeleOp(name = "ShooterTest", group = "Tests")
+@TeleOp(name = "ShooterTest", group = "Z")
 
 public class ShooterTest extends OpMode {
 
