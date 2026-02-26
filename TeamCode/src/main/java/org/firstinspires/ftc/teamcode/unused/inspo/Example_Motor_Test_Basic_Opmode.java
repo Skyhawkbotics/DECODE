@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 /// Name of Tele op on driver hub : Motor Test
 /// On tele op or auto dropdown : @TeleOp
 /// Tele Ops and Autos with the same group will appear next to each other
-@TeleOp (name = "Motor Test", group = "Tests")
+@TeleOp (name = "Motor Test", group = "Z")
 
 public class Example_Motor_Test_Basic_Opmode extends OpMode { /// EXTENDS OPMODE since it is a opmode
 

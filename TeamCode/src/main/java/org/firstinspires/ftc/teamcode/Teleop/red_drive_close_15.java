@@ -1,0 +1,37 @@
+package org.firstinspires.ftc.teamcode.Teleop;
+
+import com.pedropathing.geometry.Pose;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.core.Robot;
+
+
+@TeleOp (name = "15 CLOSE Red Drive", group = "Red Opmode 15")
+
+public class red_drive_close_15 extends OpMode {
+    private Robot robot;
+    int ID = 24;
+
+
+    private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
+
+    private Pose resetPose = new Pose(14.89655172413793, 15.157894736842088, Math.toRadians(90));
+
+    ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
+
+
+    @Override
+    public void init() {
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, parkPose, true, resetPose);
+
+    }
+
+    @Override
+    public void loop() {
+        robot.robot_update();
+
+        robot.dual_drive();
+        robot.robot_telemetry();
+    }
+}

@@ -19,6 +19,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous (name = "redFarHV", group ="Red")
+@Disabled
 public class redfarHV extends OpModeCommand {
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
