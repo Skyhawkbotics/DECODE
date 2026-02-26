@@ -34,9 +34,7 @@ public class Robot {
     private Pose resetPose;
     private double turretPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false,
-            using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
-            LLDistance = false;
+    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false, isValid = false, LLDistance = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
@@ -266,7 +264,7 @@ public class Robot {
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
-            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
+            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.7 * -g1.right_stick_x, true );
         }
 
         if (g1.left_trigger > 0) {

@@ -245,27 +245,31 @@ public class BLUE_15 extends OpModeCommand {
         bot = new Robot(hardwareMap, telemetry, startPose_blue, 24);
         buildPaths();
 
+
         schedule(
                 new RunCommand(bot::any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, (1280), 0.27)
+                                        new Prep_Shooter_any(bot, (1250), 0.27)
                                                 .raceWith(
                                                         new WaitCommand(4000)
                                                 )
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(400)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), spike2, true, 0.85).setCompletionThreshold(0.98)
-                                                .alongWith(
-                                                        new Intake_on_long(bot)
-                                                )
+                                        new Intake_on_forever(bot)
+                                )
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), spike2, 0.85)
+                                )
+                                .andThen(
+                                        new Intake_off(bot)
                                 )
                                 .andThen(
                                         new WaitCommand(700)
@@ -296,12 +300,9 @@ public class BLUE_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), gateintake_back, 0.8)
-                                                .setCompletionThreshold(0.95)
-
-
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(400)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -335,29 +336,27 @@ public class BLUE_15 extends OpModeCommand {
 //                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
-                                                .setCompletionThreshold(0.95)
                                                 .alongWith(
                                                         new Intake_on_3rd_set(bot)
                                                 )
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike3, .8)
-                                                .setCompletionThreshold(.95)
                                                 .alongWith(
                                                         new Intake_on_long1(bot)
                                                 )
                                 )
                                 .andThen(
-                                        new Prep_Shooter_any(bot, (1200), 0.18)
+                                        new Prep_Shooter_any(bot, (1180), 0.18)
                                 )
                                 .andThen(
-                                        new WaitCommand(300)
+                                        new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_on(bot)

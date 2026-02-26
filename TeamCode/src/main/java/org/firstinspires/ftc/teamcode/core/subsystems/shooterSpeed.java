@@ -7,6 +7,9 @@ public class shooterSpeed {
     public shooterSpeed() {
     }
 
+    public void setShooterSpeed(double d ) {
+
+    }
     public double calcVelocity(double d) {
 
         double GRAVITY = 9.80665; // gravitational constant
@@ -20,7 +23,7 @@ public class shooterSpeed {
         double PI = 3.14159265358979234;
         double shooter_constant = 1.075;
         double dampening_constant = 0.95;
-        sharpening_constant = 1.05; // prev 1.0375
+        double sharpening_constant = 1.0375; // prev 1.0375
 
         double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);

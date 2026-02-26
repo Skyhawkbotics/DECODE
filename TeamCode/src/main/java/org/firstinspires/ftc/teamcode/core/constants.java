@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.004, ei = 0, ed = 0.0000, f = 0.45; ///these are good as of 10/11
+    public static double ep = 0.004, ei = 0, ed = 0.0000, f = 0.00035; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -91,7 +91,7 @@ public class constants {
 
     public static double feedforward = 0;
 
-    public static double sharpening_constant = 1.05;
+    public static double sharpening_constant = 1.1;
 
 
 

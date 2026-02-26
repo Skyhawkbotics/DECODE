@@ -36,8 +36,8 @@ public class RED_15 extends OpModeCommand {
     private final Pose gate_intake_down = new Pose(131, 60, Math.toRadians(50));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
     private final Pose spike1Pose = new Pose(115, 84, Math.toRadians(0));
-    private final Pose beforeSpike3 = new Pose(95, 36);
-    private final Pose spike3EndPose = new Pose(123, 36, Math.toRadians(0));
+    private final Pose beforeSpike3 = new Pose(87, 36);
+    private final Pose spike3EndPose = new Pose(125, 36, Math.toRadians(0));
     private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
 
 
@@ -128,7 +128,7 @@ public class RED_15 extends OpModeCommand {
                         )
                 )
                 .setConstantHeadingInterpolation(scorePose.getHeading())
-                .setGlobalDeceleration(1)
+                .setGlobalDeceleration(0.9)
                 .build();
 
 
@@ -220,7 +220,7 @@ public class RED_15 extends OpModeCommand {
                                 beforeSpike3
                         )
                 )
-                .setTangentHeadingInterpolation()
+                .setConstantHeadingInterpolation(0)
                 .addPath(
                         new BezierLine(
                                 beforeSpike3,
@@ -250,7 +250,7 @@ public class RED_15 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, (1280), 0.27)
+                                        new Prep_Shooter_any(bot, (1250), 0.27)
                                                 .raceWith(
                                                         new WaitCommand(4000)
                                                 )
@@ -299,9 +299,6 @@ public class RED_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), gateintake_back, 0.8)
-                                                .setCompletionThreshold(0.95)
-
-
                                 )
                                 .andThen(
                                         new WaitCommand(400)
@@ -338,7 +335,6 @@ public class RED_15 extends OpModeCommand {
 //                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
-                                                .setCompletionThreshold(0.95)
                                                 .alongWith(
                                                         new Intake_on_3rd_set(bot)
                                                 )
@@ -351,7 +347,6 @@ public class RED_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike3, .8)
-                                                .setCompletionThreshold(.95)
                                                 .alongWith(
                                                         new Intake_on_long1(bot)
                                                 )

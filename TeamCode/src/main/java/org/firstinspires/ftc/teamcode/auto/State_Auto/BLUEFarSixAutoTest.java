@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.farzone.Prep_Shooter_far_blue;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 
 import ftclib.FollowPath;
@@ -67,35 +68,39 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
         end.setLinearHeadingInterpolation(blueshoottres.getHeading(), bluegametime.getHeading());
     }
     public void initialize() {
-        buildPaths();
         bot = new Robot(hardwareMap, telemetry,startpos, 20);
+        buildPaths();/// hi abraham, put buildpaths(); AFTER the robot has be initalized with bot = new Robot() or else it will error
+
+
         schedule (
-                new RunCommand(bot :: far_autonomous_robot_update_blue),
+                new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(),scorepre1,0.85)
                                 .andThen(
                                         new FollowPath(bot.getFollower(), scorepre1)
-                                                .alongWith(new Prep_Shooter_far_blue(bot))
+                                                .alongWith(new Prep_Shooter_any(bot, 1720, 0.4))
                                 )
                                 .andThen(
-                                        new WaitCommand(4000  )
+                                        new WaitCommand(4000 )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
                                 .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), intakeuno)
-                                                .alongWith(new Shooter_off(bot))
-                                                .alongWith(new Intake_on_forever(bot))
-                                                .alongWith(new WaitCommand(2000))
+                                )
+                                .andThen(
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
                                                 .alongWith(new Intake_off(bot))
-                                                .alongWith(new Prep_Shooter_far_blue(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(4000)
+                                        new WaitCommand(3000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)

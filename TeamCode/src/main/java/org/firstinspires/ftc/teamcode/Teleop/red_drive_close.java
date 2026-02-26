@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "CLOSE Red Drive", group = "Opmode")
+@TeleOp (name = "CLOSE Red Drive", group = "Red Opmode")
 
 public class red_drive_close extends OpMode {
     private Robot robot;

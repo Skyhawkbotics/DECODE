@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core.subsystems;
 import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
+import com.arcrobotics.ftclib.controller.PIDFController;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -19,7 +20,7 @@ public class     Shooter {
     private shooterSpeed shooterSpeed;
     private DcMotorEx left_motor, right_motor;
 
-    public PIDController pid;
+    public PIDFController pid;
 
     public static int target;
 
@@ -55,7 +56,7 @@ public class     Shooter {
 
         shooterSpeed = new shooterSpeed();
 
-        pid = new PIDController(ep, ei, ed);
+        pid = new PIDFController(ep, ei, ed, f);
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
         this.telemetry = telemetry03;
@@ -76,7 +77,7 @@ public class     Shooter {
 
         shooterSpeed = new shooterSpeed();
 
-        pid = new PIDController(ep, ei, ed);
+        pid = new PIDFController(ep, ei, ed, f);
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
         this.telemetry = telemetry03;
@@ -86,10 +87,10 @@ public class     Shooter {
 
     public void update() { /// PID Update loop
         if(is_updating) {
-            pid.setPID(ep, ei, ed);
+            pid.setPIDF(ep, ei, ed, f);
 
             double pid_output = pid.calculate(left_motor.getVelocity(), target);
-            power = pid_output + f;
+            power = pid_output;
             left_motor.setPower(power);
             right_motor.setPower(power);
         } else {

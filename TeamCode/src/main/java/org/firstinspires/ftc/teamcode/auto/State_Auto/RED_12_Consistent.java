@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "RED 12 CONSISTENT", group = "Consistent")
+@Autonomous(name = "RED 12 CONSISTENT", group = "Consistent", preselectTeleOp = "CLOSE Red Drive")
 public class RED_12_Consistent extends OpModeCommand {
 
 

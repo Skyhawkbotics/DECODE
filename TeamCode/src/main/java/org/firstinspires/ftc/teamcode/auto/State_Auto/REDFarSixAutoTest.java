@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.farzone.Prep_Shooter_far_red;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 
 import ftclib.FollowPath;
@@ -54,14 +55,14 @@ public class REDFarSixAutoTest extends OpModeCommand {
     }
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry,startpos, 20);
+        bot = new Robot(hardwareMap, telemetry,startpos, 24);
         schedule (
-                new RunCommand(bot :: far_autonomous_robot_update),
+                new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(),scorepre1,0.85)
                                 .andThen(
                                         new FollowPath(bot.getFollower(), scorepre1)
-                                                .alongWith(new Prep_Shooter_far_red(bot))
+                                                .alongWith(new Prep_Shooter_any(bot, 1720, 0.4))
                                 )
                                 .andThen(
                                         new WaitCommand(4000 )
@@ -70,18 +71,20 @@ public class REDFarSixAutoTest extends OpModeCommand {
                                         new Intake_on(bot)
                                 )
                                 .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), intakeuno)
-                                                .alongWith(new Shooter_off(bot))
-                                                .alongWith(new Intake_on_forever(bot))
-                                                .alongWith(new WaitCommand(3000))
+                                )
+                                .andThen(
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
                                                 .alongWith(new Intake_off(bot))
-                                                .alongWith(new Prep_Shooter_far_red(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(4000)
+                                        new WaitCommand(3000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -91,7 +94,6 @@ public class REDFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Intake_off(bot))
                                                 .alongWith(new Shooter_off(bot))
                                 )
-
                 )
         );
     }
