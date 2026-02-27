@@ -63,7 +63,7 @@ public class Turret {
 
         ///  INITIALIZING PID
         ll_pid = new PIDFController(lp, li, ld, lf);
-        ll_pid.setTolerance(0.5);
+        ll_pid.setTolerance(0);
         t_pid = new PIDController(turret_p, turret_i, turret_d);
 
         ///  INITIALIZING TURRET MOTOR

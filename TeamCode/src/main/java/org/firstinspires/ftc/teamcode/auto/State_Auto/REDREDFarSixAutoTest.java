@@ -22,7 +22,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "red far 6", group = "red")
-public class BLUEFarSixAutoTest extends OpModeCommand {
+public class REDREDFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
 
@@ -68,7 +68,7 @@ public class BLUEFarSixAutoTest extends OpModeCommand {
         end.setLinearHeadingInterpolation(blueshoottres.getHeading(), bluegametime.getHeading());
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,startpos, 20);
+        bot = new Robot(hardwareMap, telemetry,startpos, 24);
         buildPaths();/// hi abraham, put buildpaths(); AFTER the robot has be initalized with bot = new Robot() or else it will error
 
 

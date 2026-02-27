@@ -10,7 +10,7 @@ public class shooterSpeed {
     public double calcVelocity(double d) {
 
         double GRAVITY = 9.80665; // gravitational constant
-        double VERTICAL_DISTANCE = 0.741; // 1.041 - 0.300
+        double VERTICAL_DISTANCE = 0.756; // 1.041 - 0.300 = 0.741 + a little for jazz
         ///  remeasured constants: 0.3 m for robot flywheel
         /// 0.99 for depot
         ///  old : 0.661  // 1.041 - 0.381

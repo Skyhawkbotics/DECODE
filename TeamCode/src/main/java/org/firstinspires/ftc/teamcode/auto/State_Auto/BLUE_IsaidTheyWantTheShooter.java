@@ -70,7 +70,7 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
         schedule (
                 new RunCommand(bot :: far_autonomous_robot_update_blue),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), treballuno, 0.85)
+                        //new FollowPath(bot.getFollower(), treballuno, 0.85)
                 )
         );
     }

@@ -70,7 +70,7 @@ public class constants {
 
     ///  Limelight PID Controller
 
-    public static double lp = 0.0125;
+    public static double lp = 0.015;
     public static double li = 0;
     public static double ld = 0.00003;
 

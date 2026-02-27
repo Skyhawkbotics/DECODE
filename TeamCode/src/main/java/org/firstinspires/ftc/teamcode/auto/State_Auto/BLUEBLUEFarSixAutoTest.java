@@ -14,7 +14,6 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.farzone.Prep_Shooter_far_red;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 
@@ -22,7 +21,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "blue far 6", group = "blue")
-public class REDFarSixAutoTest extends OpModeCommand {
+public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
 
@@ -55,7 +54,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
     }
     public void initialize() {
         buildPaths();
-        bot = new Robot(hardwareMap, telemetry,startpos, 24);
+        bot = new Robot(hardwareMap, telemetry,startpos, 20);
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
