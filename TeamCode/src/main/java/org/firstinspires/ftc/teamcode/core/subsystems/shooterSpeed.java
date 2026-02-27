@@ -7,9 +7,6 @@ public class shooterSpeed {
     public shooterSpeed() {
     }
 
-    public void setShooterSpeed(double d ) {
-
-    }
     public double calcVelocity(double d) {
 
         double GRAVITY = 9.80665; // gravitational constant
@@ -21,9 +18,9 @@ public class shooterSpeed {
 
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
         double PI = 3.14159265358979234;
-        double shooter_constant = 1.075;
+        double shooter_constant = 1.095;
         double dampening_constant = 0.95;
-        double sharpening_constant = 1.0375; // prev 1.0375
+        double sharpening_constant = 1.04; // prev 1.0375
 
         double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
@@ -37,10 +34,7 @@ public class shooterSpeed {
                 (d * Math.tan(angle) - VERTICAL_DISTANCE);
         double velocity_meters = Math.sqrt(numerator/denominator);
         double velocity_rpm = (velocity_meters * 60) / (2 * PI * FLYWHEEL_RADIUS);
-        /*
-        if (d < 4) {
-            velocity_rpm = velocity_rpm * dampening_constant;
-        } else */
+
         if (d > 2.8) {
             velocity_rpm = velocity_rpm * sharpening_constant;
         }
@@ -54,7 +48,7 @@ public class shooterSpeed {
     public double calcAngle(double d) {
         double degrees = 60 - 7 * (d - 1.5);
 
-        if (d > 4) {
+        if (d < 2.8) {
             degrees *= 0.95;
         }
 

@@ -32,7 +32,7 @@ public class Turret {
 
     private Telemetry telemetry;
 
-    private double LL_buffer = 250;
+    private double LL_buffer = 300;
 
     private Boolean using_LL = false, manual_turret = false, using_turret = true;
 
