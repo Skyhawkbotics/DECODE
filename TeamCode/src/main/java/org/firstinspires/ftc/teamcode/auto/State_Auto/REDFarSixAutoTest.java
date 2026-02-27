@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "red far 6", group = "red")
+@Autonomous(name = "blue far 6", group = "blue")
 public class REDFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
@@ -30,11 +30,11 @@ public class REDFarSixAutoTest extends OpModeCommand {
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
 
-    public final Pose shootload = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shootload = new Pose(55, 16, Math.toRadians(114));
 
     public final Pose humanintake = new Pose(10.5, 9.8, Math.toRadians(180));
 
-    public final Pose shoottres = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shoottres = new Pose(55, 16, Math.toRadians(114));
 
     public final Pose gametime = new Pose(41, 16, Math.toRadians(180));
 
@@ -48,7 +48,7 @@ public class REDFarSixAutoTest extends OpModeCommand {
         intakeuno.setLinearHeadingInterpolation(shootload.getHeading(), humanintake.getHeading());
 
         dametime = new Path (new BezierLine(humanintake, shoottres));
-        dametime.setConstantHeadingInterpolation(Math.toRadians(57));
+        dametime.setConstantHeadingInterpolation(Math.toRadians(114));
 
         end = new Path (new BezierLine(shoottres, gametime));
         end.setLinearHeadingInterpolation(shoottres.getHeading(), gametime.getHeading());

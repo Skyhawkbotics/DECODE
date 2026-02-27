@@ -1,0 +1,77 @@
+package org.firstinspires.ftc.teamcode.auto.State_Auto;
+
+import com.arcrobotics.ftclib.command.RunCommand;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.pedropathing.geometry.BezierCurve;
+import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.Pose;
+import com.pedropathing.paths.Path;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.core.Robot;
+
+import ftclib.FollowPath;
+import ftclib.OpModeCommand;
+
+@Autonomous(name = "TheyWantTheShooter", group = "blue")
+public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
+
+    Robot bot;
+
+    public static final Pose starttime = new Pose(56, 8, Math.toRadians(90));
+
+    public final Pose treballuno = new Pose(56, 17, Math.toRadians(114));
+
+    public final Pose dimeuno = new Pose(10.8, 9.5);
+
+    public final Pose treballdos = new Pose(56, 17, Math.toRadians(114));
+
+    public final Pose dimedos = new Pose(10.8, 9.5);
+
+    public final Pose treballtres = new Pose(56, 17, Math.toRadians(114));
+
+    public final Pose dimetres = new Pose(10.8, 9.5);
+
+    public final Pose dametime = new Pose(56, 17, Math.toRadians(114));
+
+    public final Pose cellytime = new Pose(42.2, 16.3);
+
+    private Path greengiantuno, intakeuno, greengiantdos, intakedos, greengianttres, intaketres, buzzerbeater, celly;
+
+    public void buildPaths() {
+        greengiantuno = new Path(new BezierLine(starttime, treballuno));
+        greengiantuno.setLinearHeadingInterpolation(starttime.getHeading(), treballuno.getHeading());
+
+        intakeuno = new Path(new BezierCurve(treballuno, new Pose(41.2, 10.2), dimeuno));
+        intakeuno.setTangentHeadingInterpolation();
+
+        greengiantdos = new Path(new BezierLine(dimeuno, treballdos));
+        greengiantdos.setLinearHeadingInterpolation(dimeuno.getHeading(), treballdos.getHeading());
+
+        intakedos = new Path(new BezierCurve(treballdos, new Pose(41.2, 10.2), dimedos));
+        intakedos.setTangentHeadingInterpolation();
+
+        greengianttres = new Path(new BezierLine(dimedos, treballtres));
+        greengianttres.setLinearHeadingInterpolation(dimedos.getHeading(), treballtres.getHeading());
+
+        intaketres = new Path(new BezierCurve(treballtres, new Pose(41.2, 10.2), dimetres));
+        intaketres.setTangentHeadingInterpolation();
+
+        buzzerbeater = new Path(new BezierLine(dimetres, dametime));
+        buzzerbeater.setLinearHeadingInterpolation(dimetres.getHeading(), dametime.getHeading());
+
+        celly = new Path(new BezierLine(dametime, cellytime));
+        celly.setLinearHeadingInterpolation(dametime.getHeading(), cellytime.getHeading());
+    }
+
+    public void initialize() {
+        buildPaths();
+        bot = new Robot(hardwareMap, telemetry, starttime, 20);
+        schedule (
+                new RunCommand(bot :: far_autonomous_robot_update_blue),
+                new SequentialCommandGroup(
+                        new FollowPath(bot.getFollower(), treballuno, 0.85)
+                )
+        );
+    }
+}
