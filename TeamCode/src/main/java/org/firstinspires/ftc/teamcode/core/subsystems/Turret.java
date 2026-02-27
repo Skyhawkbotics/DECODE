@@ -27,8 +27,8 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(132.47821849779123, 138.31011723787793, 0);
-    private Pose bluePose = new Pose(11, 135,0);
+    private Pose redPose = new Pose(140, 138, 0);
+    private Pose bluePose = new Pose(4, 138,0);
 
     private Telemetry telemetry;
 
