@@ -32,15 +32,15 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
 
     public static final Pose bluestartpos = startpos.mirror();
 
-    public final Pose shootload = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shootload = new Pose(55, 14.5, Math.toRadians(57));
 
     public final Pose blueshootload = shootload.mirror();
 
-    public final Pose humanintake = new Pose(10.5, 9.8, Math.toRadians(180));
+    public final Pose humanintake = new Pose(10.5, 8.2, Math.toRadians(180));
 
     public final Pose bluehumanintake = humanintake.mirror();
 
-    public final Pose shoottres = new Pose(55, 16, Math.toRadians(57));
+    public final Pose shoottres = new Pose(55, 14.5, Math.toRadians(57));
 
     public final Pose blueshoottres = shoottres.mirror();
 

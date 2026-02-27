@@ -29,11 +29,11 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
 
-    public final Pose shootload = new Pose(55, 16, Math.toRadians(114));
+    public final Pose shootload = new Pose(55, 14.5, Math.toRadians(114));
 
-    public final Pose humanintake = new Pose(10.5, 9.8, Math.toRadians(180));
+    public final Pose humanintake = new Pose(10.5, 8.2, Math.toRadians(180));
 
-    public final Pose shoottres = new Pose(55, 16, Math.toRadians(114));
+    public final Pose shoottres = new Pose(55, 14.5, Math.toRadians(114));
 
     public final Pose gametime = new Pose(41, 16, Math.toRadians(180));
 
