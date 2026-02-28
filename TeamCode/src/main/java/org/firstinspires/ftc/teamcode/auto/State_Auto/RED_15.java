@@ -160,7 +160,6 @@ public class RED_15 extends OpModeCommand {
                 )
                 .setConstantHeadingInterpolation(scorePose.getHeading())
                 .setGlobalDeceleration()
-
                 .build();
 
 
@@ -194,7 +193,7 @@ public class RED_15 extends OpModeCommand {
 
                         )
                 )
-                .setTangentHeadingInterpolation()
+                .setConstantHeadingInterpolation(spike1Pose.getHeading())
                 .addPath(
                         new BezierLine(
                                 spike1Pose,
@@ -245,9 +244,6 @@ public class RED_15 extends OpModeCommand {
                                         new Prep_Shooter_any(bot, (1250), 0.27)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
-                                )
-                                .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
@@ -258,9 +254,6 @@ public class RED_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike2back, 0.85)
-                                )
-                                .andThen(
-                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
@@ -285,9 +278,6 @@ public class RED_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), gateintake_back, 0.8)
-                                )
-                                .andThen(
-                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
@@ -321,18 +311,12 @@ public class RED_15 extends OpModeCommand {
 //                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
-//                                                .alongWith(
-//                                                        new Intake_on_3rd_set(bot)
-//                                                )
                                 )
                                 .andThen(
                                         new WaitCommand(200)
                                 )
                                 .andThen(
                                         new Intake_off(bot)
-                                )
-                                .andThen(
-                                        new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
@@ -346,9 +330,6 @@ public class RED_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new Prep_Shooter_any(bot, (1180), 0.18)
-                                )
-                                .andThen(
-                                        new WaitCommand(700)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)

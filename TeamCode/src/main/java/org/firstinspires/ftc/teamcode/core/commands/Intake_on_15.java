@@ -27,14 +27,14 @@ public class Intake_on_15 extends CommandBase {
 
     @Override
     public void execute() {
-        bot.getShooter().update();
-
         switch (state) {
             case -1:
                 break;
             case 1:
-                bot.getIntake().on_slow();
-                setState(2);
+                if(timer.getElapsedTimeSeconds() > 0.7) {
+                    bot.getIntake().on_slow();
+                    setState(2);
+                }
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 1.2) { //1
