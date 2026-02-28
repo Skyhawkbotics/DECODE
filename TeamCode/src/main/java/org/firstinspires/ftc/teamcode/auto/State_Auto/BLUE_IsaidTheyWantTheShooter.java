@@ -10,6 +10,11 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -78,10 +83,27 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), greengiantuno, 0.85)
                                 .andThen(
+                                        new FollowPath(bot.getFollower(), greengiantuno)
+                                                .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
+                                .andThen(
+                                        new WaitCommand(3000)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), intakeuno),
-                                        new WaitCommand(2000),
+                                        new WaitCommand(2000)
+                                .andThen(
                                         new FollowPath(bot.getFollower(), greengiantdos),
-                                        new WaitCommand(2000),
+                                        new WaitCommand(2000)
+                                )
+                                .andThen(
+
+                                        )      ,
 
                                         new FollowPath(bot.getFollower(), intakedos),
                                         new WaitCommand(2000),
@@ -94,6 +116,8 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
                                         new FollowPath(bot.getFollower(), buzzerbeater),
                                         new WaitCommand(2000),
+                                        new Intake_off(bot),
+                                        new Shooter_off(bot),
 
                                         new FollowPath(bot.getFollower(), celly),
                                         new WaitCommand(2000)
@@ -102,6 +126,7 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
 
                                         )
+                )
                 )
         );
     }
