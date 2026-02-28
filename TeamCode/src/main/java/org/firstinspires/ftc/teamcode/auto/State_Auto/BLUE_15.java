@@ -228,7 +228,7 @@ public class BLUE_15 extends OpModeCommand {
 
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startPose_blue, 24);
+        bot = new Robot(hardwareMap, telemetry, startPose_blue, 20);
         buildPaths();
 
         schedule(

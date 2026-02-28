@@ -38,43 +38,46 @@ public class BLUE_12_Consistent extends OpModeCommand {
     /// when the angled front segment of the depot connects to the back wall of the depot that is parallel to the front wall
 
 
-    public final Pose all_scores = new Pose(91, 82, Math.toRadians(0));
+    public final Pose all_scores = new Pose(91, 86, Math.toRadians(0));
     public final Pose blueall_scores = all_scores.mirror();
 
     public final Pose curve2spikemarkcontrolpoint = new Pose(82, 57);
 
-public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
+    public final Pose bluecurve2spikemarkcontrolpoint = curve2spikemarkcontrolpoint.mirror();
     /// Intake Spike Mark Two,
 
     public final Pose gather2 = new Pose(125, 58, Math.toRadians(0));
 
-public final Pose bluegather2 = gather2.mirror();
+    public final Pose bluegather2 = gather2.mirror();
     /// Opengate
     public final Pose opengateSLOW_Control_Point = new Pose(120, 64, Math.toRadians(270));
-public final Pose blueopengateSLOW_Control_Point = opengateSLOW_Control_Point.mirror();
-    public final Pose opengateSLOW = new Pose(128.5, 68, Math.toRadians(270));
-public final Pose blueopengateSlow = opengateSLOW.mirror();
+    public final Pose blueopengateSLOW_Control_Point = opengateSLOW_Control_Point.mirror();
+    public final Pose opengateSLOW = new Pose(130.5, 68, Math.toRadians(270));
+    public final Pose blueopengateSlow = opengateSLOW.mirror();
     public final Pose score1_5_pose = new Pose(106, 68, Math.toRadians(270));
-public final Pose bluescore1_5_pose = score1_5_pose.mirror();
+    public final Pose bluescore1_5_pose = score1_5_pose.mirror();
 
     /// then we need to score that
     /// come second
     public final Pose get2balls1 = new Pose(96, 84, Math.toRadians(0));
-public final Pose blueget2balls1 = get2balls1.mirror();
+    public final Pose blueget2balls1 = get2balls1.mirror();
 
     public final Pose gather1 = new Pose(124, 84, Math.toRadians(0));
-public final Pose bluegather1 = gather1.mirror();
+    public final Pose bluegather1 = gather1.mirror();
     public final Pose last_shot = new Pose(108.85, 97.1, Math.toRadians(0));
- public final Pose bluelast_shot = last_shot.mirror();
+    public final Pose bluelast_shot = last_shot.mirror();
 
     /// Gather 3
     public final Pose semiposit = new Pose(102.74, 59, Math.toRadians(0));
 
     public final Pose get2balls2 = new Pose(97.74193548387095, 40, Math.toRadians(0));
-  public final Pose blueget2balls2 = get2balls2.mirror();
+    public final Pose blueget2balls2 = get2balls2.mirror();
 
     public final Pose gather3 = new Pose(127, 40, Math.toRadians(0));
-public final Pose bluegather3 = gather3.mirror();
+    public final Pose bluegather3 = gather3.mirror();
+
+    public final Pose end = new Pose(125.2, 58, Math.toRadians(90));
+    public final Pose blueend = end.mirror();
 
     private Path scorepres, intake1, score1, score2, score1_5, posit1, intake3;
     private PathChain kaimen, posit2;
@@ -159,16 +162,16 @@ public final Pose bluegather3 = gather3.mirror();
         park = new Path(
                 new BezierLine(
                         blueall_scores,
-                        bluegather2
+                        blueend
                 )
         );
-        park.setLinearHeadingInterpolation(blueall_scores.getHeading(), bluegather2.getHeading());
+        park.setLinearHeadingInterpolation(blueall_scores.getHeading(), blueend.getHeading());
 
 
     }
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpose, 20);
+        bot = new Robot(hardwareMap, telemetry, bluestartpose, 20);
         buildPaths();
 
         schedule(

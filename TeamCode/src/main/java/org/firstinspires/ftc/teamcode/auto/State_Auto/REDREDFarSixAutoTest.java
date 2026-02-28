@@ -26,62 +26,59 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
-
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
+    public static final Pose redstartpos = startpos.mirror();
 
-    public static final Pose bluestartpos = startpos.mirror();
-
-    public final Pose shootload = new Pose(55, 14.5, Math.toRadians(57));
-
-    public final Pose blueshootload = shootload.mirror();
+    public final Pose shootme = new Pose(55, 14.5, Math.toRadians(114));
+    public final Pose redshootload = shootme.mirror();
 
     public final Pose humanintake = new Pose(10.5, 8.2, Math.toRadians(180));
 
-    public final Pose bluehumanintake = humanintake.mirror();
+    public final Pose redhumanintake = humanintake.mirror();
+    public final Pose humanintakedos = new Pose(10.5, 8.2, Math.toRadians(215));
 
-    public final Pose shoottres = new Pose(55, 14.5, Math.toRadians(57));
+    public final Pose redhumanintakedos = humanintakedos.mirror();
 
-    public final Pose blueshoottres = shoottres.mirror();
+    public final Pose shoottres = new Pose(50, 14.5, Math.toRadians(114));
+
+    public final Pose redshoottres = shoottres.mirror();
 
     public final Pose gametime = new Pose(41, 16, Math.toRadians(180));
 
-    public final Pose bluegametime = gametime.mirror();
+    public final Pose redgametime = gametime.mirror();
 
     public final Pose curvy = new Pose(40, 11);
 
-    public final Pose bluecurvy = curvy.mirror();
+    public final Pose redcurvy = curvy.mirror();
 
     private Path scorepre1, intakeuno, dametime, end;
 
     public void buildPaths () {
-        scorepre1 = new Path (new BezierLine(bluestartpos,blueshootload));
-        scorepre1.setLinearHeadingInterpolation(bluestartpos.getHeading(), blueshootload.getHeading());
+        scorepre1 = new Path (new BezierLine(redstartpos,redshootload));
+        scorepre1.setLinearHeadingInterpolation(redstartpos.getHeading(), redshootload.getHeading());
 
-        intakeuno = new Path (new BezierCurve(blueshootload, bluecurvy, bluehumanintake));
-        intakeuno.setLinearHeadingInterpolation(blueshootload.getHeading(), bluehumanintake.getHeading());
+        intakeuno = new Path (new BezierCurve(redshootload, redcurvy, redhumanintake));
+        intakeuno.setLinearHeadingInterpolation(redshootload.getHeading(), redhumanintake.getHeading());
 
-        dametime = new Path (new BezierLine(bluehumanintake, blueshoottres));
+        dametime = new Path (new BezierLine(redhumanintake, redshoottres));
         dametime.setConstantHeadingInterpolation(Math.toRadians(57));
 
-        end = new Path (new BezierLine(blueshoottres, bluegametime));
-        end.setLinearHeadingInterpolation(blueshoottres.getHeading(), bluegametime.getHeading());
+        end = new Path (new BezierLine(redshoottres, redgametime));
+        end.setLinearHeadingInterpolation(redshoottres.getHeading(), redgametime.getHeading());
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,startpos, 24);
+        bot = new Robot(hardwareMap, telemetry,redstartpos, 24);
         buildPaths();/// hi abraham, put buildpaths(); AFTER the robot has be initalized with bot = new Robot() or else it will error
-
-
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(),scorepre1,0.85)
                                 .andThen(
                                         new FollowPath(bot.getFollower(), scorepre1)
-                                                .alongWith(new Prep_Shooter_any(bot, 1720, 0.4))
+                                                .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
                                 )
                                 .andThen(
-                                        new WaitCommand(4000 )
+                                        new WaitCommand(3000 )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -93,7 +90,7 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
                                 .andThen(
-                                        new WaitCommand(600)
+                                        new WaitCommand(400)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
