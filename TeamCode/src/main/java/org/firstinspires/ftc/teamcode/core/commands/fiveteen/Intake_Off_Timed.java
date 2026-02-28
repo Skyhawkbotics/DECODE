@@ -32,8 +32,9 @@ public class Intake_Off_Timed extends CommandBase { ///  runs the intake , eithe
         switch (state) {
             case -1: /// this thing waits for a set time before stopping intake
                 break;
+
             case 1:
-                if(timer.getElapsedTimeSeconds() > time) {
+                if(timer.getElapsedTimeSeconds() >= time) {
                     bot.getIntake().prep_fire();
                     setState(-1);
                 }

@@ -13,10 +13,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Start_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_ZERO;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_spike3;
 
@@ -28,7 +30,7 @@ public class BLUE_15 extends OpModeCommand {
 
     Robot bot;
     private final Pose startPose = new Pose(111.000, 134.000, Math.toRadians(90));
-    private final Pose scorePose = new Pose(87, 85, Math.toRadians(330));
+    private final Pose scorePose = new Pose(87, 85, Math.toRadians(5));
     private final Pose beforeSpike2 = new Pose(98, 61);
     private final Pose spike2End = new Pose(127, 61, Math.toRadians(0));
     private final Pose gate_intake = new Pose(130, 62, Math.toRadians(35));
@@ -37,7 +39,7 @@ public class BLUE_15 extends OpModeCommand {
     private final Pose spike1Pose = new Pose(115, 84, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
     private final Pose spike3EndPose = new Pose(124, 37, Math.toRadians(0));
-    private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
+    private final Pose parkPose = new Pose(92, 111, Math.toRadians(5));
 
 
     ///  Control Points
@@ -104,6 +106,7 @@ public class BLUE_15 extends OpModeCommand {
                 .setGlobalDeceleration()
 
                 .build();
+
         spike2back = new Path(
                         new BezierCurve(
                                 spike2End_blue,
@@ -124,7 +127,6 @@ public class BLUE_15 extends OpModeCommand {
                 )
                 .setLinearHeadingInterpolation(scorePose_blue.getHeading(), gate_intake_blue.getHeading())
                 .setGlobalDeceleration()
-
                 .build();
 
         gateintake1_5 = bot.getFollower().pathBuilder().addPath(
@@ -138,22 +140,23 @@ public class BLUE_15 extends OpModeCommand {
                 .build();
 
 
-        gateintake_back = bot.getFollower().pathBuilder()
+        gateintake_back = bot.getFollower()
+                .pathBuilder()
                 .addPath(
                         new BezierCurve(
                                 gate_intake_down_blue,
                                 control_point2_blue,///  control point 2
-                                gate_intake_back_Pose_blue
-                        )
-                )
-                .setTangentHeadingInterpolation()
-                .setReversed()
-                .addPath(
-                        new BezierLine(
-                                gate_intake_back_Pose_blue,
                                 scorePose_blue
                         )
                 )
+//                .setTangentHeadingInterpolation()
+//                .setReversed()
+//                .addPath(
+//                        new BezierLine(
+//                                gate_intake_back_Pose_blue,
+//                                scorePose_blue
+//                        )
+//                )
                 .setConstantHeadingInterpolation(scorePose_blue.getHeading())
                 .setGlobalDeceleration()
                 .build();
@@ -221,14 +224,13 @@ public class BLUE_15 extends OpModeCommand {
                         )
                 )
                 .setTangentHeadingInterpolation()
-                .setReversed()
                 .setGlobalDeceleration()
                 .build();
     }
 
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startPose_blue, 20);
+        bot = new Robot(hardwareMap, telemetry, startPose_blue, 24);
         buildPaths();
 
         schedule(
@@ -237,22 +239,24 @@ public class BLUE_15 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Score_Command(bot, 1250, 0.27))
+                                        new Score_Command(bot, 1220, 0.27)
+                                )
                                 .andThen(
-                                        new WaitCommand(700),
+                                        new WaitCommand(300),
                                         new Intake_on_15(bot),
 
 
                                         new FollowPath(bot.getFollower(), spike2)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot)
-                                                        ),
+                                                ),
+
                                         new FollowPath(bot.getFollower(), spike2back, 0.7)
                                                 .alongWith(
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
 
-                                        new WaitCommand(700),
+                                        new WaitCommand(300),
                                         new Intake_on_15(bot),
 
                                         new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
@@ -260,8 +264,13 @@ public class BLUE_15 extends OpModeCommand {
                                                         new Intake_On_Toggle(bot)
                                                 ),
                                         new WaitCommand(1000),
+
                                         new FollowPath(bot.getFollower(), gateintake1_5, true, 1),
-                                        new WaitCommand(700),
+                                        new WaitCommand(700)
+                                )
+
+
+                                .andThen( ///  issue at 12.65
                                         new FollowPath(bot.getFollower(), gateintake_back, 0.7)
                                                 .alongWith(
                                                         new Intake_Off_Timed(bot, 0.4)
@@ -269,15 +278,15 @@ public class BLUE_15 extends OpModeCommand {
 
                                         new WaitCommand(500),
                                         new Intake_on_15(bot),
+//                                        new Intake_On_Start_Timed(bot, 0.500),
 
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
                                                 .alongWith(
-                                                        new Intake_On_Timed(bot, 1.2)
+                                                        new Intake_On_Timed(bot, 1.4)
                                                 ),
 
-                                        new WaitCommand(700),
+                                        new WaitCommand(300),
                                         new Intake_on_15(bot),
-                                        new Turret15_spike3(bot),
 
                                         new FollowPath(bot.getFollower(), spike3, .8)
                                                 .alongWith(
@@ -286,9 +295,10 @@ public class BLUE_15 extends OpModeCommand {
                                                 ),
 
 
-                                        new WaitCommand(500),
-                                        new Intake_on_15(bot),
-                                        new Turret15_ZERO(bot)
+                                        new WaitCommand(300),
+                                        new Intake_off(bot),
+
+                                        new Intake_on_15(bot)
                                 )
                 )
         );

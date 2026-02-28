@@ -90,14 +90,29 @@ public class Turret {
         } else {
             correctPose = bluePose;
         }
-        double x_distance = correctPose.getX() - followerPose.getX();
-        double y_distance = correctPose.getY() - followerPose.getY();
-        angle = Math.toDegrees(Math.atan(y_distance / x_distance));
+//        double x_distance = correctPose.getX() - followerPose.getX();
+  //     double y_distance = correctPose.getY() - followerPose.getY();
+//        angle = Math.toDegrees(Math.atan2(y_distance, x_distance));
+//
+//        distance = Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+        double dx = correctPose.getX() - followerPose.getX();
+        double dy = correctPose.getY() - followerPose.getY();
 
-        distance = Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+// Angle from robot position to goal (field reference)
+        double fieldTargetAngle = Math.toDegrees(Math.atan2(dy, dx));
 
+// Robot heading in degrees
+        double robotHeading = Math.toDegrees(followerPose.getHeading());
 
-        if (y_distance > 80 && ID == 20) {
+// Turret must compensate for robot heading
+        double turretTargetAngle = fieldTargetAngle - robotHeading;
+
+// Normalize to -180 to 180
+        turretTargetAngle = normalizeAngle(turretTargetAngle);
+
+        raw_turret_offset_position = degrees_to_position(turretTargetAngle);
+
+        if (dy > 80 && ID == 20) {
             LLTarget = 1.5;
         } else if(distance > 80 && ID == 24) {
             LLTarget = -0.05; /// super skewed right :()
@@ -140,17 +155,17 @@ public class Turret {
                     } else {
                         correctPose = bluePose;
                     }
-                    if (ID == 24) {
-                        correct_angle = angle;
-                    } else {
-                        correct_angle = 180 - (angle * -1); // makes angle positive for blue depot
-                    }
+//                    if (ID == 24) {
+//                        correct_angle = angle;
+//                    } else {
+//                        correct_angle = 180 - (angle * -1); // makes angle positive for blue depot
+//                    }
 
-                    robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
+//                    robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
 
 
-                    turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
-                    raw_turret_offset_position = degrees_to_position(turret_offset);
+//                    turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
+//                    raw_turret_offset_position = degrees_to_position(turret_offset);
 
 
                     if (raw_turret_offset_position > right_limit) {
@@ -308,6 +323,11 @@ public class Turret {
         }
 
 
+    }
+    private double normalizeAngle(double angle) {
+        while (angle > 180) angle -= 360;
+        while (angle < -180) angle += 360;
+        return angle;
     }
     public void turretcloseZero() {
         turretPose = 0;

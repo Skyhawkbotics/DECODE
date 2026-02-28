@@ -290,7 +290,8 @@ public class RED_15 extends OpModeCommand {
                                                 ),
 
 
-                                        new WaitCommand(500),
+                                        new WaitCommand(300),
+                                        new Intake_off(bot),
                                         new Intake_on_15(bot),
                                         new Turret15_ZERO(bot)
                                 )

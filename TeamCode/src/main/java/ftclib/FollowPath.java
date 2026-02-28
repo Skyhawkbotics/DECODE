@@ -83,12 +83,17 @@ public class FollowPath extends CommandBase {
         follower.followPath(path, holdEnd);
     }
 
+//    @Override
+//    public boolean isFinished() {
+//        if ( follower.getCurrentPathNumber() == this.path.size() - 1 && Math.abs(follower.getHeadingError()) < 0.2 ) {
+//            return follower.getCurrentTValue() >= this.completionThreshold;
+//        }
+//        return false;
+//    }
     @Override
     public boolean isFinished() {
-        if ( follower.getCurrentPathNumber() == this.path.size() - 1 && Math.abs(follower.getHeadingError()) < 0.1 ) {
-            return follower.getCurrentTValue() >= this.completionThreshold;
-        }
-        return false;
+        return !follower.isBusy()
+                || follower.getCurrentTValue() >= this.completionThreshold;
     }
 
     @Override

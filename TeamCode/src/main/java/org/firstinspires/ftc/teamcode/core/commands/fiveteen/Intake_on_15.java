@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.core.commands.fiveteen;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
@@ -16,7 +17,8 @@ public class Intake_on_15 extends CommandBase {
 
 
 
-    public Intake_on_15(Robot bot) { // runs the Command
+
+    public Intake_on_15(Robot bot ) { // runs the Command
         this.bot = bot;
     }
 

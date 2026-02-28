@@ -21,6 +21,7 @@ public class Intake_On_Toggle extends CommandBase { ///  runs the intake , eithe
     @Override
     public void initialize() {
         setState(1);
+
     }
 
     @Override
@@ -33,6 +34,7 @@ public class Intake_On_Toggle extends CommandBase { ///  runs the intake , eithe
             case 1:
                 bot.getIntake().intake();
                 setState(-1);
+
                 break;
 
         }
@@ -42,6 +44,7 @@ public class Intake_On_Toggle extends CommandBase { ///  runs the intake , eithe
     public boolean isFinished() {
         return state == -1;
     }
+
     public void setState(int x) {
         state = x;
         timer.resetTimer();

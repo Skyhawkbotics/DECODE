@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -70,7 +71,32 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
         schedule (
                 new RunCommand(bot :: far_autonomous_robot_update_blue),
                 new SequentialCommandGroup(
-                        //new FollowPath(bot.getFollower(), treballuno, 0.85)
+                        new FollowPath(bot.getFollower(), greengiantuno, 0.85)
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intakeuno),
+                                        new WaitCommand(2000),
+                                        new FollowPath(bot.getFollower(), greengiantdos),
+                                        new WaitCommand(2000),
+
+                                        new FollowPath(bot.getFollower(), intakedos),
+                                        new WaitCommand(2000),
+
+                                        new FollowPath(bot.getFollower(), greengianttres),
+                                        new WaitCommand(2000),
+
+                                        new FollowPath(bot.getFollower(), intaketres),
+                                        new WaitCommand(2000),
+
+                                        new FollowPath(bot.getFollower(), buzzerbeater),
+                                        new WaitCommand(2000),
+
+                                        new FollowPath(bot.getFollower(), celly),
+                                        new WaitCommand(2000)
+
+
+
+
+                                        )
                 )
         );
     }
