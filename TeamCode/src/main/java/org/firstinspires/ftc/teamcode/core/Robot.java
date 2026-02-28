@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.core;
 import static org.firstinspires.ftc.teamcode.core.constants.angle;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.ftc.drivetrains.MecanumConstants;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -35,7 +34,9 @@ public class Robot {
     private Pose resetPose;
     private double turretPose;
     private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false, isValid = false, LLDistance = false;
+    private boolean updating_shooter = false, isFull = false,
+            using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
+            LLDistance = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
@@ -193,24 +194,7 @@ public class Robot {
         follower.update();
         telemetry.update();
         tilt.tiltZERO();
-        shooter.recoil();
-    }
-    public void any_autonomous_robot_update_15 () {
-        telemetry.addData("Position", follower.getPose());
-        telemetry.addData("Current chain index", follower.getChainIndex());
-        telemetry.addData("heading error", follower.getHeadingError());
-        telemetry.addData("current t", follower.getCurrentTValue());
-        telemetry.addData("follower busy", follower.isBusy());
-        telemetry.addData("is robot stuck", follower.isRobotStuck());
-        turret.turret_telemetry();
-        shooter.shooter_telemetry();
-        turret.set_using_LL(ID);
-        turret.turret_update_close_15(ID, follower.getPose());
-        shooter.update();
-        follower.update();
-        telemetry.update();
-        tilt.tiltZERO();
-        shooter.recoil();
+        //shooter.recoil();
     }
     public void blue_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
@@ -282,7 +266,7 @@ public class Robot {
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
-            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.7 * -g1.right_stick_x, true );
+            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
         }
 
         if (g1.left_trigger > 0) {

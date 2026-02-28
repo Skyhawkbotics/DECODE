@@ -243,17 +243,17 @@ public class BLUE_15 extends OpModeCommand {
 
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startPose_blue, 24);
+        bot = new Robot(hardwareMap, telemetry, startPose_blue, 20);
         buildPaths();
 
 
         schedule(
-                new RunCommand(bot::any_autonomous_robot_update_15),
+                new RunCommand(bot::any_autonomous_robot_update),
 
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, (1250), 0.27)
+                                        new Prep_Shooter_any(bot, (1500), 0.27)
                                                 .raceWith(
                                                         new WaitCommand(4000)
                                                 )

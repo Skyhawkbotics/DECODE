@@ -25,7 +25,6 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
 
@@ -53,18 +52,18 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
         end.setLinearHeadingInterpolation(shoottres.getHeading(), gametime.getHeading());
     }
     public void initialize() {
-        buildPaths();
         bot = new Robot(hardwareMap, telemetry,startpos, 20);
+        buildPaths();
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(),scorepre1,0.85)
                                 .andThen(
                                         new FollowPath(bot.getFollower(), scorepre1)
-                                                .alongWith(new Prep_Shooter_any(bot, 1720, 0.4))
+                                                .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
                                 )
                                 .andThen(
-                                        new WaitCommand(4000 )
+                                        new WaitCommand(3000 )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -76,14 +75,14 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
                                 .andThen(
-                                        new WaitCommand(600)
+                                        new WaitCommand(3000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
                                                 .alongWith(new Intake_off(bot))
                                 )
                                 .andThen(
-                                        new WaitCommand(3000)
+                                        new WaitCommand(300)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
