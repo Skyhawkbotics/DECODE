@@ -15,8 +15,9 @@ import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
+import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_ZERO;
+import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_spike3;
 import org.firstinspires.ftc.teamcode.core.commands.unused.Intake_on_3rd_set;
 
 import ftclib.FollowPath;
@@ -36,8 +37,8 @@ public class BLUE_15 extends OpModeCommand {
     private final Pose gate_intake_down = new Pose(131, 60, Math.toRadians(50));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
     private final Pose spike1Pose = new Pose(115, 84, Math.toRadians(0));
-    private final Pose beforeSpike3 = new Pose(95, 36);
-    private final Pose spike3EndPose = new Pose(123, 36, Math.toRadians(0));
+    private final Pose beforeSpike3 = new Pose(87, 38);
+    private final Pose spike3EndPose = new Pose(125, 38, Math.toRadians(0));
     private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
 
 
@@ -111,7 +112,7 @@ public class BLUE_15 extends OpModeCommand {
                                 spike2End_blue
                         )
                 )
-                .setTangentHeadingInterpolation()
+                .setConstantHeadingInterpolation(spike2End_blue.getHeading())
                 .addPath(
                         new BezierCurve(
                                 spike2End_blue,
@@ -248,6 +249,7 @@ public class BLUE_15 extends OpModeCommand {
 
         schedule(
                 new RunCommand(bot::any_autonomous_robot_update),
+
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
@@ -263,9 +265,6 @@ public class BLUE_15 extends OpModeCommand {
                                         new Intake_on(bot)
                                 )
                                 .andThen(
-                                        new Intake_on_forever(bot)
-                                )
-                                .andThen(
                                         new FollowPath(bot.getFollower(), spike2, 0.85)
                                 )
                                 .andThen(
@@ -279,9 +278,6 @@ public class BLUE_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
-                                                .alongWith(
-                                                        new Intake_on_forever(bot)
-                                                )
                                                 .raceWith(
                                                         new WaitCommand(4000)
                                                 )
@@ -336,9 +332,9 @@ public class BLUE_15 extends OpModeCommand {
 //                                )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
-                                                .alongWith(
-                                                        new Intake_on_3rd_set(bot)
-                                                )
+//                                                .alongWith(
+//                                                        new Intake_on_3rd_set(bot)
+//                                                )
                                 )
                                 .andThen(
                                         new WaitCommand(500)
@@ -347,10 +343,13 @@ public class BLUE_15 extends OpModeCommand {
                                         new Intake_on(bot)
                                 )
                                 .andThen(
+                                        new Turret15_spike3(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), spike3, .8)
-                                                .alongWith(
-                                                        new Intake_on_long1(bot)
-                                                )
+//                                                .alongWith(
+//                                                        new Intake_on_long1(bot)
+//                                                )
                                 )
                                 .andThen(
                                         new Prep_Shooter_any(bot, (1180), 0.18)
@@ -360,6 +359,9 @@ public class BLUE_15 extends OpModeCommand {
                                 )
                                 .andThen(
                                         new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Turret15_ZERO(bot)
                                 )
 
                 )

@@ -93,6 +93,36 @@ public class constants {
 
     public static double sharpening_constant = 1.1;
 
+    /**
+     * Wiring Diagram
+     * Limelight called "limelight"
+     * Control hub
+     * Motors
+     * 0 right back
+     * 1 right front
+     * 2 left front
+     * 3 left back
+     *
+     * Servos
+     * 5 tilt2
+     *
+     * I2C
+     * 0 pin
+     * 1 distance
+     *
+     * Expansion hub
+     * 0 left shoot
+     * 1 right shoot
+     * 2 intake
+     * 3 turret
+     *
+     * Servos
+     * 0 right stop
+     * 1 left stop
+     * 2 shoot angle
+     * 3 tilt1
+     * 5 light
+     */
 
 
 }

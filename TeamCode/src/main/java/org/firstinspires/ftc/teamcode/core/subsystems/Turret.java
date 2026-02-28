@@ -53,6 +53,7 @@ public class Turret {
 
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
+    private double turretPose15 = 741;
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
@@ -206,6 +207,47 @@ public class Turret {
 
 
     }
+    public void turret_update_close_15(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+        double ll_pid_output;
+        if (using_LL) {
+            LLResult result = ll.getLatestResult();
+
+            if (result.isValid()) {
+                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                    if (fr.getFiducialId() == ID) {
+                        timer.resetTimer();
+                        ll_pid.setPIDF(lp, li, ld, 0.05);
+                        double sign = Math.signum(-result.getTx());
+                        ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+
+                        if ((turret.getCurrentPosition() <= left_limit) &&
+                                (Math.signum(ll_pid_output) == -1)) {
+                            turret.setPower(0);
+                        } else if ((turret.getCurrentPosition() >= right_limit) &&
+                                (Math.signum(ll_pid_output) == 1)) {
+                            turret.setPower(0);
+                        } else {
+                            turret.setPower(ll_pid_output);
+                        }
+
+                        telemetry.addData("LL PID OUTPUT", ll_pid_output);
+                    }
+                }
+            }
+        } else {
+
+            t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
+            turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+            double pid_output = t_pid.calculate(turret.getCurrentPosition(), turretPose15);
+            turret.setPower(pid_output);
+
+
+        }
+
+
+    }
     public void turret_update_close_blue(int ID, Pose followerPose) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
@@ -249,6 +291,18 @@ public class Turret {
     }
     public void turretcloseZero() {
         turretPose = 0;
+    }
+    public void turret15PoseSpike3() {
+        turretPose15 = 793;
+    }
+    public void turret15PoseBlue() {
+        turretPose15 = -730;
+    }
+    public void turret15PoseSpike3_blue() {
+        turretPose15 = -770;
+    }
+    public void turret15PoseZero() {
+        turretPose15 = 0;
     }
     public void turretcloseRED() {
         turretPose = 395;

@@ -16,7 +16,7 @@ public class shooterSpeed {
         ///  old : 0.661  // 1.041 - 0.381
         ///  new = 0.69??
 
-        double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity
+        double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity meters
         double PI = 3.14159265358979234;
         double shooter_constant = 1.095;
         double dampening_constant = 0.95;

@@ -13,9 +13,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
 
 
-public class     Shooter {
+public class  Shooter {
 
     private shooterSpeed shooterSpeed;
     private DcMotorEx left_motor, right_motor;
@@ -294,6 +295,9 @@ public class     Shooter {
 
         telemetry.addData("Shooter Reached", velocityReached());
         // telemetry.addData("Servo position", servo.getPosition());
+        telemetry.addData("left motor 1 current", left_motor.getCurrent(CurrentUnit.AMPS));
+        telemetry.addData("right motor 1 current", right_motor.getCurrent(CurrentUnit.AMPS));
+
     }
     public void panelstelemetry() {
         panelsTelemetry.getTelemetry().addData("Target", target);
