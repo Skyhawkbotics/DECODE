@@ -39,7 +39,7 @@ public class Intake_on_15 extends CommandBase {
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 1.2) { //1
+                if (timer.getElapsedTimeSeconds() > 0.6) { //1
                     bot.getIntake().prep_intake();
                     setState(-1); //3
                 }

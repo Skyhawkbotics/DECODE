@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.auto.State_Auto;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
@@ -19,7 +19,6 @@ import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_ZERO;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_spike3;
 
@@ -27,6 +26,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Red 15 solo", group = "Solo")
+@Disabled
 public class RED_15 extends OpModeCommand {
 
 
@@ -49,7 +49,7 @@ public class RED_15 extends OpModeCommand {
     private final Pose control_point1 = new Pose(87, 60.000);
     private final Pose control_point2 = new Pose(103.000, 68.000);
     private final Pose control_point3 = new Pose(96, 83);
-    private final Pose control_point4 = new Pose(82, 34);
+    private final Pose control_point4 = new Pose(90, 29);
 
 
     private final Pose startPose_blue = startPose.mirror();
@@ -105,17 +105,14 @@ public class RED_15 extends OpModeCommand {
                         )
                 )
                 .setConstantHeadingInterpolation(spike2End.getHeading())
-                .setGlobalDeceleration()
-
-                .build();
-        spike2back = new Path(
+                .addPath(
                         new BezierCurve(
                                 spike2End,
                                 control_point2, /// control point 2
                                 scorePose /// gate intake back pose
                         )
-                );
-        spike2back.setConstantHeadingInterpolation(scorePose.getHeading());
+                ).setConstantHeadingInterpolation(scorePose.getHeading())
+                .build();
 
 
 
@@ -207,17 +204,17 @@ public class RED_15 extends OpModeCommand {
                         new BezierCurve(
                                 scorePose,
                                 control_point4, /// control point 4
-                                beforeSpike3
-                        )
-                )
-                .setConstantHeadingInterpolation(beforeSpike3.getHeading())
-                .addPath(
-                        new BezierLine(
-                                beforeSpike3,
                                 spike3EndPose
                         )
                 )
                 .setConstantHeadingInterpolation(spike3EndPose.getHeading())
+//                .addPath(
+//                        new BezierLine(
+//                                beforeSpike3,
+//                                spike3EndPose
+//                        )
+//                )
+//                .setConstantHeadingInterpolation(spike3EndPose.getHeading())
                 .addPath(
                         new BezierLine(
                                 spike3EndPose,
@@ -271,7 +268,7 @@ public class RED_15 extends OpModeCommand {
                                                         new Intake_Off_Timed(bot, 0.4)
                                                 ),
 
-                                        new WaitCommand(500),
+                                        new WaitCommand(700),
                                         new Intake_on_15(bot),
 
                                         new FollowPath(bot.getFollower(), spike1, 0.8)
@@ -283,7 +280,7 @@ public class RED_15 extends OpModeCommand {
                                         new Intake_on_15(bot),
                                         new Turret15_spike3(bot),
 
-                                        new FollowPath(bot.getFollower(), spike3, .8)
+                                        new FollowPath(bot.getFollower(), spike3, 0.9)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot),
                                                         new Score_Command(bot, 1180, 0.18)

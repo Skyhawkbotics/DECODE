@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.State_Auto;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -10,22 +10,21 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
-import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Start_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_ZERO;
-import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_spike3;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Blue 15 solo", group = "Solo")
+@Disabled
 public class BLUE_15 extends OpModeCommand {
 
     Robot bot;

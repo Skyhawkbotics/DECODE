@@ -100,6 +100,8 @@ public class Robot {
         intake.servosIn();
         this.ID = ID;
         tilt.tiltZERO();
+        turret.set_using_LL(ID);
+        turret.turret_update(ID, follower.getPose(), 0);
 
     }
 
