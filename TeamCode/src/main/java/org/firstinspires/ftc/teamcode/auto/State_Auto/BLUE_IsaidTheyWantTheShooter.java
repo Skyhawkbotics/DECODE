@@ -49,19 +49,19 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
         greengiantuno.setLinearHeadingInterpolation(starttime.getHeading(), treballuno.getHeading());
 
         intakeuno = new Path(new BezierCurve(treballuno, new Pose(41.2, 10.2), dimeuno));
-        intakeuno.setConstantHeadingInterpolation(0);
+        intakeuno.setConstantHeadingInterpolation(180);
 
         greengiantdos = new Path(new BezierLine(dimeuno, treballdos));
         greengiantdos.setLinearHeadingInterpolation(dimeuno.getHeading(), treballdos.getHeading());
 
         intakedos = new Path(new BezierCurve(treballdos, new Pose(41.2, 10.2), dimedos));
-        intakedos.setConstantHeadingInterpolation(0);
+        intakedos.setConstantHeadingInterpolation(180);
 
         greengianttres = new Path(new BezierLine(dimedos, treballtres));
         greengianttres.setLinearHeadingInterpolation(dimedos.getHeading(), treballtres.getHeading());
 
         intaketres = new Path(new BezierCurve(treballtres, new Pose(41.2, 10.2), dimetres));
-        intaketres.setConstantHeadingInterpolation(0);
+        intaketres.setConstantHeadingInterpolation(180);
 
         buzzerbeater = new Path(new BezierLine(dimetres, dametime));
         buzzerbeater.setLinearHeadingInterpolation(dimetres.getHeading(), dametime.getHeading());
