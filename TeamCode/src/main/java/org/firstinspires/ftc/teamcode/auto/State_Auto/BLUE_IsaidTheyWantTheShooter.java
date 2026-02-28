@@ -66,10 +66,11 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
     }
 
     public void initialize() {
-        buildPaths();
         bot = new Robot(hardwareMap, telemetry, starttime, 20);
+        buildPaths();
+
         schedule (
-                new RunCommand(bot :: far_autonomous_robot_update_blue),
+                new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), greengiantuno, 0.85)
                                 .andThen(
