@@ -26,7 +26,6 @@ import ftclib.OpModeCommand;
 @Autonomous(name = "Blue 15 solo", group = "Solo")
 public class BLUE_15 extends OpModeCommand {
 
-
     Robot bot;
     private final Pose startPose = new Pose(111.000, 134.000, Math.toRadians(90));
     private final Pose scorePose = new Pose(87, 85, Math.toRadians(330));
@@ -97,44 +96,44 @@ public class BLUE_15 extends OpModeCommand {
                 .setLinearHeadingInterpolation(scorePose_blue.getHeading(), beforeSpike2_blue.getHeading())
                 .addPath(
                         new BezierLine(
-                                beforeSpike2,
-                                spike2End
+                                beforeSpike2_blue,
+                                spike2End_blue
                         )
                 )
-                .setConstantHeadingInterpolation(spike2End.getHeading())
+                .setConstantHeadingInterpolation(spike2End_blue.getHeading())
                 .setGlobalDeceleration()
 
                 .build();
         spike2back = new Path(
                         new BezierCurve(
-                                spike2End,
-                                control_point2, /// control point 2
-                                scorePose /// gate intake back pose
+                                spike2End_blue,
+                                control_point2_blue, /// control point 2
+                                scorePose_blue /// gate intake back pose
                         )
                 );
-        spike2back.setConstantHeadingInterpolation(scorePose.getHeading());
+        spike2back.setConstantHeadingInterpolation(scorePose_blue.getHeading());
 
 
 
         gateintake1 = bot.getFollower().pathBuilder().addPath(
                         new BezierCurve(
-                                scorePose,
-                                control_point2, /// Control Point 2
-                                gate_intake
+                                scorePose_blue,
+                                control_point2_blue, /// Control Point 2
+                                gate_intake_blue
                         )
                 )
-                .setLinearHeadingInterpolation(scorePose.getHeading(), gate_intake.getHeading())
+                .setLinearHeadingInterpolation(scorePose_blue.getHeading(), gate_intake_blue.getHeading())
                 .setGlobalDeceleration()
 
                 .build();
 
         gateintake1_5 = bot.getFollower().pathBuilder().addPath(
                         new BezierLine(
-                                gate_intake,
-                                gate_intake_down
+                                gate_intake_blue,
+                                gate_intake_down_blue
                         )
                 )
-                .setConstantHeadingInterpolation(gate_intake.getHeading())
+                .setConstantHeadingInterpolation(gate_intake_blue.getHeading())
                 .setGlobalDeceleration()
                 .build();
 
@@ -142,20 +141,20 @@ public class BLUE_15 extends OpModeCommand {
         gateintake_back = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                gate_intake_down,
-                                control_point2,///  control point 2
-                                gate_intake_back_Pose
+                                gate_intake_down_blue,
+                                control_point2_blue,///  control point 2
+                                gate_intake_back_Pose_blue
                         )
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
                 .addPath(
                         new BezierLine(
-                                gate_intake_back_Pose,
-                                scorePose
+                                gate_intake_back_Pose_blue,
+                                scorePose_blue
                         )
                 )
-                .setConstantHeadingInterpolation(scorePose.getHeading())
+                .setConstantHeadingInterpolation(scorePose_blue.getHeading())
                 .setGlobalDeceleration()
                 .build();
 
@@ -163,20 +162,20 @@ public class BLUE_15 extends OpModeCommand {
         gate_intake_back_secondary = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                gate_intake,
-                                control_point2, /// control point 2
-                                gate_intake_back_Pose
+                                gate_intake_blue,
+                                control_point2_blue, /// control point 2
+                                gate_intake_back_Pose_blue
                         )
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
                 .addPath(
                         new BezierLine(
-                                gate_intake_back_Pose,
-                                scorePose
+                                gate_intake_back_Pose_blue,
+                                scorePose_blue
                         )
                 )
-                .setConstantHeadingInterpolation(scorePose.getHeading())
+                .setConstantHeadingInterpolation(scorePose_blue.getHeading())
                 .setGlobalDeceleration()
 
                 .build();
@@ -184,41 +183,41 @@ public class BLUE_15 extends OpModeCommand {
         spike1 = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                scorePose,
-                                control_point3, /// control 3
-                                spike1Pose
+                                scorePose_blue,
+                                control_point3_blue, /// control 3
+                                spike1Pose_blue
 
                         )
                 )
-                .setConstantHeadingInterpolation(spike1Pose.getHeading())
+                .setConstantHeadingInterpolation(spike1Pose_blue.getHeading())
                 .addPath(
                         new BezierLine(
-                                spike1Pose,
-                                scorePose
+                                spike1Pose_blue,
+                                scorePose_blue
                         )
                 )
-                .setConstantHeadingInterpolation(scorePose.getHeading())
+                .setConstantHeadingInterpolation(scorePose_blue.getHeading())
                 .build();
         spike3 = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                scorePose,
-                                control_point4, /// control point 4
-                                beforeSpike3
+                                scorePose_blue,
+                                control_point4_blue, /// control point 4
+                                beforeSpike3_blue
                         )
                 )
-                .setConstantHeadingInterpolation(beforeSpike3.getHeading())
+                .setConstantHeadingInterpolation(beforeSpike3_blue.getHeading())
                 .addPath(
                         new BezierLine(
-                                beforeSpike3,
-                                spike3EndPose
+                                beforeSpike3_blue,
+                                spike3EndPose_blue
                         )
                 )
-                .setConstantHeadingInterpolation(spike3EndPose.getHeading())
+                .setConstantHeadingInterpolation(spike3EndPose_blue.getHeading())
                 .addPath(
                         new BezierLine(
-                                spike3EndPose,
-                                parkPose
+                                spike3EndPose_blue,
+                                parkPose_blue
                         )
                 )
                 .setTangentHeadingInterpolation()
@@ -229,7 +228,7 @@ public class BLUE_15 extends OpModeCommand {
 
 
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startPose, 24);
+        bot = new Robot(hardwareMap, telemetry, startPose_blue, 24);
         buildPaths();
 
         schedule(
