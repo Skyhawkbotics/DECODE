@@ -54,6 +54,9 @@ public class Turret {
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
     private double turretPose15 = 741;
+    private double distance;
+
+    private double LLTarget;
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
 
@@ -82,6 +85,26 @@ public class Turret {
     public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
+        if (ID == 24) {
+            correctPose = redPose;
+        } else {
+            correctPose = bluePose;
+        }
+        double x_distance = correctPose.getX() - followerPose.getX();
+        double y_distance = correctPose.getY() - followerPose.getY();
+        angle = Math.toDegrees(Math.atan(y_distance / x_distance));
+
+        distance = Math.sqrt(x_distance * x_distance + y_distance * y_distance);
+
+
+        if (y_distance > 80 && ID == 20) {
+            LLTarget = 1.5;
+        } else if(distance > 80 && ID == 24) {
+            LLTarget = -0.05; /// super skewed right :()
+        } else {
+            LLTarget = 0;
+        }
+
 
         if(!manual_turret) {
                 if (using_LL) {
@@ -94,7 +117,7 @@ public class Turret {
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
                                 double sign = Math.signum(-result.getTx());
-                                ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
+                                ll_pid_output = ll_pid.calculate(result.getTx(), LLTarget); // + sign * turret_f;
 
                                 if ((turret.getCurrentPosition() <= left_limit) &&
                                         (Math.signum(ll_pid_output) == -1)) {
@@ -117,9 +140,6 @@ public class Turret {
                     } else {
                         correctPose = bluePose;
                     }
-                    double x_distance = correctPose.getX() - followerPose.getX();
-                    double y_distance = correctPose.getY() - followerPose.getY();
-                    angle = Math.toDegrees(Math.atan(y_distance / x_distance));
                     if (ID == 24) {
                         correct_angle = angle;
                     } else {

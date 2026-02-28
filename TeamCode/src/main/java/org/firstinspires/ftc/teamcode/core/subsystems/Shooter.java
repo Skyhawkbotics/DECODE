@@ -106,6 +106,10 @@ public class  Shooter {
         ///  sets PID target
         target = b;
     }
+
+    public void setAngle(double a) {
+        servo.setPosition(a);
+    }
     public void toggle_update_true() {
         is_updating = true;
     }
@@ -114,7 +118,7 @@ public class  Shooter {
     }
 
 
-
+/*
     public void setTarget(int t, boolean usingRPM) {
         // way to set target where target can be in RPM, just set usingRPM to true
         if (!usingRPM) {
@@ -123,6 +127,8 @@ public class  Shooter {
             target = getTPS(t);
         }
     }
+
+ */
 
     ///  Methods for quick PID target values, methods for the four velocities
     public void perf_velocity() {

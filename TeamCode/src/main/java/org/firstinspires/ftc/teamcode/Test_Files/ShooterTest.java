@@ -77,7 +77,7 @@ public class ShooterTest extends OpMode {
         shooter.panelstelemetry();
 
         telemetry1.getTelemetry().update();
-        shooter.recoil();
+
 
 
     }
