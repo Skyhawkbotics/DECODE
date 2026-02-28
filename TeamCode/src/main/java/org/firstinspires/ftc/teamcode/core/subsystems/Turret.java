@@ -153,10 +153,10 @@ public class Turret {
                     raw_turret_offset_position = degrees_to_position(turret_offset);
 
 
-                    if (raw_turret_offset_position > 800) {
-                        correct_turret_offset_position = 800;
-                    } else if (raw_turret_offset_position < -743) {
-                        correct_turret_offset_position = -743;
+                    if (raw_turret_offset_position > right_limit) {
+                        correct_turret_offset_position = right_limit;
+                    } else if (raw_turret_offset_position < left_limit) {
+                        correct_turret_offset_position = left_limit;
                     } else {
                         correct_turret_offset_position = raw_turret_offset_position;
                     }
