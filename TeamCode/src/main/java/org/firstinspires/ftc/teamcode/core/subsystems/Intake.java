@@ -62,9 +62,17 @@ public class Intake {
         servosOut();
         on();
     }
+    public void prep_intake() {
+        servosIn();
+        off();
+    }
     public void intake() {
         servosIn();
         on();
+    }
+    public void prep_fire() {
+        off();
+        servosOut();
     }
 }
 

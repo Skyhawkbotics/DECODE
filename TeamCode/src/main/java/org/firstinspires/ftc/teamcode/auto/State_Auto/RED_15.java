@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.auto.State_Auto;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
+import com.arcrobotics.ftclib.command.WaitUntilCommand;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -12,16 +13,15 @@ import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_15;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_long;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_ZERO;
 import org.firstinspires.ftc.teamcode.core.commands.turret.Turret15_spike3;
-import org.firstinspires.ftc.teamcode.core.commands.unused.Intake_on_3rd_set;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -33,8 +33,8 @@ public class RED_15 extends OpModeCommand {
     Robot bot;
     private final Pose startPose = new Pose(111.000, 134.000, Math.toRadians(90));
     private final Pose scorePose = new Pose(87, 85, Math.toRadians(330));
-    private final Pose beforeSpike2 = new Pose(100, 60);
-    private final Pose spike2End = new Pose(124, 60, Math.toRadians(0));
+    private final Pose beforeSpike2 = new Pose(98, 61);
+    private final Pose spike2End = new Pose(127, 61, Math.toRadians(0));
     private final Pose gate_intake = new Pose(130, 62, Math.toRadians(35));
     private final Pose gate_intake_down = new Pose(131, 60, Math.toRadians(50));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
@@ -241,103 +241,59 @@ public class RED_15 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, (1250), 0.27)
-                                )
+                                        new Score_Command(bot, 1250, 0.27))
                                 .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), spike2, 1)
-                                )
-                                .andThen(
-                                        new Intake_off(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), spike2back, 0.85)
-                                )
-                                .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
-                                                .raceWith(
-                                                        new WaitCommand(4000)
-                                                )
-                                )
-                                .andThen(
-                                        new WaitCommand(1000)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), gateintake1_5, true, 0.7)
-                                )
-                                .andThen(
-                                        new WaitCommand(500)
-                                )
-                                .andThen(
-                                        new Intake_off(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), gateintake_back, 0.8)
-                                )
-                                .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                /// ///////
-//                                .andThen(
-//                                        new FollowPath(bot.getFollower(),gateintake1, true,0.7)
-//                                                .alongWith(
-//                                                        new Intake_on_forever(bot)
-//                                                )
-////                                                .raceWith(
-////                                                        new WaitCommand(4000)
-////                                                )
-//                                )
-//                                .andThen(
-//                                        new WaitCommand(1000)
-//                                )
-//                                .andThen(
-//                                        new Intake_off(bot)
-//                                )
-//                                .andThen(
-//                                        new FollowPath(bot.getFollower(), gate_intake_back_secondary)
-//                                                .setCompletionThreshold(0.98)
-//
-//                                )
-//                                .andThen(
-//                                        new WaitCommand(200)
-//                                )
-//                                .andThen(
-//                                        new Intake_on_15(bot)
-//                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), spike1, 0.8)
-                                )
-                                .andThen(
-                                        new WaitCommand(200)
-                                )
-                                .andThen(
-                                        new Intake_off(bot)
-                                )
-                                .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                .andThen(
-                                        new Turret15_spike3(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), spike3, .8)
+                                        new WaitCommand(700),
+                                        new Intake_on_15(bot),
 
-                                )
-                                .andThen(
-                                        new Prep_Shooter_any(bot, (1180), 0.18)
-                                )
-                                .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                .andThen(
+
+                                        new FollowPath(bot.getFollower(), spike2)
+                                                .alongWith(
+                                                        new Intake_On_Toggle(bot)
+                                                        ),
+                                        new FollowPath(bot.getFollower(), spike2back, 0.7)
+                                                .alongWith(
+                                                        new Intake_Off_Timed(bot, 0.2)
+                                                ),
+
+                                        new WaitCommand(700),
+                                        new Intake_on_15(bot),
+
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
+                                                .alongWith(
+                                                        new Intake_On_Toggle(bot)
+                                                ),
+                                        new WaitCommand(1000),
+                                        new FollowPath(bot.getFollower(), gateintake1_5, true, 1),
+                                        new WaitCommand(700),
+                                        new FollowPath(bot.getFollower(), gateintake_back, 0.7)
+                                                .alongWith(
+                                                        new Intake_Off_Timed(bot, 0.4)
+                                                ),
+
+                                        new WaitCommand(500),
+                                        new Intake_on_15(bot),
+
+                                        new FollowPath(bot.getFollower(), spike1, 0.8)
+                                                .alongWith(
+                                                        new Intake_On_Timed(bot, 1.2)
+                                                ),
+
+                                        new WaitCommand(700),
+                                        new Intake_on_15(bot),
+                                        new Turret15_spike3(bot),
+
+                                        new FollowPath(bot.getFollower(), spike3, .8)
+                                                .alongWith(
+                                                        new Intake_On_Toggle(bot),
+                                                        new Score_Command(bot, 1180, 0.18)
+                                                ),
+
+
+                                        new WaitCommand(500),
+                                        new Intake_on_15(bot),
                                         new Turret15_ZERO(bot)
                                 )
-
                 )
         );
     }

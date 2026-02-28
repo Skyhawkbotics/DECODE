@@ -368,9 +368,14 @@ public class Robot {
             updating_shooter = !updating_shooter;
         }
         if (updating_shooter) {
-            shooter.setShooterSpeed(depot_distance);
             shooter.setShooterAngle(depot_distance);
+            if (depot_distance > 3.0) {
+                shooter.setTarget(1600);
+            } else {
+                shooter.setShooterAngle(depot_distance);
+            }
         } else {
+
             shooter.turnOFF();
         }
 
