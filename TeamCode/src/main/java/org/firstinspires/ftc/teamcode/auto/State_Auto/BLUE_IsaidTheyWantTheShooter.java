@@ -64,7 +64,11 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
         celly = new Path(new BezierLine(dametime, cellytime));
         celly.setLinearHeadingInterpolation(dametime.getHeading(), cellytime.getHeading());
     }
-
+    @Override
+    public void init_loop() {
+        bot.getTurret().set_using_LL(20);
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0);
+    }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, starttime, 20);
         buildPaths();
