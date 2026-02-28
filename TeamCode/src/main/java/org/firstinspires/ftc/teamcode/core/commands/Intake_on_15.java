@@ -33,7 +33,6 @@ public class Intake_on_15 extends CommandBase {
             case -1:
                 break;
             case 1:
-                bot.getIntake().servosOut();
                 bot.getIntake().on_slow();
                 setState(2);
                 break;

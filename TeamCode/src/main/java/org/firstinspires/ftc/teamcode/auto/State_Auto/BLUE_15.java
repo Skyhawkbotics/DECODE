@@ -248,7 +248,7 @@ public class BLUE_15 extends OpModeCommand {
 
 
         schedule(
-                new RunCommand(bot::any_autonomous_robot_update),
+                new RunCommand(bot::any_autonomous_robot_update_15),
 
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.8)
