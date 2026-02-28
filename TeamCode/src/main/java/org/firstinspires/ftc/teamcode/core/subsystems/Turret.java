@@ -184,7 +184,7 @@ public class Turret {
 
                 }
 
-        } else if(manual_turret) {
+        } else {
 
             manual_input *= -0.5;
 
