@@ -90,7 +90,7 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
                                 .andThen(
-                                        new WaitCommand(400)
+                                        new WaitCommand(4000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)
