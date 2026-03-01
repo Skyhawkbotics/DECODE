@@ -28,15 +28,15 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
     public final Pose treballuno = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimeuno = new Pose(10.8, 9.5);
+    public final Pose dimeuno = new Pose(10.8, 8);
 
     public final Pose treballdos = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimedos = new Pose(10.8, 9.5);
+    public final Pose dimedos = new Pose(10.8, 8);
 
     public final Pose treballtres = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimetres = new Pose(10.8, 9.5);
+    public final Pose dimetres = new Pose(10.8, 8);
 
     public final Pose dametime = new Pose(56, 17, Math.toRadians(114));
 
@@ -86,7 +86,7 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), greengiantuno)
                                                 .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
                                 .andThen(
-                                        new WaitCommand(3000)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
