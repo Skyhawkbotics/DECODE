@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "15 CLOSE Blue Drive", group = "Blue Opmode 15")
+@TeleOp (name = "18 CLOSE Blue Drive", group = "Blue Opmode 15")
 
-public class blue_drive_close_15 extends OpMode {
+public class blue_drive_close_18 extends OpMode {
     private Robot robot;
 
     int ID = 20;
@@ -19,7 +19,7 @@ public class blue_drive_close_15 extends OpMode {
     public Pose resetPose = new Pose(128.58076225045372, 15.680580762250456, Math.toRadians(90));
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
-    private final Pose parkPose = new Pose(92, 111, Math.toRadians(-63));
+    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-67));
 
     private final Pose parkPose_blue = parkPose.mirror();
 

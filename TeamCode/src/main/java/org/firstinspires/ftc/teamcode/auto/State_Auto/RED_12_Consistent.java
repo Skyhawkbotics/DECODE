@@ -73,6 +73,9 @@ public class RED_12_Consistent extends OpModeCommand {
     public final Pose get2balls2 = new Pose (97.74193548387095,40, Math.toRadians(0));
     public final Pose gather3 = new Pose (127,40, Math.toRadians(0));
 
+    public final Pose end = new Pose(125.2, 58, Math.toRadians(90));
+
+
 
     private Path scorepres, intake1, score1, score2, score1_5, posit1, intake3;
     private PathChain kaimen, posit2;
@@ -157,10 +160,10 @@ public class RED_12_Consistent extends OpModeCommand {
         park = new Path(
                 new BezierLine(
                         all_scores,
-                        gather2
+                        end
                 )
         );
-        park.setLinearHeadingInterpolation(all_scores.getHeading(), gather2.getHeading());
+        park.setLinearHeadingInterpolation(all_scores.getHeading(), end.getHeading());
 
 
     }

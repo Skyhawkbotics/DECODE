@@ -63,19 +63,23 @@ public class constants {
     ///  Turret  + Turret PID controller
     public static double turret_p = 0.006, turret_i = 0, turret_d = 0, turret_f = 0.05;
 
-    public static double lf = 0.04;
+    public static double LLTarget = 0;
     public static double turret_align_heading = 0;
     public static double degrees_to_ticks;
 
 
     ///  Limelight PID Controller
 
+//    public static double lp = 0.015;
+//    public static double li = 0;
+//    public static double ld = 0.00013;
+    public static double lf = 0.04;
+
     public static double lp = 0.0170;
     public static double li = 0;
     public static double ld = 0.000010;
-
-
-    /// Intake speed constants
+    public static double LLTolerance = 0.3;
+    /// /// Intake speed constants
 
     public static double intake_speed = 1;
     public static double intake_slow = 0.8;

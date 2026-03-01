@@ -341,5 +341,23 @@ public class  Shooter {
             servo.setPosition(actual_recoil);
         }
     }
+    public void recoil(double recoil_constant) {
+        boolean using_recoil = false;
+        if(velocityReached()) {
+            using_recoil = true;
+        }
+        if(using_recoil) {
+            double error = target - left_motor.getVelocity();
+            double recoil = recoil_orgin - error * recoil_constant; // as error increases, the recoil increases
+            double actual_recoil;
+            if(recoil > recoil_orgin) {
+                actual_recoil = recoil_orgin;
+            } else {
+                actual_recoil = recoil;
+            }
+            servo.setPosition(actual_recoil);
+        }
+    }
+
 }
 
