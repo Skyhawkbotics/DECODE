@@ -24,19 +24,19 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
     Robot bot;
 
-    public static final Pose starttime = new Pose(56, 8, Math.toRadians(90));
+    public static final Pose starttime = new Pose(56, 7.5, Math.toRadians(90));
 
     public final Pose treballuno = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimeuno = new Pose(10.8, 8);
+    public final Pose dimeuno = new Pose(10.8, 7.5);
 
     public final Pose treballdos = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimedos = new Pose(10.8, 8);
+    public final Pose dimedos = new Pose(10.8, 7.5);
 
     public final Pose treballtres = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimetres = new Pose(10.8, 8);
+    public final Pose dimetres = new Pose(10.8, 7.5);
 
     public final Pose dametime = new Pose(56, 17, Math.toRadians(114));
 
@@ -49,19 +49,22 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
         greengiantuno.setLinearHeadingInterpolation(starttime.getHeading(), treballuno.getHeading());
 
         intakeuno = new Path(new BezierCurve(treballuno, new Pose(41.2, 10.2), dimeuno));
-        intakeuno.setConstantHeadingInterpolation(Math.toRadians(180));
+        //intakeuno.setConstantHeadingInterpolation(Math.toRadians(180));
+        intakeuno.setLinearHeadingInterpolation(treballuno.getHeading(), dimeuno.getHeading());
 
         greengiantdos = new Path(new BezierLine(dimeuno, treballdos));
         greengiantdos.setLinearHeadingInterpolation(dimeuno.getHeading(), treballdos.getHeading());
 
         intakedos = new Path(new BezierCurve(treballdos, new Pose(41.2, 10.2), dimedos));
-        intakedos.setConstantHeadingInterpolation(Math.toRadians(180));
+      //  intakedos.setConstantHeadingInterpolation(Math.toRadians(180));
+        intakedos.setLinearHeadingInterpolation(treballdos.getHeading(), dimedos.getHeading());
 
         greengianttres = new Path(new BezierLine(dimedos, treballtres));
         greengianttres.setLinearHeadingInterpolation(dimedos.getHeading(), treballtres.getHeading());
 
         intaketres = new Path(new BezierCurve(treballtres, new Pose(41.2, 10.2), dimetres));
-        intaketres.setConstantHeadingInterpolation(Math.toRadians(180));
+       // intaketres.setConstantHeadingInterpolation(Math.toRadians(180));
+        intaketres.setLinearHeadingInterpolation(treballtres.getHeading(), dimetres.getHeading());
 
         buzzerbeater = new Path(new BezierLine(dimetres, dametime));
         buzzerbeater.setLinearHeadingInterpolation(dimetres.getHeading(), dametime.getHeading());
@@ -84,9 +87,9 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                         new FollowPath(bot.getFollower(), greengiantuno, 0.85)
                                 .andThen(
                                         new FollowPath(bot.getFollower(), greengiantuno)
-                                                .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
+                                                .alongWith(new Prep_Shooter_any(bot, 1680, 0.49))
                                 .andThen(
-                                        new WaitCommand(1000)
+                                        new WaitCommand(500)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -95,39 +98,66 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                                         new Intake_on_forever(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), intakeuno),
-                                        new WaitCommand(2000)
+                                        new FollowPath(bot.getFollower(), intakeuno)
+                                )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), greengiantdos),
+                                        new FollowPath(bot.getFollower(), greengiantdos)
+                                                .alongWith(new Intake_off (bot))
+                                )
+                                .andThen(
                                         new WaitCommand(2000)
                                 )
                                 .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                         new Intake_on_forever(bot)
+                                )
 
-                                        )      ,
+                                                .andThen(new FollowPath(bot.getFollower(), intakedos))
+                                                .andThen(new WaitCommand(2000))
+                                                .andThen(
+                                                        new Intake_on(bot)
+                                                )
+                                                .andThen(
+                                                        new Intake_on_forever(bot)
+                                                )
+                                                .andThen(new FollowPath(bot.getFollower(), greengianttres)
+                                                        .alongWith(new Intake_off(bot))
+                                                ))
+                                                .andThen(new WaitCommand(2000))
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                                .andThen(new FollowPath(bot.getFollower(), intaketres))
+                                                .andThen(new WaitCommand(2000))
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                                .andThen(new FollowPath(bot.getFollower(), buzzerbeater)
+                                                        .alongWith(new Intake_off (bot)))
 
-                                        new FollowPath(bot.getFollower(), intakedos),
-                                        new WaitCommand(2000),
-
-                                        new FollowPath(bot.getFollower(), greengianttres),
-                                        new WaitCommand(2000),
-
-                                        new FollowPath(bot.getFollower(), intaketres),
-                                        new WaitCommand(2000),
-
-                                        new FollowPath(bot.getFollower(), buzzerbeater),
-                                        new WaitCommand(2000),
-                                        new Intake_off(bot),
-                                        new Shooter_off(bot),
-
-                                        new FollowPath(bot.getFollower(), celly),
-                                        new WaitCommand(2000)
+                                                .andThen( new WaitCommand(2000))
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                                .andThen(new Intake_off(bot))
+                                                .andThen(new Shooter_off(bot))
+                                                .andThen(new FollowPath(bot.getFollower(), celly))
 
 
 
 
                                         )
-                )
-                )
         );
     }
 }
