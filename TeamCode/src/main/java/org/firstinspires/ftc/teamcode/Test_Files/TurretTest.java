@@ -18,7 +18,7 @@ public class TurretTest extends OpMode {
     private Pose startPose = new Pose(72.13067150635209,79.44827586206897, Math.toRadians(90));
     @Override
     public void init() {
-        turret = new Turret(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID);
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
         follower.update();

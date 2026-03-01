@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "Blue 18", group = "Solo")
+@Autonomous(name = "Blue 18", group = "Solo", preselectTeleOp = "18 CLOSE Blue Drive")
 public class Blue_18 extends OpModeCommand {
 
 
@@ -36,7 +36,7 @@ public class Blue_18 extends OpModeCommand {
     private final Pose spike1Pose = new Pose(118, 84, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
     private final Pose spike3EndPose = new Pose(124, 37, Math.toRadians(0));
-    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-63));
+    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-67));
 
 
     ///  Control Points
@@ -239,7 +239,7 @@ public class Blue_18 extends OpModeCommand {
                                                         new Intake_On_Toggle(bot)
                                                 ),
 
-                                        new WaitCommand(1000),
+                                        new WaitCommand(900),
 
                                         new FollowPath(bot.getFollower(), gateintake1_5, true),
 
@@ -250,7 +250,7 @@ public class Blue_18 extends OpModeCommand {
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
 
-                                        new WaitCommand(500),
+                                        new WaitCommand(400),
                                         new Intake_on_15(bot),
 
                                         new FollowPath(bot.getFollower(), gateintake1, true, 0.85)
@@ -267,7 +267,7 @@ public class Blue_18 extends OpModeCommand {
                                         new Intake_on_15(bot),
 
 
-                                        new FollowPath(bot.getFollower(), spike1)
+                                        new FollowPath(bot.getFollower(), spike1, 0.95)
                                                 .alongWith(
                                                         new Intake_On_Timed(bot, 2)
                                                 ),
@@ -278,11 +278,11 @@ public class Blue_18 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), spike3, 1)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot),
-                                                        new Score_Command(bot, 1160, 0.18)
+                                                        new Score_Command(bot, 1140, 0.18)
                                                 ),
 
 
-                                        new WaitCommand(50),
+                                        new WaitCommand(100),
                                         new Intake_off(bot),
                                         new Intake_on_15(bot)
                                 )

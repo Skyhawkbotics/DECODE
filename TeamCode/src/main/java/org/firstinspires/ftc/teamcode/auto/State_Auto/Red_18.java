@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "Red 18", group = "Solo")
+@Autonomous(name = "Red 18", group = "Solo", preselectTeleOp = "18 CLOSE Red Drive")
 public class Red_18 extends OpModeCommand {
 
 
@@ -31,13 +31,13 @@ public class Red_18 extends OpModeCommand {
     private final Pose scorePose = new Pose(89, 88, Math.toRadians(330));
     private final Pose beforeSpike2 = new Pose(98, 61);
     private final Pose spike2End = new Pose(123, 61, Math.toRadians(0));
-    private final Pose gate_intake = new Pose(131, 60, Math.toRadians(30));
+    private final Pose gate_intake = new Pose(132, 61, Math.toRadians(30));
     private final Pose gate_intake_down = new Pose(133, 57, Math.toRadians(40));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
     private final Pose spike1Pose = new Pose(118, 84, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
     private final Pose spike3EndPose = new Pose(124, 37, Math.toRadians(0));
-    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-63));
+    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-67));
 
 
     ///  Control Points
@@ -220,9 +220,9 @@ public class Red_18 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload, 0.9)
                                 .alongWith(
-                                        new Score_Command(bot, 1250, 0.27))
+                                        new Score_Command(bot, 1250, 0.27)) // increase if undershooting
                                 .andThen(
-                                        new WaitCommand(300),
+                                        new WaitCommand(200),
                                         new Intake_on_15(bot),
 
 
@@ -252,7 +252,7 @@ public class Red_18 extends OpModeCommand {
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
 
-                                        new WaitCommand(500),
+                                        new WaitCommand(300),
                                         new Intake_on_15(bot),
 
                                         new FollowPath(bot.getFollower(), gateintake1, true, 0.85)

@@ -63,7 +63,7 @@ public class Robot {
         shooter = new Shooter(hardwareMap, telemetry);
         ll = new LL(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turret = new Turret(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID);
         light = new Light(hardwareMap, telemetry);
         tilt = new Tilt(hardwareMap, telemetry);
         tilt.tiltZERO();
@@ -94,7 +94,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turret = new Turret(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID);
         tilt = new Tilt(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
@@ -105,7 +105,7 @@ public class Robot {
 
     }
 
-// Autonomous Initialization
+// Obsolete Autonomous Initialization
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
@@ -114,7 +114,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turret = new Turret(hardwareMap, telemetry);
+        // turret = new Turret(hardwareMap, telemetry);
         light = new Light(hardwareMap, telemetry);
         tilt = new Tilt(hardwareMap, telemetry);
         tilt.tiltZERO();
@@ -131,7 +131,7 @@ public class Robot {
 
         shooter = new Shooter(hardwareMap, telemetry);
         intake = new Intake(hardwareMap, telemetry);
-        turret = new Turret(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID);
         light = new Light(hardwareMap, telemetry);
         tilt = new Tilt(hardwareMap, telemetry);
         this.ID = ID;
@@ -356,10 +356,11 @@ public class Robot {
             updating_shooter = !updating_shooter;
         }
         if (updating_shooter) {
-            if ((144 - follower.getPose().getY()) > 80) {
+            if ((144 - follower.getPose().getY()) > 105) {
                 shooter.toggle_update_true();
                 shooter.setAngle(0.40);
-                shooter.setTarget(1640);
+                shooter.setTarget(1680);
+//                shooter.recoil(0.003);
             } else {
                 shooter.setShooterAngle(depot_distance);
                 shooter.setShooterSpeed(depot_distance);
@@ -368,9 +369,6 @@ public class Robot {
 
             shooter.turnOFF();
         }
-
-
-
         if (shooter.velocityReached()) {
             g2.rumble (1000);
         }

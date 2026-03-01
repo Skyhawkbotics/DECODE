@@ -32,42 +32,34 @@ public class Turret {
 
     private Telemetry telemetry;
 
-    private double LL_buffer = 300;
+    private double LL_buffer = 250;
 
     private Boolean using_LL = false, manual_turret = false, using_turret = true;
 
     private Timer timer = new Timer();
 
-    private double turret_offset;
+    private double turret_offset, correct_turret_offset_position, raw_turret_offset_position;
 
-    private double raw_turret_offset_position;
-    private double correct_turret_offset_position;
 
-    private double angle;
-
-    private double correct_angle;
-
-    private double robot_offset_to_zero;
+    private double angle, correct_angle, robot_offset_to_zero, distance;
 
     private Pose correctPose;
 
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
     private double turretPose15 = 741;
-    private double distance;
 
-    private double LLTarget;
 
-    public Turret(HardwareMap hardwareMap, Telemetry telemetry) {
+    public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
 
         ///  INITIALIZING LIMELIGHT
         ll = hardwareMap.get(Limelight3A.class, "limelight");
-        ll.pipelineSwitch(0);
+        init_pipeline(ID);
         ll.start();
 
         ///  INITIALIZING PID
         ll_pid = new PIDFController(lp, li, ld, lf);
-        ll_pid.setTolerance(0);
+        ll_pid.setTolerance(LLTolerance);
         t_pid = new PIDController(turret_p, turret_i, turret_d);
 
         ///  INITIALIZING TURRET MOTOR
@@ -80,10 +72,17 @@ public class Turret {
         this.telemetry = telemetry;
     }
 
+    public void init_pipeline(int ID) {
+        if (ID == 20) {
+            ll.pipelineSwitch(0); // filter to 20 blue only
+        } else if(ID == 24) {
+            ll.pipelineSwitch(1); // filter to 24 red only
+        }
+    }
+
     ///  24 is red, 20 is blue
 
     public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
-
         double ll_pid_output;
         if (ID == 24) {
             correctPose = redPose;
@@ -113,7 +112,7 @@ public class Turret {
         raw_turret_offset_position = degrees_to_position(turretTargetAngle);
 
         if (dy > 80 && ID == 20) {
-            LLTarget = 1.5;
+            LLTarget = 0.5;
         } else if(distance > 80 && ID == 24) {
             LLTarget = -0.05; /// super skewed right :()
         } else {
