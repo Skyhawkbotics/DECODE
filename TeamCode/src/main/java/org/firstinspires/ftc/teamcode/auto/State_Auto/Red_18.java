@@ -27,12 +27,12 @@ public class Red_18 extends OpModeCommand {
 
 
     Robot bot;
-    private final Pose startPose = new Pose(111.000, 134.000, Math.toRadians(90));
+    private final Pose startPose = new Pose(112.000, 134.000, Math.toRadians(90));
     private final Pose scorePose = new Pose(89, 88, Math.toRadians(330));
     private final Pose beforeSpike2 = new Pose(98, 61);
     private final Pose spike2End = new Pose(123, 61, Math.toRadians(0));
-    private final Pose gate_intake = new Pose(132, 61, Math.toRadians(30));
-    private final Pose gate_intake_down = new Pose(133, 57, Math.toRadians(40));
+    private final Pose gate_intake = new Pose(132, 61, Math.toRadians(25));
+    private final Pose gate_intake_down = new Pose(132, 57, Math.toRadians(60));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
     private final Pose spike1Pose = new Pose(118, 84, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
@@ -200,7 +200,6 @@ public class Red_18 extends OpModeCommand {
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
-                .setGlobalDeceleration()
                 .build();
     }
 
@@ -236,18 +235,18 @@ public class Red_18 extends OpModeCommand {
                                         new Intake_on_15(bot),
 
 
-                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot)
                                                 ),
 
-                                        new WaitCommand(1000),
+                                        new WaitCommand(200),
 
                                         new FollowPath(bot.getFollower(), gateintake1_5, true),
 
-                                        new WaitCommand(500),
+                                        new WaitCommand(700),
 
-                                        new FollowPath(bot.getFollower(), gateintake_back, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake_back)
                                                 .alongWith(
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
@@ -255,26 +254,28 @@ public class Red_18 extends OpModeCommand {
                                         new WaitCommand(300),
                                         new Intake_on_15(bot),
 
-                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot)
                                                 ),
-                                        new WaitCommand(1700),
+                                            new WaitCommand(1700),
+
                                         new FollowPath(bot.getFollower(), gate_intake_back_secondary)
                                                 .alongWith(
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
 
+
                                         new WaitCommand(200),
                                         new Intake_on_15(bot),
 
 
-                                        new FollowPath(bot.getFollower(), spike1)
+                                        new FollowPath(bot.getFollower(), spike1, 0.95)
                                                 .alongWith(
-                                                        new Intake_On_Timed(bot, 2)
+                                                        new Intake_On_Timed(bot, 2.1)
                                                 ),
 
-                                        new WaitCommand(200),
+                                        new WaitCommand(300),
                                         new Intake_on_15(bot),
 
                                         new FollowPath(bot.getFollower(), spike3, 1)
@@ -285,7 +286,6 @@ public class Red_18 extends OpModeCommand {
 
 
                                         new WaitCommand(100),
-                                        new Intake_off(bot),
                                         new Intake_on_15(bot)
                                 )
                 )

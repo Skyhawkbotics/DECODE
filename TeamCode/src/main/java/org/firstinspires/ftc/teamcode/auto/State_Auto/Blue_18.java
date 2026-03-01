@@ -27,12 +27,12 @@ public class Blue_18 extends OpModeCommand {
 
 
     Robot bot;
-    private final Pose startPose = new Pose(111.000, 134.000, Math.toRadians(90));
+    private final Pose startPose = new Pose(112.000, 134.000, Math.toRadians(90));
     private final Pose scorePose = new Pose(89, 88, Math.toRadians(330));
     private final Pose beforeSpike2 = new Pose(98, 61);
     private final Pose spike2End = new Pose(123, 61, Math.toRadians(0));
-    private final Pose gate_intake = new Pose(131, 60, Math.toRadians(30));
-    private final Pose gate_intake_down = new Pose(133, 57, Math.toRadians(40));
+    private final Pose gate_intake = new Pose(132, 61, Math.toRadians(25));
+    private final Pose gate_intake_down = new Pose(132, 57, Math.toRadians(60));
     private final Pose spike1Pose = new Pose(118, 84, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
     private final Pose spike3EndPose = new Pose(124, 37, Math.toRadians(0));
@@ -198,7 +198,6 @@ public class Blue_18 extends OpModeCommand {
                 )
                 .setTangentHeadingInterpolation()
                 .setReversed()
-                .setGlobalDeceleration()
                 .build();
     }
 
@@ -234,7 +233,7 @@ public class Blue_18 extends OpModeCommand {
                                         new Intake_on_15(bot),
 
 
-                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot)
                                                 ),
@@ -245,7 +244,7 @@ public class Blue_18 extends OpModeCommand {
 
                                         new WaitCommand(500),
 
-                                        new FollowPath(bot.getFollower(), gateintake_back, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake_back)
                                                 .alongWith(
                                                         new Intake_Off_Timed(bot, 0.2)
                                                 ),
@@ -253,7 +252,7 @@ public class Blue_18 extends OpModeCommand {
                                         new WaitCommand(400),
                                         new Intake_on_15(bot),
 
-                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.85)
+                                        new FollowPath(bot.getFollower(), gateintake1, true, 0.7)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot)
                                                 ),
@@ -278,12 +277,11 @@ public class Blue_18 extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), spike3, 1)
                                                 .alongWith(
                                                         new Intake_On_Toggle(bot),
-                                                        new Score_Command(bot, 1140, 0.18)
+                                                        new Score_Command(bot, 1180, 0.18)
                                                 ),
 
 
                                         new WaitCommand(100),
-                                        new Intake_off(bot),
                                         new Intake_on_15(bot)
                                 )
                 )
