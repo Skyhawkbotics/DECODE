@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "TheyWantTheShooter", group = "blue")
+@Autonomous(name = "TheyWantTheShooter_Blue", group = "blue")
 public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
     Robot bot;
@@ -97,6 +97,7 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                                 .andThen(
                                         new Intake_on_forever(bot)
                                 )
+                                                .andThen (new Shooter_off(bot))
                                 .andThen(
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
