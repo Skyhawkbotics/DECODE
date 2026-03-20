@@ -70,6 +70,9 @@ public class Robot {
 
 ///  :)
         ///  GAMEPADS
+        // hi hi hi hi hi
+        //hi h ih i hi hi hi h i
+        // hihihihihihihihix
         this.g1 = new Gamepad();
         this.g2 = new Gamepad();
         this.prevg1 = new Gamepad();
@@ -104,25 +107,25 @@ public class Robot {
         turret.turret_update(ID, follower.getPose(), 0);
 
     }
-
-// Obsolete Autonomous Initialization
+    ///  this is a init just for a follower drivetrain nothing else
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
 
-        shooter = new Shooter(hardwareMap, telemetry);
-        intake = new Intake(hardwareMap, telemetry);
-        // turret = new Turret(hardwareMap, telemetry);
-        light = new Light(hardwareMap, telemetry);
-        tilt = new Tilt(hardwareMap, telemetry);
-        tilt.tiltZERO();
-
-        follower.update();
-        intake.servosIn();
-
     }
+    public void drivetrain_update() {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current Path", follower.getCurrentPath());
+        telemetry.addData("Is the follower Busy?", follower.isBusy());
+        telemetry.addData("is robot stuck", follower.isRobotStuck());
+        telemetry.addData("Follower Max Power", follower.getMaxPowerScaling());
+        telemetry.update();
+        follower.update();
+    }
+
+
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID, double turretPose) {/// FOR AUTO
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
