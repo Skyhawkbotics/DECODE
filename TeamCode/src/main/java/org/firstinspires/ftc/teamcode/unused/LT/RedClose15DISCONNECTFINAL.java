@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.LT;
+package org.firstinspires.ftc.teamcode.unused.LT;
 
 
 import com.arcrobotics.ftclib.command.RunCommand;
@@ -26,9 +26,9 @@ import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "Red", group = "red")
+@Autonomous(name = "Alliance Red", group = "red")
 @Disabled
-public class RedClose15FINAL extends OpModeCommand {
+public class RedClose15DISCONNECTFINAL extends OpModeCommand {
 
 
     Robot bot;
@@ -39,11 +39,11 @@ public class RedClose15FINAL extends OpModeCommand {
 
     /// Intake Spike Mark Two,
 
-    public final Pose gather2 = new Pose (126.86451612903225, 51.76129032258066, Math.toRadians(0));
+    public final Pose gather2 = new Pose (128.86451612903225, 51.76129032258066, Math.toRadians(0));
     public final Pose kaimencontrolpoint =  new Pose(113.24977274928074,61.395258896534415);
 
-    public final Pose opengate = new Pose (137.28165798255372,69, Math.toRadians(0));
-    public final Pose opengateREAL = new Pose (131.28165798255372,70, Math.toRadians(0));
+    public final Pose opengate = new Pose (138.28165798255372,67, Math.toRadians(0));
+    public final Pose opengateREAL = new Pose (131.28165798255372,67, Math.toRadians(0));
 
     public final Pose kaimen_back_control_point =  new Pose(103,59);
     public final Pose kaimen_back_control_point1 =  new Pose(102,64);
@@ -52,18 +52,17 @@ public class RedClose15FINAL extends OpModeCommand {
     ///  put intake here
 
     public final Pose gateintake1 = new Pose(125, 59, Math.toRadians(30));
-    public final Pose gateintakeFINAL = new Pose(137, 58.5, Math.toRadians(30));
+    public final Pose gateintakeFINAL = new Pose(139, 58.5, Math.toRadians(30));
 
-    public final Pose gateintakeFINAL1 = new Pose(137, 57, Math.toRadians(30));
+    public final Pose gateintakeFINAL1 = new Pose(139, 57, Math.toRadians(30));
 
 
     ///come last
-    public final Pose gather1 = new Pose (128,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (125,79, Math.toRadians(0));
     public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose curve2spikemarkcontrolpoint = new Pose(89.23475352731101, 50.477832094139686);
 
 
-    public final Pose gather3 = new Pose (130.85161290322581,29.84516129032261, Math.toRadians(0));
 
 
     private Path scorepres, intake1, score1, score2;
@@ -72,7 +71,7 @@ public class RedClose15FINAL extends OpModeCommand {
 
 
 //
-    private Path get_to_gate_intake_FIRST, gate_intake, gate_intake_back, get_to_gate_intake, gate_intake_backwards, curve3spikemark, final_score;
+    private Path get_to_gate_intake_FIRST, gate_intake, gate_intake_back, get_to_gate_intake, gate_intake_backwards;
     private PathChain openGate;
     private Path park;
 
@@ -177,25 +176,9 @@ public class RedClose15FINAL extends OpModeCommand {
 
         score1 = new Path(new BezierLine(gather1, last_shot));
         score1.setLinearHeadingInterpolation(gather1.getHeading(), last_shot.getHeading());
-        curve3spikemark = new Path(
-                new BezierCurve(
-                        last_shot,
-                        new Pose(95, 27),
-                        gather3
-                )
-        );
-        curve3spikemark.setConstantHeadingInterpolation(0);
-
-        final_score = new Path(
-                new BezierLine(
-                       gather3,
-                       all_scores
-                )
-        );
-        final_score.setConstantHeadingInterpolation(0);
         park = new Path(
                 new BezierLine(
-                        all_scores,
+                        last_shot,
                         new Pose(108, 120)
                 )
         );
@@ -218,7 +201,6 @@ public class RedClose15FINAL extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
-                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(500)
@@ -232,7 +214,7 @@ public class RedClose15FINAL extends OpModeCommand {
 
 //              CYCLE 2, Second Spike Mark
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), curve2spikemark, 0.9)
+                                        new FollowPath(bot.getFollower(), curve2spikemark, 0.8)
                                                 .alongWith(new Intake_on_forever(bot))
                                 )
                                 .andThen(
@@ -256,7 +238,6 @@ public class RedClose15FINAL extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
-                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(500)
@@ -310,7 +291,6 @@ public class RedClose15FINAL extends OpModeCommand {
                                 )
                                 .andThen(
                                         new turret_LL(bot)
-                                                .raceWith(new WaitCommand(500))
                                 )
                                 .andThen(
                                         new WaitCommand(500)
@@ -372,35 +352,9 @@ public class RedClose15FINAL extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), score1)
                                                 .alongWith(new Prep_Shooter2(bot))
                                 )
-                              //  .andThen(
-                               //         new turret_LL(bot)
-                             //   )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new turret_LL(bot)
                                 )
-                                .andThen(
-                                        new Intake_on(bot)
-                                )
-                                .andThen(
-                                        new Shooter_off(bot)
-                                )
-                                //
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), curve3spikemark)
-                                                .alongWith(new Intake_on_forever(bot))
-                                )
-                                .andThen(
-                                        new Intake_off(bot)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), final_score)
-                                                .alongWith(
-                                                        new Prep_Shooter4(bot)
-                                                )
-                                )
-                                //.andThen(
-                               //         new turret_LL(bot)
-                               // )
                                 .andThen(
                                         new WaitCommand(500)
                                 )

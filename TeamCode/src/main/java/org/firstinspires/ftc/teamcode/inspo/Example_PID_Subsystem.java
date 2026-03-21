@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode.Test_Files.inspo;
+package org.firstinspires.ftc.teamcode.inspo;
 
 
 
-import static org.firstinspires.ftc.teamcode.Test_Files.inspo.Exapmle_Robot_Constants.*;
+import static org.firstinspires.ftc.teamcode.inspo.Example_Robot_Constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
-public class lift {
+public class Example_PID_Subsystem {
 
 
     private Telemetry telemetry;
@@ -26,7 +26,7 @@ public class lift {
     public static int target;
 
 
-    public lift(HardwareMap hardwareMap, Telemetry telemetry) { // init method.
+    public Example_PID_Subsystem(HardwareMap hardwareMap, Telemetry telemetry) { // init method.
         this.telemetry = telemetry;
 
         up1 = hardwareMap.get(DcMotor.class, up1motorname);

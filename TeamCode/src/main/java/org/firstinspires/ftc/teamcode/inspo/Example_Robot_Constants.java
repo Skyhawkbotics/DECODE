@@ -1,14 +1,14 @@
-package org.firstinspires.ftc.teamcode.Test_Files.inspo;
+package org.firstinspires.ftc.teamcode.inspo;
 
 
 /// This class stores all values such as positions for bucket, transfer, and claws.
 /// allowing the dashboard to config it allows us to modify it
 /// All these variables need to be public and static
-public class Exapmle_Robot_Constants {
+public class Example_Robot_Constants {
 
     public static String outmotorName = "out";
 
-    /// lift Constants
+    /// Example_PID_Subsystem Constants
     public static String up1motorname = "VLL";
     public static String up2motorname = "VLR";
     public static double ep = 0.005, ei = 0, ed = 0.00000000000005, f = 0.25; // Extend pid constants

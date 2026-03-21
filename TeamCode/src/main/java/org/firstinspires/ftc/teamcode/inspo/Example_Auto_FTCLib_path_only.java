@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.inspo;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -16,13 +16,23 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "red far 6", group = "red", preselectTeleOp = "redCloseDrive")
-/// make sure to signify it is auto, and you can additionally preselect a teleOp that will appear after the auto ends
-public class Example_Auto_FTCLib_path_only extends OpModeCommand { ///  fit lib opMode structure
+@Autonomous(name = "Example Autonomous", group = "Example", preselectTeleOp = "Example TeleOp ") /// @Autonomous to show it's an auto, Name of OpMode on driver hub
+/// You can additionally preselect a teleOp that will appear after the auto ends
+public class Example_Auto_FTCLib_path_only extends OpModeCommand { ///  FTC lib opMode structure
 
+/// Declare the "Robot" class here. This is our compiled code of all the robot's subsystems, esp. the drivetrain
     Robot bot;
-    public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
+
+    /// Declare your poses here
+    public final Pose startpos = new Pose(56, 8, Math.toRadians(90));
+    /// A pose is usually final (Not to be edited during it's runtime)
+    /// The object type is "Pose" , and create a new Pose object.
+    /// The Pose object needs a X and Y value, and you can also add a heading (Radian)
+    /// by adding a heading, you can set the path to travel with / end the Pose's heading
     public final Pose shootme = new Pose(55, 14.5, Math.toRadians(114));
+    /// DECLARE YOUR POSES/PATHS IN A LOGICAL MANNER. NO ONE BUT YOU KNOWS WHAT "shootme" Path DOES
+    /// This is abraham's old auto
+
     public final Pose humanintake = new Pose(10.5, 8.2, Math.toRadians(180));
     public final Pose shoottres = new Pose(50, 14.5, Math.toRadians(114));
     public final Pose gametime = new Pose(41, 16, Math.toRadians(180));
@@ -30,12 +40,6 @@ public class Example_Auto_FTCLib_path_only extends OpModeCommand { ///  fit lib 
 
     private Path scorepre1, intakeuno, dametime, end; /// declare your paths
     private PathChain pathchain1; /// declaring a pathChain
-
-    /// ^^ declare paths here. Usually, include a heading and use Math.toRadians as it takes it as a radian
-    /// DECLARE YOUR POSES/PATHS IN A LOGICAL MANNER. NO ONE BUT YOU KNOWS WHAT "GAME_TIME" Path DOES
-    /// if it's a control point usually you don't need to include a heading
-    /// by including a heading on a point you can set the path to stay / move towards the heading of the pose
-    ///
     /// Two types of Paths
     /// Path - a single line or curve
     /// PathChain - multiple lines or curves connected without stops between (faster)
@@ -52,6 +56,8 @@ public class Example_Auto_FTCLib_path_only extends OpModeCommand { ///  fit lib 
         /// You can also set the heading to be tangential, then make it reversed (I think this is only for pathChain) for it to travel backwards tangentially
         /// here, in PathChain's pathBuilder, you can edit more path parameters to make it perhaps smoother such as editing braking strength + start
         ///  I would suggest retuning if your paths are consistently overshooting / too slow and only editing a specific path parameter if its just applies to that path
+        // https://pedropathing.com/docs/pathing/reference/path-builder
+
         scorepre1 = new Path (new BezierLine(startpos,shootme)); ///lines
         scorepre1.setLinearHeadingInterpolation(startpos.getHeading(), shootme.getHeading());
 
@@ -68,7 +74,7 @@ public class Example_Auto_FTCLib_path_only extends OpModeCommand { ///  fit lib 
                 .addPath(
                         new BezierCurve(
                                 gametime,
-                                humanintake, /// Control Point of the curve
+                                curvy, /// Control Point of the curve
                                 startpos
                         )
                 )

@@ -1,34 +1,19 @@
-package org.firstinspires.ftc.teamcode.auto.LT;
+package org.firstinspires.ftc.teamcode.unused;
 
 
-import com.arcrobotics.ftclib.command.RunCommand;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
-import com.arcrobotics.ftclib.command.WaitCommand;
-import com.pedropathing.geometry.BezierCurve;
-import com.pedropathing.geometry.BezierLine;
-import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.Path;
-import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
-import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.Intake_on_long1;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter2;
-import org.firstinspires.ftc.teamcode.core.commands.Prep_Shooter4;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.commands.turret.turret_Zero;
-import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
-
-import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "Blue", group = "Blue")
+@Autonomous(name = "Alliance Blue", group = "Blue")
 @Disabled
-public class BLUEClose15FINAL extends OpModeCommand {
+public class BLUEClose15DISCONNECTFINAL extends OpModeCommand {
+    @Override
+    public void initialize() {
+
+    }
+    /*
 
 
     Robot bot;
@@ -43,16 +28,16 @@ public class BLUEClose15FINAL extends OpModeCommand {
 
     /// Intake Spike Mark Two,
 
-    public final Pose gather2 = new Pose (127.86451612903225, 51.76129032258066, Math.toRadians(0));
+    public final Pose gather2 = new Pose (128.86451612903225, 51.76129032258066, Math.toRadians(0));
 
     public final Pose bluegather2 = gather2.mirror();
     public final Pose kaimencontrolpoint =  new Pose(113.24977274928074,61.395258896534415);
 
     public final Pose bluekaimencontrolpoint =  kaimencontrolpoint.mirror();
 
-    public final Pose opengate = new Pose (137.28165798255372,67.5, Math.toRadians(0));
+    public final Pose opengate = new Pose (135.28,65, Math.toRadians(0));
     public final Pose blueopengate = opengate.mirror();
-    public final Pose opengateREAL = new Pose (131.28165798255372,67.5, Math.toRadians(0));
+    public final Pose opengateREAL = new Pose (131.28,65, Math.toRadians(0));
     public final Pose blueopengateREAL = opengateREAL.mirror();
 
     public final Pose kaimen_back_control_point =  new Pose(103,59);
@@ -63,18 +48,18 @@ public class BLUEClose15FINAL extends OpModeCommand {
 
     ///  put intake here
 
-    public final Pose gateintake1 = new Pose(126.5, 59, Math.toRadians(30));
+    public final Pose gateintake1 = new Pose(125, 59, Math.toRadians(30));
     public final Pose bluegateintake1 = gateintake1.mirror();
-    public final Pose gateintakeFINAL = new Pose(137, 58.5, Math.toRadians(30));
+    public final Pose gateintakeFINAL = new Pose(139, 58.5, Math.toRadians(30));
 
     public final Pose bluegateintakeFINAL = gateintakeFINAL.mirror();
 
-    public final Pose gateintakeFINAL1 = new Pose(137, 57, Math.toRadians(30));
-    public final Pose bluegateintakeFINAL1 =gateintakeFINAL1.mirror();
+    public final Pose gateintakeFINAL1 = new Pose(139, 57, Math.toRadians(30));
+    public final Pose bluegateintakeFINAL1 = gateintakeFINAL1.mirror();
 
 
     ///come last
-    public final Pose gather1 = new Pose (122,79, Math.toRadians(0));
+    public final Pose gather1 = new Pose (127.5,79, Math.toRadians(0));
     public final Pose bluegather1 = gather1.mirror();
     public final Pose last_shot = new Pose (108.85,97.1, Math.toRadians(0));
     public final Pose bluelast_shot = last_shot.mirror();
@@ -213,7 +198,7 @@ public class BLUEClose15FINAL extends OpModeCommand {
                 new RunCommand(bot:: blue_autonomous_robot_update),
                 new SequentialCommandGroup(
 //              CYCLE 1, Preloads
-                        new FollowPath(bot.getFollower(), scorepres,.8)
+                        new FollowPath(bot.getFollower(), scorepres, 0.8)
                                 .alongWith(
                                         new Prep_Shooter4(bot)
                                 )
@@ -232,20 +217,21 @@ public class BLUEClose15FINAL extends OpModeCommand {
 
 //              CYCLE 2, Second Spike Mark
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), curve2spikemark, 0.8)
+                                        new FollowPath(bot.getFollower(), curve2spikemark,.8)
                                                 .alongWith(new Intake_on_forever(bot))
                                 )
                                 .andThen(
                                         new WaitCommand(500)
                                 )
+         //              CYCLE 3, Gate Opening
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), kaimen,true,0.75)
+                                                .raceWith(new WaitCommand(3300))
+                                )
                                 .andThen(
                                         new Intake_off(bot)
                                 )
-//              CYCLE 3, Gate Opening
-                                .andThen (
-                                        new FollowPath(bot.getFollower(), kaimen,true,0.7)
-                                                .raceWith(new WaitCommand(3300))
-                                )
+
                                 .andThen(
                                         new WaitCommand(800)
                                 )
@@ -279,7 +265,7 @@ public class BLUEClose15FINAL extends OpModeCommand {
                                          )
                                  )
 
-                                 */
+
 
 
 
@@ -324,7 +310,7 @@ public class BLUEClose15FINAL extends OpModeCommand {
 
 
 /*
-           //CYCLE 5, Gate Opening Second Time
+//              CYCLE 5, Gate Opening Second Time
                                 .andThen(
                                         new FollowPath(bot.getFollower(), get_to_gate_intake)
                                                 .alongWith(new Intake_on_forever(bot))
@@ -368,7 +354,8 @@ public class BLUEClose15FINAL extends OpModeCommand {
                                 )
 
 
-*/
+
+
 
 //              CYCLE 6, Intaking Spike Mark One
                                 .andThen(
@@ -383,7 +370,7 @@ public class BLUEClose15FINAL extends OpModeCommand {
                                         new turret_LL_blue(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(500)
+                                        new WaitCommand(750)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -392,7 +379,7 @@ public class BLUEClose15FINAL extends OpModeCommand {
                                         new Shooter_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), park, 0.8)
+                                        new FollowPath(bot.getFollower(), park, 0.5)
                                 )
                                 .andThen(
                                         new turret_Zero(bot)
@@ -404,5 +391,6 @@ public class BLUEClose15FINAL extends OpModeCommand {
 
                 ));
     }
+    */
 }
 

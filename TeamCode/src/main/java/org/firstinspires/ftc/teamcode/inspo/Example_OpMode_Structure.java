@@ -27,12 +27,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Test_Files.inspo;
+package org.firstinspires.ftc.teamcode.inspo;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -50,15 +51,21 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative OpMode")
-/// This is an example opmode that goes more into depth about the structure of it
-@Disabled
-public class BasicOpMode_Iterative extends OpMode
-{
+/// *
+/// Eric's Notes:
+/// This file is good for learning how an OpMode is structured
+/// This was created by FIRST themself, so their comments are gray while mine will be green lmao
+/// I also modified the file to make it more readable / removed unnecessary stuff
+/// This OpMode uses two motors and makes them controllable via gamepad joysticks
+@TeleOp(name="Example OpMode", group= "Examples") /// name of the file on the driver hub, and if it shows up in the Tele op or Autonomous
+
+@Disabled /// I disabled this, meaning it doesn't show up on the Driver station (less clog)
+
+public class Example_OpMode_Structure extends OpMode {
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftDrive = null;
-    private DcMotor rightDrive = null;
+    private DcMotorEx leftDrive;
+    private DcMotorEx rightDrive;
+    private float leftDrivePower, rightDrivePower;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -70,8 +77,8 @@ public class BasicOpMode_Iterative extends OpMode
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        leftDrive  = hardwareMap.get(DcMotorEx.class, "left_drive");
+        rightDrive = hardwareMap.get(DcMotorEx.class, "right_drive");
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
@@ -95,7 +102,7 @@ public class BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void start() {
-        runtime.reset();
+
     }
 
     /*
@@ -103,32 +110,20 @@ public class BasicOpMode_Iterative extends OpMode
      */
     @Override
     public void loop() {
-        // Setup a variable for each drive wheel to save power level for telemetry
-        double leftPower;
-        double rightPower;
-
-        // Choose to drive using either Tank Mode, or POV Mode
-        // Comment out the method that's not used.  The default below is POV.
-
-        // POV Mode uses left stick to go forward, and right stick to turn.
-        // - This uses basic math to combine motions and is easier to drive straight.
-        double drive = -gamepad1.left_stick_y;
-        double turn  =  gamepad1.right_stick_x;
-        leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-        rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
         // Tank Mode uses one stick to control each wheel.
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
-        // leftPower  = -gamepad1.left_stick_y ;
-        // rightPower = -gamepad1.right_stick_y ;
 
-        // Send calculated power to wheels
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
+        leftDrivePower =-gamepad1.left_stick_y;
+        rightDrivePower = -gamepad1.right_stick_y;
+        /// Assigning a variable to a input, in this case gamepad input
 
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+        /// Send calculated power to wheels using the variable
+        leftDrive.setPower(leftDrivePower);
+        rightDrive.setPower(rightDrivePower);
+        /// Although I could have just done leftDrive.setPower(-gamepad1.left_stick_y),
+        ///I wanted to showcase an example of variables being used!
+
     }
 
     /*
