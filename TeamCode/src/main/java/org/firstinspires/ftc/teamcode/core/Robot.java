@@ -143,7 +143,6 @@ public class Robot {
         follower.update();
         intake.servosIn();
         this.turretPose = turretPose;
-
     }
 // Tele - Op Update
     public void robot_update() {
@@ -275,6 +274,7 @@ public class Robot {
         } else {
             follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
         }
+
 
         if (g1.left_trigger > 0) {
             intake.intake();

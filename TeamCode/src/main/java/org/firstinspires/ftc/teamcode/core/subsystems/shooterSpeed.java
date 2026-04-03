@@ -33,7 +33,7 @@ public class shooterSpeed {
         double velocity_rpm = (velocity_meters * 60) / (2 * PI * FLYWHEEL_RADIUS);
 
         if (d > 2.8) {
-            velocity_rpm = velocity_rpm * sharpening_constant;
+            velocity_rpm *= sharpening_constant;
         }
 
 
