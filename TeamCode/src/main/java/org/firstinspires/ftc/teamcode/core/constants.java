@@ -127,6 +127,6 @@ public class constants {
      * 3 tilt1
      * 5 light
      */
-
+    public static double myp = 0.006, myi = 0, myd = 0, myf = 0.05;
 
 }

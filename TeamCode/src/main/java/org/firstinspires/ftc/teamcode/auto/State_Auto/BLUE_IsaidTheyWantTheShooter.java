@@ -115,18 +115,24 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
                                          new Intake_on_forever(bot)
                                 )
 
-                                                .andThen(new FollowPath(bot.getFollower(), intakedos))
-                                                .andThen(new WaitCommand(2000))
-                                                .andThen(
-                                                        new Intake_on(bot)
-                                                )
-                                                .andThen(
-                                                        new Intake_on_forever(bot)
-                                                )
-                                                .andThen(new FollowPath(bot.getFollower(), greengianttres)
-                                                        .alongWith(new Intake_off(bot))
-                                                ))
-                                                .andThen(new WaitCommand(2000))
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), intakedos)
+                                )
+                                .andThen(
+                                        new WaitCommand(2000)
+                                )
+                                .andThen(
+                                        new Intake_on(bot)
+                                )
+                                .andThen(
+                                        new Intake_on_forever(bot)
+                                )
+                                .andThen(new FollowPath(bot.getFollower(), greengianttres)
+                                        .alongWith(new Intake_off(bot))
+                                ))
+                                .andThen(
+                                        new WaitCommand(2000)
+                                )
                                 .andThen(
                                         new Intake_on(bot)
                                 )
