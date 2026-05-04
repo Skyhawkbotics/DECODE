@@ -18,27 +18,28 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class Constants {
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(12.88)
-            .forwardZeroPowerAcceleration(-30.862035156710885)
-            .lateralZeroPowerAcceleration(-53.807888843543765)
-            .translationalPIDFCoefficients(new PIDFCoefficients(0.06, 0, 0.005, 0.01))
-            .headingPIDFCoefficients(new PIDFCoefficients(1.5, 0, 0, 0.02))
-            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.02,0, 0.0002,0.95,0.002));
+            .forwardZeroPowerAcceleration(-26.1485923333) //old -30.86203515671088
+            .lateralZeroPowerAcceleration(-66.1776966333) // old -53.807888843543765
+            .translationalPIDFCoefficients(new PIDFCoefficients(0.075, 0, 0.006, 0.01))
+            .headingPIDFCoefficients(new PIDFCoefficients(1.5, 0, 0.07, 0.02))
+            .drivePIDFCoefficients(new FilteredPIDFCoefficients(0.045,0, 0.0004,0.95,0.002));
     public static MecanumConstants driveConstants = new MecanumConstants()
             .maxPower(1)
             .rightFrontMotorName("right_front")
             .rightRearMotorName("right_back")
             .leftRearMotorName("left_back")
             .leftFrontMotorName("left_front")
-            .xVelocity(82.45872677780513)
+            .xVelocity(82.88120540108268) //old 82.45872677780513
             .yVelocity(65.27547568974532)
             .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
 
+
     public static PinpointConstants localizerConstants = new PinpointConstants()
-            .forwardPodY(-5.223) ///  edited right
-            .strafePodX(1.549)
+            .forwardPodY(-5.5) ///  edited right-5.223,1.549
+            .strafePodX(-1)
             .distanceUnit(DistanceUnit.INCH)
             .hardwareMapName("pin")
             .encoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD)
