@@ -361,12 +361,12 @@ public class Robot {
         if (updating_shooter) {
             if ((144 - follower.getPose().getY()) > 105) {
                 shooter.toggle_update_true();
-                shooter.setAngle(0.40);
-                shooter.setTarget(1680);
-//                shooter.recoil(0.003);
+                shooter.setAngle(0.6);
+                shooter.setShooterSpeed(depot_distance, true);
+
             } else {
                 shooter.setShooterAngle(depot_distance);
-                shooter.setShooterSpeed(depot_distance);
+                shooter.setShooterSpeed(depot_distance, false);
             }
         } else {
 
@@ -381,7 +381,19 @@ public class Robot {
         prevg2.copy(g2);
         g1.copy(dummyg1);
         g2.copy(dummyg2);
+        // Controls
+        // Joystick = driving
+        // left trigger = intake
+        // right trigger = reverse
+        // right bumper = fire
+        // left bumper = toggle slow mode
+        // d pad up on / off shooter
+        // d pud left = off shooter
+        // triangle = turret = zero
+        // square = toggle tracking
 
+
+        /// KRISTEN'S CONTROLS
 
         if(g1.leftBumperWasPressed()) {
             parking =!parking;
@@ -391,88 +403,113 @@ public class Robot {
             follower.setTeleOpDrive(
                     speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
         } else {
-            follower.setTeleOpDrive(0.8 * -g1.left_stick_y, 0.4 * -g1.left_stick_x, 0.5 * -g1.right_stick_x, true );
+            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
         }
 
-        depot_distance = shooter.getDistance(follower.getPose(), isred);
 
-
-
-        /// KRISTEN'S CONTROLS
         if (g1.left_trigger > 0) {
             intake.intake();
         }
         else if (g1.right_trigger > 0) {
             intake.reverse();
-        } else if(g1.square) {
+        } else if (g2.right_bumper) {
             intake.fire();
-        }
-        else {
+        } else {
             intake.off();
         }
 
-        if(g1.rightBumperWasPressed()) {
-            follower.setPose(resetPose);
-            turret.reset_turret();
 
+        if (g1.dpadLeftWasPressed()) {
+            shooter.turnOFF();
+        }
+        if(g1.dpadUpWasPressed()) {
+            updating_shooter = !updating_shooter;
+        }
+        if (updating_shooter) {
+            if ((144 - follower.getPose().getY()) > 105) {
+                shooter.toggle_update_true();
+                shooter.setAngle(0.6);
+                shooter.setShooterSpeed(depot_distance, true);
+
+            } else {
+                shooter.setShooterAngle(depot_distance);
+                shooter.setShooterSpeed(depot_distance, false);
+            }
+        } else {
+
+            shooter.turnOFF();
+        }
+
+        if (shooter.velocityReached()) {
+            g1.rumble (1000);
+        }
+
+
+
+///  turret
+        if (g1.triangleWasPressed()) {
+            turret.toZero();
+        }
+        if(g1.squareWasPressed()) {
+            turret.toggle_manual_turret();
+
+        }
+
+        //
+//        if(g1.triangleWasPressed()) {
+//            isTilting = !isTilting;
+//        }
+//        if(isTilting) {
+//            tilt.tiltREAL();
+//        } else {
+//            tilt.tiltZERO();
+//        }
+
+        ///  Secondary'S CONTROLS, diagnostic controls
+
+        if(g2.rightBumperWasPressed()) {
+            follower.setPose(resetPose);
         }
 
         ///  TELEMETRY TOGGLES
-        if (g1.dpadLeftWasPressed()) {
+        if (g2.dpadLeftWasPressed()) {
             turret_telemetry = !turret_telemetry;
         }
-        if (g1.dpadUpWasPressed()) {
+        if (g2.dpadUpWasPressed()) {
             light_telemetry = !light_telemetry;
         }
-        if (g1.dpadRightWasPressed()) {
+        if (g2.dpadRightWasPressed()) {
             shooter_telemetry = !shooter_telemetry;
         }
-        if (g1.dpadDownWasPressed()) {
+        if (g2.dpadDownWasPressed()) {
             robot_telemetry = !robot_telemetry;
         }
 
 
-        if (g1.triangleWasPressed()) {
-            if (depot_distance > 2.50) {
-                shooter.positionMax();
-            } else if (depot_distance < 2.50) {
-                shooter.positionMin();
-            }
-        }
-
-        if (g1.circleWasPressed()) {
-            shooter.turnOFF();
+//  Turret
+        if(g2.rightBumperWasPressed()) {
+            turret.reset_turret();
         }
 
 
-        if(g2.cross) { //
-            turret.set_using_turret_true();
+
+// Shooter
+
+        if (g2.touchpad) {
+            LLDistance = !LLDistance;
+        }
+
+        if (isValid){// limelight is working/
+            // depot_distance = (shooter.getDistance(follower.getPose(),isred) +
+            //        ll.calc_Distance()) / 2;
         } else {
-            turret.set_using_turret_false();
+            depot_distance = shooter.getDistance(follower.getPose(), isred);
         }
-        if(g2.optionsWasPressed()) {
-            turret.toggle_manual_turret();
-        }
-
-
-        turret.set_using_LL(ID);
+        ///  can average w/ ll..??????????????
         turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
 
+        turret.set_using_LL(ID);
 
-
-
-        if(g2.dpadUpWasPressed()) {
-            updating_shooter = !updating_shooter;
-        }
-        if (updating_shooter) {
-            shooter.setShooterSpeed(depot_distance);
-            shooter.setShooterAngle(depot_distance);
-        } else {
-            shooter.turnOFF();
-        }
-        if (shooter.velocityReached()) {
-            g2.rumble (1000);
-        }
 
 
     }

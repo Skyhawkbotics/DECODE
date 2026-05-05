@@ -22,7 +22,7 @@ public class constants {
 
     ///  Shooter PID constants
 
-    public static double ep = 0.004, ei = 0, ed = 0.0000, f = 0.00035; ///these are good as of 10/11
+    public static double ep = 0.003, ei = 0, ed = 0.0000, f = 0.00038; ///these are good as of 10/11
 
     public static int max = 2000;
 
@@ -84,10 +84,10 @@ public class constants {
     public static double intake_speed = 1;
     public static double intake_slow = 0.8;
 
-    public static double right_servos_in_pos = 0.5;
-    public static double left_servos_in_pos = 0.8;
-    public static double right_servos_out_pos = 0;
-    public static double left_servos_out_pos = 1;
+    public static double right_servos_in_pos = 1;
+    public static double left_servos_in_pos = 0;
+    public static double right_servos_out_pos = 0.7;
+    public static double left_servos_out_pos = 0.3;
 
 
 
@@ -95,7 +95,6 @@ public class constants {
 
     public static double feedforward = 0;
 
-    public static double sharpening_constant = 1.1;
 
     /**
      * Wiring Diagram
@@ -129,4 +128,5 @@ public class constants {
      */
     public static double myp = 0.006, myi = 0, myd = 0, myf = 0.05;
 
+    public static double  shooter_constant = 0.95, dampening_constant = 0.95, sharpening_constant = 1.13;
 }

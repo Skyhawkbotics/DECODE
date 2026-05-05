@@ -19,6 +19,7 @@ public class Quadruple_Motor_Test extends OpMode {
         left_front = hardwareMap.get(DcMotorEx.class, "left_front");
         left_front.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+
         left_back = hardwareMap.get(DcMotorEx.class, "left_back");
         left_back.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
@@ -30,28 +31,28 @@ public class Quadruple_Motor_Test extends OpMode {
 
     }
     public void loop(){
-        if (gamepad1.a){
+        if (gamepad1.square){
             left_front.setPower(1);
         } else {
             left_front.setPower(0);
         }
 
 
-        if (gamepad1.b){
+        if (gamepad1.triangle){
             left_back.setPower(1);
         } else {
             left_back.setPower(0);//wrong
         }
 
 
-        if (gamepad1.y){
+        if (gamepad1.circle){
             right_front.setPower(1);
         } else {
             right_front.setPower(0);
         }
 
 
-        if (gamepad1.x){
+        if (gamepad1.cross){
             right_back.setPower(1);
         } else {
             right_back.setPower(0);//wrong

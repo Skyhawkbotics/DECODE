@@ -43,17 +43,18 @@ public class  Shooter {
 
 
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry03) {
-        // hi
-        left_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
+        // hi,
+        left_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
         left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         left_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
-        right_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
+// has the encoder
+        right_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
         right_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         right_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
-        left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         shooterSpeed = new shooterSpeed();
 
@@ -64,17 +65,18 @@ public class  Shooter {
 
     }
     public Shooter(HardwareMap hardwareMap, Telemetry telemetry03, PanelsTelemetry panelsTelemetry) {
-        // hi
-        left_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
+        // hi,
+        left_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
         left_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         left_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
-        right_motor = hardwareMap.get(DcMotorEx.class, "left shoot");
+// has the encoder
+        right_motor = hardwareMap.get(DcMotorEx.class, "right shoot");
         right_motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
         right_motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
 
-        left_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        right_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        left_motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        right_motor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         shooterSpeed = new shooterSpeed();
 
@@ -82,6 +84,7 @@ public class  Shooter {
 
         servo = hardwareMap.get(Servo.class, "shoot angle");
         this.telemetry = telemetry03;
+
         this.panelsTelemetry = panelsTelemetry;
 
     }
@@ -90,7 +93,7 @@ public class  Shooter {
         if(is_updating) {
             pid.setPIDF(ep, ei, ed, f);
 
-            double pid_output = pid.calculate(left_motor.getVelocity(), target);
+            double pid_output = pid.calculate(right_motor.getVelocity(), target);
             power = pid_output;
             left_motor.setPower(power);
             right_motor.setPower(power);
@@ -175,9 +178,9 @@ public class  Shooter {
 
     }
 
-    public void setShooterSpeed(double distance) {
+    public void setShooterSpeed(double distance, boolean farZone) {
         toggle_update_true();
-        shooter_velocity = shooterSpeed.calcVelocity(distance);
+        shooter_velocity = shooterSpeed.calcVelocity(distance, farZone);
         setTarget((int) shooter_velocity);
     }
 
@@ -291,7 +294,7 @@ public class  Shooter {
     }
 
     public void shooter_telemetry() {
-        telemetry.addData("Motor Speed (Ticks)", left_motor.getVelocity());
+        telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
         // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
         // telemetry.addData("left Motor power", left_motor.getPower());
         // telemetry.addData("right Motor power", right_motor.getPower());
@@ -307,14 +310,14 @@ public class  Shooter {
     }
     public void panelstelemetry() {
         panelsTelemetry.getTelemetry().addData("Target", target);
-        panelsTelemetry.getTelemetry().addData("motor speed", left_motor.getVelocity());
+        panelsTelemetry.getTelemetry().addData("motor speed", right_motor.getVelocity());
         panelsTelemetry.getTelemetry().update();
     }
     public int getTarget() {
         return target;
     }
     public int getVelocity() {
-        return (int) left_motor.getVelocity();
+        return (int) right_motor.getVelocity();
     }
 
     public double getAngle() {
@@ -322,7 +325,7 @@ public class  Shooter {
     }
 
     public boolean velocityReached() {
-        return Math.abs(target - left_motor.getVelocity()) <= 40;
+        return Math.abs(target - -right_motor.getVelocity()) <= 40;
     }
     public void recoil() {
         boolean using_recoil = false;
@@ -330,7 +333,7 @@ public class  Shooter {
             using_recoil = true;
         }
         if(using_recoil) {
-            double error = target - left_motor.getVelocity();
+            double error = target - right_motor.getVelocity();
             double recoil = recoil_orgin - error * recoil_constant; // as error increases, the recoil increases
             double actual_recoil;
             if(recoil > recoil_orgin) {

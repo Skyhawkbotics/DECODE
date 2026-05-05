@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Test_Files;
 
+import com.bylazar.gamepad.GamepadManager;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-
+import com.bylazar.gamepad.PanelsGamepad;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.Shooter;
 
@@ -16,25 +17,22 @@ public class ShooterTest extends OpMode {
 
     private Shooter shooter;
     private Intake intake;
-
-    private Gamepad g1 = new Gamepad();
-    private Gamepad previousg1 = new Gamepad();
     private PanelsTelemetry telemetry1 = PanelsTelemetry.INSTANCE;
 
+    GamepadManager panelsg1 = PanelsGamepad.INSTANCE.getFirstManager();
+
     public void init() {
-        shooter = new Shooter(hardwareMap, telemetry);
+        shooter = new Shooter(hardwareMap, telemetry, telemetry1);
         intake = new Intake(hardwareMap, telemetry);
 
-        g1 = new Gamepad();
-        previousg1 = new Gamepad();
+
     }
 
 
 
     @Override
     public void loop() {
-        previousg1.copy(g1);
-        g1.copy(gamepad1);
+        panelsg1.asCombinedFTCGamepad(gamepad1);
 
         shooter.update();
 
@@ -59,18 +57,18 @@ public class ShooterTest extends OpMode {
 
 
         ///  to the max angles
-        if(g1.dpadLeftWasPressed()) {
+        if(gamepad1.dpadLeftWasPressed()) {
             shooter.positionMin();
         }
-        if(g1.dpadUpWasPressed()) {
+        if(gamepad1.dpadUpWasPressed()) {
             shooter.increasePositionBare();
         }
 
 
-        if(g1.dpadRightWasPressed()) {
+        if(gamepad1.dpadRightWasPressed()) {
             shooter.positionMax();
         }
-        if(g1.dpadDownWasPressed()) {
+        if(gamepad1.dpadDownWasPressed()) {
             shooter.decreasePositionBare();
         }
 
