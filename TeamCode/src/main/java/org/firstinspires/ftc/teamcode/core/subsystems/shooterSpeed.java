@@ -7,7 +7,11 @@ public class shooterSpeed {
     public shooterSpeed() {
     }
 
-    public double calcVelocity(double d) {
+    public double calcVelocity(double d, boolean farZone) {
+        // i'm trying to make sure I can edit it on the panels and so it will update. Each time it calcualtes it has to reestablish the values so if they are changed in panels it should be changed in here as well? - eric 5/4
+        double shooterC = shooter_constant;
+        double sharpenC = sharpening_constant;
+        double dampenC = dampening_constant;
 
         double GRAVITY = 9.80665; // gravitational constant
         double VERTICAL_DISTANCE = 0.756; // 1.041 - 0.300 = 0.741 + a little for jazz
@@ -18,9 +22,7 @@ public class shooterSpeed {
 
         double FLYWHEEL_RADIUS = 0.0457; // used for linear velocity -> angular velocity meters
         double PI = 3.14159265358979234;
-        double shooter_constant = 1.1;
-        double dampening_constant = 0.95;
-        double sharpening_constant = 1.04; // prev 1.0375
+      // prev 1.0375
 
         double degrees = 60 - 7 * (d - 1.5); // FROM THE HORIZONTAL
         double angle = Math.toRadians(degrees);
@@ -32,14 +34,14 @@ public class shooterSpeed {
         double velocity_meters = Math.sqrt(numerator/denominator);
         double velocity_rpm = (velocity_meters * 60) / (2 * PI * FLYWHEEL_RADIUS);
 
-        if (d > 2.8) {
-            velocity_rpm *= sharpening_constant;
+        if (farZone) {
+            velocity_rpm *= sharpenC;
         }
 
 
         // does not account for drag. because drag will reduce the distance it goes, this
         // velocity should be increased by a coefficient, maybe of like 1.05 or something minor.
-        return velocity_rpm * shooter_constant;
+        return velocity_rpm * shooterC;
     }
 
     public double calcAngle(double d) {
