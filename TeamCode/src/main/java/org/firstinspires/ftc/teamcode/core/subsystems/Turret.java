@@ -105,15 +105,6 @@ public class Turret {
         raw_turret_offset_position = degrees_to_position(turretTargetAngle);
 
 
-//
-//        if (dy > 80 && ID == 20) {
-//            LLTarget = 0.5;
-//        } else if(distance > 80 && ID == 24) {
-//            LLTarget = -0.05; /// super skewed right :()
-//        } else {
-//            LLTarget = 0;
-//        }
-
 
         if(!manual_turret) {
                 if (using_LL) {
@@ -125,7 +116,6 @@ public class Turret {
                             if (fr.getFiducialId() == ID) {
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
-                                double sign = Math.signum(-result.getTx());
                                 ll_pid_output = ll_pid.calculate(result.getTx(), LLTarget); // + sign * turret_f;
 
                                 if ((turret.getCurrentPosition() <= left_limit) &&
@@ -144,23 +134,6 @@ public class Turret {
                     }
                 } else {
                     ///  heading update
-//                    if (ID == 24) {
-//                        correctPose = redPose;
-//                    } else {
-//                        correctPose = bluePose;
-//                    }
-//                    if (ID == 24) {
-//                        correct_angle = angle;
-//                    } else {
-//                        correct_angle = 180 - (angle * -1); // makes angle positive for blue depot
-//                    }
-
-//                    robot_offset_to_zero = -Math.toDegrees(followerPose.getHeading());
-
-
-//                    turret_offset = robot_offset_to_zero + correct_angle; // is it + or - 90? goal is to try to get this to point towards the 0 of the field
-//                    raw_turret_offset_position = degrees_to_position(turret_offset);
-
 
                     if (raw_turret_offset_position > right_limit) { // from the back the right of the robot should be negative no?
                         correct_turret_offset_position = right_limit;
