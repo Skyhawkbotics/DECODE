@@ -27,8 +27,8 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(140, 138, 0);
-    private Pose bluePose = new Pose(4, 138,0);
+    private Pose redPose = new Pose(138, 144);
+    private Pose bluePose = new Pose(6, 144);
 
     private Telemetry telemetry;
 
@@ -40,10 +40,8 @@ public class Turret {
 
     private double turret_offset, correct_turret_offset_position, raw_turret_offset_position;
 
-
-    private double angle, correct_angle, robot_offset_to_zero, distance;
-
     private Pose correctPose;
+    private double odometry_turret_error, LL_turret_error;
 
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
@@ -70,6 +68,11 @@ public class Turret {
         turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         this.telemetry = telemetry;
+        if (ID == 24) {
+            correctPose = redPose;
+        } else {
+            correctPose = bluePose;
+        }
     }
 
     public void init_pipeline(int ID) {
@@ -84,16 +87,6 @@ public class Turret {
 
     public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
         double ll_pid_output;
-        if (ID == 24) {
-            correctPose = redPose;
-        } else {
-            correctPose = bluePose;
-        }
-//        double x_distance = correctPose.getX() - followerPose.getX();
-  //     double y_distance = correctPose.getY() - followerPose.getY();
-//        angle = Math.toDegrees(Math.atan2(y_distance, x_distance));
-//
-//        distance = Math.sqrt(x_distance * x_distance + y_distance * y_distance);
         double dx = correctPose.getX() - followerPose.getX();
         double dy = correctPose.getY() - followerPose.getY();
 
@@ -111,13 +104,15 @@ public class Turret {
 
         raw_turret_offset_position = degrees_to_position(turretTargetAngle);
 
-        if (dy > 80 && ID == 20) {
-            LLTarget = 0.5;
-        } else if(distance > 80 && ID == 24) {
-            LLTarget = -0.05; /// super skewed right :()
-        } else {
-            LLTarget = 0;
-        }
+
+//
+//        if (dy > 80 && ID == 20) {
+//            LLTarget = 0.5;
+//        } else if(distance > 80 && ID == 24) {
+//            LLTarget = -0.05; /// super skewed right :()
+//        } else {
+//            LLTarget = 0;
+//        }
 
 
         if(!manual_turret) {
@@ -142,18 +137,18 @@ public class Turret {
                                 } else {
                                     turret.setPower(ll_pid_output);
                                 }
-
+                                LL_turret_error = result.getTx() - LLTarget;
                                 telemetry.addData("LL PID OUTPUT", ll_pid_output);
                             }
                         }
                     }
                 } else {
                     ///  heading update
-                    if (ID == 24) {
-                        correctPose = redPose;
-                    } else {
-                        correctPose = bluePose;
-                    }
+//                    if (ID == 24) {
+//                        correctPose = redPose;
+//                    } else {
+//                        correctPose = bluePose;
+//                    }
 //                    if (ID == 24) {
 //                        correct_angle = angle;
 //                    } else {
@@ -167,7 +162,7 @@ public class Turret {
 //                    raw_turret_offset_position = degrees_to_position(turret_offset);
 
 
-                    if (raw_turret_offset_position > right_limit) {
+                    if (raw_turret_offset_position > right_limit) { // from the back the right of the robot should be negative no?
                         correct_turret_offset_position = right_limit;
                     } else if (raw_turret_offset_position < left_limit) {
                         correct_turret_offset_position = left_limit;
@@ -179,6 +174,7 @@ public class Turret {
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
                     turret.setPower(pid_output);
+                    odometry_turret_error = correct_turret_offset_position - turret.getCurrentPosition();
 
 
                 }
@@ -496,9 +492,10 @@ public class Turret {
         telemetry.addData("Turret Position", turret.getCurrentPosition());
         telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));
         telemetry.addData("Filtered turret Offset(position", correct_turret_offset_position);
-        telemetry.addData("correct angle", correct_angle);
         telemetry.addData("manual turret", manual_turret);
         telemetry.addData("using turret", using_turret);
+        telemetry.addData("Ododmetry turret PID error", odometry_turret_error);
+        telemetry.addData("LL Turret PID Erorr", LL_turret_error);
         // telemetry.addData("correct pose", correctPose);
         // telemetry.addData("robot heading", robot_offset_to_zero);
         // telemetry.addData("angle", angle);
