@@ -173,7 +173,7 @@ public class RED_12_Consistent extends OpModeCommand {
         buildPaths();
 
         schedule(
-                new RunCommand(bot:: autonomous_robot_update),
+                new RunCommand(bot:: any_autonomous_robot_update),
                 new SequentialCommandGroup(
 //              CYCLE 1, Preloads
                         new FollowPath(bot.getFollower(), scorepres, 0.8)
