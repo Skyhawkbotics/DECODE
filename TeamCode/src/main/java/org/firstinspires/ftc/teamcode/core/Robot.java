@@ -35,7 +35,7 @@ public class Robot {
     public Pose startPose;
     private Pose resetPose;
     private double turretPose;
-    private Gamepad g1, g2, dummyg1, dummyg2, prevg1, prevg2;
+    private Gamepad g1, g2, prevg1, prevg2;
     private boolean updating_shooter = false, isFull = false,
             using_turret = false, isred = true, parking = false, isTilting = false, isValid = false,
             LLDistance = false;
@@ -49,11 +49,12 @@ public class Robot {
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
+        telemetry.setMsTransmissionInterval(100);
 
         follower = Constants.createFollower(hardwareMap);
 
-        this.dummyg1 = game1;
-        this.dummyg2 = game2;
+        this.g1 = game1;
+        this.g2 = game2;
         this.isred = red;
         this.resetPose = resetPose;
 
@@ -160,12 +161,17 @@ public class Robot {
         isFull = light.isFull();
 
         if (isFull) {
-            light.green();
+            if (!light.lightIsGreen()) {
+                light.green();
+            }
         } else {
-            light.red();
+            if (!light.lightIsRed()) {
+                light.red();
+            }
         }
 
     }
+
 // Autonomous Robot Update Loop
     public void autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
@@ -174,7 +180,6 @@ public class Robot {
         telemetry.addData("is robot stuck", follower.isRobotStuck());
         turret.turret_telemetry();
         shooter.shooter_telemetry();
-       //turret.set_using_LL(ID);
         turret.turret_update_close(ID, follower.getPose());
 
 
@@ -185,6 +190,7 @@ public class Robot {
         tilt.tiltZERO();
 
     }
+
     public void any_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
         telemetry.addData("Current chain index", follower.getChainIndex());
@@ -200,7 +206,6 @@ public class Robot {
         follower.update();
         telemetry.update();
         tilt.tiltZERO();
-        //shooter.recoil();
     }
     public void blue_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
@@ -219,48 +224,8 @@ public class Robot {
 
 
     }
-    public void far_autonomous_robot_update () {
-        telemetry.addData("Position", follower.getPose());
-        telemetry.addData("Current Path", follower.getCurrentPath());
-        turret.turret_telemetry();
-        shooter.shooter_telemetry();
-        //turret.set_using_LL(ID);
-            turret.turret_update_far_blue(ID, follower.getPose());
-
-        shooter.recoil();
-        shooter.update();
-        shooter.panelstelemetry();
-        follower.update();
-        telemetry.update();
-
-        tilt.tiltZERO();
-
-    }
-    public void far_autonomous_robot_update_blue () {
-        telemetry.addData("Position", follower.getPose());
-        telemetry.addData("Current Path", follower.getCurrentPath());
-        turret.turret_telemetry();
-        shooter.shooter_telemetry();
-        //turret.set_using_LL(ID);
-        turret.turret_update_far_blue(ID, follower.getPose());
-
-
-        shooter.recoil();
-        shooter.update();
-        shooter.panelstelemetry();
-        follower.update();
-        telemetry.update();
-
-        tilt.tiltZERO();
-
-    }
 
     public void dual_drive() {
-        prevg1.copy(g1);
-        prevg2.copy(g2);
-        g1.copy(dummyg1);
-        g2.copy(dummyg2);
-
 
         /// KRISTEN'S CONTROLS
 
@@ -317,7 +282,7 @@ public class Robot {
         ///  ABRAHAM'S CONTROLS
 
 
-        if (g2.right_trigger > 0) {
+        if (g1.circle) {
             intake.fire();
         }
 
@@ -344,9 +309,7 @@ public class Robot {
             LLDistance = !LLDistance;
         }
 
-        if (isValid){// limelight is working/
-            // depot_distance = (shooter.getDistance(follower.getPose(),isred) +
-            //        ll.calc_Distance()) / 2;
+        if (isValid) {
         } else {
             depot_distance = shooter.getDistance(follower.getPose(), isred);
         }
@@ -379,8 +342,6 @@ public class Robot {
     public void solo_drive() {
         prevg1.copy(g1);
         prevg2.copy(g2);
-        g1.copy(dummyg1);
-        g2.copy(dummyg2);
         // Controls
         // Joystick = driving
         // left trigger = intake
@@ -455,16 +416,6 @@ public class Robot {
 
         }
 
-        //
-//        if(g1.triangleWasPressed()) {
-//            isTilting = !isTilting;
-//        }
-//        if(isTilting) {
-//            tilt.tiltREAL();
-//        } else {
-//            tilt.tiltZERO();
-//        }
-
         ///  Secondary'S CONTROLS, diagnostic controls
 
         if(g2.rightBumperWasPressed()) {
@@ -490,8 +441,6 @@ public class Robot {
         if(g2.rightBumperWasPressed()) {
             turret.reset_turret();
         }
-
-
 
 // Shooter
 

@@ -496,11 +496,7 @@ public class Turret {
         telemetry.addData("using turret", using_turret);
         telemetry.addData("Ododmetry turret PID error", odometry_turret_error);
         telemetry.addData("LL Turret PID Erorr", LL_turret_error);
-        // telemetry.addData("correct pose", correctPose);
-        // telemetry.addData("robot heading", robot_offset_to_zero);
-        // telemetry.addData("angle", angle);
-        //  telemetry.addData("turret offset", turret_offset);
-        //  telemetry.addData("turret offset (position)", raw_turret_offset_position);
+
     }
 
     public void set_power(double p) {
@@ -513,24 +509,6 @@ public class Turret {
 
     public void toggle_manual_turret() {
         manual_turret = !manual_turret;
-    }
-    public void toggle_using_turret() {
-        using_turret = !using_turret;
-    }
-    public void set_manual_false() {
-        manual_turret= false;
-    }
-    public void set_manual_true() {
-        manual_turret = true;
-    }
-    public void set_using_turret_true() {
-        using_turret = true;
-    }
-    public void set_using_turret_false() {
-        using_turret = false;
-    }
-    public boolean IsTurretDone() {
-        return turret_close_pos - turret.getCurrentPosition() < 20;
     }
     public boolean IsTurretDone_BLUE() {
         return turret_close_pos_BLUE - turret.getCurrentPosition() < 20;

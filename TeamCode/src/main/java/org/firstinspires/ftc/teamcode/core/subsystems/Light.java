@@ -29,20 +29,28 @@ public class Light {
         }
     }
 
-    public void increase() {
-        light.setPosition(light.getPosition() + 0.025);
-    }
-
-    public void decrease() {
-        light.setPosition(light.getPosition() - 0.025);
-    }
-
     public void red() {
         light.setPosition(0.135);
     }
 
     public void green() {
         light.setPosition(0.5);
+    }
+
+    public boolean lightIsRed() {
+        if (light.getPosition() == 0.135) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean lightIsGreen() {
+        if (light.getPosition() == 0.5) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public double getDistance() {
