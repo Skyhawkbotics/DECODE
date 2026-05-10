@@ -169,23 +169,7 @@ public class Robot {
         telemetry.update();
         tilt.tiltZERO();
     }
-    public void blue_autonomous_robot_update () {
-        telemetry.addData("Position", follower.getPose());
-        telemetry.addData("Current Path", follower.getCurrentPath());
-        turret.turret_telemetry();
-        shooter.shooter_telemetry();
-        //turret.set_using_LL(ID);
-        turret.turret_update_close_blue(ID, follower.getPose());
 
-
-        shooter.update();
-        follower.update();
-        telemetry.update();
-        shooter.recoil();
-        tilt.tiltZERO();
-
-
-    }
 
     public void dual_drive() {
 
