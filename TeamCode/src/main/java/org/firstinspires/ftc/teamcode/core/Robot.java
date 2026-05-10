@@ -121,7 +121,6 @@ public class Robot {
         shooter.update();
         robot_telemetry();
         follower.update();
-        telemetry.update();
 
         if(LLDistance) {
             isValid = ll.isValid();
@@ -140,6 +139,7 @@ public class Robot {
                 light.red();
             }
         }
+        telemetry.update();
 
     }
 
