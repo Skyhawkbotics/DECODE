@@ -128,5 +128,5 @@ public class constants {
      */
     public static double myp = 0.006, myi = 0, myd = 0, myf = 0.05;
 
-    public static double  shooter_constant = 0.95, dampening_constant = 0.95, sharpening_constant = 1.13;
+    public static double  shooter_constant = 1, dampening_constant = 0.95, sharpening_constant = 1.13;
 }

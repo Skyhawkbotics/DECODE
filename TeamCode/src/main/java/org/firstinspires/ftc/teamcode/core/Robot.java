@@ -72,10 +72,9 @@ public class Robot {
         // hi hi hi hi hi
         //hi h ih i hi hi hi h i
         // hihihihihihihihix
-        this.g1 = new Gamepad();
-        this.g2 = new Gamepad();
-        this.prevg1 = new Gamepad();
-        this.prevg2 = new Gamepad();
+//        this.g1 = new Gamepad();
+//        this.g2 = new Gamepad();
+
 
 
         follower.setStartingPose(startPose);
@@ -228,7 +227,7 @@ public class Robot {
         ///  ABRAHAM'S CONTROLS
 
 
-        if (g1.circle) {
+        if (g2.right_trigger > 0) {
             intake.fire();
         }
 

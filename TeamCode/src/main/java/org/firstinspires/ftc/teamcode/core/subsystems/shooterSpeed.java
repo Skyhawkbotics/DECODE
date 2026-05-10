@@ -13,7 +13,7 @@ public class shooterSpeed {
         double sharpenC = sharpening_constant;
         double dampenC = dampening_constant;
 
-        double GRAVITY = 9.80665; // gravitational constant
+        double GRAVITY = 9.80665; // g (m/s^2)
         double VERTICAL_DISTANCE = 0.756; // 1.041 - 0.300 = 0.741 + a little for jazz
         ///  remeasured constants: 0.3 m for robot flywheel
         /// 0.99 for depot
@@ -37,7 +37,6 @@ public class shooterSpeed {
         if (farZone) {
             velocity_rpm *= sharpenC;
         }
-
 
         // does not account for drag. because drag will reduce the distance it goes, this
         // velocity should be increased by a coefficient, maybe of like 1.05 or something minor.
