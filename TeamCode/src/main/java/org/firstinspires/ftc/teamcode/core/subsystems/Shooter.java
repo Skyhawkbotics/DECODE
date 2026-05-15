@@ -325,7 +325,7 @@ public class  Shooter {
     }
 
     public boolean velocityReached() {
-        return Math.abs(target - -right_motor.getVelocity()) <= 40;
+        return Math.abs(target - right_motor.getVelocity()) <= 40;
     }
     public void recoil() {
         boolean using_recoil = false;
