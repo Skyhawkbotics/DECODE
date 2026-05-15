@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
+import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
+import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -92,33 +94,65 @@ public class Far_12Kristine extends OpModeCommand {
                             .andThen(
                                     new WaitCommand (300),
                                     new Intake_on_15(bot)),
-
+                        /// shoots preloads
 
                         new FollowPath(bot.getFollower(), path1, 0.8)
                                 .alongWith(
                                         new Intake_on_15(bot)),
-
                         new WaitCommand(1000),
+                        /// intakes third spike
+
                         new FollowPath(bot.getFollower(), path2, 0.8),
-                        new WaitCommand(2000),
-                        new FollowPath(bot.getFollower(), path3, 0.8),
+                        new WaitCommand(2000)
+                                .alongWith(
+                                        new Score_Command(bot, 1250, 0.27))
+                                .andThen(
+                                        new WaitCommand(300),
+                                        new Intake_on_15(bot)),
+                        /// should shoot third spike
+
+                        new FollowPath(bot.getFollower(), path3, 0.8)
+                                .alongWith(
+                                    new Intake_on_15(bot)),
                         new WaitCommand(1000),
-                        new FollowPath(bot.getFollower(), path4, 0.8),
+                        /// first intake from human player zone
+
+                        new FollowPath(bot.getFollower(), path4, 0.8)
+                                .alongWith(
+                                        new Score_Command(bot, 1250, 0.27))
+                                .andThen(
+                                        new Intake_on_15(bot)),
                         new WaitCommand(2000),
-                        new FollowPath(bot.getFollower(), path5, 0.8),
+                        /// shoots first human player zone cycle
+
+                        new FollowPath(bot.getFollower(), path5, 0.8)
+                                .alongWith(
+                                        new Intake_on_15(bot)),
                         new WaitCommand(1000),
-                        new FollowPath(bot.getFollower(), path6, 0.8),
+                        /// second human player zone cycle
+
+                        new FollowPath(bot.getFollower(), path6, 0.8)
+                                .alongWith(
+                                        new Score_Command(bot, 1250, 0.27))
+                                .andThen(
+                                        new Intake_on_15(bot)),
                         new WaitCommand(2000),
-                        new FollowPath(bot.getFollower(), path7, 0.8),
+                        /// shoots second cycle (at this point should have shot 12 balls)
+
+                        new FollowPath(bot.getFollower(), path7, 0.8)
+                                .alongWith(
+                                        new Intake_on_15(bot)),
                         new WaitCommand(1000),
-                        new FollowPath(bot.getFollower(), path8, 0.8),
+                        /// intakes third cycle from human player zone
+
+                        new FollowPath(bot.getFollower(), path8, 0.8)
+                                .alongWith(
+                                        new Score_Command(bot, 1250, 0.27))
+                                .andThen(
+                                        new Intake_on_15(bot)),
                         new WaitCommand(2000))
-
-
+                        /// 15th ball in theory
 
         );
-
-
-
     }
 }
