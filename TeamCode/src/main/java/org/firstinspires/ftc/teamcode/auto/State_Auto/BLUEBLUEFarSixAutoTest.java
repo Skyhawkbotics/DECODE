@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto.State_Auto;
 
+import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
+
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -16,6 +18,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
+import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -30,7 +33,7 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
 
     public final Pose shootload = new Pose(55, 14.5, Math.toRadians(114));
 
-    public final Pose humanintake = new Pose(10.5, 8.2, Math.toRadians(180));
+    public final Pose humanintake = new Pose(13.5, 7.7, Math.toRadians(195));
 
     public final Pose shoottres = new Pose(55, 14.5, Math.toRadians(114));
 
@@ -51,19 +54,24 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
         end = new Path (new BezierLine(shoottres, gametime));
         end.setLinearHeadingInterpolation(shoottres.getHeading(), gametime.getHeading());
     }
+    @Override
+    public void init_loop() {
+      bot.getTurret().set_using_LL(20);
+      bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0);
+    }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry,startpos, 20);
+        bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(),scorepre1,0.85)
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), scorepre1)
-                                                .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
+                        new FollowPath(bot.getFollower(),scorepre1,0.8)
+                                .alongWith(
+                                        //new FollowPath(bot.getFollower(), scorepre1)
+                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
                                 )
                                 .andThen(
-                                        new WaitCommand(3000 )
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -72,10 +80,16 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
                                         new Intake_on_forever(bot)
                                 )
                                 .andThen(
+                                        new Intake_off(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
                                 .andThen(
                                         new WaitCommand(3000)
+                                )
+                                .andThen (
+                                        new Intake_on(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)

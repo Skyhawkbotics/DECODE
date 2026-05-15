@@ -26,7 +26,7 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
 
     Robot bot;
 
-    public static final Pose startpos = new Pose(56, 8, Math.toRadians(90));
+    public static final Pose startpos = new Pose(56, 8, Math.toRadians(180));
     public static final Pose redstartpos = startpos.mirror();
 
     public final Pose shootme = new Pose(55, 14.5, Math.toRadians(114));
@@ -78,7 +78,7 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
                                                 .alongWith(new Prep_Shooter_any(bot, 1600, 0.49))
                                 )
                                 .andThen(
-                                        new WaitCommand(3000 )
+                                        new WaitCommand(2000 )
                                 )
                                 .andThen(
                                         new Intake_on(bot)
@@ -90,7 +90,7 @@ public class REDREDFarSixAutoTest extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), intakeuno)
                                 )
                                 .andThen(
-                                        new WaitCommand(4000)
+                                        new WaitCommand(3000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), dametime)

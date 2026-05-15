@@ -36,7 +36,8 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
     public final Pose treballtres = new Pose(56, 17, Math.toRadians(114));
 
-    public final Pose dimetres = new Pose(10.8, 7.5);
+    public final Pose
+            dimetres = new Pose(10.8, 7.5);
 
     public final Pose dametime = new Pose(56, 17, Math.toRadians(114));
 
