@@ -12,14 +12,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "KristineFar12", group = "auto")
-public class Far_12Kristine extends OpModeCommand {
+public class AllianceFARBlue15_Kristine extends OpModeCommand {
 
     Robot bot;
 
