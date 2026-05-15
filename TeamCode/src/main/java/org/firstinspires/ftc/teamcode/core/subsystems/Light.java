@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
 import com.bylazar.telemetry.PanelsTelemetry;
+import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -15,10 +16,13 @@ public class Light {
 
     private DistanceSensor distance_sensor;
 
+    private Timer distanceTimer = new Timer();
+
     public Light(HardwareMap hardwareMap, Telemetry telemetry) {
         light = hardwareMap.get(Servo.class, "light");
         distance_sensor = hardwareMap.get(DistanceSensor.class, "distance");
         this.telemetry = telemetry;
+        distanceTimer = new Timer();
     }
 
     public boolean isFull() {
@@ -26,6 +30,14 @@ public class Light {
             return true;
         } else {
             return false;
+        }
+    }
+    public boolean isFullCertain() { // if the ball is in the intake (distance less than x) for more than x seconds, it returns true
+        if(isFull() & distanceTimer.getElapsedTimeSeconds() > 1.5) {
+            return  true;
+        } else {
+            distanceTimer.resetTimer();
+            return  false;
         }
     }
 
