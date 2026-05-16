@@ -34,7 +34,7 @@ public class Prep_Shooter_Blue_Far extends CommandBase {
             case 1:
                 bot.getShooter().shooterON();
                 bot.getShooter().back_perf();
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 setState(2);
                 break;
             case 2:

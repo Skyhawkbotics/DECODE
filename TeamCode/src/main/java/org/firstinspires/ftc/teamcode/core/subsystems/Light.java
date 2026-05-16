@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.core.subsystems;
 
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -16,13 +15,15 @@ public class Light {
 
     private DistanceSensor distance_sensor;
 
-    private Timer distanceTimer = new Timer();
+    private Timer timer = new Timer();
+
+    private double ballBuffer = 1.5;
 
     public Light(HardwareMap hardwareMap, Telemetry telemetry) {
         light = hardwareMap.get(Servo.class, "light");
         distance_sensor = hardwareMap.get(DistanceSensor.class, "distance");
         this.telemetry = telemetry;
-        distanceTimer = new Timer();
+        timer = new Timer();
     }
 
     public boolean isFull() {
@@ -32,14 +33,28 @@ public class Light {
             return false;
         }
     }
-    public boolean isFullCertain() { // if the ball is in the intake (distance less than x) for more than x seconds, it returns true
-        if(isFull() & distanceTimer.getElapsedTimeSeconds() > 1.5) {
-            return  true;
-        } else {
-            distanceTimer.resetTimer();
-            return  false;
+
+
+     public boolean isFullCertain() { // if the ball is in the intake (distance less than x) for more than x seconds, it returns true
+            if(isFull() & timer.getElapsedTimeSeconds() > 1) {
+                // if the distance is less than 3 and the time is over 1.5
+                // return as true
+                return true;
+            } else {
+                // this will  happen if it is not full or if distance timer is not greater than 1.5
+                timer.resetTimer();
+                return false;
+            }
         }
-    }
+
+     public void resetTimer() {
+        timer.resetTimer();
+     }
+
+     public double getTime() {
+        return timer.getElapsedTimeSeconds();
+     }
+
 
     public void red() {
         light.setPosition(0.135);
@@ -73,5 +88,6 @@ public class Light {
     public void light_telemetry() {
         telemetry.addData("Light Value", light.getPosition());
         telemetry.addData("Distance Value", getDistance());
+        telemetry.addData("Timer", timer.getElapsedTimeSeconds());
     }
 }

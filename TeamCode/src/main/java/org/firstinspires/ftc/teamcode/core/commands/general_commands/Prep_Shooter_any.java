@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.core.commands.general_commands;
 
 
-import static org.firstinspires.ftc.teamcode.core.constants.auto_speed;
-
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
@@ -41,7 +39,7 @@ public class Prep_Shooter_any extends CommandBase {
                 break;
             case 1:
                 bot.getShooter().shooterON();
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 bot.getShooter().autonomous_speed(speed);
                 bot.getShooter().setPos(servoPos);
                 setState(2);

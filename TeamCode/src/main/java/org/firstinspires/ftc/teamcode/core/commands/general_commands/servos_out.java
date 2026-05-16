@@ -32,7 +32,7 @@ public class servos_out extends CommandBase { ///  runs the intake , either for 
             case -1:
                 break;
             case 1:
-                    bot.getIntake().servosOut();
+                    bot.getIntaking().servosOut();
                     setState(-1);
                 break;
 

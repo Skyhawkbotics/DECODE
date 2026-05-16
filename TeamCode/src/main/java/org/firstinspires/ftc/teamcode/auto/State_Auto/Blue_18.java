@@ -272,17 +272,17 @@ public class Blue_18 extends OpModeCommand {
                                                 ),
 
                                         new WaitCommand(200),
-                                        new Intake_on_15(bot),
-
-                                        new FollowPath(bot.getFollower(), spike3, 1)
-                                                .alongWith(
-                                                        new Intake_On_Toggle(bot),
-                                                        new Score_Command(bot, 1180, 0.18)
-                                                ),
-
-
-                                        new WaitCommand(100),
                                         new Intake_on_15(bot)
+//
+//                                        new FollowPath(bot.getFollower(), spike3, 1)
+//                                                .alongWith(
+//                                                        new Intake_On_Toggle(bot),
+//                                                        new Score_Command(bot, 1180, 0.18)
+//                                                ),
+//
+//
+//                                        new WaitCommand(100),
+//                                        new Intake_on_15(bot)
                                 )
                 )
         );

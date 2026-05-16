@@ -35,7 +35,7 @@ public class Prep_Shooter_far_red extends CommandBase { /// starts up tyhe shoot
                 bot.getShooter().shooterON();
                 bot.getShooter().autonomous_speed(1700);
                 bot.getShooter().setPos(0.11);
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 setState(2);
                 break;
             case 2:

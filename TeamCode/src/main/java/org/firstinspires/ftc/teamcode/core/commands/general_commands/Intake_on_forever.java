@@ -30,8 +30,8 @@ public class Intake_on_forever extends CommandBase { ///  runs the intake , eith
             case -1:
                 break;
             case 1:
-                bot.getIntake().servosIn();
-                bot.getIntake().on();
+                bot.getIntaking().servosIn();
+                bot.getIntaking().on();
                 setState(-1);
                 break;
 

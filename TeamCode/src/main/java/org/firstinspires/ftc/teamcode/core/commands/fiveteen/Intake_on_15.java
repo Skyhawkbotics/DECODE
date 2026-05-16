@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.core.commands.fiveteen;
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
@@ -35,12 +34,12 @@ public class Intake_on_15 extends CommandBase {
             case -1:
                 break;
             case 1:
-                bot.getIntake().fire();
+                bot.getIntaking().fire();
                 setState(2);
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 0.55) { //1
-                    bot.getIntake().prep_intake();
+                    bot.getIntaking().prep_intake();
                     setState(-1); //3
                 }
                 break;

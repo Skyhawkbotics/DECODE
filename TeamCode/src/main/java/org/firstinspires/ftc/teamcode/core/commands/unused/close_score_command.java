@@ -41,13 +41,13 @@ public class close_score_command extends CommandBase {
                 break;
             case 3:
                 if (timer.getElapsedTimeSeconds() > 0.75) {//2
-                    bot.getIntake().on();
+                    bot.getIntaking().on();
                     setState(4);
                 }
                 break;
             case 4:
                 if (timer.getElapsedTimeSeconds() > 1) {//3.5
-                    bot.getIntake().off();
+                    bot.getIntaking().off();
                     setState(5);
                 }
                 break;
@@ -63,7 +63,7 @@ public class close_score_command extends CommandBase {
                 break;
             case 7:
                 if (timer.getElapsedTimeSeconds() > 1) { //6
-                    bot.getIntake().on();
+                    bot.getIntaking().on();
                     setState(8);
                 }
                 break;

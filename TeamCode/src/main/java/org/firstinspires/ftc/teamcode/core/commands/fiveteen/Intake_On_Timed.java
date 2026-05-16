@@ -33,12 +33,12 @@ public class Intake_On_Timed extends CommandBase { ///  runs the intake , either
             case -1:
                 break;
             case 1:
-                bot.getIntake().intake();
+                bot.getIntaking().intake();
                 setState(2);
                 break;
             case 2:
                 if(timer.getElapsedTimeSeconds() >= time) {
-                    bot.getIntake().prep_fire();
+                    bot.getIntaking().prep_fire();
                     setState(-1);
                 }
                 break;

@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.core.commands;
 
 
-import static org.firstinspires.ftc.teamcode.core.constants.red_ID;
-
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
 
@@ -36,7 +34,7 @@ private int state = 1;
             case 1:
                 bot.getShooter().shooterON();
                 bot.getShooter().far_side_red();
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 setState(2);
                 break;
             case 2:
@@ -46,13 +44,13 @@ private int state = 1;
                 break;
             case 4:
                 if(timer.getElapsedTimeSeconds() > 0.2) {
-                    bot.getIntake().on_slow();
+                    bot.getIntaking().on_slow();
                     setState(3);
                 }
                 break;
             case 3:
                 if(timer.getElapsedTimeSeconds() > 2) {
-                    bot.getIntake().servosIn();
+                    bot.getIntaking().servosIn();
                     setState(-1);
                 }
         }

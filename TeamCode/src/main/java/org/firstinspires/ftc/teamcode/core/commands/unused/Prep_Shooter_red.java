@@ -35,7 +35,7 @@ public class Prep_Shooter_red extends CommandBase { /// starts up tyhe shooter t
                 bot.getShooter().shooterON();
                 bot.getShooter().auto_speed_blue();
                 bot.getShooter().setPos(0.11);
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 setState(2);
                 break;
             case 2:

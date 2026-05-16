@@ -32,19 +32,19 @@ private int state = 1;
             case -1:
                 break;
             case 1:
-                bot.getIntake().servosIn();
-                bot.getIntake().on();
+                bot.getIntaking().servosIn();
+                bot.getIntaking().on();
                 setState(2);
                 break;
             case 2:
                 if (timer.getElapsedTimeSeconds() > 1.5) { //1
-                    bot.getIntake().off();
+                    bot.getIntaking().off();
                     setState(3); //3
                 }
                 break;
             case 3:
                 if (timer.getElapsedTimeSeconds() > 0.2) { //1
-                    bot.getIntake().servosOut();
+                    bot.getIntaking().servosOut();
                     setState(-1); //3
                 }
                 break;

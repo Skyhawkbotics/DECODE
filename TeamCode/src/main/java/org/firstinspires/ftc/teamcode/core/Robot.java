@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import static org.firstinspires.ftc.teamcode.core.constants.angle;
-
-import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.robocol.Command;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
@@ -36,7 +32,7 @@ public class Robot {
     private Pose resetPose;
     private double turretPose;
     private Gamepad g1, g2, prevg1, prevg2;
-    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false, isValid = false, LLDistance = false, isIntake = false;
+    private boolean updating_shooter = false, isFull = false, using_turret = false, isred = true, parking = false, isTilting = false, isValid = false, LLDistance = false, isIntaking = false;
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
@@ -186,33 +182,20 @@ public class Robot {
         }
 
 
-//        if (g1.left_trigger > 0) {
-//            intake.intake();
-//        }
-//        else if (g1.right_trigger > 0) {
-//            intake.reverse();
-//        }
-//        else {
-//            intake.off();
-//        }
-        /// idea = if you press left trigger, the intake will toggle on and remain on until the intake is clearly full of 3 balls, then it stops. However, if the left trigger is pressed at any time during this, it will interrupt the intake and stop it
-        if(g1.leftTriggerWasPressed()) {
-            isIntake = !isIntake;
+        if (g1.left_trigger > 0) {
+            intake.intake();
+        }
+        else if (g1.right_trigger > 0) {
+            intake.fire();
+        }
+        else {
+            intake.off();
         }
 
-        if(isIntake) {
-            if(!light.isFullCertain()) {
-                intake.on();
-            } else { // so if it is true
-                isIntake = false;
-            }
-        } else {
-            if(g1.right_trigger != 0) {
-                intake.reverse();
-            } else {
-                intake.off();
-            }
-        }
+
+
+
+
 
         if(g1.triangleWasPressed()) {
             isTilting = !isTilting;
@@ -431,6 +414,7 @@ public class Robot {
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
             telemetry.addData("Distance from Depot", depot_distance);
+            telemetry.addData("Robot Speed", follower.getVelocity().getMagnitude());
         }
         if (turret_telemetry) {
             turret.turret_telemetry();
@@ -456,7 +440,7 @@ public class Robot {
     public Telemetry getTelemetry() {
         return telemetry;
     }
-    public Intake getIntake() {
+    public Intake getIntaking() {
         return intake;
     }
     public Turret getTurret() {

@@ -32,7 +32,7 @@ public class Intake_On_Toggle extends CommandBase { ///  runs the intake , eithe
             case -1:
                 break;
             case 1:
-                bot.getIntake().intake();
+                bot.getIntaking().intake();
                 setState(-1);
 
                 break;

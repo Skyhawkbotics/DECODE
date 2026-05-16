@@ -31,10 +31,10 @@ public class Red_18 extends OpModeCommand {
     private final Pose scorePose = new Pose(89, 88, Math.toRadians(330));
     private final Pose beforeSpike2 = new Pose(98, 61);
     private final Pose spike2End = new Pose(123, 61, Math.toRadians(0));
-    private final Pose gate_intake = new Pose(132, 61, Math.toRadians(25));
-    private final Pose gate_intake_down = new Pose(132, 57, Math.toRadians(60));
+    private final Pose gate_intake = new Pose(134, 61, Math.toRadians(25));
+    private final Pose gate_intake_down = new Pose(134, 57, Math.toRadians(60));
     private final Pose gate_intake_back_Pose = new Pose(92, 80);
-    private final Pose spike1Pose = new Pose(118, 84, Math.toRadians(0));
+    private final Pose spike1Pose = new Pose(118, 82, Math.toRadians(0));
     private final Pose beforeSpike3 = new Pose(103, 37);
     private final Pose spike3EndPose = new Pose(124, 37, Math.toRadians(0));
     private final Pose parkPose = new Pose(92, 114, Math.toRadians(-67));
@@ -44,7 +44,7 @@ public class Red_18 extends OpModeCommand {
 
     private final Pose control_point1 = new Pose(90, 62);
     private final Pose control_point2 = new Pose(101, 61);
-    private final Pose control_point3 = new Pose(96, 83);
+    private final Pose control_point3 = new Pose(96, 82);
     private final Pose control_point4 = new Pose(82, 34);
 
 
@@ -276,17 +276,17 @@ public class Red_18 extends OpModeCommand {
                                                 ),
 
                                         new WaitCommand(300),
-                                        new Intake_on_15(bot),
-
-                                        new FollowPath(bot.getFollower(), spike3, 1)
-                                                .alongWith(
-                                                        new Intake_On_Toggle(bot),
-                                                        new Score_Command(bot, 1180, 0.18)
-                                                ),
-
-
-                                        new WaitCommand(100),
                                         new Intake_on_15(bot)
+
+//                                        new FollowPath(bot.getFollower(), spike3, 1)
+//                                                .alongWith(
+//                                                        new Intake_On_Toggle(bot),
+//                                                        new Score_Command(bot, 1180, 0.18)
+//                                                ),
+//
+//
+//                                        new WaitCommand(100),
+//                                        new Intake_on_15(bot)
                                 )
                 )
         );

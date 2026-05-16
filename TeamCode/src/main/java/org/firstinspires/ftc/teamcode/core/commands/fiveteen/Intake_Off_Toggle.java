@@ -31,7 +31,7 @@ public class Intake_Off_Toggle extends CommandBase { ///  runs the intake , eith
             case -1:
                 break;
             case 1:
-                bot.getIntake().prep_fire();
+                bot.getIntaking().prep_fire();
                 setState(-1);
                 break;
 

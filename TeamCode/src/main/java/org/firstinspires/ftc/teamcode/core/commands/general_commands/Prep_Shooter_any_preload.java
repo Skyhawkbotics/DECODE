@@ -39,14 +39,14 @@ public class Prep_Shooter_any_preload extends CommandBase {
                 break;
             case 1:
                 bot.getShooter().shooterON();
-                bot.getIntake().servosOut();
+                bot.getIntaking().servosOut();
                 bot.getShooter().autonomous_speed(speed);
                 bot.getShooter().setPos(servoPos);
                 setState(2);
                 break;
             case 2:
                 if (bot.getShooter().velocityReached()) { //1
-                    bot.getIntake().on();
+                    bot.getIntaking().on();
                     setState(35);
                 }
                 break;
@@ -57,8 +57,8 @@ public class Prep_Shooter_any_preload extends CommandBase {
                 break;
             case 3:
                 if(timer.getElapsedTimeSeconds() > 1.3) {
-                    bot.getIntake().off();
-                    bot.getIntake().servosIn();
+                    bot.getIntaking().off();
+                    bot.getIntaking().servosIn();
                     setState(-1);
                 }
                 break;
