@@ -18,9 +18,9 @@ public class red_drive_close extends OpMode {
     int ID = 24;
 
 
-    public final Pose gather2 = new Pose (125, 58, Math.toRadians(0));
+    public final Pose gather2 = new Pose (129, 78, Math.toRadians(0));
 
-    public Pose resetPose = new Pose(14.89655172413793, 15.157894736842088, Math.toRadians(90));
+    public Pose resetPose = new Pose(129, 78, Math.toRadians(0));
 
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;

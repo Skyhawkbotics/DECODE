@@ -1,11 +1,27 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import static androidx.core.math.MathUtils.clamp;
+import static com.arcrobotics.ftclib.purepursuit.PurePursuitUtil.angleWrap;
+import static org.firstinspires.ftc.teamcode.core.constants.HEADING_KD;
+import static org.firstinspires.ftc.teamcode.core.constants.HEADING_KP;
+import static org.firstinspires.ftc.teamcode.core.constants.drivetrain_d;
+import static org.firstinspires.ftc.teamcode.core.constants.drivetrain_f;
+import static org.firstinspires.ftc.teamcode.core.constants.drivetrain_i;
+import static org.firstinspires.ftc.teamcode.core.constants.drivetrain_p;
+import static org.firstinspires.ftc.teamcode.core.constants.gate_heading_red;
+import static org.firstinspires.ftc.teamcode.core.constants.gateheading_blue;
+import static org.firstinspires.ftc.teamcode.core.constants.rate;
+
+import com.arcrobotics.ftclib.controller.PIDFController;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
+import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.core.subsystems.Drivetrain;
 import org.firstinspires.ftc.teamcode.core.subsystems.Intake;
 import org.firstinspires.ftc.teamcode.core.subsystems.LL;
 import org.firstinspires.ftc.teamcode.core.subsystems.Light;
@@ -23,6 +39,7 @@ public class Robot {
     private Light light;
     private Tilt tilt;
     private LL ll;
+    private Drivetrain drivetrain;
 
     ///  ROBOT STUFF
     private HardwareMap hardwareMap;
@@ -36,6 +53,24 @@ public class Robot {
     private boolean shooter_telemetry, light_telemetry, turret_telemetry, robot_telemetry = true;
     private double depot_distance;
     private int ID;
+    private double currentForward = 0;
+    private double currentStrafe = 0;
+    private double currentTurn = 0;
+    private PIDFController drivetrainPID;
+    private Boolean useHeadingLock = false;
+    private double gate_heading;
+
+    private static final double FAR_HEADING_DEG = 120 ;
+    private static final double CLOSE_HEADING_DEG = 135;
+
+
+    private static final double MAX_TURN = 1;
+    private static final double DEADZONE_RAD = Math.toRadians(0.25);
+    private static final double MIN_DT = 0.01;
+    private final ElapsedTime timer = new ElapsedTime();
+    private double lastError = 0.0;
+    private boolean robotcentric = true;
+    private int strafe_toggle = 1;
 
 
 
@@ -52,8 +87,6 @@ public class Robot {
         this.isred = red;
         this.resetPose = resetPose;
 
-
-
         ///  CONSTRUCTORS
         shooter = new Shooter(hardwareMap, telemetry);
         ll = new LL(hardwareMap, telemetry);
@@ -61,7 +94,9 @@ public class Robot {
         turret = new Turret(hardwareMap, telemetry, ID);
         light = new Light(hardwareMap, telemetry);
         tilt = new Tilt(hardwareMap, telemetry);
+        drivetrain = new Drivetrain(hardwareMap, telemetry);
         tilt.tiltZERO();
+        drivetrainPID = new PIDFController(drivetrain_p, drivetrain_i, drivetrain_d, drivetrain_f);
 
 ///  :)
         ///  GAMEPADS
@@ -81,6 +116,8 @@ public class Robot {
 
         ///  angle initialization :3
         shooter.positionMax();
+
+
 
     }
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID) {/// FOR AUTO
@@ -164,34 +201,100 @@ public class Robot {
         telemetry.update();
         tilt.tiltZERO();
     }
+    private double slew(double target, double current, double rate) {
+        double delta = target - current;
 
+        if (delta > rate) {
+            delta = rate;
+        }
+        else if (delta < -rate) {
+            delta = -rate;
+        }
+
+        return current + delta;
+    }
 
     public void dual_drive() {
+        if(isred) {
+            gate_heading = gate_heading_red;
+        } else {
+            gate_heading = gateheading_blue;
+        }
+
 
         /// KRISTEN'S CONTROLS
 
-        if(g1.leftBumperWasPressed()) {
-            parking =!parking;
+        double targetDeg = gate_heading;
+
+        double targetRad = Math.toRadians(targetDeg);
+        double error = angleWrap(targetRad - follower.getHeading());
+
+        double dt = Math.max(timer.seconds(), MIN_DT);
+        timer.reset();
+
+        currentForward = slew(-g1.left_stick_y, currentForward, rate);
+        currentStrafe = slew(g1.left_stick_x, currentStrafe, rate);
+        if(useHeadingLock) {
+            currentTurn = drivetrainPID.calculate(Math.toDegrees(follower.getHeading()), gate_heading);
+        } else {
+            currentTurn = slew(g1.right_stick_x, currentTurn, 1);
         }
+
+        if (useHeadingLock) {
+            if (Math.abs(error) < DEADZONE_RAD) {
+                currentTurn = 0.0;
+            } else {
+                double derivative = (error - lastError) / dt;
+                currentTurn = -(HEADING_KP * error + HEADING_KD * derivative);
+            }
+            lastError = error;
+            currentTurn = clamp(currentTurn, -MAX_TURN, MAX_TURN);
+        } else {
+            currentTurn = slew(g1.right_stick_x, currentTurn, 1);
+            lastError = error;
+        }
+//        if(g1.leftBumperWasPressed()) {
+//            parking =!parking;
+//        }
         if (parking) {
             double speedMultiplier = 0.3;
             follower.setTeleOpDrive(
-                    speedMultiplier * -g1.left_stick_y, speedMultiplier * -g1.left_stick_x, speedMultiplier * -g1.right_stick_x, true);
+                    speedMultiplier * currentForward, speedMultiplier * -currentStrafe, speedMultiplier * -currentTurn, true);
         } else {
-            follower.setTeleOpDrive( -g1.left_stick_y,  -g1.left_stick_x, 0.8 * -g1.right_stick_x, true );
-        }
 
+            follower.setTeleOpDrive( currentForward, strafe_toggle * -currentStrafe, 0.8* -currentTurn, true);
+        }
+//        if(g1.squareWasPressed()) {
+//            if(strafe_toggle == 1) {
+//                strafe_toggle = -1;
+//            } else {
+//                strafe_toggle = 1;
+//
+//            }
+//        }
+//        drivetrain.robotCentricPowers(-g1.left_stick_y, g1.left_stick_x, g1.right_stick_x);
 
         if (g1.left_trigger > 0) {
             intake.intake();
+        } else if(g1.left_bumper) {
+            intake.intake();
+            useHeadingLock = true;
+
         }
         else if (g1.right_trigger > 0) {
             intake.fire();
         }
         else {
             intake.off();
-        }
+            useHeadingLock = false;
 
+        }
+//        if(g1.square) {
+//            useHeadingLock = true;
+//
+//        } else {
+//            useHeadingLock = false;
+//        }
 
 
 

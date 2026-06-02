@@ -61,7 +61,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.0031, turret_i = 0.1, turret_d = 0, turret_f = 0;
+    public static double turret_p = 0.0034, turret_i = 0.1, turret_d = 0, turret_f = 0;
 
     public static double LLTarget = 0;
     public static double turret_align_heading = 0;
@@ -84,9 +84,9 @@ public class constants {
     public static double intake_speed = 1;
     public static double intake_slow = 0.8;
 
-    public static double right_servos_in_pos = 1;
+    public static double right_servos_in_pos = 0.7;
     public static double left_servos_in_pos = 0;
-    public static double right_servos_out_pos = 0.7;
+    public static double right_servos_out_pos = 0.5;
     public static double left_servos_out_pos = 0.3;
 
 
@@ -130,4 +130,13 @@ public class constants {
 
     public static double  shooter_constant = 1, dampening_constant = 0.95, sharpening_constant = 1.13;
     public static double turret_constant = 0.1;
+
+
+    ///  drivetrain constants
+    public  static double rate = 0.9;
+    public static double drivetrain_p = 0.001, drivetrain_i = 0.00, drivetrain_d = 0, drivetrain_f = 0;
+    public static double gate_heading_red = 30, gateheading_blue = 110;
+    public static final double HEADING_KP = 1.7;
+    public static final double HEADING_KD = 0.1;
+
 }

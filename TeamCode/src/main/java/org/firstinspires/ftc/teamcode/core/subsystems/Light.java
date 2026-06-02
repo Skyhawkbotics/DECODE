@@ -15,7 +15,7 @@ public class Light {
 
     private DistanceSensor distance_sensor;
 
-    private Timer timer = new Timer();
+    private Timer timer;
 
     private double ballBuffer = 1.5;
 
