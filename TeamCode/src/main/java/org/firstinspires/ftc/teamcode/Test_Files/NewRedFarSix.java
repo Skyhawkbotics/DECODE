@@ -13,6 +13,8 @@ import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
+import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
@@ -24,7 +26,7 @@ import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "red far 6", group = "red")
+@Autonomous(name = "red far new", group = "red")
 public class NewRedFarSix extends OpModeCommand {
 
     Robot bot;
@@ -33,9 +35,9 @@ public class NewRedFarSix extends OpModeCommand {
     public static final Pose redstartpos = startpos.mirror();
 
     public static final Pose shotone = new Pose(56, 8, Math.toRadians(180));
-    public static final Pose redshotone = startpos.mirror();
+    public static final Pose redshotone = shotone.mirror();
 
-    public final Pose humanintake = new Pose(10.5, 8, Math.toRadians(180));
+    public final Pose humanintake = new Pose(12, 8, Math.toRadians(180));
 
     public final Pose redhumanintake = humanintake.mirror();
     public final Pose treshot = new Pose(56, 8, Math.toRadians(180));
@@ -67,16 +69,16 @@ public class NewRedFarSix extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, auto_speed4, 0.35)
+                                        new Prep_Shooter_any(bot, 1600, 0.35)
                                 )
                                 .andThen(
                                         new WaitCommand(1000)
                                 )
                                 .andThen(
-                                        new Intake_on(bot)
+                                        new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new Intake_on_forever(bot)
+                                        new Intake_On_Toggle(bot)
                                 )
                                 .andThen(
                                         new Intake_off(bot)
@@ -88,7 +90,7 @@ public class NewRedFarSix extends OpModeCommand {
                                         new WaitCommand(2500)
                                 )
                                 .andThen(
-                                        new Intake_on(bot)
+                                        new Intake_on_15(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),dametime)
@@ -98,39 +100,6 @@ public class NewRedFarSix extends OpModeCommand {
                                                 .alongWith(new Intake_off(bot))
                                                 .alongWith (new Shooter_off(bot))
                                 )
-
-//                                .andThen(
-//                                        new WaitCommand(2000 )
-//                                )
-//                                .andThen(
-//                                        new Intake_on(bot)
-//                                )
-//                                .andThen(
-//                                        new Intake_on_forever(bot)
-//                                )
-//                                .andThen(
-//                                        new FollowPath(bot.getFollower(), intakeone)
-//                                )
-//                                .andThen(
-//                                        new WaitCommand(3000)
-//                                )
-//                                .andThen(
-//                                        new FollowPath(bot.getFollower(), dametime)
-//                                                .alongWith(new Intake_off(bot))
-//                                )
-//                                .andThen(
-//                                        new WaitCommand(3000)
-//                                )
-//                                .andThen(
-//                                        new Intake_on(bot)
-//                                )
-//                                .andThen(
-//                                        new FollowPath(bot.getFollower(), end)
-//                                                .alongWith(new Intake_off(bot))
-//                                                .alongWith(new Shooter_off(bot))
-//                                )
-//
-//                )
                 )
         );
     }
