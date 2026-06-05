@@ -50,7 +50,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public final Pose shotfour = new Pose (43,8, Math.toRadians(180));
 
-    public final Pose park = new Pose(33, 8, Math.toRadians(180));
+    public final Pose park = new Pose(27, 8, Math.toRadians(180));
 
     private Path shootone, prehintakeone, hintakeone, shoottwo, prefarintakespike, farintakespike, shootthree, prehintaketwo, hintaketwo, dametime, end;
 //hintake = humanintake
@@ -95,9 +95,9 @@ public class NewBlueFarTwelve extends OpModeCommand {
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), shootone, 0.65)
+                        new FollowPath(bot.getFollower(), shootone, 0.7)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, 1540, 0.35)
+                                        new Prep_Shooter_any(bot, 1535, 0.35)
                                 )
                                 .andThen(
                                         new WaitCommand(600)
@@ -106,7 +106,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2000)
+                                        new WaitCommand(2300)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -133,7 +133,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2300)
+                                        new WaitCommand(2400)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -160,7 +160,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2300)
+                                        new WaitCommand(2400)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -187,7 +187,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2300)
+                                        new WaitCommand(2400)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), end)
