@@ -30,8 +30,8 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(138, 144);
-    private Pose bluePose = new Pose(6, 144);
+    private Pose redPose = new Pose(142, 141);
+    private Pose bluePose = new Pose(2, 141);
 
     private Telemetry telemetry;
 
@@ -124,8 +124,12 @@ public class Turret {
 
     public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
         double ll_pid_output;
-        double dx = correctPose.getX() - followerPose.getX();
-        double dy = correctPose.getY() - followerPose.getY();
+        double turretOffset = 1.909449; // 3 inches behind center of robot
+        double turretX = followerPose.getX() - turretOffset * Math.cos(followerPose.getHeading());
+        double turretY = followerPose.getY() - turretOffset * Math.sin(followerPose.getHeading());
+
+        double dx = correctPose.getX() - turretX;
+        double dy = correctPose.getY() - turretY;
 
 // Angle from robot position to goal (field reference)
         double fieldTargetAngle = Math.toDegrees(Math.atan2(dy, dx));

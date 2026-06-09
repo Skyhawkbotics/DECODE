@@ -18,6 +18,7 @@ public class Light {
     private Timer timer;
 
     private double ballBuffer = 1.5;
+    private Boolean isfullcertainboolean;
 
     public Light(HardwareMap hardwareMap, Telemetry telemetry) {
         light = hardwareMap.get(Servo.class, "light");
@@ -36,15 +37,14 @@ public class Light {
 
 
      public boolean isFullCertain() { // if the ball is in the intake (distance less than x) for more than x seconds, it returns true
-            if(isFull() & timer.getElapsedTimeSeconds() > 1) {
+            if(isFull()) {
                 // if the distance is less than 3 and the time is over 1.5
                 // return as true
-                return true;
-            } else {
+                 return timer.getElapsedTimeSeconds() > 0.2;
+            }
                 // this will  happen if it is not full or if distance timer is not greater than 1.5
                 timer.resetTimer();
-                return false;
-            }
+            return false;
         }
 
      public void resetTimer() {
@@ -87,7 +87,9 @@ public class Light {
 
     public void light_telemetry() {
         telemetry.addData("Light Value", light.getPosition());
-        telemetry.addData("Distance Value", getDistance());
+//        telemetry.addData("Distance Value", getDistance());
         telemetry.addData("Timer", timer.getElapsedTimeSeconds());
+        telemetry.addData("light is full", isFull());
+        telemetry.addData("light is full certain", isfullcertainboolean);
     }
 }

@@ -71,6 +71,7 @@ public class Robot {
     private double lastError = 0.0;
     private boolean robotcentric = true;
     private int strafe_toggle = 1;
+    private boolean automatic_intake =  false;
 
 
 
@@ -130,6 +131,7 @@ public class Robot {
         intake = new Intake(hardwareMap, telemetry);
         turret = new Turret(hardwareMap, telemetry, ID);
         tilt = new Tilt(hardwareMap, telemetry);
+        light = new Light(hardwareMap, telemetry);
         follower.update();
         intake.servosIn();
         this.ID = ID;
@@ -188,18 +190,28 @@ public class Robot {
     public void any_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
         telemetry.addData("Current chain index", follower.getChainIndex());
-        telemetry.addData("heading error", follower.getHeadingError());
         telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
-        telemetry.addData("is robot stuck", follower.isRobotStuck());
+        light.light_telemetry();
         turret.turret_telemetry();
-        shooter.shooter_telemetry();
-        turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0);
+//        shooter.shooter_telemetry();
+//        turret.set_using_LL(ID);
+//        turret.turret_update(ID, follower.getPose(), 0);
         shooter.update();
         follower.update();
         telemetry.update();
         tilt.tiltZERO();
+//        isFull = light.isFull();
+
+//        if (isFull) {
+//            if (!light.lightIsGreen()) {
+//                light.green();
+//            }
+//        } else {
+//            if (!light.lightIsRed()) {
+//                light.red();
+//            }
+//        }
     }
     private double slew(double target, double current, double rate) {
         double delta = target - current;
@@ -279,15 +291,24 @@ public class Robot {
         } else if(g1.left_bumper) {
             intake.intake();
             useHeadingLock = true;
-
-        }
-        else if (g1.right_trigger > 0) {
+            automatic_intake = true;
+        } else if (g1.right_trigger > 0) {
             intake.fire();
         }
         else {
             intake.off();
             useHeadingLock = false;
 
+        }
+
+
+        if(automatic_intake) {
+            if(!light.isFullCertain()) {
+                intake.intake();
+            } else {
+                intake.off();
+                automatic_intake = false;
+            }
         }
 //        if(g1.square) {
 //            useHeadingLock = true;
@@ -513,6 +534,7 @@ public class Robot {
     }
 
     public void robot_telemetry() {
+        tilt.tilt_telemetry();
 
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
@@ -525,6 +547,7 @@ public class Robot {
         }
         if (light_telemetry) {
             light.light_telemetry();
+            light.isFullCertain();
         }
         if (shooter_telemetry) {
             shooter.shooter_telemetry();
@@ -548,6 +571,9 @@ public class Robot {
     }
     public Turret getTurret() {
         return turret;
+    }
+    public Light getLight() {
+        return light;
     }
     public boolean isIsred() {
         return isred;
