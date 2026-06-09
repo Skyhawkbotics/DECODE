@@ -194,9 +194,9 @@ public class Robot {
         telemetry.addData("follower busy", follower.isBusy());
         light.light_telemetry();
         turret.turret_telemetry();
-//        shooter.shooter_telemetry();
-//        turret.set_using_LL(ID);
-//        turret.turret_update(ID, follower.getPose(), 0);
+        shooter.shooter_telemetry();
+        turret.set_using_LL(ID);
+        turret.turret_update(ID, follower.getPose(), 0);
         shooter.update();
         follower.update();
         telemetry.update();

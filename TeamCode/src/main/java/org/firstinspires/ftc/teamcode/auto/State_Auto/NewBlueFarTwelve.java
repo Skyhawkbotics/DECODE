@@ -26,13 +26,13 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(180));
 
-    public static final Pose shotone = new Pose(43, 8, Math.toRadians(180));
+    public static final Pose shotone = new Pose(41, 8, Math.toRadians(180));
 
-    public final Pose prehumanintakeone = new Pose (15,8, Math.toRadians(180));
+    public final Pose prehumanintakeone = new Pose (14,8, Math.toRadians(180));
 //i split the intake to the human into two, save time
-    public final Pose humanintakeone = new Pose(8, 8, Math.toRadians(180));
+    public final Pose humanintakeone = new Pose(6.5, 8, Math.toRadians(180));
 
-    public final Pose shottwo = new Pose(42, 8, Math.toRadians(180));
+    public final Pose shottwo = new Pose(41, 8, Math.toRadians(180));
 
     public final Pose farintakespikestart = new Pose (39.65, 35.898, Math.toRadians(180));
 
@@ -42,13 +42,13 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public final Pose farintakespikeend = new Pose (13, 35.898, Math.toRadians(180));
     //at the end of the spike mark
-    public final Pose shotthree = new Pose (43,9.5, Math.toRadians(180));
+    public final Pose shotthree = new Pose (41,8, Math.toRadians(180));
 
-    public final Pose prehumanintaketwo = new Pose (15,8, Math.toRadians(180));
+    public final Pose prehumanintaketwo = new Pose (14,8, Math.toRadians(180));
 
-    public final Pose humanintaketwo = new Pose (8,8, Math.toRadians(180));
+    public final Pose humanintaketwo = new Pose (6.5,8, Math.toRadians(180));
 
-    public final Pose shotfour = new Pose (43,8, Math.toRadians(180));
+    public final Pose shotfour = new Pose (41,8, Math.toRadians(180));
 
     public final Pose park = new Pose(31, 8, Math.toRadians(180));
 
@@ -58,7 +58,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
         shootone = new Path (new BezierLine(startpos,shotone));
         shootone.setConstantHeadingInterpolation(Math.toRadians(180));
 
-        prehintakeone = new Path (new BezierCurve(shotone,prehumanintakeone));
+        prehintakeone = new Path (new BezierLine(shotone,prehumanintakeone));
         prehintakeone.setConstantHeadingInterpolation(Math.toRadians(180));
 
         hintakeone = new Path (new BezierLine(prehumanintakeone, humanintakeone));
@@ -95,18 +95,18 @@ public class NewBlueFarTwelve extends OpModeCommand {
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), shootone, 0.67)
+                        new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(
                                         new Prep_Shooter_any(bot, 1540, 0.35)
                                 )
                                 .andThen(
-                                        new WaitCommand(600)
+                                        new WaitCommand(650)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2300)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -115,25 +115,25 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), prehintakeone)
                                 )
                                 .andThen(
-                                        new WaitCommand(400)
+                                        new WaitCommand(150)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), hintakeone)
                                 )
                                 .andThen(
-                                        new WaitCommand(1500)
+                                        new WaitCommand(2000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), shoottwo)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(650)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2400)
+                                        new WaitCommand(1800)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -142,25 +142,22 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), prefarintakespike)
                                 )
                                 .andThen(
-                                        new WaitCommand(350)
-                                )
-                                .andThen(
                                         new FollowPath(bot.getFollower(),farintakespike)
                                 )
                                 .andThen (
-                                        new WaitCommand(350)
+                                        new WaitCommand(300)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(),shootthree)
                                 )
                                 .andThen (
-                                        new WaitCommand(700)
+                                        new WaitCommand(900)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2400)
+                                        new WaitCommand(2000)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -169,7 +166,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), prehintaketwo)
                                 )
                                 .andThen(
-                                        new WaitCommand(200)
+                                        new WaitCommand(250)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), hintaketwo)
@@ -181,13 +178,13 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), dametime)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(800)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(2400)
+                                        new WaitCommand(1000)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), end)
