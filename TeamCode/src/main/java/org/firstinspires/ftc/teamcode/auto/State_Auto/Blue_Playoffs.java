@@ -210,7 +210,7 @@ public class Blue_Playoffs extends OpModeCommand {
     @Override
     public void init_loop() {
         bot.getTurret().set_using_LL(20);
-        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0);
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, bot.getFollower());
     }
 
     public void initialize() {

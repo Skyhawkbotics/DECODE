@@ -16,16 +16,15 @@ public class blue_drive_close_18 extends OpMode {
 
 
 
-    public Pose resetPose = new Pose(128.58076225045372, 15.680580762250456, Math.toRadians(90));
+    public Pose resetPose = new Pose(16, 78, Math.toRadians(180));
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
-    private final Pose parkPose = new Pose(92, 114, Math.toRadians(-67));
+    private final Pose parkPose = new Pose(16, 78, Math.toRadians(180));
 
-    private final Pose parkPose_blue = parkPose.mirror();
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, parkPose_blue, false, resetPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, parkPose, false, resetPose);
 
     }
 

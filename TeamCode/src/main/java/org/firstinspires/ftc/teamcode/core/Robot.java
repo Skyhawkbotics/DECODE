@@ -72,7 +72,7 @@ public class Robot {
     private boolean robotcentric = true;
     private int strafe_toggle = 1;
     private boolean automatic_intake =  false;
-
+    private int intake_state = 0;
 
 
     // Tele-OP Constructor
@@ -137,7 +137,7 @@ public class Robot {
         this.ID = ID;
         tilt.tiltZERO();
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0);
+        turret.turret_update(ID, follower.getPose(), 0,follower);
 
     }
     ///  this is a init just for a follower drivetrain nothing else
@@ -146,6 +146,7 @@ public class Robot {
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
         follower.setStartingPose(startPose);
+
 
     }
 
@@ -192,16 +193,16 @@ public class Robot {
         telemetry.addData("Current chain index", follower.getChainIndex());
         telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
-        light.light_telemetry();
-        turret.turret_telemetry();
-        shooter.shooter_telemetry();
+//        light.light_telemetry();
+//        turret.turret_telemetry();
+//        shooter.shooter_telemetry();
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0);
+        turret.turret_update(ID, follower.getPose(), 0, follower);
         shooter.update();
         follower.update();
         telemetry.update();
         tilt.tiltZERO();
-//        isFull = light.isFull();
+        isFull = light.isFull();
 
 //        if (isFull) {
 //            if (!light.lightIsGreen()) {
@@ -226,6 +227,10 @@ public class Robot {
         return current + delta;
     }
 
+
+    public void setIntakeState(int pState) {
+        intake_state = pState;
+    }
     public void dual_drive() {
         if(isred) {
             gate_heading = gate_heading_red;
@@ -286,36 +291,74 @@ public class Robot {
 //        }
 //        drivetrain.robotCentricPowers(-g1.left_stick_y, g1.left_stick_x, g1.right_stick_x);
 
-        if (g1.left_trigger > 0) {
-            intake.intake();
-        } else if(g1.left_bumper) {
-            intake.intake();
-            useHeadingLock = true;
-            automatic_intake = true;
-        } else if (g1.right_trigger > 0) {
-            intake.fire();
-        }
-        else {
-            intake.off();
-            useHeadingLock = false;
-
-        }
-
-
-        if(automatic_intake) {
-            if(!light.isFullCertain()) {
-                intake.intake();
-            } else {
-                intake.off();
-                automatic_intake = false;
-            }
-        }
-//        if(g1.square) {
+//        if (g1.left_trigger > 0) {
+//            intake.intake();
+//        } else if(g1.left_bumper) {
+//            intake.intake();
 //            useHeadingLock = true;
-//
-//        } else {
-//            useHeadingLock = false;
+//            automatic_intake = true;
+//        } else if (g1.right_trigger > 0) {
+//            intake.fire();
 //        }
+//        else {
+//            intake.off();
+//            useHeadingLock = false;
+//
+//        }
+//
+//
+//        if(automatic_intake) {
+//            if(!light.isFullCertain()) {
+//                intake.intake();
+//            } else {
+//                intake.off();
+//                automatic_intake = false;
+//            }
+//        }
+
+        switch(intake_state) {
+            case 0: // stop intake, allow for auto intaking, fire, or intaking
+                intake.off();
+                if(g1.left_trigger > 0) {
+                    setIntakeState(1);
+                }
+                if(g1.right_trigger > 0 || g2.right_trigger > 0) {
+                    setIntakeState(2);
+                }
+                if(g1.left_bumper) {
+                    setIntakeState(3);
+                }
+                break;
+            case 1: // auto intake, add ability to cancel or fire
+                if(g1.left_trigger > 0) {
+                    intake.intake();
+                } else {
+                    setIntakeState(0);
+                }
+                break;
+            case 2: // firing, but allow for going back to stop intake or auto intake
+                if(g1.right_trigger > 0 || g2.right_trigger > 0) {
+                    intake.fire();
+                } else {
+                    setIntakeState(0);
+                }
+                break;
+            case 3: // heading lock + auto intake
+                if(g1.left_bumper) {
+                    useHeadingLock = true;
+                    if(!light.isFullCertain()) {
+                        intake.intake();
+                        if(g1.right_bumper) {
+                            setIntakeState(0);
+                        }
+                    }
+                } else {
+                    useHeadingLock = false;
+                    setIntakeState(0);
+                }
+                break;
+
+        }
 
 
 
@@ -330,7 +373,7 @@ public class Robot {
             tilt.tiltZERO();
         }
 
-        if(g1.rightBumperWasPressed()) {
+        if(g1.circleWasPressed()) {
             follower.setPose(resetPose);
         }
 
@@ -366,7 +409,7 @@ public class Robot {
 
         }
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, follower);
         if (g2.triangleWasPressed()) {
             turret.toZero();
         }
@@ -525,7 +568,7 @@ public class Robot {
             depot_distance = shooter.getDistance(follower.getPose(), isred);
         }
         ///  can average w/ ll..??????????????
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, follower);
 
         turret.set_using_LL(ID);
 
@@ -534,7 +577,7 @@ public class Robot {
     }
 
     public void robot_telemetry() {
-        tilt.tilt_telemetry();
+       // tilt.tilt_telemetry();
 
         if (robot_telemetry) {
             telemetry.addData("Follower Pose", follower.getPose());
@@ -543,7 +586,7 @@ public class Robot {
         }
         if (turret_telemetry) {
             turret.turret_telemetry();
-            telemetry.addData("Using Turret", using_turret);
+           // telemetry.addData("Using Turret", using_turret);
         }
         if (light_telemetry) {
             light.light_telemetry();

@@ -139,16 +139,7 @@ public class  Shooter {
 
         setTarget(perf_value);
     }
-    public void auto_speed() {
-        toggle_update_true();
 
-        setTarget(auto_speed2);
-    }
-    public void auto_speed2() {
-        toggle_update_true();
-
-        setTarget(auto_speed);
-    }
     public void autonomous_speed(int speed) {
         toggle_update_true();
         setTarget(speed);

@@ -82,12 +82,8 @@ public class Turret {
     }
   
     private double computeLeadAngle(Follower follower, Pose followerPose) {
-        Vector vel = follower.getVelocity();
-        velX = vel.getXComponent();
-        velY = vel.getYComponent();
-        double turret_constant = constants.turret_constant;
-        double robotSpeed = Math.hypot(velX, velY);
-
+//
+//
 //        if (robotSpeed < 2) {
 //            // Robot is stationary — no lead needed, return the plain target angle.
 //            leadAngleDeg = 0;
@@ -109,7 +105,7 @@ public class Turret {
 
         // Also compute the no-lead angle so we can expose the delta for tuning
 
-        return degrees_to_position(turretTargetAngle);
+        return turretTargetAngle;
     }
 
     public void init_pipeline(int ID) {
@@ -122,7 +118,9 @@ public class Turret {
 
     ///  24 is red, 20 is blue
 
-    public void turret_update(int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+    public void turret_update(int ID, Pose followerPose, float manual_input, Follower follower) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+
         double ll_pid_output;
         double turretOffset = 1.909449; // 3 inches behind center of robot
         double turretX = followerPose.getX() - turretOffset * Math.cos(followerPose.getHeading());
@@ -130,6 +128,10 @@ public class Turret {
 
         double dx = correctPose.getX() - turretX;
         double dy = correctPose.getY() - turretY;
+
+
+
+
 
 // Angle from robot position to goal (field reference)
         double fieldTargetAngle = Math.toDegrees(Math.atan2(dy, dx));
@@ -359,6 +361,8 @@ public class Turret {
     }
 
     public void turret_telemetry() {
+        telemetry.addData("velX", velX);
+        telemetry.addData("velY", velY);
         telemetry.addData("Using LL", using_LL);
         telemetry.addData("Turret Position", turret.getCurrentPosition());
         telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));

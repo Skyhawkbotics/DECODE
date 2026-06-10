@@ -14,7 +14,7 @@ public class constants {
     /// Hardware names
     public static String turret_name = "turret";
     public static double left_limit = -500;
-    public static double right_limit = 1100;
+    public static double right_limit = 900;
 
     public static int blue_ID = 20;
     public static int red_ID = 24;
@@ -28,7 +28,6 @@ public class constants {
 
 
     ///
-    public static int auto_speed = 1170;
     public static int auto_speed2 = 1060;
 
     public static int auto_speed3 = 1150;
@@ -39,12 +38,6 @@ public class constants {
     public static int far_side_shoot = 1740; ///vertex of smallest triangle
     public static double far_side_angle = 0.6;
 
-    public static int far_side_turret_offset = 521, far_side_turret_offset_blue = -400;
-
-    public static double far_zone_tx = -2;
-
-    public static double turret_close_pos = 420;
-
 
     public static int closest = 1150; ///position closest on the line
 
@@ -52,11 +45,6 @@ public class constants {
 
     public static double positionMin = 0.05;
     public static double positionMax = 0.95;
-    public static double bottom = 1;
-
-    public static double top = 0.5;
-    public static double angle = 90;
-
 
 
 
@@ -64,8 +52,7 @@ public class constants {
     public static double turret_p = 0.0034, turret_i = 0.1, turret_d = 0, turret_f = 0;
 
     public static double LLTarget = 0;
-    public static double turret_align_heading = 0;
-    public static double degrees_to_ticks;
+
 
 
     ///  Limelight PID Controller
@@ -135,8 +122,10 @@ public class constants {
     ///  drivetrain constants
     public  static double rate = 0.9;
     public static double drivetrain_p = 0.001, drivetrain_i = 0.00, drivetrain_d = 0, drivetrain_f = 0;
-    public static double gate_heading_red = 30, gateheading_blue = 110;
-    public static final double HEADING_KP = 1.7;
-    public static final double HEADING_KD = 0.1;
+    public static double gate_heading_red = 30, gateheading_blue = 145;
+    public static double HEADING_KP = 0.9;
+    public static double HEADING_KD = 0.13;
+
+    public static double projectile_speed = 200;
 
 }
