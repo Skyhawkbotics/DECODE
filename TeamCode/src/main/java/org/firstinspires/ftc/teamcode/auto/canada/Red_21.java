@@ -33,8 +33,8 @@ public class Red_21 extends OpModeCommand {
     private Pose preloadScorePose = new Pose(89, 87, Math.toRadians(310));
     private Pose intakeSpike2Pose = new Pose(129, 62, Math.toRadians(0));
     private Pose shootPose = new Pose(87, 77);
-    private static Pose beforeGateIntakePose = new Pose(120, 63);
-    private static Pose gateIntakePose = new Pose(133,65, Math.toRadians(25));
+    private static Pose beforeGateIntakePose = new Pose(120, 60);
+        private static Pose gateIntakePose = new Pose(133,65, Math.toRadians(25));
 
     private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
@@ -50,7 +50,7 @@ public class Red_21 extends OpModeCommand {
     private Pose controlPoint2Pose = new Pose(88, 63);
 
     private Pose controlPoint3Pose = new Pose(102, 65);
-    private Pose controlPoint4Pose =  new Pose(99, 61);
+    private Pose controlPoint4Pose =  new Pose(99, 58);
     private Pose controlPoint5Pose =  new Pose(97,84);
     private Pose controlPoint6Pose =  new Pose(93.33030852994557, 29.818511796733212);
 
@@ -244,7 +244,7 @@ public class Red_21 extends OpModeCommand {
                         new FollowPath(bot.getFollower(), spike1)
                         .alongWith(
                                 new Prep_Shooter_any(bot, 1160, 0),
-                                new Intake_Timed_Command(bot, 0.2, 1)
+                                new Intake_Timed_Command(bot, 0, 1.5)
                         ),
                         new Fire_Command(bot),
 
@@ -253,7 +253,7 @@ public class Red_21 extends OpModeCommand {
                         new FollowPath(bot.getFollower(), spike3)
                                 .alongWith(
                                         new Prep_Shooter_any(bot, 1300, 0.3),
-                                        new Intake_Timed_Command(bot, 0.2, 2)
+                                        new Intake_Timed_Command(bot, 0, 3)
                                 ),
                         new Fire_Command(bot)
                                 )

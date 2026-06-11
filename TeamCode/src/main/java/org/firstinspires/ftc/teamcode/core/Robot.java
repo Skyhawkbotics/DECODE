@@ -38,8 +38,6 @@ public class Robot {
     private Light light;
     private Tilt tilt;
     private LL ll;
-    private Drivetrain drivetrain;
-
     ///  ROBOT STUFF
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
@@ -94,17 +92,8 @@ public class Robot {
         turret = new Turret(hardwareMap, telemetry, ID);
         light = new Light(hardwareMap, telemetry);
         tilt = new Tilt(hardwareMap, telemetry);
-        drivetrain = new Drivetrain(hardwareMap, telemetry);
         tilt.tiltZERO();
         drivetrainPID = new PIDFController(drivetrain_p, drivetrain_i, drivetrain_d, drivetrain_f);
-
-///  :)
-        ///  GAMEPADS
-        // hi hi hi hi hi
-        //hi h ih i hi hi hi h i
-        // hihihihihihihihix
-//        this.g1 = new Gamepad();
-//        this.g2 = new Gamepad();
 
 
 
@@ -192,9 +181,7 @@ public class Robot {
         telemetry.addData("Current chain index", follower.getChainIndex());
         telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
-//        light.light_telemetry();
-//        turret.turret_telemetry();
-//        shooter.shooter_telemetry();
+
         turret.set_using_LL(ID);
         turret.turret_update(ID, follower.getPose(), 0, 0);
         shooter.update();
@@ -203,15 +190,6 @@ public class Robot {
         tilt.tiltZERO();
         isFull = light.isFull();
 
-//        if (isFull) {
-//            if (!light.lightIsGreen()) {
-//                light.green();
-//            }
-//        } else {
-//            if (!light.lightIsRed()) {
-//                light.red();
-//            }
-//        }
     }
     private double slew(double target, double current, double rate) {
         double delta = target - current;
@@ -592,6 +570,8 @@ public class Robot {
         if (g2.touchpad) {
             LLDistance = !LLDistance;
         }
+
+        // test test test
 
         if (isValid){// limelight is working/
             // depot_distance = (shooter.getDistance(follower.getPose(),isred) +
