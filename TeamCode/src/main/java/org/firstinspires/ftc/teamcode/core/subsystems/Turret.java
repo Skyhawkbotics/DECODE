@@ -46,8 +46,14 @@ public class Turret {
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
 
+    private double turretP, turretD, turretI;
+
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
+        turretP = turret_p;
+        turretI = turret_i;
+        turretD = turret_d;
+
 
         ///  INITIALIZING LIMELIGHT
         ll = hardwareMap.get(Limelight3A.class, "limelight");
@@ -136,7 +142,9 @@ public class Turret {
                     }
                 } else {
                     ///  heading update
-
+                    turretP = turret_p;
+                    turretI = turret_i;
+                    turretD = turret_d;
                     if (raw_turret_offset_position > right_limit) { // from the back the right of the robot should be negative no?
                         correct_turret_offset_position = right_limit;
                     } else if (raw_turret_offset_position < left_limit) {
@@ -145,7 +153,7 @@ public class Turret {
                         correct_turret_offset_position = raw_turret_offset_position;
                     }
 
-                    t_pid.setPIDF(turret_p, turret_i, turret_d, feedforward);
+                    t_pid.setPIDF(turretP, turretI, turretD, feedforward);
                     turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
                     double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
                     turret.setPower(pid_output);
@@ -170,7 +178,12 @@ public class Turret {
         }
 
     }
-
+    public void increaseTurretP() {
+        turret_p = turret_p + 0.0005;
+    }
+    public void decreaseTurretP() {
+        turret_p = turret_p - 0.0005;
+    }
     private double normalizeAngle(double angle) {
         double normalizedAngle;
         if(angle > 180) {

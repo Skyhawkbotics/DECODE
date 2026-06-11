@@ -71,7 +71,7 @@ public class Robot {
     private boolean robotcentric = true;
     private int strafe_toggle = 1;
     private boolean automatic_intake =  false;
-    private int intake_state = 0;
+    private int intake_state = 0, secondaryState = 0 ;
 
 
     // Tele-OP Constructor
@@ -229,6 +229,9 @@ public class Robot {
 
     public void setIntakeState(int pState) {
         intake_state = pState;
+    }
+    public void setSecondaryState(int pState) {
+        secondaryState = pState;
     }
     public void dual_drive() {
         if(isred) {
@@ -394,45 +397,19 @@ public class Robot {
         ///  ABRAHAM'S CONTROLS
 
 
-        if (g2.right_trigger > 0) {
-            intake.fire();
-        }
 
-//  Turret
-        if(g2.rightBumperWasPressed()) {
-            turret.reset_turret();
-        }
-
-        if(g2.squareWasPressed()) {
-            turret.toggle_manual_turret();
-
-        }
         turret.set_using_LL(ID, g2.cross);
         turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 0);
-        if (g2.triangleWasPressed()) {
-            turret.toZero();
-        }
 
 
 
-// Shooter
 
-        if (g2.touchpad) {
-            LLDistance = !LLDistance;
-        }
+// Shoote
 
-        if (isValid) {
-        } else {
-            depot_distance = shooter.getDistance(follower.getPose(), isred);
-        }
+        depot_distance = shooter.getDistance(follower.getPose(), isred);
+
         ///  can average w/ ll..??????????????
 
-        if (g2.dpadLeftWasPressed()) {
-            shooter.turnOFF();
-        }
-        if(g2.dpadUpWasPressed()) {
-            updating_shooter = !updating_shooter;
-        }
         if (updating_shooter) {
             if ((144 - follower.getPose().getY()) > 105) {
                 shooter.toggle_update_true();
@@ -447,8 +424,64 @@ public class Robot {
 
             shooter.turnOFF();
         }
-        if (shooter.velocityReached()) {
-            g2.rumble (1000);
+
+
+
+
+
+
+        switch(secondaryState) {
+            case 0: // stop intake, allow for auto intaking, fire, or intaking
+
+                if (g2.triangleWasPressed()) {
+                    turret.toZero();
+                }
+
+                if (g2.right_trigger > 0) {
+                    intake.fire();
+                }
+
+//  Turret
+                if(g2.rightBumperWasPressed()) {
+                    turret.reset_turret();
+                }
+
+                if(g2.squareWasPressed()) {
+                    turret.toggle_manual_turret();
+
+                }
+
+                if (g2.dpadLeftWasPressed()) {
+                    shooter.turnOFF();
+                }
+                if(g2.dpadUpWasPressed()) {
+                    updating_shooter = !updating_shooter;
+                }
+                break;
+            case 1: // right side = shooter constant
+                if(g2.rightBumperWasPressed()) {
+                    shooter.increaseShooterConstant();
+                }
+                if(g2.rightTriggerWasPressed()) {
+                    shooter.decreaseShooterConstant();
+                }
+                ///  left side = sharpening constant
+                if(g2.leftBumperWasPressed()) {
+                    shooter.increaseSharpeningConstant();
+                }
+                if(g2.leftTriggerWasPressed()) {
+                    shooter.decreaseSharpeningConstant();
+                }
+
+                if(g2.dpadUpWasPressed()) {
+                    turret.increaseTurretP();
+                }
+                if(g2.dpadDownWasPressed()) {
+                    turret.decreaseTurretP();
+                }
+
+                break;
+
         }
     }
     public void solo_drive() {

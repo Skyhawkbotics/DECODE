@@ -90,6 +90,7 @@ public class  Shooter {
     }
 
     public void update() { /// PID Update loop
+        shooterSpeed.updateShooterConstants();
         if(is_updating) {
             pid.setPIDF(ep, ei, ed, f);
 
@@ -105,6 +106,20 @@ public class  Shooter {
 
 
     }
+    public void increaseShooterConstant() {
+        shooterSpeed.increaseShooterConstant();
+    }
+    public void decreaseShooterConstant() {
+        shooterSpeed.decreaseShooterConstant();
+    }
+    public void increaseSharpeningConstant() {
+        shooterSpeed.increaseSharpeningConstant();
+    }
+    public void decreaseSharpeningConstant() {
+        shooterSpeed.decreaseSharpeningConstant();
+    }
+
+
     public void setTarget(int b) {
         ///  sets PID target
         target = b;
@@ -286,9 +301,7 @@ public class  Shooter {
 
     public void shooter_telemetry() {
         telemetry.addData("Motor Speed (Ticks)", right_motor.getVelocity());
-        // telemetry.addData("motor rpm", conversion_RPM(right_motor.getVelocity()));
-        // telemetry.addData("left Motor power", left_motor.getPower());
-        // telemetry.addData("right Motor power", right_motor.getPower());
+
         telemetry.addData("Shooter Angle position", servo.getPosition());
         telemetry.addData("Target", target);
         telemetry.addData("PID Output for power", power);

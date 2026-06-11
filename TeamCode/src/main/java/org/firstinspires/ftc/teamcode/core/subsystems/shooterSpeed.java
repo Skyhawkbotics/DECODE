@@ -4,14 +4,17 @@ import com.pedropathing.geometry.Pose;
 import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 public class shooterSpeed {
+    double shooterC = shooter_constant;
+    double sharpenC = sharpening_constant;
+    double dampenC = dampening_constant;
     public shooterSpeed() {
     }
 
+    ///  I want to be able to increase or decrease the shooterconstant using gamepad inputs
+    /// I need an update loop
     public double calcVelocity(double d, boolean farZone) {
         // i'm trying to make sure I can edit it on the panels and so it will update. Each time it calcualtes it has to reestablish the values so if they are changed in panels it should be changed in here as well? - eric 5/4
-        double shooterC = shooter_constant;
-        double sharpenC = sharpening_constant;
-        double dampenC = dampening_constant;
+
 
         double GRAVITY = 9.80665; // g (m/s^2)
         double VERTICAL_DISTANCE = 0.756; // 1.041 - 0.300 = 0.741 + a little for jazz
@@ -52,6 +55,23 @@ public class shooterSpeed {
         double servo_position = - 0.85 / 30 * degrees + 1.7;
         return servo_position;
 
+    }
+    public void updateShooterConstants() {
+         shooterC = shooter_constant;
+         sharpenC = sharpening_constant;
+         dampenC = dampening_constant;
+    }
+    public void increaseShooterConstant() {
+        shooter_constant = shooter_constant + 0.1;
+    }
+    public void decreaseShooterConstant() {
+        shooter_constant = shooter_constant - 0.1;
+    }
+    public void increaseSharpeningConstant() {
+        sharpening_constant = sharpening_constant + 0.1;
+    }
+    public void decreaseSharpeningConstant() {
+        sharpening_constant = sharpening_constant - 0.1;
     }
 
 }
