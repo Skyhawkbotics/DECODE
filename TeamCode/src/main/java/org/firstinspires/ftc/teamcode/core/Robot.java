@@ -15,7 +15,6 @@ import static org.firstinspires.ftc.teamcode.core.constants.rate;
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.util.Timer;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -137,7 +136,7 @@ public class Robot {
         this.ID = ID;
         tilt.tiltZERO();
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0,follower);
+        turret.turret_update(ID, follower.getPose(), 0, 0);
 
     }
     ///  this is a init just for a follower drivetrain nothing else
@@ -197,7 +196,7 @@ public class Robot {
 //        turret.turret_telemetry();
 //        shooter.shooter_telemetry();
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0, follower);
+        turret.turret_update(ID, follower.getPose(), 0, 0);
         shooter.update();
         follower.update();
         telemetry.update();
@@ -408,8 +407,8 @@ public class Robot {
             turret.toggle_manual_turret();
 
         }
-        turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, follower);
+        turret.set_using_LL(ID, g2.cross);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 0);
         if (g2.triangleWasPressed()) {
             turret.toZero();
         }
@@ -568,7 +567,7 @@ public class Robot {
             depot_distance = shooter.getDistance(follower.getPose(), isred);
         }
         ///  can average w/ ll..??????????????
-        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, follower);
+        turret.turret_update(ID, follower.getPose(), g2.left_stick_x, 0);
 
         turret.set_using_LL(ID);
 

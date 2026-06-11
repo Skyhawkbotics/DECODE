@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.Test_Files;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp (name = "Clawman")
+@Disabled
 public class Clawman extends OpMode {
 
     public Servo swervo;

@@ -4,9 +4,7 @@ import static org.firstinspires.ftc.teamcode.core.constants.*;
 
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.controller.PIDFController;
-import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.math.Vector;
 import com.pedropathing.util.Timer;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
@@ -17,7 +15,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.core.constants;
 
 import java.util.List;
 
@@ -30,8 +27,8 @@ public class Turret {
 
     private DcMotorEx turret;
 
-    private Pose redPose = new Pose(142, 141);
-    private Pose bluePose = new Pose(2, 141);
+    private Pose redPose = new Pose(134.5, 135);
+    private Pose bluePose = new Pose(9.5, 135);
 
     private Telemetry telemetry;
 
@@ -48,10 +45,6 @@ public class Turret {
 
     private double turretPose = 395;
     private double turret_close_pos_BLUE = -369;
-
-
-    ///  SOTM
-    double velX, velY = 0, BALL_FLIGHT_TIME = 0.3;
 
 
     public Turret(HardwareMap hardwareMap, Telemetry telemetry, int ID) {
@@ -80,34 +73,6 @@ public class Turret {
             correctPose = bluePose;
         }
     }
-  
-    private double computeLeadAngle(Follower follower, Pose followerPose) {
-//
-//
-//        if (robotSpeed < 2) {
-//            // Robot is stationary — no lead needed, return the plain target angle.
-//            leadAngleDeg = 0;
-//            return computeStaticAngle(followerPose);
-//        }
-
-        // Predict where the robot's shooter (approximated as the robot centre) will
-        // be when the ball reaches the goal.
-        double predictedX = followerPose.getX() + velX * BALL_FLIGHT_TIME * turret_constant;
-        double predictedY = followerPose.getY() + velY * BALL_FLIGHT_TIME * turret_constant;
-
-        // Vector from predicted launch position to goal
-        double dx = correctPose.getX() - predictedX;
-        double dy = correctPose.getY() - predictedY;
-
-        double fieldTargetAngle  = Math.toDegrees(Math.atan2(dy, dx));
-        double robotHeading      = Math.toDegrees(followerPose.getHeading());
-        double turretTargetAngle = normalizeAngle(fieldTargetAngle - robotHeading);
-
-        // Also compute the no-lead angle so we can expose the delta for tuning
-
-        return turretTargetAngle;
-    }
-
     public void init_pipeline(int ID) {
         if (ID == 20) {
             ll.pipelineSwitch(0); // filter to 20 blue only
@@ -118,8 +83,7 @@ public class Turret {
 
     ///  24 is red, 20 is blue
 
-    public void turret_update(int ID, Pose followerPose, float manual_input, Follower follower) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
-
+    public void turret_update(int ID, Pose followerPose, float manual_input, double LL_target) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
 
         double ll_pid_output;
         double turretOffset = 1.909449; // 3 inches behind center of robot
@@ -128,10 +92,6 @@ public class Turret {
 
         double dx = correctPose.getX() - turretX;
         double dy = correctPose.getY() - turretY;
-
-
-
-
 
 // Angle from robot position to goal (field reference)
         double fieldTargetAngle = Math.toDegrees(Math.atan2(dy, dx));
@@ -147,8 +107,6 @@ public class Turret {
 
         raw_turret_offset_position = degrees_to_position(turretTargetAngle);
 
-
-
         if(!manual_turret) {
                 if (using_LL) {
                     LLResult result = ll.getLatestResult();
@@ -157,9 +115,10 @@ public class Turret {
                         List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                         for (LLResultTypes.FiducialResult fr : fiducialResults) {
                             if (fr.getFiducialId() == ID) {
+                                LLTarget = LL_target;
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
-                                ll_pid_output = ll_pid.calculate(result.getTx(), LLTarget); // + sign * turret_f;
+                                ll_pid_output = ll_pid.calculate(result.getTx() / 100, LLTarget); // + sign * turret_f;
 
                                 if ((turret.getCurrentPosition() <= left_limit) &&
                                         (Math.signum(ll_pid_output) == -1)) {
@@ -211,93 +170,8 @@ public class Turret {
         }
 
     }
-    public void turret_update_SOTM(Follower follower, int ID, Pose followerPose, float manual_input) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
-        double ll_pid_output;
-        double dx = correctPose.getX() - followerPose.getX();
-        double dy = correctPose.getY() - followerPose.getY();
-
-// Angle from robot position to goal (field reference)
-        double fieldTargetAngle = Math.toDegrees(Math.atan2(dy, dx));
-
-// Robot heading in degrees
-        double robotHeading = Math.toDegrees(followerPose.getHeading());
-
-// Turret must compensate for robot heading
-        double turretTargetAngle = fieldTargetAngle - robotHeading;
-
-// Normalize to -180 to 180
-        turretTargetAngle = normalizeAngle(turretTargetAngle);
-
-        raw_turret_offset_position = computeLeadAngle(follower, followerPose);
-
-
-        if(!manual_turret) {
-            if (using_LL) {
-                LLResult result = ll.getLatestResult();
-
-                if (result.isValid()) {
-                    List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
-                    for (LLResultTypes.FiducialResult fr : fiducialResults) {
-                        if (fr.getFiducialId() == ID) {
-                            timer.resetTimer();
-                            ll_pid.setPIDF(lp, li, ld, lf);
-                            ll_pid_output = ll_pid.calculate(result.getTx(), LLTarget); // + sign * turret_f;
-
-                            if ((turret.getCurrentPosition() <= left_limit) &&
-                                    (Math.signum(ll_pid_output) == -1)) {
-                                turret.setPower(0);
-                            } else if ((turret.getCurrentPosition() >= right_limit) &&
-                                    (Math.signum(ll_pid_output) == 1)) {
-                                turret.setPower(0);
-                            } else {
-                                turret.setPower(ll_pid_output);
-                            }
-                            LL_turret_error = result.getTx() - LLTarget;
-                            telemetry.addData("LL PID OUTPUT", ll_pid_output);
-                        }
-                    }
-                }
-            } else {
-                ///  heading update
-
-                if (raw_turret_offset_position > right_limit) { // from the back the right of the robot should be negative no?
-                    correct_turret_offset_position = right_limit;
-                } else if (raw_turret_offset_position < left_limit) {
-                    correct_turret_offset_position = left_limit;
-                } else {
-                    correct_turret_offset_position = raw_turret_offset_position;
-                }
-
-                t_pid.setPIDF(turret_p, turret_i, turret_d, turret_f);
-                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-                double pid_output = t_pid.calculate(turret.getCurrentPosition(), correct_turret_offset_position);
-                turret.setPower(pid_output);
-                odometry_turret_error = correct_turret_offset_position - turret.getCurrentPosition();
-
-
-            }
-
-        } else {
-
-            manual_input *= -0.5;
-
-            if ((turret.getCurrentPosition() <= left_limit) &&
-                    (Math.signum(manual_input) == -1)) {
-                turret.setPower(0);
-            } else if ((turret.getCurrentPosition() >= right_limit) &&
-                    (Math.signum(manual_input) == 1)) {
-                turret.setPower(0);
-            } else {
-                turret.setPower(manual_input);
-            }
-        }
-
-    }
-
 
     private double normalizeAngle(double angle) {
-//        while (angle > 180) angle -= 360;
-//        while (angle < -180) angle += 360;
         double normalizedAngle;
         if(angle > 180) {
             normalizedAngle = angle - 360;
@@ -338,6 +212,31 @@ public class Turret {
         using_LL = true;
    }
 
+    public void set_using_LL(int ID, boolean gamepadinput) {
+        if(gamepadinput) {
+            LLResult result = ll.getLatestResult();
+
+            if (result.isValid()) {
+                telemetry.addData("LIMELIGHT LOOP WORKING", "");
+                List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
+                for (LLResultTypes.FiducialResult fr : fiducialResults) {
+                    if (fr.getFiducialId() == ID) {
+                        timer.resetTimer();
+                    }
+                }
+            }
+
+            if (timer.getElapsedTime() > LL_buffer) {
+                using_LL = false;
+            } else {
+                using_LL = true;
+            }
+        } else {
+            using_LL = false;
+        }
+
+
+    }
     public void set_using_LL(int ID) {
         LLResult result = ll.getLatestResult();
 
@@ -354,15 +253,14 @@ public class Turret {
         if(timer.getElapsedTime() > LL_buffer) {
             using_LL = false;
         } else {
-            using_LL = true;
+            using_LL = false;
         }
 
 
     }
 
     public void turret_telemetry() {
-        telemetry.addData("velX", velX);
-        telemetry.addData("velY", velY);
+
         telemetry.addData("Using LL", using_LL);
         telemetry.addData("Turret Position", turret.getCurrentPosition());
         telemetry.addData("turret position in degrees", position_to_degrees(turret.getCurrentPosition()));
@@ -370,6 +268,7 @@ public class Turret {
         telemetry.addData("manual turret", manual_turret);
         telemetry.addData("using turret", using_turret);
         telemetry.addData("Ododmetry turret PID error", odometry_turret_error);
+        telemetry.addData("turret power",turret.getPower());
         telemetry.addData("LL Turret PID Erorr", LL_turret_error);
 
     }

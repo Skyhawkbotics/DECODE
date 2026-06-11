@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Test_Files;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "LeBot")
+@Disabled
 public class Lebot extends OpMode {
 
     public DcMotorEx motor_A, motor_B;

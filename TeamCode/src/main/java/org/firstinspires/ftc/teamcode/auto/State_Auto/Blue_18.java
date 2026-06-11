@@ -10,6 +10,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
@@ -17,12 +18,12 @@ import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Blue 18", group = "Solo", preselectTeleOp = "18 CLOSE Blue Drive")
+@Disabled
 public class Blue_18 extends OpModeCommand {
 
 
@@ -204,7 +205,7 @@ public class Blue_18 extends OpModeCommand {
     @Override
     public void init_loop() {
         bot.getTurret().set_using_LL(20);
-        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, bot.getFollower());
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
     }
 
     public void initialize() {

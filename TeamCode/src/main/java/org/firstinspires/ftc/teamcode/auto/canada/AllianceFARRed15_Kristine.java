@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.State_Auto;
+package org.firstinspires.ftc.teamcode.auto.canada;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous (name = "Kristine15RedFarAlliance", group = "auto")
+@Autonomous (name = "RED Alliance Far 15", group = "Alliance RED")
 public class AllianceFARRed15_Kristine extends OpModeCommand {
 
     Robot bot;

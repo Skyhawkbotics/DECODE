@@ -8,6 +8,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
@@ -20,6 +21,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "TheyWantTheShooter_Blue", group = "blue")
+@Disabled
 public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
 
     Robot bot;
@@ -76,7 +78,7 @@ public class BLUE_IsaidTheyWantTheShooter extends OpModeCommand {
     @Override
     public void init_loop() {
         bot.getTurret().set_using_LL(20);
-        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, bot.getFollower());
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
     }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, starttime, 20);

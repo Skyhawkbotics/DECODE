@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.State_Auto;
+package org.firstinspires.ftc.teamcode.auto.canada;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "blue far 12", group = "blue")
+@Autonomous(name = "BLUE far 12", group = "blue")
 public class NewBlueFarTwelve extends OpModeCommand {
 
     Robot bot;

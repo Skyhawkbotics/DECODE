@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada;
+package org.firstinspires.ftc.teamcode.auto.canada.commands;
 
 
 import com.arcrobotics.ftclib.command.CommandBase;
@@ -7,7 +7,7 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Intake_on_automatic extends CommandBase {
+public class Intake_Command extends CommandBase {
     ///  This is the main firing command. Servo Stopper position not specified
     private int state = 1;
 
@@ -16,7 +16,7 @@ public class Intake_on_automatic extends CommandBase {
 
 
 
-    public Intake_on_automatic(Robot bot) { // runs the Command
+    public Intake_Command(Robot bot) { // runs the Command
         this.bot = bot;
     }
 
@@ -34,15 +34,9 @@ public class Intake_on_automatic extends CommandBase {
                 break;
             case 1:
                 bot.getIntaking().intake();
-                setState(2);
+                setState(-1);
                 break;
-            case 2:
-                if (bot.getLight().isFullCertain()) { //1
-                    bot.getIntaking().servosIn();
 
-                    setState(-1); //3
-                }
-                break;
 
         }
     }

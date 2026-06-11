@@ -49,7 +49,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.0034, turret_i = 0.1, turret_d = 0, turret_f = 0;
+    public static double turret_p = 0.004, turret_i = 0.07, turret_d = 0.00008, turret_f = 0;
 
     public static double LLTarget = 0;
 
@@ -60,11 +60,11 @@ public class constants {
 //    public static double lp = 0.015;
 //    public static double li = 0;
 //    public static double ld = 0.00013;
-    public static double lf = 0.04;
+    public static double lf = 0.0;
 
-    public static double lp = 0.010;
-    public static double li = 0.1;
-    public static double ld = 0.000010;
+    public static double lp = 0.007;
+    public static double li = 0.05;
+    public static double ld = 0.00000;
     public static double LLTolerance = 0.3;
     /// /// Intake speed constants
 

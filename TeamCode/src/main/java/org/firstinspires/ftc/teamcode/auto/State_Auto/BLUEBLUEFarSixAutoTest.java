@@ -5,7 +5,6 @@ import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -18,7 +17,6 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -57,7 +55,7 @@ public class BLUEBLUEFarSixAutoTest extends OpModeCommand {
     @Override
     public void init_loop() {
       bot.getTurret().set_using_LL(20);
-      bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, bot.getFollower());
+      bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
     }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, startpos, 20);

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.auto.canada;
 
 
-import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -10,17 +9,21 @@ import com.bylazar.configurables.annotations.Configurable;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.PathBuilder;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Fire_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Timed_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_on_automatic;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.prep_Shooter_preload;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "aaron", group = "Solo", preselectTeleOp = "18 CLOSE Red Drive")
+@Autonomous(name = "RED CLOSE 21", group = "Solo", preselectTeleOp = "18 CLOSE Red Drive")
 @Configurable
 public class Red_21 extends OpModeCommand {
 
@@ -42,6 +45,24 @@ public class Red_21 extends OpModeCommand {
 
 
 
+    private Pose controlPoint1Pose = new Pose(124, 119);
+
+    private Pose controlPoint2Pose = new Pose(88, 63);
+
+    private Pose controlPoint3Pose = new Pose(102, 65);
+    private Pose controlPoint4Pose =  new Pose(99, 61);
+    private Pose controlPoint5Pose =  new Pose(97,84);
+    private Pose controlPoint6Pose =  new Pose(93.33030852994557, 29.818511796733212);
+
+
+
+
+
+
+
+
+
+
 
     private PathChain preload_spike2, gateIntake1, return1, spike1, spike3;
 
@@ -50,7 +71,7 @@ public class Red_21 extends OpModeCommand {
         preload_spike2 = bot.getFollower().pathBuilder()
                 .addPath(
                         new BezierCurve(
-                                redCloseStartPose, new Pose(124, 119), preloadScorePose
+                                redCloseStartPose, controlPoint1Pose, preloadScorePose
                         )
                 )
 
@@ -58,7 +79,7 @@ public class Red_21 extends OpModeCommand {
                 .addPath(
                         new BezierCurve(
                                 preloadScorePose,
-                                new Pose(88, 63),
+                                controlPoint2Pose,
                                 intakeSpike2Pose
                         )
                 )
@@ -66,7 +87,7 @@ public class Red_21 extends OpModeCommand {
                 .addPath(
                         new BezierCurve(
                                 intakeSpike2Pose,
-                                new Pose(102, 65),
+                                controlPoint3Pose,
                                 shootPose
 
                         )
@@ -78,7 +99,7 @@ public class Red_21 extends OpModeCommand {
                 .addPath(
                         new BezierCurve(
                                 shootPose,
-                                new Pose(99, 61),
+                                controlPoint4Pose,
                                 beforeGateIntakePose
 
                         )
@@ -106,7 +127,7 @@ public class Red_21 extends OpModeCommand {
                 .addPath(
                         new BezierCurve(
                                 shootPose,
-                                new Pose(97,84),
+                                controlPoint5Pose,
                                 intakeSpike1Pose
                         )
                 )
@@ -124,7 +145,7 @@ public class Red_21 extends OpModeCommand {
                 .addPath(
                         new BezierCurve(
                                 shootPose2,
-                                new Pose(103, 34),
+                                controlPoint6Pose,
                                 intakeSpike3Pose
                         )
                 )
@@ -147,7 +168,7 @@ public class Red_21 extends OpModeCommand {
     @Override
     public void init_loop() {
         bot.getTurret().set_using_LL(24);
-        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, bot.getFollower());
+        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, 0);
     }
 
     public void initialize() {

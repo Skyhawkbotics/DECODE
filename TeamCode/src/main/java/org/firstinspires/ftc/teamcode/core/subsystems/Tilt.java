@@ -22,8 +22,8 @@ public class Tilt {
 
     }
     public void tiltREAL() {
-        tilt1.setPosition(0.2);
-       tilt2.setPosition(0.2);
+        tilt1.setPosition(0);
+       tilt2.setPosition(0);
 
     }
     public void tilt1Zero() {
@@ -33,8 +33,8 @@ public class Tilt {
         tilt2.setPosition(1);
     }
     public void tiltZERO() {
-       tilt1.setPosition(0.9);
-        tilt2.setPosition(0.9);
+       tilt1.setPosition(1);
+        tilt2.setPosition(1);
     }
     public void tilt1FULL() {
         tilt1.setPosition(0.5);

@@ -1,11 +1,8 @@
-package org.firstinspires.ftc.teamcode.Test_Files;
-
-import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
+package org.firstinspires.ftc.teamcode.auto.canada;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
-import com.bylazar.telemetry.PanelsTelemetry;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -16,54 +13,54 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_on_forever;
-import org.firstinspires.ftc.teamcode.core.commands.farzone.Prep_Shooter_far_red;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off;
-import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "blue far new", group = "blue")
-public class NewBlueFarSix extends OpModeCommand {
+@Autonomous(name = "RED far 6", group = "red")
+public class NewRedFarSix extends OpModeCommand {
 
     Robot bot;
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(180));
+    public static final Pose redstartpos = startpos.mirror();
 
     public static final Pose shotone = new Pose(56, 8, Math.toRadians(180));
+    public static final Pose redshotone = shotone.mirror();
 
     public final Pose humanintake = new Pose(12, 8, Math.toRadians(180));
 
+    public final Pose redhumanintake = humanintake.mirror();
     public final Pose treshot = new Pose(56, 8, Math.toRadians(180));
+    public final Pose redtreshot = treshot.mirror();
 
     public final Pose park = new Pose(36, 8, Math.toRadians(180));
-
-    private Path bshootone, bintakeone, bdametime, bend;
+    public final Pose redpark = park.mirror();
+    private Path shootone, intakeone, dametime, end;
 
     public void buildPaths () {
-        bshootone = new Path (new BezierLine(startpos,shotone));
-        bshootone.setLinearHeadingInterpolation(startpos.getHeading(), shotone.getHeading());
+        shootone = new Path (new BezierLine(redstartpos,redshotone));
+        shootone.setLinearHeadingInterpolation(redstartpos.getHeading(), redshotone.getHeading());
 
-        bintakeone = new Path (new BezierCurve(shotone,humanintake));
-        bintakeone.setLinearHeadingInterpolation(shotone.getHeading(), humanintake.getHeading());
+        intakeone = new Path (new BezierCurve(redshotone,redhumanintake));
+        intakeone.setLinearHeadingInterpolation(redshotone.getHeading(), redhumanintake.getHeading());
 
-        bdametime = new Path (new BezierLine(humanintake, treshot));
-        bdametime.setLinearHeadingInterpolation(treshot.getHeading(), treshot.getHeading());
+        dametime = new Path (new BezierLine(redhumanintake, redtreshot));
+        dametime.setLinearHeadingInterpolation(redtreshot.getHeading(), redtreshot.getHeading());
 
-        bend = new Path (new BezierLine(treshot, park));
-        bend.setLinearHeadingInterpolation(treshot.getHeading(), park.getHeading());
+        end = new Path (new BezierLine(redtreshot, redpark));
+        end.setLinearHeadingInterpolation(redtreshot.getHeading(), redpark.getHeading());
 
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 20);
+        bot = new Robot(hardwareMap, telemetry, redstartpos, 24);
         buildPaths();
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), bshootone, 0.8)
+                        new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(
                                         new Prep_Shooter_any(bot, 1600, 0.35)
                                 )
@@ -80,7 +77,7 @@ public class NewBlueFarSix extends OpModeCommand {
                                         new Intake_off(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), bintakeone)
+                                        new FollowPath(bot.getFollower(), intakeone)
                                 )
                                 .andThen(
                                         new WaitCommand(2500)
@@ -89,10 +86,10 @@ public class NewBlueFarSix extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(),bdametime)
+                                        new FollowPath(bot.getFollower(),dametime)
                                 )
                                 .andThen(
-                                        new FollowPath(bot.getFollower(), bend)
+                                        new FollowPath(bot.getFollower(), end)
                                                 .alongWith(new Intake_off(bot))
                                                 .alongWith (new Shooter_off(bot))
                                 )

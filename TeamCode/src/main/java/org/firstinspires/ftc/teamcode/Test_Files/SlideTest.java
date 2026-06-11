@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.Test_Files;
 
 import com.arcrobotics.ftclib.controller.PIDFController;
 import com.bylazar.telemetry.PanelsTelemetry;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 @TeleOp(name = "opmode")
+@Disabled
 public class SlideTest extends OpMode {
 
     public DcMotorEx motor;

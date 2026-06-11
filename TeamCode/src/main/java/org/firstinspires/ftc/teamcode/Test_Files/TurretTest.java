@@ -28,7 +28,7 @@ public class TurretTest extends OpMode {
     public void loop() {
         turret.set_using_LL(ID);
         if (gamepad1.x) {
-            turret.turret_update(ID, follower.getPose(), 0, follower);
+            turret.turret_update(ID, follower.getPose(), 0, 0);
         } else {
             turret.set_power(0);
         }

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.State_Auto;
+package org.firstinspires.ftc.teamcode.auto.canada;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
@@ -26,7 +26,7 @@ import org.firstinspires.ftc.teamcode.core.commands.turret.turret_LL_blue;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "BLUE 12 CONSISTENT", group = "Consistent", preselectTeleOp = "CLOSE Blue Drive")
+@Autonomous(name = "BLUE CLOSE CONSISTENT 12 ", group = "Consistent", preselectTeleOp = "CLOSE Blue Drive")
 public class BLUE_12_Consistent extends OpModeCommand {
 
 

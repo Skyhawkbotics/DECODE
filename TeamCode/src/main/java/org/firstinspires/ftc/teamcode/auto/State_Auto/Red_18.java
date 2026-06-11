@@ -17,7 +17,6 @@ import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
@@ -206,7 +205,7 @@ public class Red_18 extends OpModeCommand {
     @Override
     public void init_loop() {
         bot.getTurret().set_using_LL(24);
-        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, bot.getFollower());
+        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, 0);
     }
 
     public void initialize() {
