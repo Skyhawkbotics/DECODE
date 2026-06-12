@@ -54,6 +54,12 @@ public class NewRedFarSix extends OpModeCommand {
         end.setLinearHeadingInterpolation(redtreshot.getHeading(), redpark.getHeading());
 
     }
+
+
+    public void init_loop() {
+        bot.getTurret().set_using_LL(24, false); /// NO limelight?
+        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, 2);
+    }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, redstartpos, 24);
         buildPaths();

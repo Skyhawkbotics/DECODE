@@ -50,6 +50,12 @@ public class NewBlueFarSix extends OpModeCommand {
         bend.setLinearHeadingInterpolation(treshot.getHeading(), park.getHeading());
 
     }
+
+    public void init_loop() {
+        bot.getTurret().set_using_LL(20, false); /// NO limelight?
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 2);
+    }
+
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();

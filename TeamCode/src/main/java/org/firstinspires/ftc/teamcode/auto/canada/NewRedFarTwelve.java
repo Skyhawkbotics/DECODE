@@ -115,6 +115,12 @@ public class NewRedFarTwelve extends OpModeCommand {
         rend.setConstantHeadingInterpolation(Math.toRadians(180));
 
     }
+
+
+    public void init_loop() {
+        bot.getTurret().set_using_LL(24, false); /// NO limelight?
+        bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, 0);
+    }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, redstartpos, 24);
         buildPaths();

@@ -71,6 +71,8 @@ public class Robot {
     private boolean automatic_intake =  false;
     private int intake_state = 0, secondaryState = 0 ;
 
+    private double limelight_offset = 0;
+
 
     // Tele-OP Constructor
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Gamepad game1, Gamepad game2, int ID, Pose startPose, Boolean red, Pose resetPose) {
@@ -109,7 +111,7 @@ public class Robot {
 
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID) {/// FOR AUTO
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID) {/// FOR AUTO close
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetry;
         follower = Constants.createFollower(hardwareMap);
@@ -126,6 +128,31 @@ public class Robot {
         tilt.tiltZERO();
         turret.set_using_LL(ID);
         turret.turret_update(ID, follower.getPose(), 0, 0);
+
+
+
+    }
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID, boolean farzone) {/// FOR AUTO far
+        this.hardwareMap = hardwareMap;
+        this.telemetry = telemetry;
+        follower = Constants.createFollower(hardwareMap);
+        follower.setStartingPose(startPose);
+
+        shooter = new Shooter(hardwareMap, telemetry);
+        intake = new Intake(hardwareMap, telemetry);
+        turret = new Turret(hardwareMap, telemetry, ID);
+        tilt = new Tilt(hardwareMap, telemetry);
+        light = new Light(hardwareMap, telemetry);
+        follower.update();
+        intake.servosIn();
+        this.ID = ID;
+        tilt.tiltZERO();
+        turret.set_using_LL(ID);
+        turret.turret_update(ID, follower.getPose(), 0, 0);
+
+        
+
+
 
     }
     ///  this is a init just for a follower drivetrain nothing else
