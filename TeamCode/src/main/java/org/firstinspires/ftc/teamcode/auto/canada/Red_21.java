@@ -34,7 +34,7 @@ public class Red_21 extends OpModeCommand {
     private Pose intakeSpike2Pose = new Pose(129, 62, Math.toRadians(0));
     private Pose shootPose = new Pose(87, 77);
     private static Pose beforeGateIntakePose = new Pose(120, 60);
-        private static Pose gateIntakePose = new Pose(129,64, Math.toRadians(25));
+        private static Pose gateIntakePose = new Pose(131,64, Math.toRadians(25));
 
     private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);

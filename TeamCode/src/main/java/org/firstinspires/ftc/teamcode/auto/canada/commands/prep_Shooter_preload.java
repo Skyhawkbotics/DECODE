@@ -70,7 +70,7 @@ public class prep_Shooter_preload extends CommandBase {
                 }
                 break;
             case 5:
-                if(timer.getElapsedTimeSeconds() > 0.3) {
+                if(timer.getElapsedTimeSeconds() > 0.5) {
                     bot.getIntaking().prep_fire();
                     setState(-1);
                 }

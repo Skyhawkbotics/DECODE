@@ -78,9 +78,6 @@ public class Blue_21 extends OpModeCommand {
 
 
 
-
-
-
     private PathChain preload_spike2, gateIntake1, return1, spike1, spike3;
 
 
@@ -221,6 +218,8 @@ public class Blue_21 extends OpModeCommand {
                         new Fire_Command(bot),
 
 ///  9 inside
+
+
 
 /// 12 inside
                         new ParallelRaceGroup(
