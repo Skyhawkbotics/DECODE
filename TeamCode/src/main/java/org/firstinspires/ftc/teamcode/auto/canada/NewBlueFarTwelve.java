@@ -26,13 +26,17 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public static final Pose startpos = new Pose(56, 8, Math.toRadians(180));
 
-    public static final Pose shotone = new Pose(41, 8, Math.toRadians(180));
+    public static final Pose shotone = new Pose(40.5, 8, Math.toRadians(180));
 
-    public final Pose prehumanintakeone = new Pose (14,8, Math.toRadians(180));
+    public final Pose prehumanintakeone = new Pose (7,8, Math.toRadians(180));
 //i split the intake to the human into two, save time
-    public final Pose humanintakeone = new Pose(6.5, 8, Math.toRadians(180));
+    public final Pose humanintakeone = new Pose(5.8, 8, Math.toRadians(180));
 
-    public final Pose shottwo = new Pose(41, 8, Math.toRadians(180));
+    public final Pose humanintakewiggleo = new Pose (8,8, Math.toRadians(180));
+
+    public final Pose humanintakewiggt = new Pose (5.8,8, Math.toRadians(180));
+
+    public final Pose shottwo = new Pose(40.5, 8, Math.toRadians(180));
 
     public final Pose farintakespikestart = new Pose (39.65, 35.898, Math.toRadians(180));
 
@@ -42,17 +46,21 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public final Pose farintakespikeend = new Pose (13, 35.898, Math.toRadians(180));
     //at the end of the spike mark
-    public final Pose shotthree = new Pose (41,8, Math.toRadians(180));
+    public final Pose shotthree = new Pose (40.5,8, Math.toRadians(180));
 
-    public final Pose prehumanintaketwo = new Pose (14,8, Math.toRadians(180));
+    public final Pose prehumanintaketwo = new Pose (8,8, Math.toRadians(180));
 
-    public final Pose humanintaketwo = new Pose (6.5,8, Math.toRadians(180));
+    public final Pose humanintaketwo = new Pose (5.8,8, Math.toRadians(180));
 
-    public final Pose shotfour = new Pose (41,8, Math.toRadians(180));
+    public final Pose humanintakewiggle = new Pose (7,8, Math.toRadians(180));
+
+    public final Pose humanintakewigg = new Pose (5.8,8, Math.toRadians(180));
+
+    public final Pose shotfour = new Pose (40.5,8, Math.toRadians(180));
 
     public final Pose park = new Pose(31, 8, Math.toRadians(180));
 
-    private Path shootone, prehintakeone, hintakeone, shoottwo, prefarintakespike, farintakespike, shootthree, prehintaketwo, hintaketwo, dametime, end;
+    private Path shootone, prehintakeone, hintakeone,wiggleone, wiggletwo, shoottwo, prefarintakespike, farintakespike, shootthree, prehintaketwo, hintaketwo, wiggletre, wigglefour, dametime, end;
 //hintake = humanintake
     public void buildPaths () {
         shootone = new Path (new BezierLine(startpos,shotone));
@@ -64,7 +72,13 @@ public class NewBlueFarTwelve extends OpModeCommand {
         hintakeone = new Path (new BezierLine(prehumanintakeone, humanintakeone));
         hintakeone.setConstantHeadingInterpolation(Math.toRadians(180));
 
-        shoottwo = new Path (new BezierLine(humanintakeone, shottwo));
+        wiggleone = new Path (new BezierLine(humanintakeone,humanintakewiggleo));
+        wiggleone.setConstantHeadingInterpolation(Math.toRadians(180));
+
+        wiggletwo = new Path (new BezierLine(humanintakewiggleo, humanintakewiggt));
+        wiggletwo.setConstantHeadingInterpolation(Math.toRadians(180));
+
+        shoottwo = new Path (new BezierLine(humanintakewiggt, shottwo));
         shoottwo.setConstantHeadingInterpolation(Math.toRadians(180));
 
         prefarintakespike = new Path (new BezierCurve(shottwo, spikebeziercurve,farintakespikestart));
@@ -82,7 +96,13 @@ public class NewBlueFarTwelve extends OpModeCommand {
         hintaketwo = new Path (new BezierLine(prehumanintaketwo, humanintaketwo));
         hintaketwo.setConstantHeadingInterpolation(Math.toRadians(180));
 
-        dametime = new Path (new BezierLine(humanintaketwo, shotfour));
+        wiggletre = new Path (new BezierLine(humanintaketwo, humanintakewiggle));
+        wiggletre.setConstantHeadingInterpolation(Math.toRadians(180));
+
+        wigglefour = new Path (new BezierLine(humanintakewiggle,humanintakewigg));
+        wigglefour.setConstantHeadingInterpolation(Math.toRadians(180));
+
+        dametime = new Path (new BezierLine(humanintakewigg, shotfour));
         dametime.setConstantHeadingInterpolation(Math.toRadians(180));
 
         end = new Path (new BezierLine(shotfour, park));
@@ -90,16 +110,19 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     }
 
-
+    public void init_loop() {
+        bot.getTurret().set_using_LL(20); /// NO limelight?
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 1);
+    }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 20);
+        bot = new Robot(hardwareMap, telemetry, startpos, 20, true);
         buildPaths();
         schedule (
                 new RunCommand(bot :: far_blue_autonomous_robot_update),
                 new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), shootone, 0.8)
+                        new FollowPath(bot.getFollower(), shootone, 0.75)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, 1540, 0.35)
+                                        new Prep_Shooter_any(bot, 1537, 0.35)
                                 )
                                 .andThen(
                                         new WaitCommand(650)
@@ -117,13 +140,25 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), prehintakeone)
                                 )
                                 .andThen(
-                                        new WaitCommand(150)
+                                        new WaitCommand(30)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), hintakeone)
                                 )
                                 .andThen(
-                                        new WaitCommand(2000)
+                                        new WaitCommand(30)
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), wiggleone)
+                                )
+                                .andThen(
+                                        new WaitCommand(30)
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), wiggletwo)
+                                )
+                                .andThen(
+                                        new WaitCommand(1700)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), shoottwo)
@@ -168,10 +203,22 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), prehintaketwo)
                                 )
                                 .andThen(
-                                        new WaitCommand(250)
+                                        new WaitCommand(100)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), hintaketwo)
+                                )
+                                .andThen(
+                                        new WaitCommand(100)
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), wiggletre)
+                                )
+                                .andThen(
+                                        new WaitCommand(100)
+                                )
+                                .andThen (
+                                        new FollowPath(bot.getFollower(), wigglefour)
                                 )
                                 .andThen(
                                         new WaitCommand(1200)

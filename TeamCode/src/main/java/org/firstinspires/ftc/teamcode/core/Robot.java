@@ -223,6 +223,20 @@ public class Robot {
         isFull = light.isFull();
 
     }
+    public void far_red_autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current chain index", follower.getChainIndex());
+        telemetry.addData("current t", follower.getCurrentTValue());
+        telemetry.addData("follower busy", follower.isBusy());
+        turret.turret_update(448);
+
+        shooter.update();
+        follower.update();
+        telemetry.update();
+        tilt.tiltZERO();
+        isFull = light.isFull();
+
+    }
     public void far_blue_autonomous_robot_update () {
         telemetry.addData("Position", follower.getPose());
         telemetry.addData("Current chain index", follower.getChainIndex());
