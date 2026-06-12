@@ -33,7 +33,7 @@ public class Red_21 extends OpModeCommand {
     private Pose preloadScorePose = new Pose(89, 87, Math.toRadians(310));
     private Pose intakeSpike2Pose = new Pose(129, 62, Math.toRadians(0));
     private Pose shootPose = new Pose(87, 77);
-    private static Pose beforeGateIntakePose = new Pose(120, 60);
+    private static Pose beforeGateIntakePose = new Pose(120, 61);
         private static Pose gateIntakePose = new Pose(135,64.5, Math.toRadians(25));
 
     private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
@@ -50,7 +50,7 @@ public class Red_21 extends OpModeCommand {
     private Pose controlPoint2Pose = new Pose(88, 63);
 
     private Pose controlPoint3Pose = new Pose(102, 65);
-    private Pose controlPoint4Pose =  new Pose(99, 58);
+    private Pose controlPoint4Pose =  new Pose(99, 52);
     private Pose controlPoint5Pose =  new Pose(97,84);
     private Pose controlPoint6Pose =  new Pose(93.33030852994557, 29.818511796733212);
 
