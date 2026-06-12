@@ -90,10 +90,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     }
 
-    public void init_loop() {
-        bot.getTurret().set_using_LL(20); /// NO limelight?
-        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
-    }
+
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();
