@@ -95,7 +95,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
         bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, -1);
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 20);
+        bot = new Robot(hardwareMap, telemetry, startpos, 20, true);
         buildPaths();
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
