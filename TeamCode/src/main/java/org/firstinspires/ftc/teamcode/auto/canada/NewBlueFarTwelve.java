@@ -28,7 +28,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public static final Pose shotone = new Pose(41, 8, Math.toRadians(180));
 
-    public final Pose prehumanintakeone = new Pose (15,8, Math.toRadians(180));
+    public final Pose prehumanintakeone = new Pose (14,8, Math.toRadians(180));
 //i split the intake to the human into two, save time
     public final Pose humanintakeone = new Pose(6.5, 8, Math.toRadians(180));
 
@@ -92,17 +92,17 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public void init_loop() {
         bot.getTurret().set_using_LL(20); /// NO limelight?
-        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 1);
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 20, true);
+        bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();
         schedule (
                 new RunCommand(bot :: any_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, 1600, 0.35)
+                                        new Prep_Shooter_any(bot, 1540, 0.35)
                                 )
                                 .andThen(
                                         new WaitCommand(650)
