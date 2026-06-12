@@ -34,7 +34,7 @@ public class Red_21 extends OpModeCommand {
     private Pose intakeSpike2Pose = new Pose(129, 62, Math.toRadians(0));
     private Pose shootPose = new Pose(87, 77);
     private static Pose beforeGateIntakePose = new Pose(120, 60);
-        private static Pose gateIntakePose = new Pose(131,64, Math.toRadians(25));
+        private static Pose gateIntakePose = new Pose(133,64, Math.toRadians(25));
 
     private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
@@ -244,7 +244,7 @@ public class Red_21 extends OpModeCommand {
                         new FollowPath(bot.getFollower(), spike1)
                         .alongWith(
                                 new Prep_Shooter_any(bot, 1160, 0),
-                                new Intake_Timed_Command(bot, 0, 1.5)
+                                new Intake_Timed_Command(bot, 0.1, 1.5)
                         ),
                         new Fire_Command(bot),
 
@@ -253,7 +253,7 @@ public class Red_21 extends OpModeCommand {
                         new FollowPath(bot.getFollower(), spike3)
                                 .alongWith(
                                         new Prep_Shooter_any(bot, 1300, 0.3),
-                                        new Intake_Timed_Command(bot, 0, 3)
+                                        new Intake_Timed_Command(bot, 0.1, 3)
                                 ),
                         new Fire_Command(bot)
                                 )
