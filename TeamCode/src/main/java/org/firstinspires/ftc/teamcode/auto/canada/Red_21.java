@@ -38,7 +38,7 @@ public class Red_21 extends OpModeCommand {
 
     private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
-    private Pose intakeSpike3Pose = new Pose(129, 34);
+    private Pose intakeSpike3Pose = new Pose(129, 34, Math.toRadians(0));
     private Pose park = new Pose(91, 16);
 
 
@@ -149,7 +149,7 @@ public class Red_21 extends OpModeCommand {
                                 intakeSpike3Pose
                         )
                 )
-                .setTangentHeadingInterpolation()
+                .setConstantHeadingInterpolation(intakeSpike3Pose.getHeading())
                 .addPath(
                         new BezierLine(
                                 intakeSpike3Pose,
