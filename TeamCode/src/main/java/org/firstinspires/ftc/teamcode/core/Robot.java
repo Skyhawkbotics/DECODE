@@ -148,9 +148,14 @@ public class Robot {
         this.ID = ID;
         tilt.tiltZERO();
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0, 0);
+        if(ID == 24) {
+            limelight_offset = 2;
+        } else {
+            limelight_offset = -2;
+        }
+        turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
 
-        
+
 
 
 
@@ -210,7 +215,7 @@ public class Robot {
         telemetry.addData("follower busy", follower.isBusy());
 
         turret.set_using_LL(ID);
-        turret.turret_update(ID, follower.getPose(), 0, 0);
+        turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
         shooter.update();
         follower.update();
         telemetry.update();
@@ -218,6 +223,22 @@ public class Robot {
         isFull = light.isFull();
 
     }
+    public void close_any_autonomous_robot_update () {
+        telemetry.addData("Position", follower.getPose());
+        telemetry.addData("Current chain index", follower.getChainIndex());
+        telemetry.addData("current t", follower.getCurrentTValue());
+        telemetry.addData("follower busy", follower.isBusy());
+
+        turret.set_using_LL(ID, false);
+        turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
+        shooter.update();
+        follower.update();
+        telemetry.update();
+        tilt.tiltZERO();
+        isFull = light.isFull();
+
+    }
+
     private double slew(double target, double current, double rate) {
         double delta = target - current;
 

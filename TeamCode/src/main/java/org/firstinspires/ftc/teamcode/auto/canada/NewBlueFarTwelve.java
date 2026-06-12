@@ -91,7 +91,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
     }
 
     public void init_loop() {
-        bot.getTurret().set_using_LL(20, false); /// NO limelight?
+        bot.getTurret().set_using_LL(20); /// NO limelight?
         bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 2);
     }
     public void initialize() {
@@ -102,7 +102,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, 1540, 0.35)
+                                        new Prep_Shooter_any(bot, 1600, 0.35)
                                 )
                                 .andThen(
                                         new WaitCommand(650)

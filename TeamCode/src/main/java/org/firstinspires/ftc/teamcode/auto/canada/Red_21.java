@@ -176,7 +176,7 @@ public class Red_21 extends OpModeCommand {
         buildPaths();
 
         schedule(
-                new RunCommand(bot::any_autonomous_robot_update),
+                new RunCommand(bot::close_any_autonomous_robot_update),
 
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)

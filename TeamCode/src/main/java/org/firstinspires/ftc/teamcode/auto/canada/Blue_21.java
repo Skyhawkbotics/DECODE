@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada.commands;
+package org.firstinspires.ftc.teamcode.auto.canada;
 
 
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
@@ -12,6 +12,11 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Fire_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Timed_Command;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_on_automatic;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.prep_Shooter_preload;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 
@@ -190,7 +195,7 @@ public class Blue_21 extends OpModeCommand {
         buildPaths();
 
         schedule(
-                new RunCommand(bot::any_autonomous_robot_update),
+                new RunCommand(bot::close_any_autonomous_robot_update),
 
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)
