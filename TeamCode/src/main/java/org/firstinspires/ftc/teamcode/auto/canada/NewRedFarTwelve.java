@@ -129,7 +129,7 @@ public class NewRedFarTwelve extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), rshootone, 0.8)
                                 .alongWith(
-                                        new Prep_Shooter_any(bot, 1540, 0.35)
+                                        new Prep_Shooter_any(bot, 1650, 0.55)
                                 )
                                 .andThen(
                                         new WaitCommand(650)
