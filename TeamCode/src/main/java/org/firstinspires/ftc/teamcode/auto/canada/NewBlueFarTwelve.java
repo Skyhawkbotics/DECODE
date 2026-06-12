@@ -95,7 +95,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
         bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();
         schedule (
-                new RunCommand(bot :: any_autonomous_robot_update),
+                new RunCommand(bot :: far_blue_autonomous_robot_update),
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), shootone, 0.8)
                                 .alongWith(

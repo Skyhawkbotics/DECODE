@@ -178,6 +178,30 @@ public class Turret {
         }
 
     }
+
+    public void turret_update(double target) { ///  if iszero is 1, it will stay normal, if it is 0, it will point toward 0 no matter what
+
+                ///  heading update
+                turretP = turret_p;
+                turretI = turret_i;
+                turretD = turret_d;
+                if (raw_turret_offset_position > right_limit) { // from the back the right of the robot should be negative no?
+                    correct_turret_offset_position = right_limit;
+                } else if (raw_turret_offset_position < left_limit) {
+                    correct_turret_offset_position = left_limit;
+                } else {
+                    correct_turret_offset_position = raw_turret_offset_position;
+                }
+
+                t_pid.setPIDF(turretP, turretI, turretD, feedforward);
+                turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                double pid_output = t_pid.calculate(turret.getCurrentPosition(), target);
+                turret.setPower(pid_output);
+                odometry_turret_error = correct_turret_offset_position - turret.getCurrentPosition();
+
+
+
+    }
     public void increaseTurretP() {
         turret_p = turret_p + 0.0005;
     }
