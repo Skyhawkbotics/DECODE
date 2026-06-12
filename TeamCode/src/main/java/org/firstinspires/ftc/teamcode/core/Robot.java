@@ -149,9 +149,9 @@ public class Robot {
         tilt.tiltZERO();
         turret.set_using_LL(ID);
         if(ID == 24) {
-            limelight_offset = 2;
-        } else {
             limelight_offset = -2;
+        } else {
+            limelight_offset = 2;
         }
         turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
 
