@@ -36,7 +36,7 @@ public class Red_21 extends OpModeCommand {
     private static Pose beforeGateIntakePose = new Pose(120, 61);
         private static Pose gateIntakePose = new Pose(135,65.5, Math.toRadians(25));
 
-    private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
+    private Pose intakeSpike1Pose = new Pose(124, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
     private Pose intakeSpike3Pose = new Pose(129, 34, Math.toRadians(0));
     private Pose park = new Pose(91, 16);
@@ -197,10 +197,10 @@ public class Red_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
+                                new WaitCommand(1300)
                         ),
                         new FollowPath(bot.getFollower(), return1),
-                        new WaitCommand(400),
+                        new WaitCommand(200),
                         new Fire_Command(bot),
 
 ///  9 inside
@@ -217,7 +217,7 @@ public class Red_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
+                                new WaitCommand(1300)
                         ),
                         new FollowPath(bot.getFollower(), return1),
                         new WaitCommand(400),
@@ -234,10 +234,10 @@ public class Red_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
+                                new WaitCommand(1300)
                         ),
                         new FollowPath(bot.getFollower(), return1),
-                        new WaitCommand(400),
+                        new WaitCommand(200),
                         new Fire_Command(bot),
 
 /// 15 inside

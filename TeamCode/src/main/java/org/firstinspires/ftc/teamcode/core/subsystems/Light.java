@@ -40,7 +40,7 @@ public class Light {
             if(isFull()) {
                 // if the distance is less than 3 and the time is over 1.5
                 // return as true
-                 return timer.getElapsedTimeSeconds() > 0.2;
+                 return timer.getElapsedTimeSeconds() > 0.15;
             }
                 // this will  happen if it is not full or if distance timer is not greater than 1.5
                 timer.resetTimer();
