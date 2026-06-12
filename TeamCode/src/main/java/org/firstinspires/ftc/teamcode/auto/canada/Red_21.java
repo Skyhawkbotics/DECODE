@@ -244,7 +244,7 @@ public class Red_21 extends OpModeCommand {
                         new FollowPath(bot.getFollower(), spike1)
                         .alongWith(
                                 new Prep_Shooter_any(bot, 1160, 0),
-                                new Intake_Timed_Command(bot, 0.1, 1.5)
+                                new Intake_Command(bot)
                         ),
                         new Fire_Command(bot),
 

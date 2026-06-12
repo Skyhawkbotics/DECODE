@@ -39,7 +39,7 @@ public class Fire_Command extends CommandBase {
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 0.7) { //1
+                if (timer.getElapsedTimeSeconds() > 1) { //1
                     bot.getIntaking().prep_intake();
                     setState(-1); //3
                 }
