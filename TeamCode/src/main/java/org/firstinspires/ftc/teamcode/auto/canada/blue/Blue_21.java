@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada;
+package org.firstinspires.ftc.teamcode.auto.canada.blue;
 
 
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
@@ -16,14 +16,14 @@ import org.firstinspires.ftc.teamcode.auto.canada.commands.Fire_Command;
 import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Command;
 import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Timed_Command;
 import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_on_automatic;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Prep_Fire_Command;
 import org.firstinspires.ftc.teamcode.auto.canada.commands.prep_Shooter_preload;
 import org.firstinspires.ftc.teamcode.core.Robot;
-import org.firstinspires.ftc.teamcode.core.commands.general_commands.Prep_Shooter_any;
 
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "BLUE CLOSE 21", group = "Solo", preselectTeleOp = "18 CLOSE Blue Drive")
+@Autonomous(name = "BLUE CLOSE 21", group = "Solo", preselectTeleOp = "21 CLOSE Blue Drive")
 @Configurable
 public class Blue_21 extends OpModeCommand {
 
@@ -31,15 +31,17 @@ public class Blue_21 extends OpModeCommand {
     Robot bot;
     private Pose redCloseStartPose = new Pose(113, 135, Math.toRadians(270));
     private Pose preloadScorePose = new Pose(89, 87, Math.toRadians(310));
-    private Pose intakeSpike2Pose = new Pose(129, 62, Math.toRadians(0));
-    private Pose shootPose = new Pose(87, 77);
-    private static Pose beforeGateIntakePose = new Pose(120, 60);
-    private static Pose gateIntakePose = new Pose(133,65, Math.toRadians(25));
+    private Pose intakeSpike2Pose = new Pose(129, 60, Math.toRadians(0));
+    private Pose shootPose = new Pose(88, 80);
+    private static Pose beforeGateIntakePose = new Pose(113, 62);
+    private static Pose gateIntakePose = new Pose(132.0,65, Math.toRadians(30));
 
-    private Pose intakeSpike1Pose = new Pose(127, 84, Math.toRadians(0));
+    private Pose intakeSpike1Pose = new Pose(120, 84, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
-    private Pose intakeSpike3Pose = new Pose(129, 34);
-    private Pose park = new Pose(91, 16);
+    private Pose beforeSpike3Pose = new Pose(98, 61);
+    private Pose intakeSpike3Pose = new Pose(124  , 36, Math.toRadians(0));
+    private Pose park = new Pose(92, 113, Math.toRadians(293));
+
 
 
     private Pose blueredCloseStartPose = redCloseStartPose.mirror();
@@ -51,6 +53,7 @@ public class Blue_21 extends OpModeCommand {
 
     private Pose blueintakeSpike1Pose = intakeSpike1Pose.mirror();
     private Pose blueshootPose2 = shootPose2.mirror();
+    private Pose bluebeforeSpike3Pose = beforeSpike3Pose.mirror();
     private Pose blueintakeSpike3Pose = intakeSpike3Pose.mirror();
     private Pose bluepark = park.mirror();
 
@@ -62,9 +65,9 @@ public class Blue_21 extends OpModeCommand {
     private Pose controlPoint2Pose = new Pose(88, 63);
 
     private Pose controlPoint3Pose = new Pose(102, 65);
-    private Pose controlPoint4Pose =  new Pose(99, 58);
+    private static Pose controlPoint4Pose =  new Pose(104, 60);
     private Pose controlPoint5Pose =  new Pose(97,84);
-    private Pose controlPoint6Pose =  new Pose(93.33030852994557, 29.818511796733212);
+    private Pose controlPoint6Pose =  new Pose(97, 33);
 
 
     private Pose bluecontrolPoint1Pose = controlPoint1Pose.mirror();
@@ -162,19 +165,26 @@ public class Blue_21 extends OpModeCommand {
                 .build();
         spike3 = bot.getFollower().pathBuilder()
                 .addPath(
-                        new BezierCurve(
-                                blueshootPose2,
-                                bluecontrolPoint6Pose,
-                                blueintakeSpike3Pose
+                        new BezierLine(
+                                blueshootPose,
+                                bluebeforeSpike3Pose
                         )
                 )
                 .setTangentHeadingInterpolation()
                 .addPath(
+                        new BezierCurve(
+                                bluebeforeSpike3Pose,
+                                bluecontrolPoint6Pose,
+                                blueintakeSpike3Pose
+
+
+                        )
+                )
+                .setConstantHeadingInterpolation(blueintakeSpike3Pose.getHeading())
+                .addPath(
                         new BezierLine(
                                 blueintakeSpike3Pose,
-                                blueshootPose
-
-
+                                bluepark
                         )
                 )
                 .setTangentHeadingInterpolation()
@@ -197,89 +207,91 @@ public class Blue_21 extends OpModeCommand {
         schedule(
                 new RunCommand(bot::close_any_autonomous_robot_update),
 
-                new SequentialCommandGroup(
-                        new FollowPath(bot.getFollower(), preload_spike2, true)
-                                .alongWith(
-                                        new prep_Shooter_preload(bot, 1380, 0.3, 1300, 0.3)
-                                ),
-                        new Fire_Command(bot),
+                        new SequentialCommandGroup(
+                                new FollowPath(bot.getFollower(), preload_spike2, true)
+                                        .alongWith(
+                                                new prep_Shooter_preload(bot, 1380, 0.3, 1180, 0.05)
+                                        ),
+                                new WaitCommand(100),
+                                new Fire_Command(bot),
 /// 6 inside already
-                        new ParallelRaceGroup(
-                        new FollowPath(bot.getFollower(), gateIntake1)
-                                .alongWith(
-                                        new Intake_Command(bot)
-                                ),
+                                new ParallelRaceGroup(
+                                        new FollowPath(bot.getFollower(), gateIntake1, true)
+                                                .alongWith(
+                                                        new Intake_Command(bot)
+                                                ),
 
-                                new WaitCommand(2000)
-
-                        ),
-
-                        new ParallelRaceGroup(
-                                new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
-                        ),
-                        new FollowPath(bot.getFollower(), return1),
-                        new WaitCommand(400),
-                        new Fire_Command(bot),
-
-///  9 inside
-
-
-
-/// 12 inside
-                        new ParallelRaceGroup(
-                                new WaitCommand(2000),
-                                new FollowPath(bot.getFollower(), gateIntake1)
-                                .alongWith(
-                                        new Intake_Command(bot)
-                                )
+                                        new WaitCommand(2000)
 
                                 ),
-
-                        new ParallelRaceGroup(
-                                new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
-                        ),
-                        new FollowPath(bot.getFollower(), return1),
-                        new WaitCommand(400),
-                        new Fire_Command(bot),
 
                                 new ParallelRaceGroup(
-                                        new WaitCommand(2000),
+                                        new Intake_on_automatic(bot),
+                                        new WaitCommand(1300)
+                                ),
+                                new FollowPath(bot.getFollower(), return1),
+                                new Prep_Fire_Command(bot),
 
-                                        new FollowPath(bot.getFollower(), gateIntake1)
-                                .alongWith(
-                                        new Intake_Command(bot)
-                                )
+                                new WaitCommand(100),
+
+
+                                new Fire_Command(bot),
+                                new ParallelRaceGroup(
+                                        new FollowPath(bot.getFollower(), gateIntake1, true)
+                                                .alongWith(
+                                                        new Intake_Command(bot)
+                                                ),
+
+                                        new WaitCommand(2000)
+
+                                ),
+
+                                new ParallelRaceGroup(
+                                        new Intake_on_automatic(bot),
+                                        new WaitCommand(1300)
+                                ),
+                                new FollowPath(bot.getFollower(), return1),
+                                new Prep_Fire_Command(bot),
+
+                                new WaitCommand(100),
+                                new Fire_Command(bot),
+
+                                new ParallelRaceGroup(
+                                        new FollowPath(bot.getFollower(), gateIntake1, true)
+                                                .alongWith(
+                                                        new Intake_Command(bot)
+                                                ),
+
+                                        new WaitCommand(2000)
+
+                                ),
+
+                                new ParallelRaceGroup(
+                                        new Intake_on_automatic(bot),
+                                        new WaitCommand(1300)
+                                ),
+                                new FollowPath(bot.getFollower(), return1),
+                                new Prep_Fire_Command(bot),
+
+                                new WaitCommand(100),
+                                new Fire_Command(bot),
+/// 15 inside
+                                new FollowPath(bot.getFollower(), spike1)
+                                        .alongWith(
+                                                new Intake_Command(bot)
                                         ),
 
-                        new ParallelRaceGroup(
-                                new Intake_on_automatic(bot),
-                                new WaitCommand(1500)
-                        ),
-                        new FollowPath(bot.getFollower(), return1),
-                        new WaitCommand(400),
-                        new Fire_Command(bot),
+                                new WaitCommand(100),
+                                new Fire_Command(bot),
 
-/// 15 inside
-                        new FollowPath(bot.getFollower(), spike1)
-                        .alongWith(
-                                new Prep_Shooter_any(bot, 1160, 0),
-                                new Intake_Timed_Command(bot, 0, 1.5)
-                        ),
-                        new Fire_Command(bot),
-
-
-
-                        new FollowPath(bot.getFollower(), spike3)
-                                .alongWith(
-                                        new Prep_Shooter_any(bot, 1300, 0.3),
-                                        new Intake_Timed_Command(bot, 0, 3)
-                                ),
-                        new Fire_Command(bot)
-                                )
-
+                                new FollowPath(bot.getFollower(), spike3)
+                                        .alongWith(
+                                                new Intake_Timed_Command(bot, 0.1, 3)
+                                        ),
+                                new Fire_Command(bot)
+                        )
         );
+
 
 
 

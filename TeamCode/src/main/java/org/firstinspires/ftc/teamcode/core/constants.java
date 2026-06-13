@@ -49,7 +49,7 @@ public class constants {
 
 
     ///  Turret  + Turret PID controller
-    public static double turret_p = 0.004, turret_i = 0.07, turret_d = 0.00008, turret_f = 0;
+    public static double turret_p = 0.003, turret_i = 0.07, turret_d = 0.00008, turret_f = 0;
 
     public static double LLTarget = 0;
 
@@ -62,9 +62,9 @@ public class constants {
 //    public static double ld = 0.00013;
     public static double lf = 0.0;
 
-    public static double lp = 0.007;
-    public static double li = 0.05;
-    public static double ld = 0.00000;
+    public static double lp = 2.4;
+    public static double li = 0.01;
+    public static double ld = 0.2;
     public static double LLTolerance = 0.3;
     /// /// Intake speed constants
 
@@ -115,7 +115,7 @@ public class constants {
      */
     public static double myp = 0.006, myi = 0, myd = 0, myf = 0.05;
 
-    public static double  shooter_constant = 1, dampening_constant = 0.95, sharpening_constant = 1.13;
+    public static double  shooter_constant = 1.1, dampening_constant = 0.95, sharpening_constant = 1.13;
     public static double turret_constant = 0.1;
 
 

@@ -8,6 +8,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 
@@ -17,6 +18,7 @@ import ftclib.OpModeCommand;
 
 @Autonomous(name = "Kristine AUto", group = "Example", preselectTeleOp = "Example TeleOp ") /// @Autonomous to show it's an auto, Name of OpMode on driver hub
 /// You can additionally preselect a teleOp that will appear after the auto ends
+@Disabled
 public class Babysfirstauto extends OpModeCommand { ///  FTC lib opMode structure
 
     /// Declare the "Robot" class here. This is our compiled code of all the robot's subsystems, esp. the drivetrain

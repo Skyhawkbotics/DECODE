@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada;
+package org.firstinspires.ftc.teamcode.auto.canada.blue;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
@@ -31,7 +31,7 @@ public class BLUE_12_Consistent extends OpModeCommand {
 
 
     Robot bot;
-    public static final Pose startpose = new Pose(118, 131, Math.toRadians(37));
+    public static final Pose startpose = new Pose(119, 129, Math.toRadians(37));
     public static final Pose bluestartpose = startpose.mirror();
     ///  Start_pose is against the goal front wall left border
     /// when the wall of the depot hits the back wall touching the field perimeter
@@ -169,7 +169,11 @@ public class BLUE_12_Consistent extends OpModeCommand {
 
 
     }
-
+    @Override
+    public void init_loop() {
+        bot.getTurret().set_using_LL(20, false); /// NO limelight?
+        bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 0);
+    }
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, bluestartpose, 20);
         buildPaths();

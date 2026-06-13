@@ -18,7 +18,6 @@ public class blue_drive_far extends OpMode {
     private Telemetry t;
     private Pose startPoseRed = new Pose(21, 24,Math.toRadians(90));
 
-    private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
 
 
     ///  NEED TO EDIT STARTING POSE FOR DISTANCE FORMULA TO WORK
