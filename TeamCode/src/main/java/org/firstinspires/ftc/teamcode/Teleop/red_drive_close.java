@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-@TeleOp (name = "CLOSE Red Drive", group = "Red Opmode")
+@TeleOp (name = "21 CLOSE Red Drive", group = "Red Opmode")
 
 public class red_drive_close extends OpMode {
     private Robot robot;
@@ -18,9 +18,9 @@ public class red_drive_close extends OpMode {
     int ID = 24;
 
 
-    public final Pose gather2 = new Pose (129, 78, Math.toRadians(0));
+    public final Pose startPose = new Pose (92, 113, Math.toRadians(293));
 
-    public Pose resetPose = new Pose(129, 78, Math.toRadians(0));
+    private Pose resetPose = new Pose(128, 78, Math.toRadians(0));
 
 
     private PanelsTelemetry panelsTelemetry = PanelsTelemetry.INSTANCE;
@@ -30,7 +30,7 @@ public class red_drive_close extends OpMode {
 
     @Override
     public void init() {
-        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, gather2, true, resetPose);
+        robot = new Robot(hardwareMap, telemetry, gamepad1, gamepad2, ID, startPose, true, resetPose);
         e = new ElapsedTime();
         e.reset();
     }

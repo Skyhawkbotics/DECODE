@@ -250,19 +250,24 @@ public class  Shooter {
 
 
     public double getDistance(Pose followerPose, Boolean isRed) {
-        Pose redPose = new Pose(144, 144);
-        Pose bluePose = new Pose(0, 144);
+        Pose redPose = new Pose(134.5, 135);
+        Pose bluePose = new Pose(9.5, 135);
         double distance;
 
+        double turretOffset = 1.909449; // 3 inches behind center of robot
+        double turretX = followerPose.getX() - turretOffset * Math.cos(followerPose.getHeading());
+        double turretY = followerPose.getY() - turretOffset * Math.sin(followerPose.getHeading());
+
+
         if(isRed) {
-            double x_distance = redPose.getX() - followerPose.getX();
-            double y_distance = redPose.getY() - followerPose.getY();
+            double x_distance = redPose.getX() - turretX;
+            double y_distance = redPose.getY() - turretY;
 
             distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
 
         } else {
-            double x_distance = bluePose.getX() - followerPose.getX();
-            double y_distance = bluePose.getY() - followerPose.getY();
+            double x_distance = bluePose.getX() - turretX;
+            double y_distance = bluePose.getY() - turretY;
             distance = Math.sqrt((x_distance * x_distance) + (y_distance * y_distance));
 
         }

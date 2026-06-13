@@ -34,11 +34,11 @@ public class Intake_on_15 extends CommandBase {
             case -1:
                 break;
             case 1:
-                bot.getIntaking().fire();
+                bot.getIntaking().slow_Fire();
                 setState(2);
                 break;
             case 2:
-                if (timer.getElapsedTimeSeconds() > 0.55) { //1
+                if (timer.getElapsedTimeSeconds() > 1.5 ) { //1
                     bot.getIntaking().prep_intake();
                     setState(-1); //3
                 }

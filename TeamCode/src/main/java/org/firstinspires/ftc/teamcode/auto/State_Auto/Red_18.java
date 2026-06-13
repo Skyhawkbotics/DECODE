@@ -10,10 +10,11 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_Off_Timed;
-import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Timed;
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_On_Timed;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Score_Command;
@@ -22,6 +23,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "Red 18", group = "Solo", preselectTeleOp = "18 CLOSE Red Drive")
+@Disabled
 public class Red_18 extends OpModeCommand {
 
 

@@ -132,34 +132,9 @@ public class Robot {
 
 
     }
-    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose, int ID, boolean farzone) {/// FOR AUTO far
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetry;
-        follower = Constants.createFollower(hardwareMap);
-        follower.setStartingPose(startPose);
-
-        shooter = new Shooter(hardwareMap, telemetry);
-        intake = new Intake(hardwareMap, telemetry);
-        turret = new Turret(hardwareMap, telemetry, ID);
-        tilt = new Tilt(hardwareMap, telemetry);
-        light = new Light(hardwareMap, telemetry);
-        follower.update();
-        intake.servosIn();
-        this.ID = ID;
-        tilt.tiltZERO();
-        turret.set_using_LL(ID);
-        if(ID == 24) {
-            limelight_offset = -1;
-        } else {
-            limelight_offset = 1;
-        }
-        turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
 
 
-
-
-
-    }
+    
     ///  this is a init just for a follower drivetrain nothing else
     public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose startPose) {/// FOR AUTO, no subsystems
         this.hardwareMap = hardwareMap;
@@ -378,7 +353,7 @@ public class Robot {
                 if(g1.left_trigger > 0) {
                     setIntakeState(1);
                 }
-                if(g1.right_trigger > 0 || g2.right_trigger > 0) {
+                if(g1.right_trigger > 0) {
                     setIntakeState(2);
                 }
                 if(g1.left_bumper) {
@@ -465,7 +440,7 @@ public class Robot {
         ///  can average w/ ll..??????????????
 
         if (updating_shooter) {
-            if ((144 - follower.getPose().getY()) > 105) {
+            if (follower.getPose().getY() < 41) {
                 shooter.toggle_update_true();
                 shooter.setAngle(0.6);
                 shooter.setShooterSpeed(depot_distance, true);
@@ -537,6 +512,13 @@ public class Robot {
                 break;
 
         }
+        if(g2.touchpadWasPressed()) {
+            if(secondaryState == 1) {
+                setSecondaryState(0);
+            } else if(secondaryState == 0) {
+                setSecondaryState(1);
+            }
+        }
     }
     public void solo_drive() {
         prevg1.copy(g1);
@@ -588,7 +570,7 @@ public class Robot {
         if (updating_shooter) {
             if ((144 - follower.getPose().getY()) > 105) {
                 shooter.toggle_update_true();
-                shooter.setAngle(0.6);
+                shooter.setAngle(0.3);
                 shooter.setShooterSpeed(depot_distance, true);
 
             } else {
@@ -600,9 +582,6 @@ public class Robot {
             shooter.turnOFF();
         }
 
-        if (shooter.velocityReached()) {
-            g1.rumble (1000);
-        }
 
 
 

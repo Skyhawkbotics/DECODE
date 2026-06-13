@@ -62,6 +62,10 @@ public class Intake {
         servosOut();
         on();
     }
+    public void slow_Fire() {
+        servosOut();
+        on_slow();
+    }
     public void prep_intake() {
         servosIn();
         off();

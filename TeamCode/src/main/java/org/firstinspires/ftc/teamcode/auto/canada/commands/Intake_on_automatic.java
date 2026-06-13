@@ -38,7 +38,8 @@ public class Intake_on_automatic extends CommandBase {
                 break;
             case 2:
                 if (bot.getLight().isFullCertain()) { //1
-                    bot.getIntaking().servosIn();
+
+                    bot.getIntaking().prep_fire();
 
                     setState(-1); //3
                 }

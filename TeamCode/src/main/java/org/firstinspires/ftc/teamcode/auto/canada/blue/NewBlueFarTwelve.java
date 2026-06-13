@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada;
+package org.firstinspires.ftc.teamcode.auto.canada.blue;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -7,8 +7,10 @@ import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
+import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.auto.canada.commands.Intake_Command;
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_on_15;
@@ -60,7 +62,11 @@ public class NewBlueFarTwelve extends OpModeCommand {
 
     public final Pose park = new Pose(31, 8, Math.toRadians(180));
 
+    private Pose controlPoint1 = new Pose(45,34, Math.toRadians(180));
+
     private Path shootone, prehintakeone, hintakeone,wiggleone, wiggletwo, shoottwo, prefarintakespike, farintakespike, shootthree, prehintaketwo, hintaketwo, wiggletre, wigglefour, dametime, end;
+
+    private PathChain wallSpike, secretTunnel;
 //hintake = humanintake
     public void buildPaths () {
         shootone = new Path (new BezierLine(startpos,shotone));
@@ -115,7 +121,7 @@ public class NewBlueFarTwelve extends OpModeCommand {
         bot.getTurret().turret_update(20, bot.getFollower().getPose(), 0, 1);
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 20, true);
+        bot = new Robot(hardwareMap, telemetry, startpos, 20);
         buildPaths();
         schedule (
                 new RunCommand(bot :: far_blue_autonomous_robot_update),
@@ -131,37 +137,10 @@ public class NewBlueFarTwelve extends OpModeCommand {
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(1000)
-                                )
-                                .andThen(
                                         new Intake_On_Toggle(bot)
                                 )
                                 .andThen(
                                         new FollowPath(bot.getFollower(), prehintakeone)
-                                )
-                                .andThen(
-                                        new WaitCommand(30)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), hintakeone)
-                                )
-                                .andThen(
-                                        new WaitCommand(30)
-                                )
-                                .andThen (
-                                        new FollowPath(bot.getFollower(), wiggleone)
-                                )
-                                .andThen(
-                                        new WaitCommand(30)
-                                )
-                                .andThen (
-                                        new FollowPath(bot.getFollower(), wiggletwo)
-                                )
-                                .andThen(
-                                        new WaitCommand(1700)
-                                )
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), shoottwo)
                                 )
                                 .andThen(
                                         new WaitCommand(650)

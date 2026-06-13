@@ -1,4 +1,5 @@
-package org.firstinspires.ftc.teamcode.core.commands.fiveteen;
+package org.firstinspires.ftc.teamcode.auto.canada.commands;
+
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.pedropathing.util.Timer;
@@ -6,18 +7,25 @@ import com.pedropathing.util.Timer;
 import org.firstinspires.ftc.teamcode.core.Robot;
 
 
-public class Intake_On_Timed extends CommandBase { ///  runs the intake , either for firing or for intaking (servos stops are not specified at all)
+public class prep_Shooter_velocity_only extends CommandBase {
+    ///  This command will set a shooter speed and servo pos that you give it
+    /// this replaces need for creation of new commands for new velocity/angles
+    /// no more repetitiveness! 2/20/2026
     private int state = 1;
 
     private final Robot bot;
     private Timer timer = new Timer();
-    private double time;
+    private int speed;
+    private double servoPos;
+    private int secondSpeed;
+    private double secondPos;
 
 
-
-    public Intake_On_Timed(Robot bot, double time) { // runs the Command
+    public prep_Shooter_velocity_only(Robot bot, int speed, double servoPos) { // runs the Command
         this.bot = bot;
-        this.time = time;
+        this.speed = speed;
+        this.servoPos = servoPos;
+
     }
 
     @Override
@@ -28,20 +36,24 @@ public class Intake_On_Timed extends CommandBase { ///  runs the intake , either
     @Override
     public void execute() {
         bot.getShooter().update();
-        bot.getFollower().update();
+
         switch (state) {
             case -1:
                 break;
             case 1:
-                bot.getIntaking().intake();
+                bot.getShooter().shooterON();
+                bot.getShooter().autonomous_speed(speed);
+                bot.getShooter().setPos(servoPos);
                 setState(2);
                 break;
             case 2:
-                if(timer.getElapsedTimeSeconds() >= time) {
+                bot.getIntaking().intake();
+                if (bot.getShooter().velocityReached()) { //1
                     bot.getIntaking().prep_fire();
                     setState(-1);
                 }
                 break;
+
 
         }
     }

@@ -32,7 +32,7 @@ public class Turret {
 
     private Telemetry telemetry;
 
-    private double LL_buffer = 500;
+    private double LL_buffer = 250;
 
     private Boolean using_LL = false, manual_turret = false, using_turret = true;
 
@@ -121,7 +121,6 @@ public class Turret {
                         List<LLResultTypes.FiducialResult> fiducialResults = result.getFiducialResults();
                         for (LLResultTypes.FiducialResult fr : fiducialResults) {
                             if (fr.getFiducialId() == ID) {
-                                LLTarget = LL_target;
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
                                 ll_pid_output = ll_pid.calculate(result.getTx() / 100, LLTarget); // + sign * turret_f;
@@ -135,6 +134,13 @@ public class Turret {
                                 } else {
                                     turret.setPower(ll_pid_output);
                                 }
+                                if(ll_pid_output > 0.1) {
+                                    ll_pid_output = 0.1;
+                                }
+                                if(ll_pid_output < -0.1) {
+                                    ll_pid_output = -0.1;
+                                }
+
                                 LL_turret_error = result.getTx() - LLTarget;
                                 telemetry.addData("LL PID OUTPUT", ll_pid_output);
                             }
@@ -250,7 +256,7 @@ public class Turret {
    }
 
     public void set_using_LL(int ID, boolean gamepadinput) {
-        if(gamepadinput) {
+        if(!gamepadinput) {
             LLResult result = ll.getLatestResult();
 
             if (result.isValid()) {

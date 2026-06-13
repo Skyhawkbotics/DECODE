@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada;
+package org.firstinspires.ftc.teamcode.auto.canada.red;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
