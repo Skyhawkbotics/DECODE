@@ -57,9 +57,6 @@ public class Robot {
     private Boolean useHeadingLock = false;
     private double gate_heading;
 
-    private static final double FAR_HEADING_DEG = 120 ;
-    private static final double CLOSE_HEADING_DEG = 135;
-
 
     private static final double MAX_TURN = 1;
     private static final double DEADZONE_RAD = Math.toRadians(0.25);
@@ -301,9 +298,9 @@ public class Robot {
             currentTurn = slew(g1.right_stick_x, currentTurn, 1);
             lastError = error;
         }
-//        if(g1.leftBumperWasPressed()) {
-//            parking =!parking;
-//        }
+        if(g1.touchpadWasPressed()) {
+            parking =!parking;
+        }
         if (parking) {
             double speedMultiplier = 0.3;
             follower.setTeleOpDrive(
