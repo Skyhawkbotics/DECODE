@@ -53,6 +53,8 @@ public class prep_Shooter_preload extends CommandBase {
                     bot.getIntaking().fire();
                     setState(3);
                 }
+
+
                 break;
 
             case 3:
@@ -62,18 +64,21 @@ public class prep_Shooter_preload extends CommandBase {
                     bot.getIntaking().intake();
                     setState(4);
                 }
+
                 break;
             case 4:
                 if(bot.getFollower().getChainIndex() == 2) {
 
                     setState(5);
                 }
+
                 break;
             case 5:
                 if(timer.getElapsedTimeSeconds() > 0.5) {
                     bot.getIntaking().prep_fire();
                     setState(-1);
                 }
+
                 break;
 
         }

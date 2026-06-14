@@ -215,7 +215,7 @@ public class Red_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(800)
+                                new WaitCommand(1400)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(
@@ -262,7 +262,7 @@ public class Red_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1300)
+                                new WaitCommand(800)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(

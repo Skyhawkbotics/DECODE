@@ -115,7 +115,6 @@ public class Blue_21 extends OpModeCommand {
                         )
                 )
                 .setConstantHeadingInterpolation(bluepreloadScorePose.getHeading())
-
                 .build();
         gateIntake1 = bot.getFollower().pathBuilder()
                 .addPath(
@@ -212,7 +211,7 @@ public class Blue_21 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)
                                 .alongWith(
-                                        new prep_Shooter_preload(bot, 1380, 0.3, 1180, 0.05)
+                                        new prep_Shooter_preload(bot, 1380, 0.25, 1180, 0.05)
                                 ),
                         new WaitCommand(100),
                         new Fire_Command(bot),
