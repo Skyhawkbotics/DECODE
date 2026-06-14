@@ -220,8 +220,9 @@ public class Blue_ALLIANCE extends OpModeCommand {
     public void initialize() {
         bot = new Robot(hardwareMap, telemetry, blueredCloseStartPose, 20);
         buildPaths();
-
         schedule(
+                new RunCommand(bot::close_any_autonomous_robot_update),
+
                 new FollowPath(bot.getFollower(), preload_spike2, true)
                         .alongWith(
                                 new prep_Shooter_preload(bot, 1380, 0.3, 1180, 0.05)
@@ -247,7 +248,7 @@ public class Blue_ALLIANCE extends OpModeCommand {
 
                 new ParallelRaceGroup(
                         new Intake_on_automatic(bot),
-                        new WaitCommand(1300)
+                        new WaitCommand(1400)
                 ),
                 new FollowPath(bot.getFollower(), return1)
                         .alongWith(

@@ -193,6 +193,8 @@ public class Red_ALLIANCE extends OpModeCommand {
                                         new prep_Shooter_preload(bot, 1380, 0.3, 1180, 0.05)
                                 ),
                         new WaitCommand(3000),
+
+
                         new FollowPath(bot.getFollower(), score, true),
 
                         new WaitCommand(100),
