@@ -42,7 +42,7 @@ public class NewBlueFarFife extends OpModeCommand {
 
     public final Pose humanwiggle = new Pose (17,8, Math.toRadians(180));
 
-    public final Pose intakewiggle = new Pose (12,8, Math.toRadians(180));
+    public final Pose intakewiggle = new Pose (10,8, Math.toRadians(180));
 
 
     public final Pose park = new Pose(31, 8, Math.toRadians(180));
@@ -146,13 +146,13 @@ public class NewBlueFarFife extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), shottwo)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new Intake_On_Toggle(bot)
@@ -168,30 +168,7 @@ public class NewBlueFarFife extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), shotthree)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
-                                )
-                                .andThen(
-                                        new Intake_on_15(bot)
-                                )
-                                .andThen(
-                                        new WaitCommand(800)
-                                )
-                                .andThen(
-                                        new Intake_On_Toggle(bot)
-                                ),
-                        new ParallelRaceGroup(
-                                new FollowPath(bot.getFollower(), hintake)
-                                        .alongWith(
-                                                new Intake_Command(bot)
-                                        ),
-                                new WaitCommand(3000)
-                        )
-
-                                .andThen(
-                                        new FollowPath(bot.getFollower(), shotthree)
-                                )
-                                .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
@@ -214,13 +191,36 @@ public class NewBlueFarFife extends OpModeCommand {
                                         new FollowPath(bot.getFollower(), shotthree)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(600)
                                 )
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
                                 .andThen(
-                                        new WaitCommand(700)
+                                        new WaitCommand(600)
+                                )
+                                .andThen(
+                                        new Intake_On_Toggle(bot)
+                                ),
+                        new ParallelRaceGroup(
+                                new FollowPath(bot.getFollower(), hintake)
+                                        .alongWith(
+                                                new Intake_Command(bot)
+                                        ),
+                                new WaitCommand(3000)
+                        )
+
+                                .andThen(
+                                        new FollowPath(bot.getFollower(), shotthree)
+                                )
+                                .andThen(
+                                        new WaitCommand(600)
+                                )
+                                .andThen(
+                                        new Intake_on_15(bot)
+                                )
+                                .andThen(
+                                        new WaitCommand(600)
                                 )
 
                                 .andThen(

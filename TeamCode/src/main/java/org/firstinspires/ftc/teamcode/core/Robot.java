@@ -200,7 +200,7 @@ public class Robot {
         telemetry.addData("Current chain index", follower.getChainIndex());
         telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
-        turret.turret_update(430);
+        turret.turret_update(435);
 
         shooter.update();
         follower.update();

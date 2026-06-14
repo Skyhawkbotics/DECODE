@@ -26,44 +26,44 @@ public class RedFarTwelve extends OpModeCommand {
 
     Robot bot;
 
-    public static final Pose startpos = new Pose(56, 8, Math.toRadians(0));
+    public static final Pose startpos = new Pose(56, 8, Math.toRadians(180));
 
-    public static final Pose redstartpos = startpos.mirror();
+    public static final Pose redstartpos = startpos.mirror(); //new Pose (88,8, Math.toRadians(0));
 
-    public static final Pose shotpos = new Pose(40.5, 8, Math.toRadians(0));
+    public static final Pose shotpos = new Pose(40.5, 8, Math.toRadians(180));
 
-    public static final Pose redshotpos = shotpos.mirror();
+    public static final Pose redshotpos = shotpos.mirror(); //new Pose (103.5, 8, Math.toRadians(0));
 
-    public final Pose farintakespikestart = new Pose (39.65, 31, Math.toRadians(0));
+    public final Pose farintakespikestart = new Pose (39.65, 31, Math.toRadians(180));
 
-    public final Pose redfarintakespikestart = farintakespikestart.mirror();
+    public final Pose redfarintakespikestart = farintakespikestart.mirror(); //new Pose (104.35, 31, Math.toRadians(0));
 
     public final Pose spikebeziercurve = new Pose (55.2747, 29.575);
 
-    public final Pose redspikebeziercurve = spikebeziercurve.mirror();
+    public final Pose redspikebeziercurve = spikebeziercurve.mirror(); //new Pose (88.7253, 29.575);
     //control point 55.2747, 29.575
     //at the start of the spike mark
-    public final Pose farintakespikeend = new Pose (6, 31, Math.toRadians(0));
+    public final Pose farintakespikeend = new Pose (6, 31, Math.toRadians(180));
     //at the end of the spike mark
 
-    public final Pose redfarintakespikeend = farintakespikeend.mirror();
+    public final Pose redfarintakespikeend = farintakespikeend.mirror(); //new Pose (138, 31, Math.toRadians(0));
 
-    public final Pose humanintake = new Pose(14, 8, Math.toRadians(0));
+    public final Pose humanintake = new Pose(14, 8, Math.toRadians(180));
 
-    public final Pose redhumanintake = humanintake.mirror();
+    public final Pose redhumanintake = humanintake.mirror(); //new Pose (130,8, Math.toRadians(0));
 
-    public final Pose humanwiggle = new Pose (17,8, Math.toRadians(0));
+    public final Pose humanwiggle = new Pose (17,8, Math.toRadians(180));
 
-    public final Pose redhumanwiggle = humanwiggle.mirror();
+    public final Pose redhumanwiggle = humanwiggle.mirror(); //new Pose (127, 8, Math.toRadians(0));
 
-    public final Pose intakewiggle = new Pose (12,8, Math.toRadians(0));
+    public final Pose intakewiggle = new Pose (10,8, Math.toRadians(180));
 
-    public final Pose redintakewiggle = intakewiggle.mirror();
+    public final Pose redintakewiggle = intakewiggle.mirror(); //new Pose (134, 8, Math.toRadians(0));
 
 
-    public final Pose park = new Pose(31, 8, Math.toRadians(0));
+    public final Pose park = new Pose(31, 8, Math.toRadians(180));
 
-    public final Pose redpark = park.mirror();
+    public final Pose redpark = park.mirror(); //new Pose (113, 8, Math.toRadians(0));
     private PathChain rshotone, rthirdspike, rshottwo, rhintake, rshotthree,rend;
     //hintake = humanintake
     public void buildPaths () {
@@ -71,7 +71,7 @@ public class RedFarTwelve extends OpModeCommand {
                 .addPath(
                         new BezierLine(redstartpos,redshotpos)
                 )
-                .setConstantHeadingInterpolation(Math.toRadians(0))
+                .setConstantHeadingInterpolation(redshotpos.getHeading())//Math.toRadians(0)
                 .build();
 
         rthirdspike = bot.getFollower().pathBuilder()
@@ -133,7 +133,7 @@ public class RedFarTwelve extends OpModeCommand {
         bot.getTurret().turret_update(24, bot.getFollower().getPose(), 0, 1);
     }
     public void initialize() {
-        bot = new Robot(hardwareMap, telemetry, startpos, 24);
+        bot = new Robot(hardwareMap, telemetry, redstartpos, 24);
         buildPaths();
         schedule (
                 new RunCommand(bot :: far_red_autonomous_robot_update),
@@ -141,10 +141,9 @@ public class RedFarTwelve extends OpModeCommand {
                         new FollowPath(bot.getFollower(), rshotone, 0.6)
                                 .alongWith(
                                         new Prep_Shooter_any(bot, 1504, 0.35)
-                                )
-                                .andThen(
-                                        new WaitCommand(750)
-                                )
+                                ),
+
+                        new WaitCommand(700)
                                 .andThen(
                                         new Intake_on_15(bot)
                                 )
