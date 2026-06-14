@@ -21,7 +21,7 @@ import org.firstinspires.ftc.teamcode.core.commands.general_commands.Shooter_off
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "This BLUE far 15", group = "blue")
+@Autonomous(name = "This Red far 15", group = "blue")
 public class RedFarTwelve extends OpModeCommand {
 
     Robot bot;
