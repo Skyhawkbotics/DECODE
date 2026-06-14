@@ -49,7 +49,7 @@ public class prep_Shooter_preload extends CommandBase {
                 setState(2);
                 break;
             case 2:
-                if (bot.getShooter().velocityReached(1050)) { //1
+                if (bot.getShooter().velocityReached(1000)) { //1
                     bot.getIntaking().fire();
                     setState(3);
                 }

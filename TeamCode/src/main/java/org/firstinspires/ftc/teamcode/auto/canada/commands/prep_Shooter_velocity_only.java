@@ -49,7 +49,6 @@ public class prep_Shooter_velocity_only extends CommandBase {
             case 2:
                 bot.getIntaking().intake();
                 if (bot.getShooter().velocityReached()) { //1
-                    bot.getIntaking().prep_fire();
                     setState(-1);
                 }
                 break;

@@ -229,7 +229,7 @@ public class Robot {
         telemetry.addData("current t", follower.getCurrentTValue());
         telemetry.addData("follower busy", follower.isBusy());
 
-        turret.set_using_LL(ID, false);
+        turret.set_using_LL(ID, true);
         turret.turret_update(ID, follower.getPose(), 0, limelight_offset);
         shooter.update();
         follower.update();
