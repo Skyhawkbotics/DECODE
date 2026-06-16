@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.core.Robot;
 import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
-@Autonomous(name = "BLUE CLOSE ALLIANCE", group = "Alliance", preselectTeleOp = "21 CLOSE Red Drive")
+@Autonomous(name = "BLUE CLOSE ALLIANCE", group = "Alliance", preselectTeleOp = "21 CLOSE Blue Drive")
 @Configurable
 public class Blue_ALLIANCE extends OpModeCommand {
 
@@ -34,7 +34,7 @@ public class Blue_ALLIANCE extends OpModeCommand {
     private Pose intakeSpike2Pose = new Pose(129, 60, Math.toRadians(0));
     private Pose shootPose = new Pose(88, 80);
 
-    private Pose gateControlPoint = new Pose(115, 61, Math.toRadians(0));
+    private Pose gateControlPoint = new Pose(117, 61, Math.toRadians(0));
     private Pose gateOpenPoint = new Pose(127, 70, Math.toRadians(0));
 
 
@@ -222,10 +222,11 @@ public class Blue_ALLIANCE extends OpModeCommand {
         buildPaths();
         schedule(
                 new RunCommand(bot::close_any_autonomous_robot_update),
+        new SequentialCommandGroup(
 
                 new FollowPath(bot.getFollower(), preload_spike2, true)
                         .alongWith(
-                                new prep_Shooter_preload(bot, 1380, 0.3, 1180, 0.05)
+                                new prep_Shooter_preload(bot, 1380, 0, 1180, 0.05)
                         ),
                 new WaitCommand(3000),
                 new FollowPath(bot.getFollower(), score, true),
@@ -323,6 +324,7 @@ public class Blue_ALLIANCE extends OpModeCommand {
                 new Fire_Command(bot),
                 new FollowPath(bot.getFollower(), spike3)
 
+        )
         );
 
 

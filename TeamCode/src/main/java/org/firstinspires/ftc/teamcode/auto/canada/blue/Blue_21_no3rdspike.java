@@ -323,8 +323,6 @@ public class Blue_21_no3rdspike extends OpModeCommand {
 
 
 
-
-
                         new FollowPath(bot.getFollower(), spike1)
                                 .alongWith(
                                         new prep_Shooter_velocity_only(bot, 1100, 0)

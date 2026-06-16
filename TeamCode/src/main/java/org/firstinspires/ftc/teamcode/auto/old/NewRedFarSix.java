@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada.red;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 import com.arcrobotics.ftclib.command.RunCommand;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
@@ -8,6 +8,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.fiveteen.Intake_On_Toggle;
@@ -20,6 +21,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "RED far 6", group = "red")
+@Disabled
 public class NewRedFarSix extends OpModeCommand {
 
     Robot bot;

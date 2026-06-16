@@ -62,7 +62,7 @@ public class shooterSpeed {
          dampenC = dampening_constant;
     }
     public void increaseShooterConstant() {
-        shooter_constant = shooter_constant + 0.05;
+        shooter_constant = shooter_constant + 0.03;
     }
     public void decreaseShooterConstant() {
         shooter_constant = shooter_constant - 0.05;

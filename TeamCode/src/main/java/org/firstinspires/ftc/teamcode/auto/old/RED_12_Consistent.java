@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.auto.canada.red;
+package org.firstinspires.ftc.teamcode.auto.old;
 
 
 import static org.firstinspires.ftc.teamcode.core.constants.auto_speed4;
@@ -12,6 +12,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.Path;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.Robot;
 import org.firstinspires.ftc.teamcode.core.commands.general_commands.Intake_off;
@@ -27,6 +28,7 @@ import ftclib.FollowPath;
 import ftclib.OpModeCommand;
 
 @Autonomous(name = "RED CLOSE CONSISTENT 12 ", group = "Consistent", preselectTeleOp = "CLOSE Red Drive")
+@Disabled
 public class RED_12_Consistent extends OpModeCommand {
 
 

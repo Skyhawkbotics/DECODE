@@ -33,7 +33,7 @@ public class Blue_21 extends OpModeCommand {
     private Pose intakeSpike2Pose = new Pose(129, 60, Math.toRadians(0));
     private Pose shootPose = new Pose(88, 80);
     private static Pose beforeGateIntakePose = new Pose(113, 62);
-    private static Pose gateIntakePose = new Pose(133,66, Math.toRadians(30));
+    private static Pose gateIntakePose = new Pose(133,66, Math.toRadians(25));
 
     private Pose intakeSpike1Pose = new Pose(127, 86, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
@@ -211,7 +211,7 @@ public class Blue_21 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)
                                 .alongWith(
-                                        new prep_Shooter_preload(bot, 1380, 0.25, 1180, 0.05)
+                                        new prep_Shooter_preload(bot, 1400, 0.2, 1200, 0.05)
                                 ),
                         new WaitCommand(100),
                         new Fire_Command(bot),
@@ -233,7 +233,7 @@ public class Blue_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(800)
+                                new WaitCommand(1400)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(
@@ -280,7 +280,7 @@ public class Blue_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1300)
+                                new WaitCommand(900)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(

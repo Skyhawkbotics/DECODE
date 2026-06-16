@@ -235,7 +235,7 @@ public class Turret {
 
     ///  Takes the offset in degrees and turn it into a motor encoder reading
     public double degrees_to_position(double degrees) {
-        return degrees / 360 * 2246;
+        return ((degrees / 360) * 2208); // prev 2246
 
     }
 
