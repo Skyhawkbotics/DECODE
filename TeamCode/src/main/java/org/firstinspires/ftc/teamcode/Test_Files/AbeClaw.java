@@ -15,7 +15,12 @@ public class AbeClaw extends OpMode {
 
     private Boolean world;
 
-    private int clawstate = 0;
+    private int clawstate = 0, bluestate = 0;
+
+    public void setBlueState(int pState) {
+        bluestate = pState;
+    }
+
     public void setClawState (int pState) {
         clawstate = pState;
     }
@@ -42,27 +47,82 @@ public class AbeClaw extends OpMode {
         //open 0.6
         //close 0.27
 
-       switch(clawstate) {
+
+       switch (bluestate) {
            case 0:
-               if(color.red() > 1200 && color.green() < 1000) {
-                   setClawState(1);
-               } else {
-                   servo.setPosition(0.6);
-               }
-               break;
+                switch(clawstate) {
+                    case 0:
+                        if(color.red() > 1200 && color.green() < 1000) {
+                            setClawState(1);
+                        } else {
+                            servo.setPosition(0.6);
+                        }
+                        break;
+                    case 1:
+                        servo.setPosition(0.3);
+                        if (gamepad1.squareWasPressed()) {
+                            setClawState(2);
+                        }
+                        break;
+                    case 2:
+                        servo.setPosition(0.6);
+                        if(color.red() < 100) {
+                            setClawState(0);
+                        }
+                        break;
+                }
            case 1:
-               servo.setPosition(0.3);
-               if (gamepad1.squareWasPressed()) {
-                   setClawState(2);
+               switch(clawstate) {
+                   case 0:
+                       if(color.blue() > 1200 && color.red() < 1000) {
+                           setClawState(1);
+                       } else {
+                           servo.setPosition(0.6);
+                       }
+                       break;
+                   case 1:
+                       servo.setPosition(0.3);
+                       if (gamepad1.squareWasPressed()) {
+                           setClawState(2);
+                       }
+                       break;
+                   case 2:
+                       servo.setPosition(0.6);
+                       if(color.blue() < 100) {
+                           setClawState(0);
+                       }
+                       break;
                }
-               break;
-           case 2:
-               servo.setPosition(0.6);
-               if(color.red() < 100) {
-                   setClawState(0);
-               }
-               break;
+       }
+        if(gamepad1.touchpadWasPressed()) {
+            if(bluestate == 1) {
+                setBlueState(0);
+            } else if(bluestate == 0) {
+                setBlueState(1);
             }
+        }
+
+//       switch(clawstate) {
+//           case 0:
+//               if(color.red() > 1200 && color.green() < 1000) {
+//                   setClawState(1);
+//               } else {
+//                   servo.setPosition(0.6);
+//               }
+//               break;
+//           case 1:
+//               servo.setPosition(0.3);
+//               if (gamepad1.squareWasPressed()) {
+//                   setClawState(2);
+//               }
+//               break;
+//           case 2:
+//               servo.setPosition(0.6);
+//               if(color.red() < 100) {
+//                   setClawState(0);
+//               }
+//               break;
+//            }
         }
 
 
