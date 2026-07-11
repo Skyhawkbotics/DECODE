@@ -64,15 +64,6 @@ public class ShooterTest extends OpMode {
             shooter.increasePositionBare();
         }
 
-
-        if(gamepad1.dpadRightWasPressed()) {
-            shooter.positionMax();
-        }
-        if(gamepad1.dpadDownWasPressed()) {
-            shooter.decreasePositionBare();
-        }
-
-
         shooter.shooter_telemetry();
         shooter.panelstelemetry();
 
