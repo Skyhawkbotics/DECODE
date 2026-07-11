@@ -35,7 +35,7 @@ public class Blue_ALLIANCE extends OpModeCommand {
     private Pose shootPose = new Pose(88, 80);
 
     private Pose gateControlPoint = new Pose(117, 61, Math.toRadians(0));
-    private Pose gateOpenPoint = new Pose(127, 70, Math.toRadians(0));
+    private Pose gateOpenPoint = new Pose(128.5, 70, Math.toRadians(0));
 
 
 
@@ -226,9 +226,11 @@ public class Blue_ALLIANCE extends OpModeCommand {
 
                 new FollowPath(bot.getFollower(), preload_spike2, true)
                         .alongWith(
-                                new prep_Shooter_preload(bot, 1380, 0, 1180, 0.05)
+                                new prep_Shooter_preload(bot, 1350, 0.2, 1180, 0.05)
                         ),
-                new WaitCommand(3000),
+
+
+                new WaitCommand(1500),
                 new FollowPath(bot.getFollower(), score, true),
 
                 new WaitCommand(100),
@@ -243,18 +245,19 @@ public class Blue_ALLIANCE extends OpModeCommand {
                                 ),
 
 
-                        new WaitCommand(2000)
+                        new WaitCommand(1000)
 
                 ),
 
                 new ParallelRaceGroup(
                         new Intake_on_automatic(bot),
-                        new WaitCommand(1400)
+                        new WaitCommand(2000)
                 ),
                 new FollowPath(bot.getFollower(), return1)
                         .alongWith(
                                 new Prep_Fire_Command(bot)
                         ),
+                new WaitCommand(100),
                 new Fire_Command(bot),
 
 
@@ -271,14 +274,14 @@ public class Blue_ALLIANCE extends OpModeCommand {
 
                 new ParallelRaceGroup(
                         new Intake_on_automatic(bot),
-                        new WaitCommand(1300)
+                        new WaitCommand(1500)
                 ),
                 new FollowPath(bot.getFollower(), return1)
                         .alongWith(
                                 new Prep_Fire_Command(bot)
                         ),
 
-                new WaitCommand(50),
+                new WaitCommand(100),
                 new Fire_Command(bot),
 
 
@@ -296,14 +299,14 @@ public class Blue_ALLIANCE extends OpModeCommand {
 
                 new ParallelRaceGroup(
                         new Intake_on_automatic(bot),
-                        new WaitCommand(800)
+                        new WaitCommand(2000)
                 ),
                 new FollowPath(bot.getFollower(), return1)
                         .alongWith(
                                 new Prep_Fire_Command(bot)
                         ),
 
-                new WaitCommand(50),
+                new WaitCommand(100),
 
                 new Fire_Command(bot),
                 new Intake_Command(bot),
@@ -314,7 +317,7 @@ public class Blue_ALLIANCE extends OpModeCommand {
 
                 new FollowPath(bot.getFollower(), spike1)
                         .alongWith(
-                                new prep_Shooter_velocity_only(bot, 1150, 0)
+                                new prep_Shooter_velocity_only(bot, 1130, 0.05)
                         ),
                 new Prep_Fire_Command(bot),
                 new FollowPath(bot.getFollower(), spike1back)

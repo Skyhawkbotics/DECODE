@@ -439,7 +439,7 @@ public class Robot {
         if (updating_shooter) {
             if (follower.getPose().getY() < 41) {
                 shooter.toggle_update_true();
-                shooter.setAngle(0.6);
+                shooter.setAngle(0.45);
                 shooter.setShooterSpeed(depot_distance, true);
 
             } else {
@@ -451,7 +451,9 @@ public class Robot {
             shooter.turnOFF();
         }
 
-
+        if(secondaryState == 2) {
+            g2.rumble(1000);
+        }
 
 
 
@@ -485,6 +487,7 @@ public class Robot {
                 }
                 break;
             case 1: // right side = shooter constant
+
                 if(g2.rightBumperWasPressed()) {
                     shooter.increaseShooterConstant();
                 }

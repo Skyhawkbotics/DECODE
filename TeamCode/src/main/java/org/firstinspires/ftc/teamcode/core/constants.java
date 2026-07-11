@@ -10,6 +10,7 @@ import com.pedropathing.geometry.Pose;
 ///
 ///
 @Configurable
+
 public class constants {
     /// Hardware names
     public static String turret_name = "turret";
@@ -63,7 +64,7 @@ public class constants {
     public static double lf = 0.0;
 
     public static double lp = 2;
-    public static double li = 0.05;
+    public static double li = 0.08 ;
     public static double ld = 0.1;
     public static double LLTolerance = 0.3;
     /// /// Intake speed constants
@@ -115,7 +116,7 @@ public class constants {
      */
     public static double myp = 0.006, myi = 0, myd = 0, myf = 0.05;
 
-    public static double  shooter_constant = 1.1, dampening_constant = 0.95, sharpening_constant = 1.13;
+    public static double  shooter_constant = 1.13, dampening_constant = 0.95, sharpening_constant = 1.05;
     public static double turret_constant = 0.1;
 
 

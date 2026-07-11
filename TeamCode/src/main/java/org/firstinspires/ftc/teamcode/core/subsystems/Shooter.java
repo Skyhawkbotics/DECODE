@@ -21,7 +21,7 @@ public class  Shooter {
     private shooterSpeed shooterSpeed;
     private DcMotorEx left_motor, right_motor;
 
-    public PIDFController pid;
+    private PIDFController pid;
 
     public static int target;
 
@@ -99,6 +99,7 @@ public class  Shooter {
             left_motor.setPower(power);
             right_motor.setPower(power);
         } else {
+            left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             left_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
             left_motor.setPower(0);
             right_motor.setPower(0);

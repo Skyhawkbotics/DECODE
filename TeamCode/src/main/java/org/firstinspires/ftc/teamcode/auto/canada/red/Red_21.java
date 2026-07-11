@@ -192,7 +192,7 @@ public class Red_21 extends OpModeCommand {
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)
                                 .alongWith(
-                                        new prep_Shooter_preload(bot, 1380, 0.05, 1180, 0.05)
+                                        new prep_Shooter_preload(bot, 1380, 0.2, 1180, 0.05)
                                 ),
                         new WaitCommand(400),
                         new Fire_Command(bot),

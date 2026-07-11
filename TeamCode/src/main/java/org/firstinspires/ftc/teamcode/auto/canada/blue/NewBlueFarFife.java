@@ -143,6 +143,9 @@ public class NewBlueFarFife extends OpModeCommand {
                                         new WaitCommand(1000)
                                 )
                                 .andThen(
+                                        new Intake_off(bot)
+                                )
+                                .andThen(
                                         new FollowPath(bot.getFollower(), shottwo)
                                 )
                                 .andThen(

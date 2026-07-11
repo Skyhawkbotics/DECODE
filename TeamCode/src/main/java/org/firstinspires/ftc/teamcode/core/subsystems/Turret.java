@@ -123,7 +123,7 @@ public class Turret {
                             if (fr.getFiducialId() == ID) {
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
-                                ll_pid_output = ll_pid.calculate(result.getTx() / 100, LLTarget); // + sign * turret_f;
+                                ll_pid_output = ll_pid.calculate(result.getTx() / 100, 6 / 100); // + sign * turret_f;
 
                                 if ((turret.getCurrentPosition() <= left_limit) &&
                                         (Math.signum(ll_pid_output) == -1)) {
@@ -141,7 +141,7 @@ public class Turret {
                                     ll_pid_output = -0.1;
                                 }
 
-                                LL_turret_error = result.getTx() - LLTarget;
+                                LL_turret_error = result.getTx() - 2;
                                 telemetry.addData("LL PID OUTPUT", ll_pid_output);
                             }
                         }

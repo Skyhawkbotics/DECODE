@@ -37,8 +37,8 @@ public class Blue_21 extends OpModeCommand {
 
     private Pose intakeSpike1Pose = new Pose(127, 86, Math.toRadians(0));
     private Pose shootPose2 = new Pose(93, 84);
-    private Pose beforeSpike3Pose = new Pose(98, 61);
-    private Pose intakeSpike3Pose = new Pose(124  , 39, Math.toRadians(0));
+    private Pose beforeSpike3Pose = new Pose(88, 36);
+    private Pose intakeSpike3Pose = new Pose(130  , 36, Math.toRadians(0));
     private Pose park = new Pose(92, 113, Math.toRadians(293));
 
 
@@ -172,9 +172,8 @@ public class Blue_21 extends OpModeCommand {
                 )
                 .setTangentHeadingInterpolation()
                 .addPath(
-                        new BezierCurve(
+                        new BezierLine(
                                 bluebeforeSpike3Pose,
-                                bluecontrolPoint6Pose,
                                 blueintakeSpike3Pose
 
 
@@ -207,16 +206,15 @@ public class Blue_21 extends OpModeCommand {
         schedule(
                 new RunCommand(bot::close_any_autonomous_robot_update),
 
-
                 new SequentialCommandGroup(
                         new FollowPath(bot.getFollower(), preload_spike2, true)
                                 .alongWith(
-                                        new prep_Shooter_preload(bot, 1400, 0.2, 1200, 0.05)
+                                        new prep_Shooter_preload(bot, 1380, 0.05, 1180, 0.05)
                                 ),
-                        new WaitCommand(100),
+                        new WaitCommand(400),
                         new Fire_Command(bot),
 
-
+// 6
 
                         new ParallelRaceGroup(
 
@@ -233,15 +231,16 @@ public class Blue_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1400)
+                                new WaitCommand(2000)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(
                                         new Prep_Fire_Command(bot)
                                 ),
+                        new WaitCommand(200),
                         new Fire_Command(bot),
 
-
+// 9
 
                         new ParallelRaceGroup(
                                 new FollowPath(bot.getFollower(), gateIntake1, true)
@@ -255,50 +254,21 @@ public class Blue_21 extends OpModeCommand {
 
                         new ParallelRaceGroup(
                                 new Intake_on_automatic(bot),
-                                new WaitCommand(1300)
-                        ),
-                        new FollowPath(bot.getFollower(), return1)
-                                .alongWith(
-                                        new Prep_Fire_Command(bot)
-                                ),
-
-                        new WaitCommand(50),
-                        new Fire_Command(bot),
-
-
-
-
-                        new ParallelRaceGroup(
-                                new FollowPath(bot.getFollower(), gateIntake1, true)
-                                        .alongWith(
-                                                new Intake_Command(bot)
-                                        ),
-
                                 new WaitCommand(2000)
-
-                        ),
-
-                        new ParallelRaceGroup(
-                                new Intake_on_automatic(bot),
-                                new WaitCommand(900)
                         ),
                         new FollowPath(bot.getFollower(), return1)
                                 .alongWith(
                                         new Prep_Fire_Command(bot)
                                 ),
 
-                        new WaitCommand(50),
-
+                        new WaitCommand(200),
                         new Fire_Command(bot),
-                        new Intake_Command(bot),
 
 
-
-
-
+// 12
                         new FollowPath(bot.getFollower(), spike1)
                                 .alongWith(
-                                        new prep_Shooter_velocity_only(bot, 1100, 0)
+                                        new prep_Shooter_velocity_only(bot, 1130, 0.05)
                                 ),
                         new Prep_Fire_Command(bot),
                         new FollowPath(bot.getFollower(), spike1back)
@@ -307,11 +277,15 @@ public class Blue_21 extends OpModeCommand {
                                 ),
                         new Fire_Command(bot),
 
+                        // 15
+
                         new FollowPath(bot.getFollower(), spike3)
                                 .alongWith(
-                                        new Intake_Timed_Command(bot, 0.1, 4)
+                                        new Intake_Timed_Command(bot, 0.1, 4.2)
                                 ),
+                        new WaitCommand(200),
                         new Fire_Command(bot)
+                        // 18
                 )
         );
 
