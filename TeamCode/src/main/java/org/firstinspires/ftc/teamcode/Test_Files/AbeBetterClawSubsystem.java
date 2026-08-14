@@ -21,6 +21,12 @@ public class AbeBetterClawSubsystem {
 
     private int clawstate = 0, bluestate = 0;
 
+    private double servoPos;
+
+    private double servoRotation;
+
+    private static double degree_to_servo_pos_shaft = 0.1, degree_to_servo_pos_rotation = 0.1;
+
     public void setBlueState(int pState) {
         bluestate = pState;
     }
@@ -51,6 +57,30 @@ public class AbeBetterClawSubsystem {
     // hw: automate evrything so once claw is closed then flip over immeditely and 180
     //then press button to open claw, when it does that, automatically flip back to zero
 
+    public void clawArmAutomation (int shaftPosDegrees, int rotationDegree) {
+            servoPos = shaftPosDegrees * degree_to_servo_pos_shaft;
+            servoRotation = rotationDegree * degree_to_servo_pos_rotation;
+            servoRight.setPosition(servoPos);
+            servoLeft.setPosition(servoPos + servoRotation);
+    }
+
+    public void armZero () {
+        servoRight.setPosition(0);
+        servoLeft.setPosition(0);
+    }
+
+    public void servoOpen () {
+        servoClaw.setPosition(0.6);
+    }
+
+    public void servoClose () {
+        servoClaw.setPosition(0.3);
+    }
+
+    public void degreeMethod () {
+
+    }
+
     public void thesuitcase (Gamepad g1) {
         switch (bluestate) {
             case 0:
@@ -58,20 +88,29 @@ public class AbeBetterClawSubsystem {
                     case 0:
                         if(color.red() > 1200 && color.green() < 1000) {
                             setClawState(1);
+
                         } else {
-                            servoClaw.setPosition(0.6);
+                            servoOpen();
+
                         }
                         break;
                     case 1:
-                        servoClaw.setPosition(0.3);
+                        servoClose();
+
+                        clawArmAutomation(90,180);
+
                         if (g1.squareWasPressed()) {
                             setClawState(2);
+
                         }
                         break;
                     case 2:
-                        servoClaw.setPosition(0.6);
+                        servoOpen();
+                        armZero();
+
                         if(color.red() < 100) {
                             setClawState(0);
+
                         }
                         break;
                 }
@@ -80,18 +119,27 @@ public class AbeBetterClawSubsystem {
                     case 0:
                         if(color.blue() > 1200 && color.red() < 1000) {
                             setClawState(1);
+
                         } else {
-                            servoClaw.setPosition(0.6);
+                            servoOpen();
+
                         }
                         break;
                     case 1:
-                        servoClaw.setPosition(0.3);
+                        servoClose();
+
+                        clawArmAutomation(90,180);
+
                         if (g1.squareWasPressed()) {
                             setClawState(2);
+
                         }
                         break;
                     case 2:
-                        servoClaw.setPosition(0.6);
+                        servoOpen();
+
+                        armZero();
+
                         if(color.blue() < 100) {
                             setClawState(0);
                         }
@@ -108,43 +156,14 @@ public class AbeBetterClawSubsystem {
                 setBlueState(1);
             }
         }
-
-        if (g1.crossWasPressed()) {
-            servoRight.setPosition(0.27);
-            servoLeft.setPosition(0.27+0.65);
-
-        }
-
-        if (g1.dpadUpWasPressed()) {
-            servoRight.setPosition(servoRight.getPosition() + 0.2);
-            servoLeft.setPosition(servoLeft.getPosition() + 0.2);
-//            servoLeft.setPosition(-1 * servoRight.getPosition());
-//            servoLeft.setPosition(servoLeft.getPosition() + 0.03);
-        }
-
-        if (g1.dpadRightWasPressed()) {
-            servoRight.setPosition(servoRight.getPosition() - 0.2);
-            servoLeft.setPosition(servoLeft.getPosition() - 0.2);
-//            servoRight.setPosition(servoRight.getPosition() - 0.03);
-//            servoLeft.setPosition(-1 * servoRight.getPosition());
-//            servoLeft.setPosition(servoLeft.getPosition() - 0.03);
-        }
-
-        if (g1.dpadDownWasPressed()) {
-            servoLeft.setPosition(servoLeft.getPosition() + 0.03);
-//            servoRight.setPosition(-1*servoLeft.getPosition());
-        }
-
-        if (g1.dpadLeftWasPressed()) {
-            servoLeft.setPosition(servoLeft.getPosition() - 0.03);
-//            servoRight.setPosition(-1*servoLeft.getPosition());
-        }
     }
 
     public void clawtelemetry() {
         telemetry.addData("Servo left Position", servoLeft.getPosition());
         telemetry.addData("Servo right Position", servoRight.getPosition());
         telemetry.addData("Servo claw Position", servoClaw.getPosition());
+
+        telemetry.addData("claw state", bluestate);
 
         telemetry.addData("red", color.red());
 
