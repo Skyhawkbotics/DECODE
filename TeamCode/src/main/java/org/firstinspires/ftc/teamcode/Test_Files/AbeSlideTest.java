@@ -25,7 +25,7 @@ public class AbeSlideTest extends OpMode {
     public void loop() {
         slide.slideGamepad(gamepad1);
         slide.zeroSensor();
-        slide.PIDcalc();
+        slide.suitcase(gamepad1);
         slide.slideTelemetry();
         slide.RunToZeroSystem();
     }
