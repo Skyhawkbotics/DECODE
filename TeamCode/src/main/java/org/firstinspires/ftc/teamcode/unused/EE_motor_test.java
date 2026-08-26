@@ -4,7 +4,9 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@TeleOp(name = "Single Motor Test", group = "z")
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
+@TeleOp(name = "KRISTINE EE Motor Test", group = "EE")
 
 public class EE_motor_test extends OpMode {
     private DcMotorEx motor1;
@@ -14,12 +16,14 @@ public class EE_motor_test extends OpMode {
         motor1 = hardwareMap.get(DcMotorEx.class, "motor1");
         motor1.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         motor1.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
-        motor1.setPower(1);
     }
     @Override
     public void loop() {
-        telemetry.addData("Motor Current Power", motor1.getPower());
-        telemetry.addData("Motor Current Position", motor1.getCurrentPosition());
+        telemetry.addData("Motor Power Level (Fraction)", motor1.getPower());
+        telemetry.addData("Motor Current Position (Ticks) ", motor1.getCurrentPosition());
+        telemetry.addData(" Motor Current (AMPS) ", motor1.getCurrent(CurrentUnit.AMPS)); // Eric
+        telemetry.addData("Motor Velocity (Ticks) ", motor1.getVelocity());
+        telemetry.addData("Motor Current Alert", motor1.getCurrentAlert(CurrentUnit.AMPS));
         telemetry.update();
 
         if (gamepad1.aWasPressed()) {
