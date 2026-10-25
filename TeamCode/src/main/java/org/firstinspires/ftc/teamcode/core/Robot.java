@@ -599,7 +599,6 @@ public class Robot {
         if(g2.rightBumperWasPressed()) {
             follower.setPose(resetPose);
         }
-
         ///  TELEMETRY TOGGLES
         if (g2.dpadLeftWasPressed()) {
             turret_telemetry = !turret_telemetry;
@@ -613,7 +612,6 @@ public class Robot {
         if (g2.dpadDownWasPressed()) {
             robot_telemetry = !robot_telemetry;
         }
-
 
 //  Turret
         if(g2.rightBumperWasPressed()) {

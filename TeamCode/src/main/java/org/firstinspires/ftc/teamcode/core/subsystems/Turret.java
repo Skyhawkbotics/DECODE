@@ -123,7 +123,7 @@ public class Turret {
                             if (fr.getFiducialId() == ID) {
                                 timer.resetTimer();
                                 ll_pid.setPIDF(lp, li, ld, lf);
-                                ll_pid_output = ll_pid.calculate(result.getTx() / 100, 6 / 100); // + sign * turret_f;
+                                ll_pid_output = ll_pid.calculate(result.getTx(), 0); // + sign * turret_f;
 
                                 if ((turret.getCurrentPosition() <= left_limit) &&
                                         (Math.signum(ll_pid_output) == -1)) {
